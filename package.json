@@ -1,8 +1,8 @@
 {
-  "name": "nuxt-promo-template",
+  "name": "self-promo-nuxt",
   "version": "1.0.0",
-  "description": "My super Nuxt.js project",
-  "author": "",
+  "description": "Self Promo project using Vue.js & Nuxt.js",
+  "author": "kathirr007",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
