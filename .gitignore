@@ -87,4 +87,4 @@ sw.*
 # Mac OSX
 .DS_Store
 
-server/keys/dev.js
+# server/keys/dev.js
