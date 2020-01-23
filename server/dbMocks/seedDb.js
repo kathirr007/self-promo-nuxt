@@ -38,7 +38,7 @@ class DB {
   }
 }
 
-mongoose.connect(keys.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect(keys.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useUnifiedTopology: true })
   .then(async () => {
     const db = new DB();
     await db.seedDb();
