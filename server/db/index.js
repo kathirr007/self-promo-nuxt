@@ -9,6 +9,11 @@ require("../models/category");
 require("../models/product-hero");
 require("../models/blog");
 
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
+
 exports.initSessionStore = function() {
   const store = new MongoDBStore({
     uri: keys.DB_URI,
@@ -20,13 +25,8 @@ exports.initSessionStore = function() {
   return store;
 }
 
-mongoose.set('useNewUrlParser', true);
-mongoose.set('useFindAndModify', false);
-mongoose.set('useCreateIndex', true);
-mongoose.set('useUnifiedTopology', true);
-
 exports.connect = function() {
-  return mongoose.connect(keys.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  return mongoose.connect(keys.DB_URI, { useNewUrlParser: true, useCreateIndex: true })
     .then(() => console.log('DB Connected!'))
     .catch(err => console.log(err));
 }
