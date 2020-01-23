@@ -1,4 +1,4 @@
-# nuxt-promo-template
+# Self Promo using Vue & Nxt
 
 > My super Nuxt.js project
 

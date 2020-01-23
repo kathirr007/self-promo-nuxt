@@ -1,7 +1,7 @@
 module.exports = {
   server: {
     // port: 3100, // default 3000
-    port: process.env.PORT || 3300,
+    port: process.env.PORT || 3600,
   },
   mode: 'universal',
   /*
@@ -26,6 +26,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/main.scss'
   ],
   /*
   ** Plugins to load before mounting the App
@@ -45,6 +46,11 @@ module.exports = {
   */
   axios: {
   },
+  /* server Middleware */
+  serverMiddleware: [
+    '~/server/routes/index'
+  ],
+  /* server Middleware end */
   /*
   ** Build configuration
   */

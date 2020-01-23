@@ -1,72 +1,58 @@
 <template>
-  <div class="container">
-    <div>
-      <logo />
-      <h1 class="title">
-        nuxt-promo-template
-      </h1>
-      <h2 class="subtitle">
-        My super Nuxt.js project
-      </h2>
-      <div class="links">
-        <a
-          href="https://nuxtjs.org/"
-          target="_blank"
-          class="button--green"
-        >
-          Documentation
-        </a>
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-        >
-          GitHub
-        </a>
+  <div>
+    <!-- Hero Section -->
+    <hero />
+    <!-- Hero Section end -->
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Featured Courses</h1>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <!-- CARD-ITEM -->
+            <course-card />
+            <!-- CARD-ITEM-END -->
+          </div>
+        </div>
       </div>
-    </div>
+    </section>
+    <section class="section">
+      <div class="container">
+        <h1 class="title">Featured Articles</h1>
+        <div class="columns">
+          <div class="column is-one-quarter">
+            <!-- CARD-ITEM -->
+            <blog-card />
+            <!-- CARD-ITEM-END -->
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 </template>
 
 <script>
-import Logo from '~/components/Logo.vue'
-
+import hero from '~/components/shared/hero'
+import courseCard from '~/components/courseCard'
+import blogCard from '~/components/blogCard'
 export default {
   components: {
-    Logo
+    hero, courseCard, blogCard
   }
 }
 </script>
 
-<style>
-.container {
-  margin: 0 auto;
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
+<style scoped lang="scss">
+  // card item
 
-.title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
+  // card item end
 
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
 
-.links {
-  padding-top: 15px;
-}
+  // hero
+  
+  // hero
+
+  // Home page
+  .links {
+    padding-top: 15px;
+  }
 </style>
