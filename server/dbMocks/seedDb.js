@@ -3,6 +3,11 @@ const User = require('../models/user');
 const data = require('./data.js');
 const keys = require('../keys');
 
+// mongoose.set('useFindAndModify', false);
+// mongoose.set('useNewUrlParser', true);
+// mongoose.set('useCreateIndex', true);
+// mongoose.set('useUnifiedTopology', true);
+
 class DB {
   constructor() {
     this.collections = Object.keys(data).map(collection => collection);
@@ -38,7 +43,7 @@ class DB {
   }
 }
 
-mongoose.connect(keys.DB_URI, { useNewUrlParser: true, useUnifiedTopology: true, useUnifiedTopology: true })
+mongoose.connect(keys.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
   .then(async () => {
     const db = new DB();
     await db.seedDb();
