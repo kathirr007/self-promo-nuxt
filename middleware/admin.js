@@ -1,8 +1,8 @@
-export default ({store, redirect}) {
-    const isAadmin = store.getters['auth/isAadmin']
+export default function({store, redirect}) {
+    const isAdmin = store.getters['auth/isAdmin']
 
-    if(!isAadmin) {
-        // navigate later to notAuthorized page
-        return redirect('/')
+    if(!isAdmin) {
+        // return redirect('/')
+        return redirect('/notAuthorized')
     }
 }

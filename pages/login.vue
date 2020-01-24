@@ -14,6 +14,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.email.$touch()"
+                    @keyup.enter="$v.form.email.$touch()"
                     v-model="form.email" 
                     class="input is-large"
                     type="email"
@@ -31,6 +32,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.password.$touch()"
+                    @keyup.enter="$v.form.password.$touch()"
                     v-model="form.password"
                     class="input is-large"
                     type="password"
@@ -39,6 +41,7 @@
                   >
                   <div v-if="$v.form.password.$error" class="form-error">
                     <span v-if="!$v.form.password.required" class="help is-danger">Password is required</span>
+                    <span v-if="!$v.form.password.minLength" class="help is-danger">Password should be minimum 6 characters</span>
                   </div>
                 </div>
               </div>
@@ -64,8 +67,9 @@
 </template>
 
 <script>
-  import { required, email } from 'vuelidate/lib/validators'
+  import { required, email, minLength } from 'vuelidate/lib/validators'
   export default {
+    middleware: 'guest',
     data() {
       return {
         form: {
@@ -81,7 +85,8 @@
           required
         },
         password: {
-          required
+          required,
+          minLength: minLength(6)
         },
       }
     },

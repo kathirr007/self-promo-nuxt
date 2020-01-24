@@ -1,8 +1,8 @@
-export default ({store, redirect}) {
-    const isAuth = store.getters['auth/isAuthenticated']
+export default function({store, redirect}) {
+    const isAuth = store.getters['auth/isAuthenticated'];
 
     if(!isAuth) {
-        // navigate later to notAuthenticated page
-        return redirect('/')
+        // return redirect('/')
+        return redirect('/notAuthenticated')
     }
 }

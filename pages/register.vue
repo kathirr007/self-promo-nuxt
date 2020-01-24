@@ -15,6 +15,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.username.$touch()"
+                    @keyup.enter="$v.form.username.$touch()"
                     v-model="form.username"
                     class="input is-large"
                     type="text"
@@ -29,6 +30,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.name.$touch()"
+                    @keyup.enter="$v.form.name.$touch()"
                     v-model="form.name"
                     class="input is-large"
                     type="text"
@@ -43,6 +45,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.email.$touch()"
+                    @keyup.enter="$v.form.email.$touch()"
                     v-model="form.email"
                     class="input is-large"
                     type="email"
@@ -57,6 +60,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.avatar.$touch()"
+                    @keyup.enter="$v.form.avatar.$touch()"
                     v-model="form.avatar"
                     class="input is-large"
                     type="text"
@@ -72,6 +76,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.password.$touch()"
+                    @keyup.enter="$v.form.password.$touch()"
                     v-model="form.password"
                     class="input is-large"
                     type="password"
@@ -87,6 +92,7 @@
                 <div class="control">
                   <input
                     @blur="$v.form.passwordConfirmation.$touch()"
+                    @keyup.enter="$v.form.passwordConfirmation.$touch()"
                     v-model="form.passwordConfirmation"
                     class="input is-large"
                     type="password"
@@ -123,6 +129,7 @@
   import { required, minLength, email, url, sameAs } from 'vuelidate/lib/validators'
   import { supportedFileTypes } from '@/helpers/validators'
   export default {
+    middleware: 'guest',
     data() {
       return {
         form: {
