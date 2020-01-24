@@ -10,6 +10,11 @@
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate"
   },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  },
   "dependencies": {
     "@nuxtjs/axios": "^5.9.3",
     "async": "^3.1.0",

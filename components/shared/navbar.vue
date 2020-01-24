@@ -2,7 +2,7 @@
   <nav class="navbar is-active" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <nuxt-link class="navbar-item" to="/">
-        <h1 class="brand-title">Promo-Yourself</h1>
+        <h1 class="brand-title">Vue-Nuxt Promo</h1>
       </nuxt-link>
       <!-- Adds click to open -->
       <!-- Adds active class -->
@@ -43,20 +43,20 @@
         <div class="navbar-item">
           <div class="buttons">
             <!-- If Authenticated -->
-            <template v-if="false">
+            <template v-if="isAuth">
               <figure class="image avatar is-48x48 m-r-sm">
-                <img class="is-rounded" src="https://upload.wikimedia.org/wikipedia/commons/6/67/User_Avatar.png">
+                <img class="is-rounded" :src="user.avatar">
               </figure>
               <div class="m-r-sm m-b-sm">
-                Welcome User!
+                Welcome {{user.username}}!
               </div>
               <!-- If Admin -->
               <button
-                 v-if="true" class="button is-link is-outlined"
+                 v-if="isAdmin" class="button is-link is-outlined"
                  @click="() => {}">
                 Instructor
               </button>
-              <a class="button is-primary" @click="() => {}">
+              <a class="button is-primary" @click.prevent="logout">
                 Logout
               </a>
             </template>
@@ -74,6 +74,30 @@
     </div>
   </nav>
 </template>
+
+<script>
+  import { mapGetters } from 'vuex'
+  export default {
+    computed: {
+      ...mapGetters({
+        'user': 'auth/authUser',
+        'isAuth': 'auth/isAuthenticated',
+        'isAdmin': 'auth/isAdmin',
+      })
+    },
+    methods: {
+      logout() {
+        this.$store.dispatch('auth/logout', this.form)
+          .then(() => {
+            // this.$router.push('/')
+            this.$router.push('/login')
+            this.$toasted.success('Successfully logged out...', { duration: 3000 })
+          })
+          .catch(err => this.$toasted.error('There is something wrong.. :(', { duration: 3000 }))
+      }
+    }
+  }
+</script>
 
 
 <style lang="scss" scoped>

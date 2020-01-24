@@ -17,7 +17,7 @@ mongoose.set('useUnifiedTopology', true);
 exports.initSessionStore = function() {
   const store = new MongoDBStore({
     uri: keys.DB_URI,
-    collection: 'eincodeSessions'
+    collection: 'selfpromoSessions'
   })
 
   store.on('error', (error) => console.log(error))
@@ -30,5 +30,3 @@ exports.connect = function() {
     .then(() => console.log('DB Connected!'))
     .catch(err => console.log(err));
 }
-
-

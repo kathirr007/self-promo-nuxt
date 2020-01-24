@@ -2,36 +2,41 @@
     <div class="card">
         <div class="card-image">
             <figure class="image is-4by2">
-                <img src="https://images.unsplash.com/photo-1517694712202-14dd9538aa97?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+                <img :src="course.image"
                     alt="Placeholder image">
             </figure>
         </div>
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
-                    <p class="title is-4">Some Super Title</p>
-                    <p class="subtitle is-6"><i>Some Super Subtitle</i></p>
+                    <p class="title is-4">{{course.title | shortenText(45)}}</p>
+                    <p class="subtitle is-6"><i>by {{course.author.name}}</i></p>
                 </div>
             </div>
             <div class="content">
-                Some Description
+                {{course.subtitle | shortenText(45)}}
                 <br>
             </div>
             <div class="price-box">
-                <span class="price">150$</span>
-                <span class="disc-price">9.99$</span>
+                <span class="price">{{course.price}}$</span>
+                <span class="disc-price">{{course.discountedPrice}}$</span>
             </div>
         </div>
         <footer class="card-footer">
             <nuxt-link :to="''" class="card-footer-item">Learn More</nuxt-link>
-            <a target="_" :href="'#'" class="card-footer-item">Enroll</a>
+            <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a>
         </footer>
     </div>
 </template>
 
 <script>
     export default {
-        
+        props: {
+            course: {
+                type: Object,
+                required: true
+            }
+        },
     }
 </script>
 
