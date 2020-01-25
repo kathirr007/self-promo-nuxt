@@ -20,7 +20,7 @@
     <div v-if="exitLink" class="full-page-takeover-header-button">
       <nuxt-link
         :to="exitLink"
-        class="button is-danger is-medium is-inverted is-outlined">
+        class="button is-danger is-inverted is-outlined">
         Exit
       </nuxt-link>
     </div>

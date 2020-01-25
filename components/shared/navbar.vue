@@ -25,7 +25,7 @@
         <nuxt-link to="/" class="navbar-item">
           Home
         </nuxt-link>
-        <nuxt-link to="#" class="navbar-item">
+        <nuxt-link to="/instructor/courses" class="navbar-item">
           Courses
         </nuxt-link>
         <nuxt-link to="#" class="navbar-item">

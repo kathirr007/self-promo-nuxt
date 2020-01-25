@@ -1,6 +1,6 @@
 <template>
   <div class="instructor-page">
-    <instructor-header>
+    <instructor-header title="Choose your admin page" exitLink="/">
 
     </instructor-header>
     <div class="centered">
@@ -24,13 +24,13 @@
           </div>
         </div>
       </div>
-    </div>-
+    </div>
   </div>
 </template>
 <script>
   import instructorHeader from '~/components/shared/header'
   export default {
-    middleware: 'admin',
+    // middleware: 'admin',
     layout: 'instructor',
     components: {
       instructorHeader
