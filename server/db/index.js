@@ -1,8 +1,10 @@
+// Main DB file
 const mongoose = require('mongoose');
 const keys = require('../keys');
 const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 
+// Include all models
 require("../models/user");
 require("../models/product");
 require("../models/category");
@@ -13,6 +15,7 @@ require("../models/blog");
 // mongoose.set('useNewUrlParser', true);
 // mongoose.set('useCreateIndex', true);
 // mongoose.set('useUnifiedTopology', true);
+
 
 exports.initSessionStore = function() {
   const store = new MongoDBStore({

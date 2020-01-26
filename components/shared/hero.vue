@@ -1,5 +1,5 @@
 <template>
-    <section class="hero is-black is-medium">
+    <section class="hero is-black ">
         <div class="hero-body">
             <div class="hero-img"
                 :style="{ background : `url(https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1631&q=80) no-repeat center center`}">

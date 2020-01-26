@@ -26,6 +26,7 @@ app.use(bodyParser.json());
 // var csrf = require('csurf');
 // consider using this
 
+// session setup
 const sess =
   { name: 'promo-secure-session',
     secret: keys.SESSION_SECRET,
@@ -47,6 +48,7 @@ app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Routers registeration
 app.use('', apiRoutes);
 app.use('/product-heroes', productHeroRoutes);
 app.use('/users', usersRoutes);

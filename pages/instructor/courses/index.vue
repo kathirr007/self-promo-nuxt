@@ -25,7 +25,7 @@
             <div v-for="(course) in courses" :key="course._id" class="tile is-ancestor">
               <div class="tile is-parent is-12">
                 <!-- Navigate to course manage page -->
-                <nuxt-link :to="'#'" class="tile tile-overlay-container is-child box">
+                <nuxt-link :to="`/instructor/course/${course._id}/manage`" class="tile tile-overlay-container is-child box">
                   <div class="tile-overlay">
                     <span class="tile-overlay-text">
                       Update Course
@@ -35,13 +35,13 @@
                     <div class="column is-narrow">
                       <figure class="image is-4by2 is-128x128">
                         <!-- <img :src="'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'"> -->
-                        <img :src="course.image">
+                        <img :src="course.image || 'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'">
                       </figure>
                     </div>
                     <div class="column">
                       <p class="title">{{course.title}}</p>
-                      <p class="subtitle">{{course.subtitle}}</p>
-                      <span class="tag" :class="'is-success'">{{course.status}}</span>
+                      <p class="subtitle">{{course.subtitle || 'No subtitle provided yet'}}</p>
+                      <span class="tag" :class="courseStatusClass(course.status)">{{course.status}}</span>
                     </div>
                     <div class="column is-narrow flex-centered">
                       <div class="price-title">
@@ -60,7 +60,7 @@
   </div>
 </template>
 <script>
-  import instructorHeader from '~/components/shared/header'
+  import instructorHeader from '~/components/shared/Header'
   export default {
     // middleware: 'admin',
     layout: 'instructor',
@@ -74,6 +74,15 @@
     },
     async fetch({store}) {
       await store.dispatch('instructor/course/fetchInstructorCourses')
+    },
+    methods: {
+      courseStatusClass(status) {
+        if(!status) return ''
+        if(status === 'published') return 'is-success'
+        if(status === 'active') return 'is-primary'
+        if(status === 'inactive') return 'is-warning'
+        if(status === 'deleted') return 'is-danger'
+      }
     }
   }
 </script>

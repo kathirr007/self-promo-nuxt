@@ -12,7 +12,7 @@
           </div>
         </div>
         <!-- Go to /instructor/blogs -->
-        <div class="box" @click="() => {}">
+        <div class="box" @click="$router.push('/instructor/blogs')">
           <div>
             Blogs
           </div>
@@ -28,7 +28,7 @@
   </div>
 </template>
 <script>
-  import instructorHeader from '~/components/shared/header'
+  import instructorHeader from '~/components/shared/Header'
   export default {
     // middleware: 'admin',
     layout: 'instructor',

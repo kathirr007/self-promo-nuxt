@@ -16,6 +16,9 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+    ],
+    script: [
+      {src: 'https://kit.fontawesome.com/df4e4a88c4.js', crossorigin :'anonymous'}
     ]
   },
   /*
