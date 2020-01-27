@@ -6,7 +6,9 @@
           <!-- posts -->
           <div class="column is-8">
             <!-- blog -->
+            <!-- <transition-group appear name="slideDown" mode="out-in"> -->
             <div class="section" v-for="blog in publishedBlogs" :key="blog._id">
+              <transition appear name="slideDown" mode="out-in">
               <div class="post">
                 <div @click="$router.push(`/blogs/${blog.slug}`)" class="post-header clickable">
                   <!-- <h4 class="title is-4">{{blog.title}}</h4> -->
@@ -17,10 +19,24 @@
                   by {{blog.author.name}}, {{blog.createdAt | formatDate}}
                 </div>
               </div>
+              </transition>
             </div>
+            <!-- </transition-group> -->
             <!-- end of blog -->
             <!-- pagination -->
-            <div class="section">
+            <div v-if="pagination.pageCount && pagination.pageCount > 1" class="section">
+              <client-only placeholder="Loading...">
+                <paginate
+                  v-model="currentPage"
+                  :pageCount="pagination.pageCount"
+                  :click-handler="fetchBlogs"
+                  :prev-text="'Prev'"
+                  :next-text="'Next'"
+                  :container-class="'paginationContainer'"
+                >
+
+                </paginate>
+              </client-only>
             </div>
             <!-- end of pagination -->
           </div>
@@ -60,16 +76,53 @@
     computed: {
       ...mapState({
         publishedBlogs: state => state.blogs.items.all,
-        featuredBlogs: state => state.blogs.items.featured
-      })
+        featuredBlogs: state => state.blogs.items.featured,
+        pagination: state => state.blogs.pagination,
+      }),
+      currentPage: {
+        get() {
+          // debugger
+          return this.$store.state.blogs.pagination.pageNum
+        },
+        set(value) {
+          // debugger
+          this.$store.commit('blogs/setPage', value)
+        }
+      }
     },
-    async fetch({ store }) {
-      await store.dispatch('blogs/fetchBlogs')
+    async fetch({ store, query }) {
+      const filter = {}
+      const {pageNum, pageSize} = query
+
+      if(pageNum && pageSize) {
+        filter.pageNum = parseInt(pageNum, 10)
+        filter.pageSize = parseInt(pageSize, 10)
+
+        store.commit('blogs/setPage', filter.pageNum)
+      } else {
+        filter.pageNum = 1
+        filter.pageSize = 5
+      }
+
+      await store.dispatch('blogs/fetchBlogs', filter)
       await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
     },
     methods: {
       displayBlogTitle(blog) {
         return blog.title || blog.subtitle || 'Blog without title or subtitle :('
+      },
+      setQueryPaginationParams() {
+        const { pageSize, pageNum } = this.pagination
+        this.$router.push({query: {pageNum, pageSize}})
+      },
+      fetchBlogs() {
+        const filter = {}
+        filter.pageNum = this.pagination.pageNum
+        filter.pageSize = this.pagination.pageSize
+
+        this.$store.dispatch('blogs/fetchBlogs', filter)
+          .then(_ => this.setQueryPaginationParams())
+        console.log('Pagination clicked..')
       }
     },
     mounted() {

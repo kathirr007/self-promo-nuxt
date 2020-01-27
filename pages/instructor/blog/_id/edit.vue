@@ -119,6 +119,7 @@
           .then(_ => {
             this.$toasted.success(message, {duration: 3000})
             closeModal()
+            status === 'published' && this.$router.push('/instructor/blogs')
           })
           .catch(err => this.$toasted.error(message, {duration: 3000}))
       },
@@ -130,6 +131,7 @@
           .then(_ => {
             this.$toasted.success('Blog has been published..! :)', {duration: 3000})
             closeModal()
+            this.$router.push('/instructor/blogs')
           })
           .catch(err => this.$toasted.error('Blog cannot be published..! :(', {duration: 3000}))
       },
@@ -149,11 +151,11 @@
         this.publishError = ''
         this.slug = ''
 
-        if(title && title.length > 20) {
+        if(title && title.length >= 10) {
           // create slug from title
           this.slug = this.slugify(title)
         } else {
-          this.publishError = 'Cannot publish! Title needs to be longer than 20 characters..!'
+          this.publishError = 'Cannot publish! Title needs to be longer than 10 characters..!'
         }
       },
       slugify(text) {
