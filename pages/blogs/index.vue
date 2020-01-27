@@ -97,6 +97,26 @@
         }
       }
     },
+    data() {
+      return {
+        bottom: false,
+        // publishedBlogs: []
+      }
+    },
+
+    watch: {
+      // bottom(bottom) {
+      //   if (bottom) {
+      //     this.fetchBlogs()
+      //   }
+      // }
+    },
+    created() {
+      // window.addEventListener('scroll', () => {
+      //   this.bottom = this.bottomVisible()
+      // })
+      // this.fetchBlogs()
+    },
     async fetch({ store, query }) {
       const filter = {}
       const {pageNum, pageSize} = query
@@ -118,6 +138,13 @@
       await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
     },
     methods: {
+      bottomVisible() {
+        const scrollY = window.scrollY
+        const visible = document.documentElement.clientHeight
+        const pageHeight = document.documentElement.scrollHeight
+        const bottomOfPage = visible + scrollY >= pageHeight
+        return bottomOfPage || pageHeight < visible
+      },
       async loadMoreTours($state) {
         await this.$axios.$get('/api/link').then(res => {
           this.list.push.apply(this.list, res)
@@ -146,13 +173,14 @@
         this.$store.dispatch('blogs/fetchBlogs', filter)
           .then(_ => {
             // debugger
+            // this.publishedBlogs.push(blogs)
+            /* if (this.bottomVisible()) {
+              this.fetchBlogs()
+            } */
             return this.setQueryPaginationParams()
           })
         console.log('Pagination clicked..')
-      }
-    },
-    mounted() {
-      // this.$applyParamsToUrl('/testurl', {test01: 'TestValue'})
+      },
     }
   }
 </script>
