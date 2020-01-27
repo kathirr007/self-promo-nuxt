@@ -1,7 +1,7 @@
 <template>
   <div class="full-page-takeover-header">
     <div class="full-page-takeover-header-logo">
-      <p class="full-page-takeover-header-logo-title">Promo Yourself</p>
+      <p class="full-page-takeover-header-logo-title">Vue-Nuxt Promo</p>
     </div>
     <div class="full-page-takeover-header-divider">
     </div>

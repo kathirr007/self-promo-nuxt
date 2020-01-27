@@ -73,6 +73,7 @@
       white-space: nowrap;
       text-overflow: ellipsis;
       overflow: hidden;
+      text-align: center;
 
       @media screen and (max-width: 700px) {
         display: none;

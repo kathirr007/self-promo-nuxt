@@ -6,25 +6,30 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <!-- TODO: Check blog validity before publishing -->
-          <Modal openTitle="Publish" openBtnClass="button is-success  is-inverted is-outlined"
-            title="Review Details">
+
+          <Modal
+            @opened="checkBlogValidity"
+            openTitle="Publish"
+            openBtnClass="button is-success  is-inverted is-outlined"
+            title="Review Details"
+          >
             <div>
               <div class="title">Once you publish blog you cannot change url to a blog.</div>
               <!-- Check for error -->
-              <div>
-                <div class="subtitle">Current Url is:</div>
+              <div v-if="!publishError">
+                <div class="subtitle">This is how url to blog post will look like after publish:</div>
                 <article class="message is-success">
                   <div class="message-body">
                     <!-- Get here actual slug -->
-                    <strong>some-slug</strong>
+                    <strong>{{getCurrentUrl()}}/blogs/{{slug}}</strong>
                   </div>
                 </article>
               </div>
-              <!-- <article class="message is-danger">
+              <article v-else class="message is-danger">
                 <div class="message-body">
-                  Display error here
+                  {{publishError}}
                 </div>
-              </article> -->
+              </article>
             </div>
           </Modal>
         </div>
@@ -48,6 +53,7 @@
           @editorMounted="initBlogContent"
           @editorUpdated="updateBlog"
           :isSaving="isSaving"
+          ref="editor"
         />
       </div>
     </div>
@@ -58,6 +64,12 @@
   import Header from '~/components/shared/Header'
   import Modal from '~/components/shared/Modal'
   import { mapState } from 'vuex'
+  import slugify from 'slugify'
+
+  // Title: Blog post title
+  // slug: blog-post-title
+
+  // Slug is something like unique ID but in readable format
 
   export default {
     layout: 'instructor',
@@ -65,6 +77,12 @@
       Editor,
       Header,
       Modal
+    },
+    data() {
+      return {
+        publishError: '',
+        slug: ''
+      }
     },
     computed: {
       ...mapState({
@@ -87,6 +105,29 @@
             .then(_ => this.$toasted.success('Blog is updated successfully..! :)', {duration: 3000}))
             .catch(err => this.$toasted.error('Cannot be update Blog.! :(', {duration: 3000}))
         }
+      },
+      checkBlogValidity() {
+        const title = this.$refs.editor.getNodeValueByName('title')
+        this.publishError = ''
+        this.slug = ''
+
+        if(title && title.length > 15) {
+          // create slug from title
+          this.slug = this.slugify(title)
+        } else {
+          this.publishError = 'Cannot publish! Title needs to be longer than 15 characters..!'
+        }
+      },
+      slugify(text) {
+        return slugify(text, {
+          replacement: '-',
+          remove: null,
+          lower: true
+        })
+      },
+      getCurrentUrl() {
+        // process.client will return true if we are in browser environment
+        return process.client && window.location.origin
       }
     }
   }
