@@ -103,20 +103,6 @@
         // publishedBlogs: []
       }
     },
-
-    watch: {
-      // bottom(bottom) {
-      //   if (bottom) {
-      //     this.fetchBlogs()
-      //   }
-      // }
-    },
-    created() {
-      // window.addEventListener('scroll', () => {
-      //   this.bottom = this.bottomVisible()
-      // })
-      // this.fetchBlogs()
-    },
     async fetch({ store, query }) {
       const filter = {}
       const {pageNum, pageSize} = query
@@ -137,13 +123,37 @@
       await store.dispatch('blogs/fetchBlogs', filter)
       await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
     },
+    watch: {
+      bottom(bottom) {
+        if (bottom) {
+          this.fetchBlogs()
+        }
+      }
+    },
+    created () {
+      if(process.client) {
+        window.addEventListener('scroll', this.bottomVisible);
+      }
+    },
+    destroyed () {
+      if(process.client){
+        window.removeEventListener('scroll', this.handleScroll);
+      }
+    },
+
     methods: {
+      handleScroll (event) {
+        // Any code to be executed when the window is scrolled
+        console.log("Windows scrolling...")
+      },
       bottomVisible() {
-        const scrollY = window.scrollY
-        const visible = document.documentElement.clientHeight
-        const pageHeight = document.documentElement.scrollHeight
-        const bottomOfPage = visible + scrollY >= pageHeight
-        return bottomOfPage || pageHeight < visible
+        if(process.client) {
+          const scrollY = window.scrollY
+          const visible = document.documentElement.clientHeight
+          const pageHeight = document.documentElement.scrollHeight
+          const bottomOfPage = visible + scrollY >= pageHeight
+          return bottomOfPage || pageHeight < visible
+        }
       },
       async loadMoreTours($state) {
         await this.$axios.$get('/api/link').then(res => {
@@ -172,11 +182,6 @@
 
         this.$store.dispatch('blogs/fetchBlogs', filter)
           .then(_ => {
-            // debugger
-            // this.publishedBlogs.push(blogs)
-            /* if (this.bottomVisible()) {
-              this.fetchBlogs()
-            } */
             return this.setQueryPaginationParams()
           })
         console.log('Pagination clicked..')
