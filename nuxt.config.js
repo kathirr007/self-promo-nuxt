@@ -15,16 +15,19 @@ module.exports = {
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
+      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      // { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' }
+      // { rel: 'stylesheet', type: 'text/css', href: 'https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css' }
     ],
     script: [
-      {src: 'https://kit.fontawesome.com/df4e4a88c4.js', crossorigin :'anonymous'}
+      {src: 'https://kit.fontawesome.com/df4e4a88c4.js', crossorigin :'anonymous'},
+      // {src: 'https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js', crossorigin :'anonymous'}
     ]
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: '#1e2b46' },
   /*
   ** Global CSS
   */
@@ -37,6 +40,7 @@ module.exports = {
   plugins: [
     {src: '~/plugins/filters'},
     {src: '~/plugins/vuelidate'},
+    {src: '~/plugins/integrations'},
     {src: '~/plugins/toasted', ssr: false},
   ],
   /*

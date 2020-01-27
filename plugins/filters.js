@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Vue from 'vue'
+import moment from 'moment'
 
 Vue.filter('shortenText', function(text, maxLength = 300) {
     // debugger
@@ -9,4 +10,10 @@ Vue.filter('shortenText', function(text, maxLength = 300) {
     }
 
     return ''
+})
+
+Vue.filter('formatDate', function(date, dateFormat = 'LLL') {
+    // debugger
+    if(!date) return ''
+    return moment(date).format(dateFormat)
 })

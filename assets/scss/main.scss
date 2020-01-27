@@ -5,6 +5,9 @@
 @import "./editor/index";
 @import './pagination';
 
+// plugins
+@import './plugins/animate';
+
 .blog-editor-container {
   padding-top: 60px;
 }

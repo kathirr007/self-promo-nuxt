@@ -3,12 +3,12 @@
   <div>
     <Header title="Write your blog" exitLink="/instructor/blogs">
       <!-- TODO: Check if blog status is active -->
-      <template #actionMenu>
+      <template #actionMenu v-if="blog.status === 'active'">
         <div class="full-page-takeover-header-button">
           <!-- TODO: Check blog validity before publishing -->
-
           <Modal
             @opened="checkBlogValidity"
+            @submitted="updateBlogStatus($event, 'published')"
             openTitle="Publish"
             openBtnClass="button is-success  is-inverted is-outlined"
             title="Review Details"
@@ -34,9 +34,10 @@
           </Modal>
         </div>
       </template>
-      <!-- <template v-else #actionMenu>
+      <template v-else #actionMenu>
         <div class="full-page-takeover-header-button">
           <Modal
+            @submitted="updateBlogStatus($event, 'active')"
             openTitle="Unpublish"
             openBtnClass="button is-success  is-inverted is-outlined"
             title="Unpublish Blog">
@@ -45,7 +46,7 @@
             </div>
           </Modal>
         </div>
-      </template> -->
+      </template>
     </Header>
     <div class="blog-editor-container">
       <div class="container">
@@ -88,7 +89,10 @@
       ...mapState({
         blog: ({instructor}) => instructor.blog.item,
         isSaving: ({instructor}) => instructor.blog.isSaving,
-      })
+      }),
+      editor() {
+        return this.$refs.editor
+      }
     },
     async fetch({store, params}) {
       await store.dispatch('instructor/blog/fetchBlogById', params.id)
@@ -106,16 +110,50 @@
             .catch(err => this.$toasted.error('Cannot be update Blog.! :(', {duration: 3000}))
         }
       },
+      updateBlogStatus({closeModal}, status) {
+        const blogContent = this.editor.getContent()
+        blogContent.status = status
+        const message = status === 'published' ? 'Blog has been published..! :)' : 'Blog has been un-published..! :)'
+
+        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
+          .then(_ => {
+            this.$toasted.success(message, {duration: 3000})
+            closeModal()
+          })
+          .catch(err => this.$toasted.error(message, {duration: 3000}))
+      },
+      publishBlog({closeModal}) {
+        const blogContent = this.editor.getContent()
+        blogContent.status = 'published'
+
+        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
+          .then(_ => {
+            this.$toasted.success('Blog has been published..! :)', {duration: 3000})
+            closeModal()
+          })
+          .catch(err => this.$toasted.error('Blog cannot be published..! :(', {duration: 3000}))
+      },
+      unPublishBlog({closeModal}) {
+        const blogContent = this.editor.getContent()
+        blogContent.status = 'active'
+
+        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
+          .then(_ => {
+            this.$toasted.success('Blog has been un-published..! :)', {duration: 3000})
+            closeModal()
+          })
+          .catch(err => this.$toasted.error('Blog cannot be published..! :(', {duration: 3000}))
+      },
       checkBlogValidity() {
-        const title = this.$refs.editor.getNodeValueByName('title')
+        const title = this.editor.getNodeValueByName('title')
         this.publishError = ''
         this.slug = ''
 
-        if(title && title.length > 15) {
+        if(title && title.length > 20) {
           // create slug from title
           this.slug = this.slugify(title)
         } else {
-          this.publishError = 'Cannot publish! Title needs to be longer than 15 characters..!'
+          this.publishError = 'Cannot publish! Title needs to be longer than 20 characters..!'
         }
       },
       slugify(text) {
