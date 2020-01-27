@@ -4,7 +4,7 @@
       <div class="container">
         <div class="columns is-mobile">
           <!-- posts -->
-          <div class="column is-8">
+          <div class="column is-8 infinite-loader">
             <!-- blog -->
             <!-- <transition-group appear name="slideDown" mode="out-in"> -->
             <div class="section" v-for="blog in publishedBlogs" :key="blog._id">
@@ -21,6 +21,13 @@
               </div>
               </transition>
             </div>
+            <!-- <client-only placeholder="Loading...">
+            <infinite-loading
+              v-if="publishedBlogs.length"
+              @infinite="fetchBlogs"
+              spinner="spiral"
+            ></infinite-loading>
+            </client-only> -->
             <!-- </transition-group> -->
             <!-- end of blog -->
             <!-- pagination -->
@@ -100,14 +107,30 @@
 
         store.commit('blogs/setPage', filter.pageNum)
       } else {
-        filter.pageNum = 1
-        filter.pageSize = 5
+
+        // filter.pageNum = 1
+        // filter.pageSize = 5
+        filter.pageNum = store.state.blogs.pagination.pageNum
+        filter.pageSize = store.state.blogs.pagination.pageSize
       }
 
       await store.dispatch('blogs/fetchBlogs', filter)
       await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
     },
     methods: {
+      async loadMoreTours($state) {
+        await this.$axios.$get('/api/link').then(res => {
+          this.list.push.apply(this.list, res)
+          if (res.length > 0) {
+            this.page++;
+            $state.loaded();
+          } else {
+            $state.complete();
+          }
+        }).catch(e => {
+          console.log(e)
+        })
+      },
       displayBlogTitle(blog) {
         return blog.title || blog.subtitle || 'Blog without title or subtitle :('
       },
@@ -121,7 +144,10 @@
         filter.pageSize = this.pagination.pageSize
 
         this.$store.dispatch('blogs/fetchBlogs', filter)
-          .then(_ => this.setQueryPaginationParams())
+          .then(_ => {
+            // debugger
+            return this.setQueryPaginationParams()
+          })
         console.log('Pagination clicked..')
       }
     },

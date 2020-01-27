@@ -43,6 +43,7 @@ module.exports = {
     {src: '~/plugins/integrations'},
     {src: '~/plugins/toasted', ssr: false},
     {src: '~/plugins/paginate', ssr: false},
+    {src: '~/plugins/infiniteloading', ssr: false},
   ],
   /*
   ** Nuxt.js modules

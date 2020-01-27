@@ -6,7 +6,7 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Featured Courses</h1>
-        <div class="columns">
+        <div class="columns is-multiline">
           <div v-for="course in courses" :key="course._id" class="column is-one-quarter">
             <!-- CARD-ITEM -->
             <course-card :course="course" />
@@ -18,10 +18,16 @@
     <section class="section">
       <div class="container">
         <h1 class="title">Featured Articles</h1>
-        <div class="columns">
-          <div class="column is-one-quarter">
+        <div class="columns is-multiline">
+          <div
+            v-for="blog in featuredBlogs"
+            :key="blog._id"
+            class="column is-one-quarter"
+          >
             <!-- CARD-ITEM -->
-            <blog-card />
+            <blog-card
+              :blog="blog"
+            />
             <!-- CARD-ITEM-END -->
           </div>
         </div>
@@ -41,12 +47,14 @@ export default {
   },
   computed: {
     ...mapState({
-      courses: state => state.course.items
+      courses: state => state.course.items,
+      featuredBlogs: state => state.blogs.items.featured,
     })
   },
   async fetch({store}) {
     // debugger
     await store.dispatch('course/fetchCourses')
+    await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
   }
 }
 </script>
@@ -58,7 +66,7 @@ export default {
 
 
   // hero
-  
+
   // hero
 
   // Home page
