@@ -41,6 +41,8 @@ module.exports = {
     {src: '~/plugins/filters'},
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/integrations'},
+    {src: '~/plugins/jquery', ssr: false},
+    {src: '~/plugins/bootstrapSelect', ssr: false},
     {src: '~/plugins/toasted', ssr: false},
     {src: '~/plugins/paginate', ssr: false},
     {src: '~/plugins/infiniteloading', ssr: false},
