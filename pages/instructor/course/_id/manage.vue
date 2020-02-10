@@ -11,8 +11,54 @@
             Save
           </button>
         </div>
+        <div class="full-page-takeover-header-button">
+            <Modal
+              openTitle="Favorite"
+              openBtnClass="button is-primary is-inverted is-outlined"
+              title="Make Course Hero"
+              @opened="applyCourseValues"
+              @submitted="createCourseHero">
+              <div>
+                <form>
+                  <div class="field">
+                    <label class="label">Hero title</label>
+                    <span class="label-info">Suggested 64 Characters</span>
+                    <div class="control">
+                      <input
+                        v-model="courseHero.title"
+                        class="input is-medium"
+                        type="text"
+                        placeholder="Amazing course discount">
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Hero subtitle</label>
+                    <span class="label-info">Suggested 128 Characters</span>
+                    <input
+                      v-model="courseHero.subtitle"
+                      class="input is-medium"
+                      type="text"
+                      placeholder="Get all of the course for 9.99$">
+                  </div>
+                  <div class="field">
+                    <label class="label">Hero image</label>
+                    <span class="label-info">Image in format 3 by 1 (720 x 240)</span>
+                    <input
+                      v-model="courseHero.image"
+                      class="input is-medium"
+                      type="text"
+                      placeholder="Some image in format 3 by 1 (720 x 240)">
+                    <figure class="image course-image is-3by1">
+                      <img :src="courseHero.image">
+                    </figure>
+                  </div>
+                </form>
+              </div>
+            </Modal>
+        </div>
       </template>
     </Header>
+
     <div class="course-manage">
       <div class="container">
         <div class="columns">
@@ -77,6 +123,7 @@
 </template>
 
 <script>
+  import Modal from '~/components/shared/Modal'
   import Header from '~/components/shared/Header'
   import TargetStudents from '~/components/instructor/TargetStudents'
   import LandingPage from '~/components/instructor/LandingPage'
@@ -91,12 +138,14 @@
       TargetStudents,
       LandingPage,
       Price,
-      Status
+      Status,
+      Modal,
     },
     mixins: [MultiComponentMixin],
     data() {
       return {
-        steps: ['TargetStudents', 'LandingPage', 'Price', 'Status']
+        steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
+        courseHero: {}
       }
     },
     async fetch({store, params}) {
@@ -117,6 +166,25 @@
         this.$store.dispatch('instructor/course/updateCourse')
           .then(_ => this.$toasted.success('Course has been successfully update..!', {duration: 3000}))
           .catch(err => this.$toasted.error('Course cannot be update! :)', {duration: 3000}))
+      },
+      createCourseHero({closeModal}) {
+        // debugger
+        const heroData = {...this.courseHero}
+        heroData.product = {...this.course}
+        this.$store.dispatch('heroes/createHero', heroData)
+          .then(() => {
+            closeModal()
+            this.$toasted.success('Course Hero was created...!', {duration: 3000})
+          })
+      },
+      applyCourseValues() {
+        // this.courseHero.title = this.course.title
+        // this.courseHero.subtitle = this.course.subtitle
+        // this.courseHero.image = this.course.image
+
+        !this.courseHero.title && this.$set(this.courseHero, 'title', this.course.title)
+        !this.courseHero.subtitle && this.$set(this.courseHero, 'subtitle', this.course.subtitle)
+        !this.courseHero.image && this.$set(this.courseHero, 'image', this.course.image)
       }
     }
   }
@@ -169,6 +237,12 @@
             font-weight: 400;
             font-size: 25px;
           }
+        }
+      }
+
+      .course-image {
+        img {
+          object-fit: cover;
         }
       }
     }

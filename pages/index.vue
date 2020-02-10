@@ -1,7 +1,13 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <hero />
+    <hero
+      :title="courseHero.title"
+      :subtitle="courseHero.subtitle"
+      :image="courseHero.image"
+      :promoLink="courseHero.product && courseHero.product.productLink"
+    />
+    <!-- <hero v-else/> -->
     <!-- Hero Section end -->
     <section class="section">
       <div class="container">
@@ -49,6 +55,7 @@ export default {
     ...mapState({
       courses: state => state.course.items,
       featuredBlogs: state => state.blogs.items.featured,
+      courseHero: state => state.heroes.courseHero
     })
   },
   async fetch({store}) {
