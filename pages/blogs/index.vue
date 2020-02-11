@@ -2,7 +2,7 @@
   <div>
     <div class="main-content">
       <div class="container">
-        <div class="columns is-mobile">
+        <div class="columns">
           <!-- posts -->
           <div class="column is-8 infinite-loader">
             <!-- blog -->
