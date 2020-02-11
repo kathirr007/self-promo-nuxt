@@ -15,7 +15,22 @@
         <div class="columns is-multiline">
           <div v-for="course in courses" :key="course._id" class="column is-one-quarter">
             <!-- CARD-ITEM -->
-            <course-card :course="course" />
+            <v-popover
+              offset="16"
+              trigger="hover"
+              placement="right-start"
+              class="slide-left"
+            >
+              <course-card :course="course" />
+              <template slot="popover">
+                  <course-card-tooltip
+                    :title="course.title"
+                    :subtitle="course.category.name"
+                    :description="course.subtitle"
+                    :wsl="course.wsl"
+                  />
+              </template>
+            </v-popover>
             <!-- CARD-ITEM-END -->
           </div>
         </div>
@@ -46,10 +61,11 @@
 import hero from '~/components/shared/hero'
 import courseCard from '~/components/courseCard'
 import blogCard from '~/components/blogCard'
+import CourseCardTooltip from '~/components/CourseCardTooltip'
 import { mapState } from 'vuex'
 export default {
   components: {
-    hero, courseCard, blogCard
+    hero, courseCard, blogCard, CourseCardTooltip
   },
   computed: {
     ...mapState({

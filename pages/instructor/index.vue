@@ -4,7 +4,7 @@
 
     </instructor-header>
     <div class="centered">
-      <div class="columns">
+      <div class="columns column p-lg is-centered">
         <!-- Go to /instructor/courses -->
         <div class="box" @click="$router.push('/instructor/courses')">
           <div>
@@ -40,7 +40,7 @@
 <style scoped lang="scss">
   .instructor-page {
     .centered {
-      margin-top: 100px;
+      margin-top: 50px;
       display: flex;
       flex-direction: row;
       /* make main axis horizontal (default setting) */
@@ -69,6 +69,18 @@
       align-self: center;
       font-size: 50px;
       font-weight: bold;
+    }
+    @media screen and (max-width:576px) {
+      height: auto;
+      width: 100%;
+      margin: 0;
+      margin-bottom: 15px;
+      &:last-child{
+        margin: 0;
+      }
+      > div {
+        font-size: 30px;
+      }
     }
   }
 </style>

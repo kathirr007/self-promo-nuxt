@@ -50,6 +50,16 @@
   import ProductHero from '~/components/ProductHero'
   import ProductHeroCard from '~/components/ProductHeroCard'
   export default {
+    head() {
+      return {
+        title: this.course.title,
+        meta: [{
+          hid: 'description',
+          name: 'description',
+          content: this.course.subtitle
+        }]
+      }
+    },
     data () {
       return {
 

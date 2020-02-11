@@ -72,3 +72,63 @@
     }
   }
 </style>
+<style lang="scss">
+.tooltip {
+  .card {
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px 0px $card-shadow-color;
+  }
+  .tooltip-arrow {
+    width: 0;
+    height: 0;
+    border-style: solid;
+    position: absolute;
+    margin: 5px;
+    border-color: #fff;
+    z-index: 1;
+  }
+
+  &[x-placement^="right"],
+  &[x-placement^="left"] {
+    .tooltip-arrow {
+      border-top-color: transparent !important;
+      border-bottom-color: transparent !important;
+      top: calc(50% - 15px) !important;
+      margin-left: 0;
+      margin-right: 0;
+    }
+  }
+
+  &[x-placement^="right"] {
+    margin-left: 5px;
+
+    .tooltip-arrow {
+      border-width: 15px 15px 15px 0;
+      border-left-color: transparent !important;
+      left: -15px;
+    }
+  }
+
+  &[x-placement^="left"] {
+    margin-right: 5px;
+
+    .tooltip-arrow {
+      border-width: 15px 0 15px 15px;
+      border-right-color: transparent !important;
+      right: -15px;
+    }
+  }
+
+  &[aria-hidden='true'] {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .25s, visibility .25s;
+  }
+
+  &[aria-hidden='false'] {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity .25s;
+  }
+}
+</style>

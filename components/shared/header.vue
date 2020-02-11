@@ -12,7 +12,7 @@
       <figure class="image is-48x48 m-r-sm">
         <img class="is-rounded" :src="user.avatar">
       </figure>
-      <div class="m-r-sm m-b-sm">
+      <div class="m-r-sm">
         Welcome {{user.username}}!
       </div>
     </div>
@@ -46,14 +46,20 @@ export default {
   }
 }
 </script>
-<style scoped>
+<style scoped lang="scss">
   .user-box {
     align-items: center;
     display: flex;
-    flex-wrap: wrap;
+    /* flex-wrap: wrap; */
     justify-content: flex-start;
     margin-right: 10px;
     font-size: 17px;
     font-weight: bold;
+    @media screen and (max-width:650px) {
+      font-size: 12px;
+      .image {
+        height: auto;
+      }
+    }
   }
 </style>

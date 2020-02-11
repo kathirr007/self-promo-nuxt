@@ -51,11 +51,16 @@
     &-logo {
       padding: 0 20px;
 
+      @media screen and (max-width: 650px) {
+        padding: 0 10px;
+      }
+
       &-title {
         font-size: 35px;
 
         @media screen and (max-width: 650px) {
-          font-size: 15px;
+          font-size: 16px;
+          font-weight: bold;
         }
       }
     }
@@ -63,6 +68,9 @@
     &-divider {
       align-self: stretch;
       border-right: 2px solid #dedfe0;
+      @media screen and (max-width: 650px) {
+        display: none;
+      }
     }
 
     &-text {
@@ -88,6 +96,10 @@
         padding: 11px 12px;
         // font-size: 21px;
       }
+    }
+    @media screen and (max-width:650px) {
+      height: auto;
+      padding: 10px 0;
     }
   }
 
