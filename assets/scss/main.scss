@@ -8,6 +8,11 @@
 // plugins
 @import './plugins/animate';
 
+html {
+  overflow-x: unset;
+  overflow-y: unset;
+}
+
 .blog-editor-container {
   padding-top: 60px;
 }
