@@ -1,6 +1,9 @@
 # Self Promo using Vue & Nxt
 
-> My super Nuxt.js project
+> Self promo | Portfolio web application
+
+
+To check live version please checkout **[here](https://kathirr007-portfolio.herokuapp.com/)**
 
 ## Build Setup
 
