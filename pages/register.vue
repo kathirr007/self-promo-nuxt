@@ -104,10 +104,10 @@
                   </div>
                 </div>
               </div>
-              <button 
+              <button
                 :disabled="$v.form.$invalid"
-                @click.prevent="register" 
-                type="submit" 
+                @click.prevent="register"
+                type="submit"
                 class="button is-block is-info is-large is-fullwidth"
               >
                 Register
@@ -116,7 +116,7 @@
           </div>
           <p class="has-text-grey">
             <nuxt-link to="/login">Login</nuxt-link> &nbsp;·&nbsp;
-            <a>Sign Up With Google</a> &nbsp;·&nbsp;
+            <!-- <a>Sign Up With Google</a> &nbsp;·&nbsp; -->
             <a href="../">Need Help?</a>
           </p>
         </div>

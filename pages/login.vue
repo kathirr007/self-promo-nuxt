@@ -15,7 +15,7 @@
                   <input
                     @blur="$v.form.email.$touch()"
                     @keyup.enter="$v.form.email.$touch()"
-                    v-model="form.email" 
+                    v-model="form.email"
                     class="input is-large"
                     type="email"
                     placeholder="Your Email"
@@ -55,7 +55,9 @@
             </form>
           </div>
           <p class="has-text-grey">
-            <a>Sign In With Google</a> &nbsp;·&nbsp;
+            <!-- <client-only placeholder="Loading..."> -->
+              <!-- <div class="g-signin2" data-onsuccess="onSignIn">Sign In With Google</div> &nbsp;·&nbsp;-->
+            <!-- </client-only>  -->
             <nuxt-link to="/register">Sign Up</nuxt-link> &nbsp;·&nbsp;
 
             <a href="../">Need Help?</a>
@@ -70,6 +72,14 @@
   import { required, email, minLength } from 'vuelidate/lib/validators'
   export default {
     middleware: 'guest',
+    head: {
+      meta: [
+        { name: "google-signin-client_id", content: '952132017083-dkjg84dr8t04qghbrutj395e302bv94m.apps.googleusercontent.com' },
+      ],
+      script: [
+        {src: 'https://apis.google.com/js/platform.js', crossorigin :'anonymous', async: true, defer:true},
+      ]
+    },
     data() {
       return {
         form: {
@@ -108,6 +118,13 @@
             })
             .catch(err => this.$toasted.error('Wrong email or password', { duration: 3000 }))
         }
+      },
+      onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
       }
     }
   }
