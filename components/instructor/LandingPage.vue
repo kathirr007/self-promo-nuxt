@@ -41,6 +41,7 @@
             >
             </textarea> -->
             <course-editor
+              @editorUpdated="(content) => emitCourseValue(content, 'description')"
               :initialContent="course.description"
             />
           </div>
@@ -128,7 +129,8 @@
     },
     methods: {
       emitCourseValue(e, field) {
-        const value = e.target.value
+        // const value = e.target.value
+        const value = e.target ? e.target.value : e
 
         if(field === 'category') {
           return this.emitCategory(value, field)

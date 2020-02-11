@@ -23,7 +23,7 @@
             </div>
         </div>
         <footer class="card-footer">
-            <nuxt-link :to="''" class="card-footer-item">Learn More</nuxt-link>
+            <nuxt-link :to="`/courses/${course.slug}`" class="card-footer-item">Learn More</nuxt-link>
             <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a>
         </footer>
     </div>
@@ -57,4 +57,18 @@
         font-weight: bold;
         }
     }
+  .card {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+    .card-content {
+      display: flex;
+      flex-flow: column;
+      flex: 1;
+      .content {
+        display: flex;
+        flex: 1;
+      }
+    }
+  }
 </style>

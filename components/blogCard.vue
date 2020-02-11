@@ -31,19 +31,34 @@
 
 <style lang="scss" scoped>
   .card-image:hover {
-        cursor: pointer;
-        opacity: 0.9;
+    cursor: pointer;
+    opacity: 0.9;
+  }
+
+  .price-box {
+    text-align: right;
+
+    .price {
+      color: gray;
+      font-size: 16px;
+      text-decoration: line-through;
     }
-    .price-box {
-        text-align: right;
-        .price {
-        color: gray;
-        font-size: 16px;
-        text-decoration: line-through;
-        }
-        .disc-price {
-        font-size: 21px;
-        font-weight: bold;
-        }
+
+    .disc-price {
+      font-size: 21px;
+      font-weight: bold;
     }
+  }
+
+  .card {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+
+    .card-content {
+      display: flex;
+      flex-flow: column;
+      flex: 1;
+    }
+  }
 </style>

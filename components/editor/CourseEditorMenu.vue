@@ -4,41 +4,41 @@
       <button
         class="menubar__button"
         :class="{ 'is-active': isActive.bold() }"
-        @click="commands.bold()"
+        @click.prevent="commands.bold()"
       >
         <icon name="bold" size="small" />
       </button>
       <button
         class="menubar__button"
         :class="{ 'is-active': isActive.italic() }"
-        @click="commands.italic()"
+        @click.prevent="commands.italic()"
       >
         <icon name="italic" size="small" />
       </button>
       <button
         class="menubar__button"
         :class="{ 'is-active': isActive.strike() }"
-        @click="commands.strike()"
+        @click.prevent="commands.strike()"
       >
         <icon name="strikethrough" size="small" />
       </button>
       <button
         class="menubar__button"
         :class="{ 'is-active': isActive.underline() }"
-        @click="commands.underline()"
+        @click.prevent="commands.underline()"
       >
         <icon name="underline" size="small" />
       </button>
-      <button class="menubar__button" :class="{ 'is-active': isActive.bullet_list() }" @click="commands.bullet_list">
+      <button class="menubar__button" :class="{ 'is-active': isActive.bullet_list() }" @click.prevent="commands.bullet_list">
         <icon name="list-ul" />
       </button>
-      <button class="menubar__button" :class="{ 'is-active': isActive.ordered_list() }" @click="commands.ordered_list">
+      <button class="menubar__button" :class="{ 'is-active': isActive.ordered_list() }" @click.prevent="commands.ordered_list">
         <icon name="list-ol" />
       </button>
-      <button class="menubar__button" @click="commands.undo">
+      <button class="menubar__button" @click.prevent="commands.undo">
         <icon name="undo-alt" />
       </button>
-      <button class="menubar__button" @click="commands.redo">
+      <button class="menubar__button" @click.prevent="commands.redo">
         <icon name="redo" />
       </button>
     </div>
