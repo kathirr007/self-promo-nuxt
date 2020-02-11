@@ -22,7 +22,7 @@ export const actions = {
     const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
     return this.$axios.$get(url)
       .then(data => {
-        debugger
+        // debugger
         const { blogs, count, pageCount } = data
         commit('setBlogs', {resource: 'all', blogs})
         commit('setPagination', {count, pageCount})

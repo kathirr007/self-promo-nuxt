@@ -6,7 +6,8 @@
       </nuxt-link>
       <!-- Adds click to open -->
       <!-- Adds active class -->
-      <a @click="() => {}"
+      <a @click="isActive = !isActive"
+        :class="{'is-active': isActive}"
          role="button"
          class="navbar-burger burger"
          aria-label="menu"
@@ -20,29 +21,32 @@
 
     <!-- Adds active class -->
     <div id="navbarBasicExample"
-         class="navbar-menu">
+         class="navbar-menu" :class="{'is-active': isActive}">
       <div class="navbar-start">
-        <nuxt-link to="/" class="navbar-item">
+        <nav-link to="/" class="navbar-item">
           Home
-        </nuxt-link>
-        <nuxt-link to="/instructor/courses" class="navbar-item">
+        </nav-link>
+        <nav-link to="/courses" class="navbar-item">
           Courses
-        </nuxt-link>
-        <nuxt-link to="/blogs" class="navbar-item">
+        </nav-link>
+        <!-- <nav-link to="/instructor/courses" class="navbar-item">
+          Courses
+        </nav-link> -->
+        <nav-link to="/blogs" class="navbar-item">
           Blogs
-        </nuxt-link>
-        <nuxt-link to="#" class="navbar-item">
+        </nav-link>
+        <nav-link to="/about" class="navbar-item">
           About
-        </nuxt-link>
-        <nuxt-link to="#" class="navbar-item">
+        </nav-link>
+        <nav-link to="/cv" class="navbar-item">
           Cv
-        </nuxt-link>
-        <!-- <nuxt-link to="/instructor" class="navbar-item">
+        </nav-link>
+        <!-- <nav-link to="/instructor" class="navbar-item">
           Instructor
-        </nuxt-link>
-        <nuxt-link to="/secret" class="navbar-item">
+        </nav-link>
+        <nav-link to="/secret" class="navbar-item">
           Secret
-        </nuxt-link> -->
+        </nav-link> -->
       </div>
 
       <div class="navbar-end">
@@ -67,12 +71,12 @@
               </a>
             </template>
             <template v-else>
-              <nuxt-link to="/register" class="button is-primary">
+              <nav-link to="/register" class="button is-primary">
                 Sign up
-              </nuxt-link>
-              <nuxt-link to="/login" class="button is-light">
+              </nav-link>
+              <nav-link to="/login" class="button is-light">
                 Log in
-              </nuxt-link>
+              </nav-link>
             </template>
           </div>
         </div>
@@ -90,6 +94,11 @@
         'isAuth': 'auth/isAuthenticated',
         'isAdmin': 'auth/isAdmin',
       })
+    },
+    data() {
+      return {
+        isActive: false
+      }
     },
     methods: {
       logout() {
@@ -112,7 +121,10 @@
     font-weight: bold;
   }
   .navbar-brand {
-    padding-right: 30px;
+    // padding-right: 30px;
+  }
+  .navbar-item {
+    flex-shrink: unset;
   }
   .avatar {
     margin-right: 5px;

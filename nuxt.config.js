@@ -41,6 +41,7 @@ module.exports = {
     {src: '~/plugins/filters'},
     {src: '~/plugins/vuelidate'},
     {src: '~/plugins/integrations'},
+    {src: '~/plugins/components'},
     // {src: '~/plugins/jquery', ssr: false},
     // {src: '~/plugins/bootstrapSelect', ssr: false},
     {src: '~/plugins/toasted', ssr: false},
