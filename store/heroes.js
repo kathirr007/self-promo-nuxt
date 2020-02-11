@@ -1,5 +1,5 @@
 export const state = () => ({
-  courseHero: null
+  courseHero: {}
 })
 
 export const actions = {

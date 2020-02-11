@@ -71,7 +71,7 @@ export default {
     ...mapState({
       courses: state => state.course.items,
       featuredBlogs: state => state.blogs.items.featured,
-      courseHero: state => state.heroes.courseHero
+      courseHero: state => state.heroes.courseHero || {}
     })
   },
   async fetch({store}) {

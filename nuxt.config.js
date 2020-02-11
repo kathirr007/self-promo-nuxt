@@ -79,7 +79,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.BASE_URL || 'http:localhost:3600'
+    baseURL: process.env.BASE_URL || 'http://localhost:3600'
   },
   /* server Middleware */
   serverMiddleware: [
