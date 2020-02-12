@@ -34,6 +34,7 @@
     "moment": "^2.24.0",
     "mongoose": "^5.8.9",
     "nuxt": "^2.11.0",
+    "nuxt-oauth": "^2.4.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "portal-vue": "^2.1.7",
