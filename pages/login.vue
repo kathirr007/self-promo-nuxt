@@ -60,7 +60,7 @@
             <!-- </client-only> -->
             <div v-if="$auth.loggedIn">
               {{$auth.user.email}}
-              <a class="button is-primary" @click.prevent="() => {}">
+              <a class="button is-primary" @click.prevent="googleLogout">
                 Logout
               </a>
             </div>
@@ -147,15 +147,19 @@
         }
       },
       async signInWithGoogle(){
-        debugger
+        // debugger
         await this.$auth.loginWith('google')
           .then(() => {
-            debugger
+            // debugger
             this.$toasted.success('Logged In!', {duration: 5000})
           })
           .catch(e => {
             this.$toast.show('Error', {icon: "fingerprint"});
           })
+      },
+      googleLogout(){
+        this.$auth.logout('google')
+          .then(_ => this.$router.push('/login'))
       },
       onSignIn(googleUser) {
         debugger

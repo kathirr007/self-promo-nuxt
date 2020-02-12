@@ -53,12 +53,12 @@
         <div class="navbar-item">
           <div class="buttons">
             <!-- If Authenticated -->
-            <template v-if="isAuth">
+            <template v-if="isAuth || isLoggedIn">
               <figure class="image avatar is-48x48 m-r-sm">
-                <img class="is-rounded" :src="user.avatar">
+                <img class="is-rounded" :src="user ? user.avatar : googleUserAvatar">
               </figure>
               <div class="m-r-sm m-b-sm">
-                Welcome {{user.username}}!
+                Welcome {{user ? user.username : googleUser}}!
               </div>
               <!-- If Admin -->
               <button
@@ -66,7 +66,10 @@
                  @click="$router.push('/instructor')">
                 Instructor
               </button>
-              <a class="button is-primary" @click.prevent="logout">
+              <a v-if="user" class="button is-primary" @click.prevent="logout">
+                Logout
+              </a>
+              <a v-else class="button is-primary" @click.prevent="googleLogout">
                 Logout
               </a>
             </template>
@@ -86,13 +89,18 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { mapGetters, mapState } from 'vuex'
   export default {
     computed: {
       ...mapGetters({
         'user': 'authentication/authUser',
         'isAuth': 'authentication/isAuthenticated',
         'isAdmin': 'authentication/isAdmin',
+      }),
+      ...mapState({
+        isLoggedIn: state => state.auth.loggedIn,
+        googleUser: state => state.auth.user.name,
+        googleUserAvatar: state => state.auth.user.picture
       })
     },
     data() {
@@ -109,6 +117,9 @@
             this.$toasted.success('Successfully logged out...', { duration: 3000 })
           })
           .catch(err => this.$toasted.error('There is something wrong.. :(', { duration: 3000 }))
+      },
+      googleLogout() {
+        this.$auth.logout('google')
       }
     }
   }
