@@ -11,6 +11,7 @@ module.exports = {
     title: `Kathiravan K | Sr.UI Developer | Portfolio`,
     meta: [
       { charset: 'utf-8' },
+      { name: "google-site-verification", content: "w4IPzZUmq92f1hdY9DpTVfDBF67pwaNGZpvNxGqmVHU" },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
       { hid: 'og:title', name: 'og:title', content: 'Kathiravan K | Sr.UI Developer'},
@@ -74,6 +75,7 @@ module.exports = {
     'portal-vue/nuxt',
     '@nuxtjs/style-resources',
     '@nuxtjs/auth',
+    'nuxt-oauth',
   ],
   /* Auth module configurations */
   auth: {
@@ -92,6 +94,22 @@ module.exports = {
         // token_key: 'access_token',
         // state: 'UNIQUE_AND_NON_GUESSABLE'
       }
+    }
+  },
+  /* OAuth module configs */
+  oauth: {
+    sessionName: 'mySession',
+    secretKey: process.env.SECRET_KEY,
+    oauthHost: process.env.OAUTH_HOST,
+    oauthClientID: process.env.OAUTH_CLIENT_ID,
+    oauthClientSecret: process.env.OAUTH_CLIENT_SECRET,
+    onLogout: (req, res) => {
+      // do something after logging out
+    },
+    fetchUser: (accessToken, request) => {
+      // do something to return the user
+      const user = User.findByToken(accessToken, request)
+      return user
     }
   },
   /*
