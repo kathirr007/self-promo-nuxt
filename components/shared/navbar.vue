@@ -90,9 +90,9 @@
   export default {
     computed: {
       ...mapGetters({
-        'user': 'auth/authUser',
-        'isAuth': 'auth/isAuthenticated',
-        'isAdmin': 'auth/isAdmin',
+        'user': 'authentication/authUser',
+        'isAuth': 'authentication/isAuthenticated',
+        'isAdmin': 'authentication/isAdmin',
       })
     },
     data() {
@@ -102,7 +102,7 @@
     },
     methods: {
       logout() {
-        this.$store.dispatch('auth/logout', this.form)
+        this.$store.dispatch('authentication/logout', this.form)
           .then(() => {
             // this.$router.push('/')
             this.$router.push('/login')

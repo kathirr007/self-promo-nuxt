@@ -180,7 +180,7 @@
         // console.log(this.form)
         this.$v.form.$touch()
         if(this.isFormValid) {
-          this.$store.dispatch('auth/register', this.form)
+          this.$store.dispatch('authentication/register', this.form)
             .then(() => this.$router.push('/login'))
             .catch(error => this.$toasted.error(error, {duration: 3000}))
         }

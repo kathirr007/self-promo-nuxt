@@ -41,7 +41,7 @@ export default {
   },
   computed: {
     user() {
-      return this.$store.getters['auth/authUser'] || {}
+      return this.$store.getters['authentication/authUser'] || {}
     }
   }
 }

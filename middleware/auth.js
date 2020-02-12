@@ -1,5 +1,5 @@
 export default function({store, redirect}) {
-    const isAuth = store.getters['auth/isAuthenticated'];
+    const isAuth = store.getters['authentication/isAuthenticated'];
 
     if(!isAuth) {
         // return redirect('/')

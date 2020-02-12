@@ -6,7 +6,7 @@ export const mutations = {
 
 export const actions = {
     async nuxtServerInit({commit, dispatch}) {
-        await dispatch('auth/getAuthUser').catch(() => console.log('Not Authenticated... :('))
+        await dispatch('authentication/getAuthUser').catch(() => console.log('Not Authenticated... :('))
         await dispatch('heroes/fetchHero').catch(() => console.log('Cannot fetch page data... :('))
     }
 }

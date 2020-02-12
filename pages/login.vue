@@ -54,14 +54,23 @@
               </button>
             </form>
           </div>
-          <p class="has-text-grey">
+          <div class="has-text-grey">
             <!-- <client-only placeholder="Loading..."> -->
-              <!-- <div class="g-signin2" data-onsuccess="onSignIn">Sign In With Google</div> &nbsp;·&nbsp;-->
-            <!-- </client-only>  -->
-            <nuxt-link to="/register">Sign Up</nuxt-link> &nbsp;·&nbsp;
+              <!-- <a @click="onSignIn">Sign In With Google</a> &nbsp;·&nbsp; -->
+            <!-- </client-only> -->
+            <div v-if="$auth.loggedIn">
+              {{$auth.user.email}}
+              <a class="button is-primary" @click.prevent="() => {}">
+                Logout
+              </a>
+            </div>
+            <div v-else>
+              <a @click="signInWithGoogle">Sign In With Google</a> &nbsp;·&nbsp;
+              <nuxt-link to="/register">Sign Up</nuxt-link> &nbsp;·&nbsp;
+              <a href="../">Need Help?</a>
+            </div>
 
-            <a href="../">Need Help?</a>
-          </p>
+          </div>
         </div>
       </div>
     </div>
@@ -69,12 +78,30 @@
 </template>
 
 <script>
+  /* function onSignIn(googleUser) {
+    debugger
+    var profile = googleUser.getBasicProfile();
+    console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+    console.log('Name: ' + profile.getName());
+    console.log('Image URL: ' + profile.getImageUrl());
+    console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+    debugger
+    signOut()
+  }
+
+  function signOut() {
+    var auth2 = gapi.auth2.getAuthInstance();
+    auth2.signOut().then(function () {
+
+    });
+  } */
+
   import { required, email, minLength } from 'vuelidate/lib/validators'
   export default {
     middleware: 'guest',
     head: {
       meta: [
-        { name: "google-signin-client_id", content: '952132017083-dkjg84dr8t04qghbrutj395e302bv94m.apps.googleusercontent.com' },
+        { name: "google-signin-client_id", content: '952132017083-to68rg93dp9ao68ulhim23853vhc3hvq.apps.googleusercontent.com' },
       ],
       script: [
         {src: 'https://apis.google.com/js/platform.js', crossorigin :'anonymous', async: true, defer:true},
@@ -111,7 +138,7 @@
         this.$v.form.$touch()
 
         if(this.isFormValid) {
-          this.$store.dispatch('auth/login', this.form)
+          this.$store.dispatch('authentication/login', this.form)
             .then(() => {
               this.$router.push('/')
               this.$toasted.success('Welcome...!', { duration: 3000 })
@@ -119,12 +146,32 @@
             .catch(err => this.$toasted.error('Wrong email or password', { duration: 3000 }))
         }
       },
+      async signInWithGoogle(){
+        debugger
+        await this.$auth.loginWith('google')
+          .then(() => {
+            debugger
+            this.$toasted.success('Logged In!', {duration: 5000})
+          })
+          .catch(e => {
+            this.$toast.show('Error', {icon: "fingerprint"});
+          })
+      },
       onSignIn(googleUser) {
+        debugger
         var profile = googleUser.getBasicProfile();
         console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+        debugger
+        // signOut()
+      },
+      signOut() {
+        var auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+
+        });
       }
     }
   }

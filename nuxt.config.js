@@ -73,7 +73,27 @@ module.exports = {
     '@nuxtjs/axios',
     'portal-vue/nuxt',
     '@nuxtjs/style-resources',
+    '@nuxtjs/auth',
   ],
+  /* Auth module configurations */
+  auth: {
+    strategies: {
+      google: {
+        _scheme: 'oauth2',
+        // authorization_endpoint: 'https://accounts.google.com/o/oauth2/auth',
+        // userinfo_endpoint: 'https://www.googleapis.com/oauth2/v3/userinfo',
+        // scope: ['openid', 'profile', 'email'],
+        // access_type: undefined,
+        // access_token_endpoint: undefined,
+        // response_type: 'token',
+        // token_type: 'Bearer',
+        redirect_uri: 'http://localhost:3600',
+        client_id: '952132017083-to68rg93dp9ao68ulhim23853vhc3hvq.apps.googleusercontent.com',
+        // token_key: 'access_token',
+        // state: 'UNIQUE_AND_NON_GUESSABLE'
+      }
+    }
+  },
   /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
