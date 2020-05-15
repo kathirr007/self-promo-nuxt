@@ -71,6 +71,7 @@ export const actions = {
   },
   deleteBlog({commit, state}, blog) {
     const resource = blog.status === 'active' ? 'drafts' : 'published'
+    // debugger
     return this.$axios.$delete(`/api/v1/blogs/${blog._id}`)
       .then(_ => {
         const blogIndex = state.items[resource].findIndex((b) => b._id === blog._id)

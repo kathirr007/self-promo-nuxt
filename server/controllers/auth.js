@@ -2,6 +2,7 @@
 const passport = require('passport')
 
 exports.onlyAuthUser = function (req, res, next) {
+  // console.log(req)
   if (req.isAuthenticated()) {
     return next()
   }

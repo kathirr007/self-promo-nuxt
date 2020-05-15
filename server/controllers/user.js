@@ -54,7 +54,7 @@ exports.register = function(req, res) {
 
 exports.login = function (req, res, next) {
   const { email, password } = req.body
-
+  // console.log(req.body)
   if (!email) {
     return res.status(422).json({
       errors: {

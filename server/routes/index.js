@@ -22,6 +22,7 @@ db.connect();
 const store = db.initSessionStore();
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }))
 
 // var csrf = require('csurf');
 // consider using this
@@ -47,6 +48,12 @@ if (process.env.NODE_ENV === 'production') {
 app.use(session(sess));
 app.use(passport.initialize());
 app.use(passport.session());
+
+/* app.use((req, res, next) => {
+  console.log(req.session)
+  console.log(req.user)
+  next()
+}) */
 
 // Routers registeration
 app.use('', apiRoutes);

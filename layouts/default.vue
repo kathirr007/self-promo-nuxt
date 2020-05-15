@@ -3,6 +3,7 @@
     <navbar />
     <nuxt />
     <app-footer />
+
   </div>
 </template>
 

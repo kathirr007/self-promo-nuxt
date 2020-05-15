@@ -21,6 +21,10 @@ router.patch('/:id',
               AuthCtrl.onlyAuthUser,
               AuthCtrl.onlyAdmin,
               ProductCtrl.updateProduct)
+router.delete('/:id',
+              AuthCtrl.onlyAuthUser,
+              AuthCtrl.onlyAdmin,
+              ProductCtrl.deleteProduct)
 
 
 module.exports = router;

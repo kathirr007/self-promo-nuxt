@@ -5,6 +5,12 @@
     </instructor-header>
     <div class="centered">
       <div class="columns column p-lg is-centered">
+        <!-- Go to /instructor/categories -->
+        <div class="box" @click="$router.push('/instructor/categories')">
+          <div>
+            Categories
+          </div>
+        </div>
         <!-- Go to /instructor/courses -->
         <div class="box" @click="$router.push('/instructor/courses')">
           <div>
