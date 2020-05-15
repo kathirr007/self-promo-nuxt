@@ -29,7 +29,7 @@
               <div v-if="drafts && drafts.length > 0">
                 <transition-group name="fade" mode="out-in">
                   <div
-                    v-for="dblog in drafts" :key="dblog._id"
+                    v-for="(dblog,i) in drafts" :key="dblog._id"
                     class="blog-card"
                   >
                     <!-- <h2>{{dblog.title}}</h2> -->
@@ -40,7 +40,7 @@
                       </span>
                       <!-- Dropdown with menu here -->
                       <dropdown
-                        @optionChanged="handleCommand($event, dblog)"
+                        @optionChanged="handleCommand($event, dblog)" :ref="`dropDown${i}`"
                         :items="draftsOptions"
                       />
                     </div>
@@ -87,11 +87,29 @@
         </div>
       </div>
     </div>
+    <client-only>
+      <v-dialog ref="confirmDialog" :pivotY="0.5" />
+    </client-only>
+    <!-- <client-only>
+      <modal name="confirm-dialog" @before-open="beforeOpen">
+        <div class="vc-container"><span class="vc-text-grid">
+                <h4 class="vc-title">Confirm</h4>
+                <p class="vc-text">Are you sure? Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                    will be remove?</p>
+            </span>
+            <div class="vc-btn-grid">
+              <button @click="closeConfirm" class="vc-btn left">No</button>
+              <button @click="deleteBlog(blog)" class="vc-btn">Yes</button>
+            </div>
+        </div>
+      </modal>
+    </client-only> -->
   </div>
 </template>
 <script>
   import Header from '~/components/shared/Header'
   import Dropdown from '~/components/shared/Dropdown'
+  // import VueConfirmDialog from "vue-confirm-dialog";
   import { mapState } from 'vuex'
   import {
     createPublishedOptions,
@@ -106,11 +124,14 @@
     layout: 'instructor',
     components: {
       Header,
-      Dropdown
+      Dropdown,
+      // VueConfirmDialog
     },
     data() {
       return {
-        activeTab: 0
+        activeTab: 0,
+        confirmDelete: false,
+        activeBlog: null
       }
     },
     computed: {
@@ -130,6 +151,8 @@
     },
     methods: {
       handleCommand(command, blog) {
+        // e.stopImmediatePropagation()
+        // $event.stopImmediatePropagation()
         if(command === commands.EDIT_BLOG) {
           console.log('Editing blog...')
           this.$router.push(`/instructor/blog/${blog._id}/edit`)
@@ -154,23 +177,71 @@
       publishedOptions(isFeatured) {
         return createPublishedOptions(isFeatured)
       },
-      displayDeleteWarning(blog) {
-        const isConfirm = confirm('Are you sure you want to delete blog ?')
+      beforeOpen (event) {
+        console.log(event.params.blog);
+        this.$emit('modalOpen', event.params.blog)
+      },
+      closeConfirm(event) {
+        console.log(event);
+        this.$modal.hide('confirm-dialog')
+      },
+      displayDeleteWarning(blog,i) {
 
-        if(isConfirm) {
-          console.log('Dispatching delete...')
+        console.log('Cliked on Draft title...')
+        console.log(blog)
+        this.activeBlog = blog
+        // this.$modal.show('confirm-dialog', {blog: blog})
+        this.$modal.show('dialog', {
+          title: 'Please confirm',
+          text: 'Do you want to delete?',
+          blog: blog,
+          buttons: [
+            {
+              title: 'C💩NCEL',
+              handler: (props) => {
+                // console.log(this.$refs.confirmDialog)
+                // debugger
+                this.$modal.hide('dialog')
+                // this.beforeClose()
+                // this.$refs.dropDown[i].closeDropdown()
+              }
+            },
+            {
+              title: 'Yes',
+              default: true,
+              handler: (blog) => {
+                // alert('LIKE LIKE LIKE')
+                this.$modal.hide('dialog')
+                this.confirmDelete = true
+                this.deleteBlog(this.activeBlog)
+                // this.$refs.dropDown[i].closeDropdown()
+              }
+            }
+          ]
+        })
+      },
+      deleteBlog(blog) {
+        console.log('Dispatching delete...')
+        // debugger
+        this.confirmDelete &&
           this.$store.dispatch('instructor/blog/deleteBlog', blog)
             .then(_ => this.$toasted.success('Blog was deleted successfully..', {duration: 3000}))
-        }
       },
       displayBlogTitle(blog) {
         return blog.title || blog.subtitle || 'Blog without title or subtitle :('
-      }
+      },
+      showTest() {
+        this.$modal.show('hello-world');
+      },
+      showConfirm() {
+
+      },
     }
   }
 </script>
 
 <style scoped lang="scss">
+
   .is-active {
     border-bottom-color: #363636;
     color: #363636;
@@ -212,5 +283,128 @@
     .title-menu {
       margin-left: auto;
     }
+  }
+</style>
+
+<style lang="scss">
+  // .vm--modal {
+  //   /* width: 0 !important;
+  //   height: 0 !important; */
+  //   box-shadow: none !important;
+  //   background: none !important;
+  // }
+  .vc-title {
+    color: black !important;
+    padding: 0 1rem !important;
+    width: 100% !important;
+    font-weight: 900 !important;
+    text-align: center !important;
+    font-size: 16px !important;
+    line-height: initial !important;
+    margin-bottom: 5px !important;
+  }
+
+  .vc-text {
+    color: black !important;
+    padding: 0 1rem !important;
+    width: 100% !important;
+    font-weight: 500 !important;
+    text-align: center !important;
+    font-size: 14px !important;
+    line-height: initial !important;
+  }
+
+/*   .vc-overlay {
+    background: rgba(0, 0, 0, 0.29);
+    width: 100%;
+    height: 100%;
+    transition: all 0.1s ease-in;
+    left: 0;
+    top: 0;
+    z-index: 999999999999;
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: baseline;
+  } */
+
+  .vc-container {
+    background: white;
+    border-radius: 1rem;
+    width: 286px;
+    height: auto;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    box-shadow: rgba(0, 0, 0, 0.29) 0px 3px 8px 0px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .vc-text-grid {
+    padding: 1rem;
+  }
+
+  .vc-btn-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    height: 50px;
+    border-radius: 0 0 1rem 1rem;
+    overflow: hidden;
+  }
+
+  .vc-btn-grid.isMono {
+    grid-template-columns: 1fr;
+  }
+
+  .vc-btn {
+    border-radius: 0 0 1rem 0;
+    color: cornflowerblue;
+    background: white;
+    border: 0;
+    font-size: 1rem;
+    border-top: 1px solid rgb(224, 224, 224);
+    cursor: pointer;
+    font-weight: 700;
+    outline: none;
+  }
+
+  .vc-btn:hover {
+    background: whitesmoke;
+  }
+
+  .vc-btn:disabled {
+    background: whitesmoke;
+  }
+
+  .vc-btn:active {
+    box-shadow: inset 0 2px 0px 0px #00000014;
+  }
+
+  .vc-btn.left {
+    border-radius: 0;
+    /* color: black; */
+    border-right: 1px solid #e0e0e0;
+  }
+
+  .vc-input[type="password"] {
+    width: 100%;
+    outline: none;
+    border-radius: 8px;
+    height: 35px;
+    border: 0;
+    margin: 5px 0;
+    background-color: #ebebeb;
+    padding: 0 0.5rem;
+    font-size: 16px;
+    transition: 0.21s ease;
+  }
+
+  .vc-input[type="password"]:hover,
+  .vc-input[type="password"]:focus {
+    background-color: #dfdfdf;
   }
 </style>

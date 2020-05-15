@@ -15,6 +15,7 @@
         </a>
       </div>
     </div>
+    <div v-if="isActive" class="outside" @click="closeDropdown"></div>
   </div>
 </template>
 <script>
@@ -33,12 +34,23 @@
     },
     methods: {
       emitOption(command) {
+        // debugger
         this.$emit('optionChanged', command)
+      },
+      closeDropdown() {
+        this.isActive = false
       }
     }
   }
 </script>
 <style scoped lang="scss">
+  .outside {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0px;
+    left: 0px;
+  }
   .dropdown-trigger {
     &:hover {
       cursor: pointer;
