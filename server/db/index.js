@@ -11,10 +11,10 @@ require("../models/category");
 require("../models/product-hero");
 require("../models/blog");
 
-// mongoose.set('useFindAndModify', false);
-// mongoose.set('useNewUrlParser', true);
-// mongoose.set('useCreateIndex', true);
-// mongoose.set('useUnifiedTopology', true);
+mongoose.set('useFindAndModify', false);
+mongoose.set('useNewUrlParser', true);
+mongoose.set('useCreateIndex', true);
+mongoose.set('useUnifiedTopology', true);
 
 
 exports.initSessionStore = function() {
@@ -28,8 +28,13 @@ exports.initSessionStore = function() {
   return store;
 }
 
-exports.connect = function() {
-  return mongoose.connect(keys.DB_URI, {useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true})
-    .then(() => console.log('DB Connected!'))
-    .catch(err => console.log(err));
+exports.connect = async function() {
+  try {
+    await mongoose.connect(keys.DB_URI)
+    console.log('DB Connected!')
+
+  } catch(err) {
+    console.log(err.message)
+    process.exit(1)
+  }
 }

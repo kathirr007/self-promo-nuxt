@@ -10,7 +10,7 @@
     </div>
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
       <div class="dropdown-content">
-        <a v-for="(item) in items" :key="item.name" @click.prevent="emitOption(item.command)" class="dropdown-item">
+        <a v-for="(item) in items" :key="item.name" @click.prevent="emitOption($event, item.command)" class="dropdown-item">
           {{item.name}}
         </a>
       </div>
@@ -33,7 +33,9 @@
       }
     },
     methods: {
-      emitOption(command) {
+      emitOption(e, command) {
+        e.preventDefault()
+        e.stopImmediatePropagation()
         // debugger
         this.$emit('optionChanged', command)
       },

@@ -87,9 +87,9 @@
         </div>
       </div>
     </div>
-    <client-only>
+    <!-- <client-only>
       <v-dialog ref="confirmDialog" :pivotY="0.5" />
-    </client-only>
+    </client-only> -->
     <!-- <client-only>
       <modal name="confirm-dialog" @before-open="beforeOpen">
         <div class="vc-container"><span class="vc-text-grid">
@@ -189,9 +189,32 @@
 
         console.log('Cliked on Draft title...')
         console.log(blog)
-        this.activeBlog = blog
+        // this.activeBlog = blog
+
+        let self = this
+        self.$vueConfirm.confirm(
+          {
+            auth: false,
+            message: `Are you sure? <br> You want to delete <strong>${blog.title}</strong>`,
+            button: {
+              no: 'No',
+              yes: 'Yes'
+            }
+          },
+          function(confirm) {
+            if (confirm == true) {
+              // ... do some thing
+              console.log('Dispatching delete...')
+              // debugger
+                self.$store.dispatch('instructor/blog/deleteBlog', blog)
+                  .then(_ => self.$toasted.success(`The Blog <strong style="margin: 0 10px; display: inline-block;"> ${blog.title} </strong> was deleted successfully..`, {duration: 3500}))
+            }
+          }
+        )
+
+
         // this.$modal.show('confirm-dialog', {blog: blog})
-        this.$modal.show('dialog', {
+        /* this.$modal.show('dialog', {
           title: 'Please confirm',
           text: 'Do you want to delete?',
           blog: blog,
@@ -218,7 +241,7 @@
               }
             }
           ]
-        })
+        }) */
       },
       deleteBlog(blog) {
         console.log('Dispatching delete...')
@@ -283,128 +306,5 @@
     .title-menu {
       margin-left: auto;
     }
-  }
-</style>
-
-<style lang="scss">
-  // .vm--modal {
-  //   /* width: 0 !important;
-  //   height: 0 !important; */
-  //   box-shadow: none !important;
-  //   background: none !important;
-  // }
-  .vc-title {
-    color: black !important;
-    padding: 0 1rem !important;
-    width: 100% !important;
-    font-weight: 900 !important;
-    text-align: center !important;
-    font-size: 16px !important;
-    line-height: initial !important;
-    margin-bottom: 5px !important;
-  }
-
-  .vc-text {
-    color: black !important;
-    padding: 0 1rem !important;
-    width: 100% !important;
-    font-weight: 500 !important;
-    text-align: center !important;
-    font-size: 14px !important;
-    line-height: initial !important;
-  }
-
-/*   .vc-overlay {
-    background: rgba(0, 0, 0, 0.29);
-    width: 100%;
-    height: 100%;
-    transition: all 0.1s ease-in;
-    left: 0;
-    top: 0;
-    z-index: 999999999999;
-    position: fixed;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    align-content: baseline;
-  } */
-
-  .vc-container {
-    background: white;
-    border-radius: 1rem;
-    width: 286px;
-    height: auto;
-    display: grid;
-    grid-template-rows: 1fr auto;
-    box-shadow: rgba(0, 0, 0, 0.29) 0px 3px 8px 0px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-  }
-
-  .vc-text-grid {
-    padding: 1rem;
-  }
-
-  .vc-btn-grid {
-    width: 100%;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    height: 50px;
-    border-radius: 0 0 1rem 1rem;
-    overflow: hidden;
-  }
-
-  .vc-btn-grid.isMono {
-    grid-template-columns: 1fr;
-  }
-
-  .vc-btn {
-    border-radius: 0 0 1rem 0;
-    color: cornflowerblue;
-    background: white;
-    border: 0;
-    font-size: 1rem;
-    border-top: 1px solid rgb(224, 224, 224);
-    cursor: pointer;
-    font-weight: 700;
-    outline: none;
-  }
-
-  .vc-btn:hover {
-    background: whitesmoke;
-  }
-
-  .vc-btn:disabled {
-    background: whitesmoke;
-  }
-
-  .vc-btn:active {
-    box-shadow: inset 0 2px 0px 0px #00000014;
-  }
-
-  .vc-btn.left {
-    border-radius: 0;
-    /* color: black; */
-    border-right: 1px solid #e0e0e0;
-  }
-
-  .vc-input[type="password"] {
-    width: 100%;
-    outline: none;
-    border-radius: 8px;
-    height: 35px;
-    border: 0;
-    margin: 5px 0;
-    background-color: #ebebeb;
-    padding: 0 0.5rem;
-    font-size: 16px;
-    transition: 0.21s ease;
-  }
-
-  .vc-input[type="password"]:hover,
-  .vc-input[type="password"]:focus {
-    background-color: #dfdfdf;
   }
 </style>

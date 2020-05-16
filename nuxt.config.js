@@ -66,6 +66,7 @@ module.exports = {
     {src: '~/plugins/paginate', ssr: false},
     {src: '~/plugins/infiniteloading', ssr: false},
     {src: '~/plugins/vueModal', ssr:false},
+    {src: '~/plugins/vueConfirm', ssr:false},
   ],
   /*
   ** Nuxt.js modules

@@ -1,9 +1,6 @@
 <template>
   <div>
     <nuxt />
-    <!-- <client-only>
-      <vue-confirm-dialog></vue-confirm-dialog>
-    </client-only> -->
   </div>
 </template>
 <script>
