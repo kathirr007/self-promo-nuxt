@@ -1,11 +1,12 @@
 export const state = () => ({
   items: [],
   item: {},
-  canUpdateCourse: false
+  canUpdateCategory: false
 })
 
 export const actions = {
   fetchInstructorCategories({commit}) {
+    // debugger
     return this.$axios.$get('/api/v1/categories')
       .then((categories) => {
         commit('setCategories', categories)
@@ -22,43 +23,56 @@ export const actions = {
       .catch(error => Promise.reject(error))
   },
   createCategory(_, categoryData) {
+    // debugger
     return this.$axios.$post('/api/v1/categories/', categoryData)
-      .then(_ => this.$router.push('/instructor/categories'))
+      .then(category => this.$router.push('/instructor/categories'))
   },
-  updateCategory({commit, state}) {
-    const category = state.item
+  createCategory2({commit, state}, categoryData) {
+    // debugger
+    return this.$axios.$post('/api/v1/categories/', categoryData)
+      .then(category => {
+        commit('pushCategory', category)
+        // this.$router.push('/instructor/categories')
+      })
+  },
+  updateCategory({commit, state}, category) {
+    // debugger
+    // const category = state.item
     return this.$axios.$patch(`/api/v1/categories/${category._id}`, category)
       .then(category => {
-        commit('setCategory', category)
-        return state.item
+        // debugger
+        const categoryIndex = state.items.findIndex((b) => b._id === category._id)
+        commit('setCategory', {category, categoryIndex})
+        // return state.item
       })
       .catch(err => Promise.reject(err))
   },
-  deleteCategory({commit, state}) {
-    const category = state.item
+  deleteCategory({commit, state}, category) {
+    // debugger
+    // const category = state.item
     return this.$axios.$delete(`/api/v1/categories/${category._id}`, category)
-      .then(category => {
-        commit('setCategory', category)
-        return state.item
+      .then(_ => {
+        const categoryIndex = state.items.findIndex((b) => b._id === category._id)
+        commit('deleteCategory', {categoryIndex})
+        return true
       })
       .catch(err => Promise.reject(err))
   },
-/*   updateLine({commit}, {index, value, field}) {
-    commit('setLineValue', {index, value, field})
-    commit('setCanUpdateCourse', true)
-  },
-  updateCourseValue({commit}, {value, field}) {
-    commit('setCourseValue', {value, field})
-    commit('setCanUpdateCourse', true)
-  } */
+
 }
 
 export const mutations = {
   setCategories(state, categories) {
     state.items = categories
   },
-  setCategory(state, category) {
+  pushCategory(state, category) {
+    // debugger
+    state.items.push(category)
+  },
+  setCategory(state, {category, categoryIndex}) {
+    // debugger
     state.item = category
+    state.items[categoryIndex] = category
   },
   setCanUpdateCourse(state, canUpdate){
     state.canUpdateCourse = canUpdate
@@ -74,5 +88,8 @@ export const mutations = {
   },
   setCourseValue(state, {value, field}){
     state.item[field] = value
+  },
+  deleteCategory(state, {categoryIndex}) {
+    state.items.splice(categoryIndex, 1)
   }
 }

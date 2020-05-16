@@ -1,7 +1,7 @@
 <template>
   <div class="full-page-takeover-window">
     <div class="full-page-takeover-page">
-      <Header :title="`Step ${activeStep} of ${stepsLength}`" exitLink="/instructor/category" />
+      <Header :title="`Step ${activeStep} of ${stepsLength}`" exitLink="/instructor/categories" />
       <div class="full-page-takeover-header-bottom-progress">
         <div :style="{width: progress}" class="full-page-takeover-header-bottom-progress-highlight">
         </div>
@@ -33,17 +33,17 @@
             </div>
             <div class="full-page-footer-col">
               <div>
-                <button
+                <!-- <button
                   :disabled="!canProceed"
                   v-if="!isLastStep"
                   @click.prevent="_nextStep"
                   class="button float-right"
                 >
                   Continue
-                </button>
-                <button v-else
+                </button> -->
+                <button
                   :disabled="!canProceed"
-                  @click="createCourse"
+                  @click="createCategory"
                   class="button is-success float-right">
                   Confirm
                 </button>
@@ -59,50 +59,47 @@
 <script>
   import Header from '~/components/shared/Header'
   import courseCreateStep1 from '~/components/instructor/courseCreateStep1'
-  import courseCreateStep2 from '~/components/instructor/courseCreateStep2'
+  // import courseCreateStep2 from '~/components/instructor/courseCreateStep2'
   import MultiComponentMixin from '~/mixins/MultiComponentMixin'
   export default {
     layout: 'instructor',
     components: {
       Header,
       courseCreateStep1,
-      courseCreateStep2
+      // courseCreateStep2
     },
     mixins: [MultiComponentMixin],
     data() {
       return {
-        steps: ['courseCreateStep1', 'courseCreateStep2'],
+        steps: ['courseCreateStep1'],
         canProceed: false,
         form: {
           title: '',
-          category: ''
+          // category: ''
         }
       }
     },
     computed: {
     },
-    fetch({store}) {
-      return store.dispatch('category/fetchCategories')
-    },
+    // fetch({store}) {
+    //   return store.dispatch('category/fetchCategories')
+    // },
     methods: {
-      _nextStep() {
-        this.nextStep()
-        this.$nextTick(() => this.canProceed = this.$refs.activeComponent.isValid)
-      },
-      _previousStep() {
-        this.previousStep()
-        this.canProceed = true
-      },
+
       /* mergeFormData(stepData) {
         this.form = {...this.form, ...stepData.data}
         this.canProceed = stepData.isValid
       } */
       mergeFormData({data, isValid}) {
+        // debugger
         this.form = {...this.form, ...data}
         this.canProceed = isValid
       },
-      createCourse() {
-        this.$store.dispatch('instructor/course/createCourse', this.form)
+      createCategory() {
+        // console.log(this.form)
+        // debugger
+        this.$store.dispatch('instructor/category/createCategory', {name: this.form.title})
+        .then(_ => this.$toasted.success(`The category <strong style="margin: 0 10px; display: inline-block;"> ${this.form.title} </strong> has been created successfully..`, {duration: 3500}))
       }
     }
   }

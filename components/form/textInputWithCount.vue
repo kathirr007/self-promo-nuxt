@@ -1,16 +1,21 @@
 <template>
-  <div>
-    <input
-      :maxLength="maxLength"
-      @blur="v.$touch()"
-      type="text"
-      @input="emitInputValue"
-      placeholder="e.g. Amazing Course in Flutter!"
-      class="input is-large"
-    >
-    <span class="icon is-small is-right">
-      {{maxLength - inputLength}}
-    </span>
+  <div class="pos-rel">
+    <template v-if="$route.params.id">
+      <input :maxLength="maxLength" @blur="v.$touch()" type="text" @input="emitInputValue" v-model="category.name"
+        placeholder="e.g. Amazing Course in Flutter!" class="input is-large">
+      <span class="icon is-small is-right">
+        {{maxLength - inputLength}}
+      </span>
+    </template>
+    <!-- <template v-else-if="$route.path.includes('category')">No worries, you can change name later.</template> -->
+    <template v-else>
+      <input :maxLength="maxLength" @blur="v.$touch()" type="text" @input="emitInputValue" @keydown.enter.prevent
+        placeholder="e.g. Amazing Course in Flutter!" class="input is-large">
+      <span class="icon is-small is-right">
+        {{maxLength - inputLength}}
+      </span>
+    </template>
+
   </div>
 </template>
 
@@ -30,6 +35,9 @@
       v: {
         type: Object,
         required: true
+      },
+      category: {
+        type: Object
       }
     },
     computed: {
@@ -49,13 +57,20 @@
     },
     methods: {
       emitInputValue($event) {
+        // debugger
         this.currentValue = $event.target.value
         this.$emit('input', $event.target.value)
-      }
+        this.currentValue = ''
+      },
+
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
+  .pos-rel {
+    position: relative;
+    margin: 0 auto;
+    width: 100%;
+  }
 </style>

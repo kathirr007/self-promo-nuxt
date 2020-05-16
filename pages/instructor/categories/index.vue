@@ -4,7 +4,7 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <nuxt-link
-            to="/instructor/course/create"
+            to="/instructor/category/create"
             class="button is-light">
             New Category
           </nuxt-link>
@@ -20,39 +20,32 @@
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
+            <courseCreateStep1 @stepUpdated="mergeFormData" @fromCategories="createCategory"/>
+            <!-- <div class="field create-category-group has-addons">
+              <div class="control">
+                <input class="input is-large" type="text" placeholder="Find a repository">
+              </div>
+              <div class="control">
+                <a class="button is-success is-large" :disabled="$route.path.includes('categories') && canProceed">
+                  Search
+                </a>
+              </div>
+            </div> -->
             <h1 class="courses-page-title">Available Categories</h1>
             <!-- Iterate Courses -->
-            <div v-for="(course) in courses" :key="course._id" class="tile is-ancestor">
-              <div class="tile is-parent is-12">
-                <!-- Navigate to course manage page -->
-                <nuxt-link :to="`/instructor/course/${course._id}/manage`" class="tile tile-overlay-container is-child box">
-                  <div class="tile-overlay">
-                    <span class="tile-overlay-text">
-                      Update Course
-                    </span>
-                  </div>
-                  <div class="columns">
-                    <div class="column is-narrow">
-                      <figure class="image is-4by2 is-128x128">
-                        <!-- <img :src="'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'"> -->
-                        <img :src="course.image || 'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'">
-                      </figure>
-                    </div>
-                    <div class="column">
-                      <p class="title">{{course.title}}</p>
-                      <p class="subtitle">{{course.subtitle || 'No subtitle provided yet'}}</p>
-                      <span class="tag" :class="courseStatusClass(course.status)">{{course.status}}</span>
-                    </div>
-                    <div class="column is-narrow flex-centered">
-                      <div class="price-title">
-                        {{course.price || 0}} $
-                        <!-- 178.99 $ -->
-                      </div>
-                    </div>
-                  </div>
-                </nuxt-link>
-              </div>
-            </div>
+            <!-- <div class="categories-list list is-hoverable"> -->
+            <transition-group tag="div" name="slideDown" class="categories-list list is-hoverable">
+              <span class="list-item" v-for="(category, i) in categories" :key="category._id">
+                {{i+1}}. {{category.name}}
+                <span class="tags is-pulled-right">
+                  <nuxt-link class="tag is-info" :to="`/instructor/category/${category._id}`" variant="info">Update</nuxt-link>
+                  <!-- <span class="tag is-info">Update</span> -->
+                  <span class="tag is-danger" @click="confirmDelete($event, 'category', category)">Delete</span>
+                </span>
+              </span>
+            </transition-group>
+            <!-- </div> -->
+
           </div>
         </div>
       </div>
@@ -60,33 +53,60 @@
   </div>
 </template>
 <script>
+  import courseCreateStep1 from '~/components/instructor/courseCreateStep1'
   import instructorHeader from '~/components/shared/Header'
+  import confirmDelete from '~/mixins/confirmDelete'
   export default {
     // middleware: 'admin',
     layout: 'instructor',
     components: {
-      instructorHeader
+      instructorHeader,
+      courseCreateStep1
     },
+    mixins: [confirmDelete],
     computed: {
-      courses() {
-        return this.$store.state.instructor.course.items
+      categories() {
+        return this.$store.state.instructor.category.items
       }
     },
+
     async fetch({store}) {
-      await store.dispatch('instructor/course/fetchInstructorCourses')
+      await store.dispatch('instructor/category/fetchInstructorCategories')
+    },
+    data() {
+      return {
+        canProceed: false,
+        form: {
+          title: '',
+          // category: ''
+        }
+      }
     },
     methods: {
-      courseStatusClass(status) {
-        if(!status) return ''
-        if(status === 'published') return 'is-success'
-        if(status === 'active') return 'is-primary'
-        if(status === 'inactive') return 'is-warning'
-        if(status === 'deleted') return 'is-danger'
+
+      mergeFormData({data, isValid}) {
+        // debugger
+        this.form = {...this.form, ...data}
+        this.canProceed = isValid
+      },
+
+      createCategory() {
+        // console.log(this.form)
+        // debugger
+        this.$store.dispatch('instructor/category/createCategory2', {name: this.form.title})
+        .then(category => {
+          // debugger
+          this.$toasted.success(`The category <strong style="margin: 0 10px; display: inline-block;"> ${this.form.title} </strong> has been created successfully..`, {duration: 3500})
+          document.querySelector('.pos-rel input').focus()
+        })
       }
     }
   }
 </script>
 <style scoped lang="scss">
+  .create-category-group {
+    justify-content: center;
+  }
   .tile-image {
     float: left;
   }
@@ -158,8 +178,29 @@
       font-weight: bold;
       padding-bottom: 20px;
     }
+
     .tag {
       text-transform: capitalize;
+    }
+  }
+
+  .categories-list .list-item {
+    .tag {
+      opacity: 0;
+      transform: scale(1, 0);
+      transform-origin: center bottom;
+      // height: 0;
+      cursor: pointer;
+      transition: all .25s ease-in;
+    }
+
+    &:hover {
+      .tag {
+        opacity: 1;
+        text-decoration: none;
+        // height: auto;
+        transform: scale(1, 1);
+      }
     }
   }
 </style>

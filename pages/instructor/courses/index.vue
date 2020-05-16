@@ -25,10 +25,15 @@
             <div v-for="(course) in courses" :key="course._id" class="tile is-ancestor">
               <div class="tile is-parent is-12">
                 <!-- Navigate to course manage page -->
-                <nuxt-link :to="`/instructor/course/${course._id}/manage`" class="tile tile-overlay-container is-child box">
+                <div class="tile tile-overlay-container is-child box">
                   <div class="tile-overlay">
-                    <span class="tile-overlay-text">
-                      Update Course
+                    <nuxt-link :to="`/instructor/course/${course._id}/manage`" class="tile-overlay-text">
+                      <span>
+                        Update Course
+                      </span>
+                    </nuxt-link>
+                    <span @click="confirmDelete($event, 'course', course)" class="tile-overlay-text has-text-danger">
+                        Delete Course
                     </span>
                   </div>
                   <div class="columns">
@@ -50,7 +55,7 @@
                       </div>
                     </div>
                   </div>
-                </nuxt-link>
+                </div>
               </div>
             </div>
           </div>
@@ -61,12 +66,14 @@
 </template>
 <script>
   import instructorHeader from '~/components/shared/Header'
+  import confirmDelete from '~/mixins/confirmDelete'
   export default {
     // middleware: 'admin',
     layout: 'instructor',
     components: {
       instructorHeader
     },
+    mixins: [confirmDelete],
     computed: {
       courses() {
         return this.$store.state.instructor.course.items
@@ -119,7 +126,9 @@
 
     .tile-overlay {
       position: absolute;
-      display: block;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       height: auto;
       bottom: 0;
       width: auto;
@@ -128,13 +137,14 @@
       left: 0;
       z-index: 2;
       cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 
       &-text {
         color: #58529f;
         visibility: hidden;
-        position: absolute;
+        /* position: absolute;
         top: 0;
-        left: 0;
+        left: 0; */
         width: 100%;
         height: 100%;
         font-size: 18px;

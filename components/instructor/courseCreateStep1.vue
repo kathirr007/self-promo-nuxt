@@ -1,14 +1,18 @@
 <template>
   <div class="course-create-wrapper">
     <div class="course-create-headerText">
-      Please choose title of your Course.
+      <template v-if="$route.params.id">Please provide updated name of your Category.</template>
+      <template v-else-if="$route.path.includes('categor')">Please choose name of your Category.</template>
+      <template v-else>Please choose title of your Course.</template>
     </div>
     <h2 class="course-create-subtitle">
-      No worries, you can change title later.
+      <template v-if="$route.params.id">No worries, you can change name later again.</template>
+      <template v-else-if="$route.path.includes('categor')">No worries, you can change name later.</template>
+      <template v-else>No worries, you can change title later.</template>
     </h2>
-    <form @input="emitFormData" class="course-create-form">
+    <form @input="emitFormData" ref="categoryForm" @submit.prevent class="course-create-form">
       <div class="course-create-form-group">
-        <div class="field course-create-form-field control has-icons-right">
+        <div class="field course-create-form-field control has-icons-right has-addons">
           <!-- <input
             @input="emitFormData"
             @blur="$v.form.title.$touch()"
@@ -20,14 +24,19 @@
           > -->
           <text-input-with-count
             @blur="$v.form.title.$touch()"
+            :category="category"
             v-model="form.title"
             :v="$v.form.title"
             :maxLength="50"
+             @keydown.enter.prevent
+            ref="textInputWithCount"
           />
-          <div v-if="$v.form.title.$error" class="form-error">
-            <span v-if="!$v.form.title.required" class="help is-danger">Title is required</span>
-          </div>
+          <button @click.prevent="emitFormData2" :class="$route.path.includes('categories') && isValid ? 'active m-l-md':''" class="create-category control is-large button is-success">Create</button>
+          <!-- <template></template> -->
         </div>
+      </div>
+      <div v-if="$v.form.title.$error" class="form-error">
+        <span v-if="!$v.form.title.required" class="help is-danger">Title is required</span>
       </div>
     </form>
   </div>
@@ -36,6 +45,7 @@
 <script>
   import {required, maxLength} from 'vuelidate/lib/validators'
   import textInputWithCount from '~/components/form/textInputWithCount'
+import { debug } from 'util'
   export default {
     data() {
       return {
@@ -44,6 +54,7 @@
         }
       }
     },
+    props:['category', 'canProceed'],
     components:{
       textInputWithCount
     },
@@ -60,14 +71,46 @@
         return !this.$v.$invalid
       }
     },
+    mounted(){
+      // console.log(this.$route.path)
+    },
     methods: {
       emitFormData() {
+        // debugger
         this.$emit('stepUpdated', {data: this.form, isValid: this.isValid})
-      }
+      },
+      emitFormData2() {
+        // debugger
+        this.$emit('fromCategories', {data: this.form, isValid: this.isValid})
+        this.$v.$reset()
+        this.form.title = ''
+        // this.$refs.textInputWithCount.currentValue = ''
+        // this.$refs.textInputWithCount.$attrs.value = ''
+        this.$refs.categoryForm.reset()
+      },
     }
   }
 </script>
 
 <style lang="scss" scoped>
-
+.create-category {
+  opacity: 0;
+  width: 0;
+  padding: 0;
+  transition: all .3s ease;
+  &.active {
+    opacity: 1;
+    width: auto;
+    padding: 0 1em;
+  }
+}
+.course-create-form {
+  .course-create-form-field {
+    width: 100%;
+  }
+  margin-bottom: 15px;
+  .form-error {
+    text-align: left;
+  }
+}
 </style>

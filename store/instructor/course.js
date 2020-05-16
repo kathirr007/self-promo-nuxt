@@ -34,6 +34,17 @@ export const actions = {
       })
       .catch(err => Promise.reject(err))
   },
+  deleteCourse({commit, state}, course) {
+    // const resource = course.status === 'active' ? 'drafts' : 'published'
+    // debugger
+    return this.$axios.$delete(`/api/v1/products/${course._id}`)
+      .then(_ => {
+        const courseIndex = state.items.findIndex((b) => b._id === course._id)
+        commit('deleteCourse', {courseIndex})
+        return true
+      })
+      .catch(err => Promise.reject(err))
+  },
   updateLine({commit}, {index, value, field}) {
     commit('setLineValue', {index, value, field})
     commit('setCanUpdateCourse', true)
@@ -65,5 +76,8 @@ export const mutations = {
   },
   setCourseValue(state, {value, field}){
     state.item[field] = value
+  },
+  deleteCourse(state, {courseIndex}) {
+    state.items.splice(courseIndex, 1)
   }
 }
