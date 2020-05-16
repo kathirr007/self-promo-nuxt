@@ -134,7 +134,7 @@
     },
     methods: {
       login() {
-        console.log(this.form)
+        // console.log(this.form)
         this.$v.form.$touch()
 
         if(this.isFormValid) {
@@ -162,13 +162,13 @@
           .then(_ => this.$router.push('/login'))
       },
       onSignIn(googleUser) {
-        debugger
+        // debugger
         var profile = googleUser.getBasicProfile();
-        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        /* console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
-        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-        debugger
+        console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present. */
+        // debugger
         // signOut()
       },
       signOut() {
