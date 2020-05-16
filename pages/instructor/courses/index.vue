@@ -94,6 +94,14 @@
   }
 </script>
 <style scoped lang="scss">
+figure {
+  &.image.is-128x128 {
+    @media screen and (max-width: 768px){
+      width: 100%;
+      height: auto;
+    }
+  }
+}
   .tile-image {
     float: left;
   }
@@ -138,6 +146,10 @@
       z-index: 2;
       cursor: pointer;
       transition: all 0.3s cubic-bezier(0.075, 0.82, 0.165, 1);
+      @media screen and (max-width: 768px) {
+        flex-flow: column;
+      }
+
 
       &-text {
         color: #58529f;

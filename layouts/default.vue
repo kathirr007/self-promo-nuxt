@@ -36,6 +36,9 @@ html {
   box-sizing: border-box;
   margin: 0;
 }
+.columns {
+  margin: 0 !important;
+}
 
 .button--green {
   display: inline-block;
