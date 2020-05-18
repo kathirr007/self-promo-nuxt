@@ -17,7 +17,8 @@ export default {
         self.$vueConfirm.confirm(
           {
             auth: false,
-            message: `Are you sure? <br> You want to delete <strong>${arg1.title || arg1.name}</strong>`,
+            title: 'Please Confirm',
+            message: `Are you sure? <br> You want to delete <br><strong>" ${arg1.title || arg1.name} "</strong>`,
             button: {
               no: 'No',
               yes: 'Yes'
