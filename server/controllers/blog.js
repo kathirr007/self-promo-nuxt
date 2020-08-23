@@ -2,6 +2,7 @@ const Blog = require('../models/blog');
 const slugify = require('slugify');
 const request = require('request');
 const AsyncLock = require('async-lock');
+const blog = require('../models/blog');
 const lock = new AsyncLock();
 
 const MEDIUM_URL = "https://medium.com/@filipjerga/latest?format=json&limit=20";
@@ -73,13 +74,23 @@ exports.getBlogBySlug = (req, res) => {
 exports.getBlogById = (req, res) => {
   const blogId = req.params.id;
 
-  Blog.findById(blogId, (errors, foundBlog) => {
+  Blog.findOne({_id:blogId})
+    .populate('author -_id -password -products -email -role')
+    .exec(function(errors, foundBlog) {
     if (errors) {
       return res.status(422).send(errors);
     }
 
     return res.json(foundBlog);
   });
+  /* Blog.findById(blogId, (errors, foundBlog) => {
+    if (errors) {
+      console.log(errors)
+      return res.status(422).send(errors);
+    }
+    console.log(foundBlog)
+    return res.json(foundBlog);
+  }); */
 }
 
 exports.getUserBlogs = (req, res) => {
@@ -103,7 +114,8 @@ exports.updateBlog = (req, res) => {
       return res.status(422).send(errors);
     }
 
-    if (blogData.status && blogData.status === 'published' && !foundBlog.slug) {
+    // if (blogData.status && blogData.status === 'published' && !foundBlog.slug) {
+    if (blogData.status && blogData.status === 'published') {
 
       foundBlog.slug = slugify(foundBlog.title, {
                                   replacement: '-',    // replace spaces with replacement

@@ -21,7 +21,7 @@
                 <article class="message is-success">
                   <div class="message-body">
                     <!-- Get here actual slug -->
-                    <strong>{{getCurrentUrl()}}/blogs/{{slug}}</strong>
+                    <strong>{{getCurrentUrl()}}/experiences/{{slug}}</strong>
                   </div>
                 </article>
               </div>

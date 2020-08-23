@@ -8,10 +8,11 @@
       :promoLink="courseHero.product && courseHero.product.productLink"
     />
     <!-- <hero v-else/> -->
+
     <!-- Hero Section end -->
     <section class="section">
       <div class="container">
-        <h1 class="title">Featured Courses</h1>
+        <h1 class="title">Featured Projects</h1>
         <div class="columns is-multiline">
           <div v-for="course in courses" :key="course._id" class="column is-one-quarter">
             <!-- CARD-ITEM -->
@@ -70,14 +71,14 @@ export default {
   computed: {
     ...mapState({
       courses: state => state.course.items,
-      featuredBlogs: state => state.blogs.items.featured,
+      featuredBlogs: state => state.experiences.items.featured,
       courseHero: state => state.heroes.courseHero || {}
     })
   },
   async fetch({store}) {
     // debugger
     await store.dispatch('course/fetchCourses')
-    await store.dispatch('blogs/fetchFeaturedBlogs', { 'filter[featured]': true })
+    await store.dispatch('experiences/fetchFeaturedBlogs', { 'filter[featured]': true })
   }
 }
 </script>
@@ -95,5 +96,15 @@ export default {
   // Home page
   .links {
     padding-top: 15px;
+  }
+</style>
+<style lang="scss">
+  .toasted {
+    &.toasted-primary {
+      strong {
+        color: #fff !important;
+        font-weight: bold;
+      }
+    }
   }
 </style>

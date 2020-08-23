@@ -1,3 +1,4 @@
+import Vue from 'vue'
 export default {
   data() {
     return {
@@ -13,6 +14,7 @@ export default {
     confirmDelete(e, type, arg1){
       e.preventDefault()
       e.stopImmediatePropagation()
+      // debugger
       let self = this
         self.$vueConfirm.confirm(
           {
@@ -29,10 +31,10 @@ export default {
               console.log('Dispatching delete...')
               // debugger
                 self.$store.dispatch(`instructor/${type}/delete${self.capitalize(type)}`, arg1)
-                  .then(_ => self.$toasted.success(`The ${self.capitalize(type)} <strong style="margin: 0 10px; display: inline-block;"> ${arg1.title || arg1.name} </strong> was deleted successfully..`, {duration: 3500}))
+                  .then(_ => self.$toasted.success(`The ${self.capitalize(type)} <strong style="margin: 0 5px; display: inline-block;"> ${arg1.title || arg1.name} </strong> was deleted successfully..`, {duration: 3500}))
             }
           }
         )
-    }
+    },
   }
 }

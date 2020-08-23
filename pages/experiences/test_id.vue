@@ -1,13 +1,13 @@
 <template>
   <div class="blog-editor-container">
     <div class="container">
-      <div class="blog-section-user">
+      <!-- <div class="blog-section-user">
         <user-tile
           :name="blog.author.name"
           :avatar="blog.author.avatar"
           :date="blog.createdAt | formatDate"
         />
-      </div>
+      </div> -->
       <editor-view :initialContent="blog.content" />
     </div>
   </div>
@@ -29,10 +29,15 @@
     },
     computed: {
       /* ...mapState({
-        blog: state => state.blogs.item
+        blog: state => state.experiences.item
       }), */
       blog() {
-        return this.$store.state.blogs.item
+        return this.$store.state.experiences.item
+      }
+    },
+    data() {
+      return {
+        // blog: null
       }
     },
     components: {
@@ -40,7 +45,8 @@
       EditorView
     },
     async fetch({store, params}) {
-      await store.dispatch('blogs/fetchBlogBySlug', params.slug)
+      // console.log(params)
+      await store.dispatch('experiences/fetchBlogById', params.id)
     },
     transition (to, from) {
       if (!from) { return 'slide-left' }

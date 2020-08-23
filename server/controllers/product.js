@@ -89,12 +89,13 @@ exports.updateProduct = function (req, res) {
       return res.status(422).send(errors);
     }
 
-    if (productData.status && productData.status === 'published' && !product.slug) {
-    product.slug = slugify(product.title, {
-                                replacement: '-',    // replace spaces with replacement
-                                remove: null,        // regex to remove characters
-                                lower: true          // result in lower case
-                              });
+    // if (productData.status && productData.status === 'published' && !product.slug) {
+    if (productData.status && productData.status === 'published') {
+      product.slug = slugify(product.title, {
+        replacement: '-',    // replace spaces with replacement
+        remove: null,        // regex to remove characters
+        lower: true          // result in lower case
+      });
     }
 
     product.set(productData);

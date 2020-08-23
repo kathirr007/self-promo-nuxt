@@ -1,67 +1,74 @@
 <template>
-  <div class="heroes-page">
-    <div class="container">
-      <h1 class="title">Course Heroes</h1>
-      <portal-target
-        v-for="hero in heroes" :key="hero._id"
-        :name="`modal-view-${hero._id}`"
-      />
-      <table class="heroes-table table is-responsive">
-        <thead>
-          <tr class="main-table-row">
-            <th width="45%">Image</th>
-            <th width="25%">Title</th>
-            <th width="25%">Subtitle</th>
-            <th width="5%">Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            v-for="hero in heroes" :key="hero._id"
-            @click="openModal(hero._id)"
-            class="table-row"
-            :class="[activeHero._id === hero._id ? 'isActive' : '']"
-          >
-            <td style="word-break: break-all">{{hero.image || "No image added"}}</td>
-            <td>{{hero.title || "No title set"}}</td>
-            <td>{{hero.subtitle || "Subtitle not set"}}</td>
-            <td>{{activeHero._id === hero._id ? 'Active' : 'Inactive'}}</td>
-            <td class="modal-td" v-show="false">
-              <portal :to="`modal-view-${hero._id}`">
-                <Modal
-                  @submitted="activateHero($event, hero._id)"
-                  :ref="`modal-${hero._id}`"
-                  :showButton="false"
-                  actionTitle="Make Active"
-                  openTitle="Favorite"
-                  title="Make Course Hero"
-                >
-                  <div>
-                    <div class="subtitle">
-                      Title: {{hero.title || "Title is not set"}}
+<div class="instructor-page">
+    <instructorHeader title="Please select your hero image" exitLink="/">
+
+    </instructorHeader>
+    <div class="heroes-page">
+      <div class="container">
+        <h1 class="title">Course Heroes</h1>
+        <portal-target
+          v-for="hero in heroes" :key="hero._id"
+          :name="`modal-view-${hero._id}`"
+        />
+        <table class="heroes-table table is-responsive">
+          <thead>
+            <tr class="main-table-row">
+              <th width="45%">Image</th>
+              <th width="25%">Title</th>
+              <th width="25%">Subtitle</th>
+              <th width="5%">Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              v-for="hero in heroes" :key="hero._id"
+              @click="openModal(hero._id)"
+              class="table-row"
+              :class="[activeHero._id === hero._id ? 'isActive' : '']"
+            >
+              <td style="word-break: break-all">{{hero.image || "No image added"}}</td>
+              <td>{{hero.title || "No title set"}}</td>
+              <td>{{hero.subtitle || "Subtitle not set"}}</td>
+              <td>{{activeHero._id === hero._id ? 'Active' : 'Inactive'}}</td>
+              <td class="modal-td" v-show="false">
+                <portal :to="`modal-view-${hero._id}`">
+                  <Modal
+                    @submitted="activateHero($event, hero._id)"
+                    :ref="`modal-${hero._id}`"
+                    :showButton="false"
+                    actionTitle="Make Active"
+                    openTitle="Favorite"
+                    title="Make Course Hero"
+                  >
+                    <div>
+                      <div class="subtitle">
+                        Title: {{hero.title || "Title is not set"}}
+                      </div>
+                      <div class="subtitle">
+                        Subtitle: {{hero.subtitle || "Subtitle not set"}}
+                      </div>
+                      <figure class="image course-image is-3by1">
+                        <img :src="hero.image">
+                      </figure>
                     </div>
-                    <div class="subtitle">
-                      Subtitle: {{hero.subtitle || "Subtitle not set"}}
-                    </div>
-                    <figure class="image course-image is-3by1">
-                      <img :src="hero.image">
-                    </figure>
-                  </div>
-                </Modal>
-              </portal>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  </Modal>
+                </portal>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
-  </div>
+</div>
 </template>
 <script>
   import Modal from '~/components/shared/Modal'
+  import instructorHeader from '~/components/shared/Header'
   export default {
+    layout: 'instructor',
     middleware: 'admin',
     components: {
-      Modal
+      Modal, instructorHeader
     },
     computed: {
       heroes() {
