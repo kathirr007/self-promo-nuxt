@@ -19,9 +19,9 @@ router.post('',
             AuthCtrl.onlyAdmin,
             ProductCtrl.createProduct)
 router.patch('/:id',
+            upload.array('images', 3),
             AuthCtrl.onlyAuthUser,
             AuthCtrl.onlyAdmin,
-            upload.array('images', 3),
             ProductCtrl.updateProduct)
 router.delete('/:id',
               AuthCtrl.onlyAuthUser,

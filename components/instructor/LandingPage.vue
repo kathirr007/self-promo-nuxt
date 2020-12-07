@@ -49,21 +49,48 @@
                         </figure>
                     </div> -->
                     <div class="column centered p-0">
-                        <div class="control">
+                        <!-- <div class="control">
                             <input :value="course.image" @input="($event) => emitCourseValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
-                        </div>
+                        </div> -->
                         <div class="file has-name is-fullwidth">
                             <label class="file-label">
                                 <!-- <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume"> -->
                                 <b-form-file @change="imagesAdd" @input="($event) => emitCourseValue($event, 'images')" :file-name-formatter="formatNames" ref="imagesInput" multiple id="productPhoto" title=" "></b-form-file>
                             </label>
                         </div>
-                        <div class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                        <div class="notification is-danger is-light my-2">
+                          Note: Uploading new images will replace the existing images
+                        </div>
+                         <!-- Uploaded images -->
+                         <div v-if="uploadedFiles.length !==0" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
+                                <img :src="image.location" class="img-thumbnail multiple-images">
+                            </div>
+                        </div>
+                        <!-- <div v-else-if="course.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2">
+                                <img :src="course.image" class="img-thumbnail single-image">
+                            </div>
+                        </div> -->
+                        <div v-else class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
                               <img :src="prodImage" class="img-thumbnail">
                               <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
                             </div>
                         </div>
+                        <!-- <b-row v-else align-v="center" class="uploaded-files">
+                            <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
+                                <b-img thumbnail fluid :src="prodImage"></b-img>
+                                <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
+                            </div>
+                        </b-row> -->
+                        <!-- Uploaded images end -->
+                        <!-- <div class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
+                              <img :src="prodImage" class="img-thumbnail">
+                              <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -100,23 +127,34 @@ export default {
         CourseEditor,
         BFormFile
     },
+    data() {
+      return {
+        uploadedFiles: []
+      }
+    },
     computed: {
         categories() {
             return this.$store.state.category.items
         }
     },
+    mounted() {
+      this.uploadedFiles = this.course.images
+      // this.mergedFiles.push(...this.uploadedFiles)
+      // this.category = this.course.category != null ? this.course.category._id : ''
+      // this.owner = this.course.owner != null ? this.course.owner._id : ''
+    },
     methods: {
-      formatNames(files=[]) {
-        // this.selectedFile = files[0]
-        if(files.length == 0) {
-          return "No file chosen"
-        }
-        if (files.length === 1) {
-          return files[0].name
-        } else {
-          return `${files.length} files selected`
-        }
-      },
+        formatNames(files = []) {
+          // this.selectedFile = files[0]
+          if (files.length == 0) {
+            return "No file chosen"
+          }
+          if (files.length === 1) {
+            return files[0].name
+          } else {
+            return `${files.length} files selected`
+          }
+        },
         emitCourseValue(e, field) {
             // const value = e.target.value
             const value = e.target ? e.target.value : e
