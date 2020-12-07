@@ -2,8 +2,9 @@
     <div class="card">
         <div class="card-image">
             <figure class="image is-4by2">
-                <img :src="course.image"
+                <img v-if="course.image" :src="course.image"
                     alt="Placeholder image">
+                <img v-else src="https://via.placeholder.com/265x145" alt="Placeholder image">
             </figure>
         </div>
         <div class="card-content">

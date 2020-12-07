@@ -29,6 +29,7 @@ module.exports = {
             { rel: 'icon', type: 'image/x-icon', href: '/kathir-favicon.ico' },
             // { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' }
             // { rel: 'stylesheet', type: 'text/css', href: 'https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css' }
+            // { rel: "stylesheet", type: "text/css", href: "https://use.fontawesome.com/releases/v5.15.1/css/all.css"}
         ],
         script: [
             { src: 'https://kit.fontawesome.com/df4e4a88c4.js', crossorigin: 'anonymous' },
@@ -81,7 +82,7 @@ module.exports = {
         'portal-vue/nuxt',
         '@nuxtjs/style-resources',
         '@nuxtjs/auth',
-        '@nuxtjs/vuetify',
+        // '@nuxtjs/vuetify',
         // 'nuxt-oauth',
     ],
     /* Auth module configurations */

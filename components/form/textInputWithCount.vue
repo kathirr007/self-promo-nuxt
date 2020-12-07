@@ -10,7 +10,7 @@
     <!-- <template v-else-if="$route.path.includes('category')">No worries, you can change name later.</template> -->
     <template v-else>
       <input :maxLength="maxLength" @blur="v.$touch()" type="text" @input="emitInputValue" @keydown.enter.prevent
-        placeholder="e.g. Amazing Course in Flutter!" class="input is-large">
+        placeholder="e.g. Amazing Project using Nuxt.js!" class="input is-large">
       <span class="icon is-small is-right">
         {{maxLength - inputLength}}
       </span>

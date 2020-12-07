@@ -79,8 +79,18 @@ exports.createProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
+  debugger
+  let images = req.body.images.map((file) => {
+      return {
+              location: file.location,
+              size: file.size,
+              originalname: file.originalname,
+            }
+  })
   const productId = req.params.id;
   const productData = req.body;
+  productData.images = req.body.images.length !=0 ? images : []
+
 
   Product.findById(productId)
         .populate('category')

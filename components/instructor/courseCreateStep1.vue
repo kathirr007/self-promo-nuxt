@@ -3,7 +3,7 @@
     <div class="course-create-headerText">
       <template v-if="$route.params.id">Please provide updated name of your Category.</template>
       <template v-else-if="$route.path.includes('categor')">Please choose name of your Category.</template>
-      <template v-else>Please choose title of your Course.</template>
+      <template v-else>Please choose title of your Project.</template>
     </div>
     <h2 class="course-create-subtitle">
       <template v-if="$route.params.id">No worries, you can change name later again.</template>

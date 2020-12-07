@@ -19,7 +19,7 @@
           <div class="section">
             <div class="what-you-get">
               <div class="what-you-get-title">
-                What you will learn
+                Technologies used
               </div>
               <ul class="what-you-get-items">
                 <!-- TODO: Iterate course wsl -->
@@ -34,7 +34,7 @@
             </div>
           </div>
           <div class="section course-description p-t-none">
-            <div class="course-description-title">Course Info</div>
+            <div class="course-description-title">Project Info</div>
             <div class="course-description-details">
               <!-- TODO: use v-html for description -->
               <div v-html="course.description"></div>

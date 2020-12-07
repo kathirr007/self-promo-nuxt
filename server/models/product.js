@@ -6,6 +6,7 @@ const productSchema = new Schema({
   title: { type: String, required: true },
   subtitle: String,
   image: String,
+  images: Array,
   description: String,
   rating: Number,
   // what students learn
