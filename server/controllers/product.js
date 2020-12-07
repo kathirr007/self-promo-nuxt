@@ -109,11 +109,9 @@ exports.updateProduct = function (req, res) {
   if(req.files.length !=0) {
       productData.image = req.files[0].location
       productData.images = images
-  } else {
-    productData.image = ''
-    productData.images = []
   }
-  // productData.images = req.files.length !=0 ? images : []
+  productData.requirements = JSON.parse(productData.requirements)
+  productData.wsl = JSON.parse(productData.wsl)
 
 
   Product.findById(productId)

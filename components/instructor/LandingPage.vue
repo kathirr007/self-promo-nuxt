@@ -28,7 +28,7 @@
               placeholder="Write something catchy about the course"
             >
             </textarea> -->
-                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description" />
+                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description ? course.description :''" />
                 </div>
             </div>
             <div class="field">
@@ -97,13 +97,13 @@
             <div class="field">
                 <label class="label">Course Link</label>
                 <div class="control">
-                    <input :value="course.productLink" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://www.udemy.com/vue-js-2-the-full-guide-by-real-apps-vuex-router-node">
+                    <input :value="course.productLink !== 'undefined' ? course.productLink : ''" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://www.udemy.com/vue-js-2-the-full-guide-by-real-apps-vuex-router-node">
                 </div>
             </div>
             <div class="field">
                 <label class="label">Course Video Link</label>
                 <div class="control">
-                    <input :value="course.promoVideoLink" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://www.youtube.com/watch?v=WQ9sCAhRh1M">
+                    <input :value="course.promoVideoLink !== 'undefined' ? course.promoVideoLink : ''" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://www.youtube.com/watch?v=WQ9sCAhRh1M">
                 </div>
             </div>
         </form>

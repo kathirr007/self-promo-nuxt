@@ -28,28 +28,35 @@ export const actions = {
   updateCourse({commit, state}) {
     const course = state.item
     let data = new FormData()
-    for(let i=0; i<course.images.length; i++) {
-      // debugger
-      data.append('images', course.images[i])
-    }
-    // debugger
+    debugger
+    if (typeof course.images[0]['location'] == "undefined" ) {
+      for(let i=0; i<course.images.length; i++) {
+        // debugger
+        data.append('images', course.images[i])
+      }
+  }
+
     data.append('authorID', course.author)
     data.append('categoryID', course.category)
     data.append('createdAt', course.createdAt)
     data.append('description', course.description)
     data.append('promoVideoLink', course.promoVideoLink)
     data.append('productLink', course.productLink)
-    data.append('requirements', course.requirements)
+    data.append('requirements', JSON.stringify(course.requirements))
     data.append('slug', course.slug)
     data.append('status', course.status)
     data.append('subtitle', course.subtitle)
     data.append('title', course.title)
     data.append('updatedAt', course.updatedAt)
-    data.append('wsl', course.wsl)
+    data.append('wsl', JSON.stringify(course.wsl))
+
+    // course.data = data
+
+    // debugger
 
     return this.$axios.$patch(`/api/v1/products/${course._id}`, data)
       .then(course => {
-        commit('setCourse', data)
+        commit('setCourse', course)
         return state.item
       })
       .catch(err => Promise.reject(err))
