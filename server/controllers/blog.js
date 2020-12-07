@@ -37,7 +37,7 @@ exports.getBlogs = (req, res) => {
       return res.status(422).send(errors);
     }
 
-    Blog.count({status: 'published'})
+    Blog.countDocuments({status: 'published'})
       .then(count => {
         return res.json({blogs: publishedBlogs, count, pageCount: Math.ceil(count / pageSize)});
       });

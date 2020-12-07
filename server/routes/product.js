@@ -21,7 +21,7 @@ router.post('',
 router.patch('/:id',
             AuthCtrl.onlyAuthUser,
             AuthCtrl.onlyAdmin,
-            upload.array('Images', 3),
+            upload.array('images', 3),
             ProductCtrl.updateProduct)
 router.delete('/:id',
               AuthCtrl.onlyAuthUser,
