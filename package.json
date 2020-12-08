@@ -1,0 +1,66 @@
+{
+  "name": "Kathiravan-K-Sr-UI-Developer",
+  "version": "1.0.0",
+  "description": "My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in Photoshop, Dreamweaver, Illustrator, Digital Marketing, HTML5, CSS3, Node.js, Bootstrap/Bootstrap-Vue, JavaScript, jQuery, Ajax, Vue.js, Vuetify.js, Firebase, Git/Github, Gulp.js, MongoDB & SEO",
+  "author": "kathirr007",
+  "private": true,
+  "toDebug": "add --inspect=7000 --inspect-brk  in front of the javascript",
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "heroku-postbuild": "npm run build"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "sourceType": "module"
+    }
+  },
+  "dependencies": {
+    "@nuxtjs/auth": "^4.9.1",
+    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/vuetify": "^1.11.2",
+    "async": "^3.2.0",
+    "async-lock": "^1.2.4",
+    "aws-sdk": "^2.804.0",
+    "bcrypt": "^5.0.0",
+    "body-parser": "^1.19.0",
+    "bootstrap-vue": "^2.20.1",
+    "bulma": "^0.9.1",
+    "connect-mongodb-session": "^2.3.1",
+    "cross-env": "^7.0.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
+    "highlight.js": "^10.0.3",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.25.3",
+    "mongoose": "^5.9.14",
+    "multer": "^1.4.2",
+    "multer-s3": "^2.9.0",
+    "nuxt": "^2.12.2",
+    "nuxt-oauth": "^2.5.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0",
+    "portal-vue": "^2.1.7",
+    "request": "^2.88.2",
+    "sanitize-html": "^1.23.0",
+    "slugify": "^1.4.0",
+    "tiptap": "^1.27.1",
+    "tiptap-extensions": "^1.29.1",
+    "v-tooltip": "^2.0.3",
+    "vue-confirm-dialog-fork": "^1.0.3-b",
+    "vue-infinite-loading": "^2.4.5",
+    "vue-toasted": "^1.1.28",
+    "vuejs-paginate": "^2.1.0",
+    "vuelidate": "^0.7.5"
+  },
+  "devDependencies": {
+    "node-sass": "^4.13.1",
+    "nodemon": "^2.0.2"
+  },
+  "resolutions": {
+    "prosemirror-model": "1.8.2"
+  }
+}
