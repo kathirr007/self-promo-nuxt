@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
-const { upload } = require('../controllers/upload-photo');
+const { deleteImage } = require('../controllers/upload-photo');
 
 exports.getProducts = function (req, res) {
   Product
@@ -110,6 +110,8 @@ exports.updateProduct = function (req, res) {
   if(req.files.length !=0) {
       productData.image = req.files[0].location
       productData.images = images
+  } else {
+    productData.images = JSON.parse(productData.images)
   }
   productData.requirements = JSON.parse(productData.requirements)
   productData.wsl = JSON.parse(productData.wsl)
@@ -161,6 +163,27 @@ exports.deleteProduct = async function (req, res) {
       })
     })
 
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
+
+}
+
+exports.deleteProductImage = async function (req, res) {
+  // const productImageId = req.params.id;
+  // let key = this.uploadedFiles[index].location.split('/').pop()
+  debugger
+  let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${req.params.id}` }
+
+  try {
+    let deletedProductImage = await deleteImage(params)
+    return res.json({
+      status: true,
+      message: 'The Product Image has been deleted Successfully...'
+    })
   } catch (err) {
     res.status(500).json({
       success: false,

@@ -4,9 +4,9 @@
   "description": "My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in Photoshop, Dreamweaver, Illustrator, Digital Marketing, HTML5, CSS3, Node.js, Bootstrap/Bootstrap-Vue, JavaScript, jQuery, Ajax, Vue.js, Vuetify.js, Firebase, Git/Github, Gulp.js, MongoDB & SEO",
   "author": "kathirr007",
   "private": true,
-  "toDebug": "add --inspect=7000 --inspect-brk  in front of the javascript",
+  "toDebug": "add --inspect=7000 --inspect-brk in front of the javascript",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon --inspect=7000 --inspect-brk server/index.js --watch server",
     "build": "nuxt build",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",

@@ -35,12 +35,14 @@ export const actions = {
       lower: true          // result in lower case
     })}`;
     let data = new FormData()
-    // debugger
+    debugger
     if (course.images[0] != undefined && typeof course.images[0]['location'] == "undefined" ) {
         for(let i=0; i<course.images.length; i++) {
           // debugger
           data.append('images', course.images[i])
         }
+    } else {
+      data.append('images', JSON.stringify(course.images))
     }
 
     data.append('authorID', course.author)
@@ -69,6 +71,16 @@ export const actions = {
       })
       .catch(err => Promise.reject(err))
   },
+  deleteCourseImage({commit, state}, params) {
+    // const resource = course.status === 'active' ? 'drafts' : 'published'
+    debugger
+    return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`)
+      .then(_ => {
+        // const courseIndex = state.items.findIndex((b) => b._id === course._id)
+        return true
+      })
+      .catch(err => Promise.reject(err))
+  },
   deleteCourse({commit, state}, course) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
     // debugger
@@ -87,6 +99,13 @@ export const actions = {
   updateCourseValue({commit}, {value, field}) {
     commit('setCourseValue', {value, field})
     commit('setCanUpdateCourse', true)
+  },
+  updateCourseImage({commit}, {index, field}) {
+    commit('removeCourseImage', {index, field})
+    commit('setCanUpdateCourse', true)
+  },
+  updateCanUpdate({commit}) {
+    commit('setCanUpdateCourse', true)
   }
 }
 
@@ -104,6 +123,10 @@ export const mutations = {
     state.item[field].push({value: ''})
   },
   removeLine(state, {field, index}) {
+    state.item[field].splice(index, 1)
+  },
+  removeCourseImage(state, {field, index}) {
+    debugger
     state.item[field].splice(index, 1)
   },
   setLineValue(state, {index, value, field}){

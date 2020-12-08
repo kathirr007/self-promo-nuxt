@@ -65,6 +65,7 @@
                          <div v-if="uploadedFiles.length !==0" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
                                 <img :src="image.location" class="img-thumbnail multiple-images">
+                                <i @click="removeS3Image(index, 'images')" class="delete-img fas fa-times-circle"></i>
                             </div>
                         </div>
                         <!-- <div v-else-if="course.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
@@ -115,6 +116,27 @@
 import CourseEditor from '~/components/editor/CourseEditor'
 import imgUploadMixin from '~/mixins/imgUpload'
 import { BFormFile } from 'bootstrap-vue'
+// import { deleteImage } from '~/server/controllers/upload-photo'
+const keys = require('~/server/keys');
+
+let aws = require('aws-sdk');
+
+aws.config.update({
+    secretAccessKey: keys.AWSSecretKey,
+    accessKeyId: keys.AWSAccessKeyId,
+})
+
+var s3 = new aws.S3();
+// var params = {  Bucket: 'your bucket', Key: 'your object' };
+
+/* const deleteImage = ((params) => {
+  debugger
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack);  // error
+    else     console.log('Image deleted...');                 // deleted
+  });
+}) */
+
 export default {
     props: {
         course: {
@@ -135,7 +157,10 @@ export default {
     computed: {
         categories() {
             return this.$store.state.category.items
-        }
+        },
+/*         uploadedFiles() {
+            return this.$store.state.course.images
+        } */
     },
     mounted() {
       this.uploadedFiles = this.course.images
@@ -154,6 +179,31 @@ export default {
           } else {
             return `${files.length} files selected`
           }
+        },
+        deleteImage(params)  {
+          debugger
+          s3.deleteObject(params, function(err, data) {
+            if (err) console.log(err, err.stack);  // error
+            else     console.log('Image deleted...');                 // deleted
+          });
+        },
+        removeS3Image(index, field) {
+          // this.uploadedFiles.splice(key, 1);
+          const value = this.uploadedFiles
+          let key = this.uploadedFiles[index].location.split('/').pop()
+          let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
+          debugger
+          this.$store.dispatch(`instructor/course/deleteCourseImage`, {key, index})
+                  .then(_ =>
+                    this.$toasted.success(`The Product Image <strong> ${key} </strong> was deleted successfully..`, {duration: 3500}))
+                  .then(_ => {
+                    return this.$emit('courseImageUpdated', {
+                      index,
+                      field
+                    })
+                  })
+          // this.deleteImage(params)
+          // this.$store.dispatch('instructor/course/updateCanUpdate')
         },
         emitCourseValue(e, field) {
             // const value = e.target.value

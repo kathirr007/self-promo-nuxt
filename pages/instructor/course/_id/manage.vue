@@ -106,6 +106,7 @@
                 <component
                   :is="activeComponent"
                   :course="course"
+                  @courseImageUpdated="handleCourseImageUpdate"
                   @courseValueUpdated="handleCourseUpdate"
                 />
                 <!-- <target-students />
@@ -159,6 +160,9 @@
       })
     },
     methods: {
+      handleCourseImageUpdate({index, field}) {
+        this.$store.dispatch('instructor/course/updateCourseImage', {index, field})
+      },
       handleCourseUpdate({value, field}) {
         this.$store.dispatch('instructor/course/updateCourseValue', {field, value})
       },

@@ -22,12 +22,16 @@ router.patch('/:id',
             AuthCtrl.onlyAuthUser,
             AuthCtrl.onlyAdmin,
             // upload.none(),
-            upload.array('images', 3),
+            upload.array('images', 10),
             ProductCtrl.updateProduct)
 router.delete('/:id',
               AuthCtrl.onlyAuthUser,
               AuthCtrl.onlyAdmin,
               ProductCtrl.deleteProduct)
+router.delete('/ProdImage/:id',
+              AuthCtrl.onlyAuthUser,
+              AuthCtrl.onlyAdmin,
+              ProductCtrl.deleteProductImage)
 
 
 module.exports = router;
