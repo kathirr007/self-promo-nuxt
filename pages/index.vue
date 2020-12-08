@@ -99,7 +99,7 @@ export default {
   }
   .slide-left {
     > div {
-      height: 100%;
+      /* height: 100%; */
     }
   }
 </style>
