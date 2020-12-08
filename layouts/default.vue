@@ -11,6 +11,7 @@
   import navbar from '~/components/shared/navbar'
   import AppFooter from '~/components/shared/Footer'
   export default {
+    name: 'default',
     components: {
       navbar, AppFooter
     },

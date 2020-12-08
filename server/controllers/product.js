@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
+const { upload } = require('../controllers/upload-photo');
 
 exports.getProducts = function (req, res) {
   Product

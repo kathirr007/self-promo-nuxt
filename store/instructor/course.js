@@ -1,3 +1,5 @@
+const slugify = require('slugify');
+
 export const state = () => ({
   items: [],
   item: {},
@@ -27,14 +29,19 @@ export const actions = {
   },
   updateCourse({commit, state}) {
     const course = state.item
+    let storageLocation = `projects/${slugify(course.title, {
+      replacement: '-',    // replace spaces with replacement
+      remove: null,        // regex to remove characters
+      lower: true          // result in lower case
+    })}`;
     let data = new FormData()
-    debugger
-    if (typeof course.images[0]['location'] == "undefined" ) {
-      for(let i=0; i<course.images.length; i++) {
-        // debugger
-        data.append('images', course.images[i])
-      }
-  }
+    // debugger
+    if (course.images[0] != undefined && typeof course.images[0]['location'] == "undefined" ) {
+        for(let i=0; i<course.images.length; i++) {
+          // debugger
+          data.append('images', course.images[i])
+        }
+    }
 
     data.append('authorID', course.author)
     data.append('categoryID', course.category)
@@ -43,10 +50,11 @@ export const actions = {
     data.append('promoVideoLink', course.promoVideoLink)
     data.append('productLink', course.productLink)
     data.append('requirements', JSON.stringify(course.requirements))
-    data.append('slug', course.slug)
+    // data.append('slug', course.slug)
     data.append('status', course.status)
     data.append('subtitle', course.subtitle)
     data.append('title', course.title)
+    data.append('storageLocation', storageLocation)
     data.append('updatedAt', course.updatedAt)
     data.append('wsl', JSON.stringify(course.wsl))
 

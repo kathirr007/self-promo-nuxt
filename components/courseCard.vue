@@ -6,31 +6,56 @@
                     alt="Placeholder image">
                 <img v-else src="https://via.placeholder.com/265x145" alt="Placeholder image">
             </figure>
+            <!-- <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider">
+              <template v-slot:preloader>
+                <flux-preloader />
+              </template>
+              <template v-slot:caption>
+                <flux-caption />
+              </template>
+              <template v-slot:controls>
+                <flux-controls />
+              </template>
+              <template v-slot:pagination>
+                <flux-pagination />
+              </template>
+              <template v-slot:index>
+                <flux-index />
+              </template>
+            </vue-flux> -->
         </div>
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
                     <p class="title is-4">{{course.title | shortenText(45)}}</p>
-                    <p class="subtitle is-6"><i>by {{course.author.name}}</i></p>
+                    <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
                 </div>
             </div>
             <div class="content">
                 {{course.subtitle | shortenText(45)}}
                 <br>
             </div>
-            <div class="price-box">
+            <!-- <div class="price-box">
                 <span class="price">{{course.price}}$</span>
                 <span class="disc-price">{{course.discountedPrice}}$</span>
-            </div>
+            </div> -->
         </div>
         <footer class="card-footer">
-            <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item">Learn More</nuxt-link>
-            <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a>
+            <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item">More Details</nuxt-link>
+            <!-- <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a> -->
         </footer>
     </div>
 </template>
 
 <script>
+    import { VueFlux } from 'vue-flux/dist-ssr/vue-flux.umd.min.js';
+
+    // if (process.browser) {
+    //     const { VF } = require('vue-flux');
+    // }
+
+    import 'vue-flux/dist-ssr/vue-flux.css';
+
     export default {
         props: {
             course: {
@@ -38,6 +63,24 @@
                 required: true
             }
         },
+        components: {
+          VueFlux
+        },
+
+        data: () => ({
+          vfOptions: {
+            autoplay: true
+          },
+          // vfImages: ['URL1', 'URL2', 'URL3'],
+          vfTransitions: ['fade', 'cube', 'book', 'wave'],
+        }),
+        computed: {
+          vfImages() {
+            return this.course.images.map(image => {
+              return image.location
+            })
+          }
+        }
     }
 </script>
 

@@ -10,6 +10,7 @@ aws.config.update({
 
 const s3 = new aws.S3()
 // debugger
+
 const upload = multer({
     storage: multerS3({
         s3: s3,
@@ -20,6 +21,7 @@ const upload = multer({
             cb(null, { fieldName: file.fieldname })
         },
         key: (req, file, cb) => {
+            // let temp = JSON.parse(req.body)
             cb(null, `projects/${Date.now().toString()}`)
         }
     })
