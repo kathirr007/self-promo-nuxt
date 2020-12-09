@@ -63,8 +63,9 @@ export const actions = {
     // course.data = data
 
     // debugger
+    const headers = {'storagelocation': storageLocation}
 
-    return this.$axios.$patch(`/api/v1/products/${course._id}`, data)
+    return this.$axios.$patch(`/api/v1/products/${course._id}`, data, {headers: headers})
       .then(course => {
         commit('setCourse', course)
         return state.item
@@ -74,7 +75,7 @@ export const actions = {
   deleteCourseImage({commit, state}, params) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
     debugger
-    return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`)
+    return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`, {headers:{'storagelocation': params.s3Key}})
       .then(_ => {
         // const courseIndex = state.items.findIndex((b) => b._id === course._id)
         return true

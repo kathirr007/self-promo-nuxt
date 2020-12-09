@@ -38,7 +38,7 @@ const upload = multer({
         },
         key: (req, file, cb) => {
             // let temp = JSON.parse(req.body)
-            cb(null, `projects/${Date.now().toString()}`)
+            cb(null, `${req.headers.storagelocation}/${Date.now().toString()}`)
         }
     })
 })

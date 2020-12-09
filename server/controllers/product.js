@@ -176,7 +176,7 @@ exports.deleteProductImage = async function (req, res) {
   // const productImageId = req.params.id;
   // let key = this.uploadedFiles[index].location.split('/').pop()
   debugger
-  let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${req.params.id}` }
+  let params = {  Bucket: 'kathirr007-portfolio', Key: `${req.headers.storagelocation}` }
 
   try {
     let deletedProductImage = await deleteImage(params)

@@ -190,11 +190,13 @@ export default {
         removeS3Image(index, field) {
           // this.uploadedFiles.splice(key, 1);
           const value = this.uploadedFiles
+          // let img2Delete = this.uploadedFiles[index].location.split('/')
           let key = this.uploadedFiles[index].location.split('/').pop()
+          let s3Key = this.uploadedFiles[index].location.split('/').splice(3).join('/')
           let imgName = this.uploadedFiles[index].originalname
-          let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
+          // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
           debugger
-          this.$store.dispatch(`instructor/course/deleteCourseImage`, {key, index})
+          this.$store.dispatch(`instructor/course/deleteCourseImage`, {key, index, s3Key})
                   .then(_ =>
                     this.$toasted.success(`The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`, {duration: 3500}))
                   .then(_ => {

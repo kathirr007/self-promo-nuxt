@@ -1,32 +1,32 @@
 <template>
     <div class="card">
-        <nuxt-link :to="`/projects/${course.slug}`">
-          <div class="card-image">
-              <client-only v-if="vfImages.length > 1">
-                <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider" class="flux-slider">
-                  <!-- <template v-slot:preloader>
-                    <flux-preloader />
-                  </template> -->
-                  <!-- <template v-slot:caption>
-                    <flux-caption />
-                  </template> -->
-                  <template v-slot:controls>
-                    <flux-controls />
-                  </template>
-                  <template v-slot:pagination>
-                    <flux-pagination />
-                  </template>
-                  <!-- <template v-slot:index>
-                    <flux-index />
-                  </template> -->
-                </vue-flux>
-              </client-only>
-              <img v-else-if="vfImages && vfImages.length == 1" :src="course.image" alt="Project Image">
-              <img v-else src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio" alt="Placeholder image">
-              <!-- <figure class="image is-4by2">
-              </figure> -->
-          </div>
-        </nuxt-link>
+        <div class="card-image">
+            <client-only v-if="vfImages.length > 1">
+              <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider" class="flux-slider">
+                <!-- <template v-slot:preloader>
+                  <flux-preloader />
+                </template> -->
+                <!-- <template v-slot:caption>
+                  <flux-caption />
+                </template> -->
+                <template v-slot:controls>
+                  <flux-controls />
+                </template>
+                <template v-slot:pagination>
+                  <flux-pagination />
+                </template>
+                <!-- <template v-slot:index>
+                  <flux-index />
+                </template> -->
+              </vue-flux>
+            </client-only>
+            <img v-else-if="vfImages && vfImages.length == 1" :src="course.image" alt="Project Image">
+            <img v-else src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio" alt="Placeholder image">
+            <!-- <figure class="image is-4by2">
+            </figure> -->
+        </div>
+        <!-- <nuxt-link :to="`/projects/${course.slug}`">
+        </nuxt-link> -->
         <div class="card-content">
             <div class="media">
                 <div class="media-content">
@@ -87,7 +87,7 @@
             autoplay: false
           },
           // vfImages: ['URL1', 'URL2', 'URL3'],
-          vfTransitions: ['fade', 'slide', 'swipe'],
+          vfTransitions: ['slide'],
         }),
         computed: {
           vfImages() {
@@ -113,7 +113,7 @@
     }
 
     &:hover {
-      cursor: pointer;
+      /* cursor: pointer; */
       opacity: 0.9;
     }
   }
