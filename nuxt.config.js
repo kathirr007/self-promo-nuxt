@@ -3,7 +3,7 @@ module.exports = {
         // port: 3100, // default 3000
         port: process.env.PORT || 3600,
     },
-    mode: 'universal',
+    // mode: 'universal',
     /*
     ** Disable Nuxt asking for participation
     */

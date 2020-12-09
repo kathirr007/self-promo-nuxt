@@ -1,5 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
+const { deleteImage } = require('../controllers/upload-photo');
 
 exports.getProducts = function (req, res) {
   Product
@@ -79,17 +80,41 @@ exports.createProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
-  debugger
-  let images = req.body.images.map((file) => {
+  // debugger
+  let images = req.files ? req.files.map((file) => {
       return {
               location: file.location,
               size: file.size,
               originalname: file.originalname,
             }
-  })
+  }) : []
+  // let updateQuery = {
+  //   title: req.body.title,
+  //   subtitle: req.body.subtitle,
+  //   description: req.body.description,
+  //   price: req.body.price,
+  //   productLink: req.body.productLink,
+  //   promoVideoLink: req.body.promoVideoLink,
+  //   createdAt: req.body.createdAt,
+  //   updatedAt: req.body.updatedAt,
+  //   category: req.body.categoryID,
+  //   category: req.body.categoryID,
+  //   author: req.body.authorID,
+  // }
+  // if(req.files.length !=0) {
+  //     updateQuery.image = req.files[0].location
+  //     updateQuery.images = images
+  // }
   const productId = req.params.id;
   const productData = req.body;
-  productData.images = req.body.images.length !=0 ? images : []
+  if(req.files.length !=0) {
+      productData.image = req.files[0].location
+      productData.images = images
+  } else {
+    productData.images = JSON.parse(productData.images)
+  }
+  productData.requirements = JSON.parse(productData.requirements)
+  productData.wsl = JSON.parse(productData.wsl)
 
 
   Product.findById(productId)
@@ -138,6 +163,27 @@ exports.deleteProduct = async function (req, res) {
       })
     })
 
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
+
+}
+
+exports.deleteProductImage = async function (req, res) {
+  // const productImageId = req.params.id;
+  // let key = this.uploadedFiles[index].location.split('/').pop()
+  debugger
+  let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${req.params.id}` }
+
+  try {
+    let deletedProductImage = await deleteImage(params)
+    return res.json({
+      status: true,
+      message: 'The Product Image has been deleted Successfully...'
+    })
   } catch (err) {
     res.status(500).json({
       success: false,

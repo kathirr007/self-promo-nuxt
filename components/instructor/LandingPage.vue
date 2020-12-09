@@ -28,7 +28,7 @@
               placeholder="Write something catchy about the course"
             >
             </textarea> -->
-                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description" />
+                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description ? course.description :''" />
                 </div>
             </div>
             <div class="field">
@@ -49,34 +49,62 @@
                         </figure>
                     </div> -->
                     <div class="column centered p-0">
-                        <div class="control">
+                        <!-- <div class="control">
                             <input :value="course.image" @input="($event) => emitCourseValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
-                        </div>
+                        </div> -->
                         <div class="file has-name is-fullwidth">
                             <label class="file-label">
                                 <!-- <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume"> -->
                                 <b-form-file @change="imagesAdd" @input="($event) => emitCourseValue($event, 'images')" :file-name-formatter="formatNames" ref="imagesInput" multiple id="productPhoto" title=" "></b-form-file>
                             </label>
                         </div>
-                        <div class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                        <div class="notification is-danger is-light my-2">
+                          Note: Uploading new images will replace the existing images
+                        </div>
+                         <!-- Uploaded images -->
+                         <div v-if="uploadedFiles.length !==0" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
+                                <img :src="image.location" class="img-thumbnail multiple-images">
+                                <i @click="removeS3Image(index, 'images')" class="delete-img fas fa-times-circle"></i>
+                            </div>
+                        </div>
+                        <!-- <div v-else-if="course.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2">
+                                <img :src="course.image" class="img-thumbnail single-image">
+                            </div>
+                        </div> -->
+                        <div v-else class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
                               <img :src="prodImage" class="img-thumbnail">
                               <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
                             </div>
                         </div>
+                        <!-- <b-row v-else align-v="center" class="uploaded-files">
+                            <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
+                                <b-img thumbnail fluid :src="prodImage"></b-img>
+                                <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
+                            </div>
+                        </b-row> -->
+                        <!-- Uploaded images end -->
+                        <!-- <div class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                            <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
+                              <img :src="prodImage" class="img-thumbnail">
+                              <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
+                            </div>
+                        </div> -->
                     </div>
                 </div>
             </div>
             <div class="field">
                 <label class="label">Course Link</label>
                 <div class="control">
-                    <input :value="course.productLink" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://www.udemy.com/vue-js-2-the-full-guide-by-real-apps-vuex-router-node">
+                    <input :value="course.productLink !== 'undefined' ? course.productLink : ''" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://www.udemy.com/vue-js-2-the-full-guide-by-real-apps-vuex-router-node">
                 </div>
             </div>
             <div class="field">
                 <label class="label">Course Video Link</label>
                 <div class="control">
-                    <input :value="course.promoVideoLink" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://www.youtube.com/watch?v=WQ9sCAhRh1M">
+                    <input :value="course.promoVideoLink !== 'undefined' ? course.promoVideoLink : ''" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://www.youtube.com/watch?v=WQ9sCAhRh1M">
                 </div>
             </div>
         </form>
@@ -88,6 +116,27 @@
 import CourseEditor from '~/components/editor/CourseEditor'
 import imgUploadMixin from '~/mixins/imgUpload'
 import { BFormFile } from 'bootstrap-vue'
+// import { deleteImage } from '~/server/controllers/upload-photo'
+const keys = require('~/server/keys');
+
+let aws = require('aws-sdk');
+
+aws.config.update({
+    secretAccessKey: keys.AWSSecretKey,
+    accessKeyId: keys.AWSAccessKeyId,
+})
+
+var s3 = new aws.S3();
+// var params = {  Bucket: 'your bucket', Key: 'your object' };
+
+/* const deleteImage = ((params) => {
+  debugger
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack);  // error
+    else     console.log('Image deleted...');                 // deleted
+  });
+}) */
+
 export default {
     props: {
         course: {
@@ -100,23 +149,62 @@ export default {
         CourseEditor,
         BFormFile
     },
+    data() {
+      return {
+        uploadedFiles: []
+      }
+    },
     computed: {
         categories() {
             return this.$store.state.category.items
-        }
+        },
+/*         uploadedFiles() {
+            return this.$store.state.course.images
+        } */
+    },
+    mounted() {
+      this.uploadedFiles = this.course.images
+      // this.mergedFiles.push(...this.uploadedFiles)
+      // this.category = this.course.category != null ? this.course.category._id : ''
+      // this.owner = this.course.owner != null ? this.course.owner._id : ''
     },
     methods: {
-      formatNames(files=[]) {
-        // this.selectedFile = files[0]
-        if(files.length == 0) {
-          return "No file chosen"
-        }
-        if (files.length === 1) {
-          return files[0].name
-        } else {
-          return `${files.length} files selected`
-        }
-      },
+        formatNames(files = []) {
+          // this.selectedFile = files[0]
+          if (files.length == 0) {
+            return "No file chosen"
+          }
+          if (files.length === 1) {
+            return files[0].name
+          } else {
+            return `${files.length} files selected`
+          }
+        },
+        deleteImage(params)  {
+          debugger
+          s3.deleteObject(params, function(err, data) {
+            if (err) console.log(err, err.stack);  // error
+            else     console.log('Image deleted...');                 // deleted
+          });
+        },
+        removeS3Image(index, field) {
+          // this.uploadedFiles.splice(key, 1);
+          const value = this.uploadedFiles
+          let key = this.uploadedFiles[index].location.split('/').pop()
+          let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
+          debugger
+          this.$store.dispatch(`instructor/course/deleteCourseImage`, {key, index})
+                  .then(_ =>
+                    this.$toasted.success(`The Product Image <strong> ${key} </strong> was deleted successfully..`, {duration: 3500}))
+                  .then(_ => {
+                    return this.$emit('courseImageUpdated', {
+                      index,
+                      field
+                    })
+                  })
+          // this.deleteImage(params)
+          // this.$store.dispatch('instructor/course/updateCanUpdate')
+        },
         emitCourseValue(e, field) {
             // const value = e.target.value
             const value = e.target ? e.target.value : e

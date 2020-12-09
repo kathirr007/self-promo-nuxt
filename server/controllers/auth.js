@@ -12,7 +12,7 @@ exports.onlyAuthUser = function (req, res, next) {
 
 exports.onlyAdmin = function (req, res, next) {
   const user = req.user;
-
+  // debugger
   if (user && user['role'] === 'admin') {
     return next()
   }

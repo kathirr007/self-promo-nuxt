@@ -9,18 +9,36 @@ aws.config.update({
 })
 
 const s3 = new aws.S3()
+// debugger
+
+/* var AWS = require('aws-sdk');
+
+AWS.config.loadFromPath('./credentials-ehl.json');
+
+var s3 = new AWS.S3();
+var params = {  Bucket: 'your bucket', Key: 'your object' };
+ */
+const deleteImage = ((params) => {
+  debugger
+  s3.deleteObject(params, function(err, data) {
+    if (err) console.log(err, err.stack);  // error
+    else     console.log('Image deleted...');                 // deleted
+  });
+})
+
 
 const upload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'vue-amazon-clone-v1',
+        bucket: 'kathirr007-portfolio',
         acl: 'public-read',
         contentType: multerS3.AUTO_CONTENT_TYPE,
         metadata: (req, file, cb) => {
             cb(null, { fieldName: file.fieldname })
         },
         key: (req, file, cb) => {
-            cb(null, `portfolio/${Date.now().toString()}`)
+            // let temp = JSON.parse(req.body)
+            cb(null, `projects/${Date.now().toString()}`)
         }
     })
 })
@@ -28,16 +46,16 @@ const upload = multer({
 const multiUpload = multer({
     storage: multerS3({
         s3: s3,
-        bucket: 'vue-amazon-clone-v1',
+        bucket: 'kathirr007-portfolio',
         acl: 'public-read',
         contentType: multerS3.AUTO_CONTENT_TYPE,
         metadata: (req, file, cb) => {
             cb(null, {fieldName: file.fieldname})
         },
         key: (req, file, cb) => {
-            cb(null, `portfolio/${Date.now().toString()}`)
+            cb(null, `projects/${Date.now().toString()}`)
         }
     })
 })
 
-module.exports = {upload, multiUpload}
+module.exports = {upload, multiUpload, deleteImage}
