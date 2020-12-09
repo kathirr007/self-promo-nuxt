@@ -1,24 +1,28 @@
 <template>
 <div class="card manage-card">
     <header class="card-header card-section">
-        <p class="card-header-title">Course Landing Page</p>
+        <p class="card-header-title">Project Landing Page</p>
     </header>
     <div class="card-content card-section">
         <form>
             <div class="field">
-                <label class="label">Course title</label>
+                <label class="label">Project title</label>
                 <div class="control">
-                    <input :value="course.title" @input="($event) => emitCourseValue($event, 'title')" class="input" type="text" placeholder="Dart and Flutter From Zero to Hero ">
+                    <input :value="course.title" @input="($event) => emitCourseValue($event, 'title')" class="input" type="text" placeholder="Amazing Project Title">
+                    <div v-if="$v.title.$error" class="form-error">
+                    <span v-if="!$v.title.required" class="help is-danger">Title is required</span>
+                    <span v-if="!$v.title.minLength" class="help is-danger">Title should be minimum 10 characters</span>
+                  </div>
                 </div>
             </div>
             <div class="field">
-                <label class="label">Course subtitle</label>
+                <label class="label">Project subtitle</label>
                 <div class="control">
-                    <input :value="course.subtitle" @input="($event) => emitCourseValue($event, 'subtitle')" class="input " type="text" placeholder="Build real mobile Application for Android and iOS.">
+                    <input :value="course.subtitle" @input="($event) => emitCourseValue($event, 'subtitle')" class="input " type="text" placeholder="Awesome Project Subtitle">
                 </div>
             </div>
             <div class="field">
-                <label class="label">Course description</label>
+                <label class="label">Project description</label>
                 <div class="control">
                     <!-- <textarea
               :value="course.description"
@@ -41,7 +45,7 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Course Image</label>
+                <label class="label">Project Image</label>
                 <div class="columns">
                     <!-- <div class="column">
                         <figure class="image is-4by2">
@@ -96,15 +100,15 @@
                 </div>
             </div>
             <div class="field">
-                <label class="label">Course Link</label>
+                <label class="label">Project Link</label>
                 <div class="control">
-                    <input :value="course.productLink !== 'undefined' ? course.productLink : ''" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://www.udemy.com/vue-js-2-the-full-guide-by-real-apps-vuex-router-node">
+                    <input :value="course.productLink !== 'undefined' ? course.productLink : ''" @input="($event) => emitCourseValue($event, 'productLink')" class="input " type="text" placeholder="https://kathirr007-portfolio.herokuapp.com/">
                 </div>
             </div>
             <div class="field">
-                <label class="label">Course Video Link</label>
+                <label class="label">Project Repository Link</label>
                 <div class="control">
-                    <input :value="course.promoVideoLink !== 'undefined' ? course.promoVideoLink : ''" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://www.youtube.com/watch?v=WQ9sCAhRh1M">
+                    <input :value="course.promoVideoLink !== 'undefined' ? course.promoVideoLink : ''" @input="($event) => emitCourseValue($event, 'promoVideoLink')" class="input " type="text" placeholder="https://kathirr007-portfolio.herokuapp.com/">
                 </div>
             </div>
         </form>
@@ -116,26 +120,7 @@
 import CourseEditor from '~/components/editor/CourseEditor'
 import imgUploadMixin from '~/mixins/imgUpload'
 import { BFormFile } from 'bootstrap-vue'
-// import { deleteImage } from '~/server/controllers/upload-photo'
-const keys = require('~/server/keys');
-
-let aws = require('aws-sdk');
-
-aws.config.update({
-    secretAccessKey: keys.AWSSecretKey,
-    accessKeyId: keys.AWSAccessKeyId,
-})
-
-var s3 = new aws.S3();
-// var params = {  Bucket: 'your bucket', Key: 'your object' };
-
-/* const deleteImage = ((params) => {
-  debugger
-  s3.deleteObject(params, function(err, data) {
-    if (err) console.log(err, err.stack);  // error
-    else     console.log('Image deleted...');                 // deleted
-  });
-}) */
+import { required, minLength } from 'vuelidate/lib/validators'
 
 export default {
     props: {
@@ -151,16 +136,20 @@ export default {
     },
     data() {
       return {
-        uploadedFiles: []
+        uploadedFiles: [],
+        title: ''
       }
+    },
+    validations: {
+      title: {
+        required,
+        minLength: minLength(10)
+      },
     },
     computed: {
         categories() {
             return this.$store.state.category.items
-        },
-/*         uploadedFiles() {
-            return this.$store.state.course.images
-        } */
+        }
     },
     mounted() {
       this.uploadedFiles = this.course.images
@@ -211,6 +200,12 @@ export default {
         emitCourseValue(e, field) {
             // const value = e.target.value
             const value = e.target ? e.target.value : e
+            // debugger
+            if (field === 'title') {
+              this.title = value
+              this.$v.title.$touch()
+            }
+
 
             if (field === 'category') {
                 return this.emitCategory(value, field)

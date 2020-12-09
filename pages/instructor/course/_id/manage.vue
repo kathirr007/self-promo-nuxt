@@ -4,7 +4,7 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
-            :disabled="!canUpdateCourse"
+            :disabled="!canUpdateCourse || !isFormValid"
             @click="updateCourse"
             class="button is-primary is-inverted  is-outlined"
           >
@@ -66,33 +66,33 @@
             <!-- <aside class="menu is-hidden-mobile"> -->
             <aside class="menu">
               <p class="menu-label">
-                Course Editing
+                Project Editing
               </p>
               <ul class="menu-list">
                 <li>
                   <!-- display TargetStudents -->
-                  <a @click.prevent="navigateTo(1)" :class="activeComponentClass(1)">Target Your Students
+                  <a @click.prevent="navigateTo(1)" :class="activeComponentClass(1)">Target Technologies
                   </a>
                 </li>
                 <li>
                   <!-- display LandingPage -->
                   <a @click.prevent="navigateTo(2)"  :class="activeComponentClass(2)">
-                    Course Landing Page
+                    Project Landing Page
                   </a>
                 </li>
               </ul>
               <p class="menu-label">
-                Course Managment
+                Project Managment
               </p>
               <ul class="menu-list">
-                <li>
-                  <!-- display Price -->
+                <!-- display Price -->
+                <!-- <li>
                   <a @click.prevent="navigateTo(3)"  :class="activeComponentClass(3)">
                     Price
                   </a>
-                </li>
+                </li> -->
+                <!-- display Status -->
                 <li>
-                  <!-- display Status -->
                   <a @click.prevent="navigateTo(4)"  :class="activeComponentClass(4)">
                     Status
                   </a>
@@ -132,6 +132,8 @@
   import Status from '~/components/instructor/Status'
   import MultiComponentMixin from '~/mixins/MultiComponentMixin'
   import { mapState } from 'vuex'
+  import { required, email, minLength } from 'vuelidate/lib/validators'
+
   export default {
     layout: 'instructor',
     components: {
@@ -146,7 +148,8 @@
     data() {
       return {
         steps: ['TargetStudents', 'LandingPage', 'Price', 'Status'],
-        courseHero: {}
+        courseHero: {},
+        isFormValid: false
       }
     },
     async fetch({store, params}) {
@@ -157,7 +160,7 @@
       ...mapState({
         course: (state) => state.instructor.course.item,
         canUpdateCourse: (state) => state.instructor.course.canUpdateCourse,
-      })
+      }),
     },
     methods: {
       handleCourseImageUpdate({index, field}) {

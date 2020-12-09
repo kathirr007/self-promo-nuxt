@@ -6,15 +6,15 @@
         </figure>
     </div>
     <div class="card-content">
-        <div class="content m-b-sm">
+        <!-- <div class="content m-b-sm">
             <div class="media-content">
                 <span class="title is-2 main-price">${{price}}</span>
                 <span class="title is-2">${{discountedPrice ? discountedPrice : ''}}</span>
             </div>
-        </div>
-        <a :href="navigateTo" target="_" class="button is-fullwidth is-large is-danger is-outlined m-b-sm">
+        </div> -->
+        <!-- <a :href="navigateTo" target="_" class="button is-fullwidth is-large is-danger is-outlined m-b-sm">
             Enroll on Udemy
-        </a>
+        </a> -->
         <div class="field has-addons is-justify-content-center">
             <p class="control">
                 <a target="_" href="http://impss.in/index.html" class="button is-danger is-outlined">
@@ -33,14 +33,14 @@
                 </a>
             </p>
         </div>
-        <div class="content">
+        <!-- <div class="content">
             <div class="m-b-none course-features">Course Requirements</div>
             <ul class="m-t-none">
                 <li v-for="req in requirements" :key="req.value">
                     {{req.value}}
                 </li>
             </ul>
-        </div>
+        </div> -->
     </div>
 </div>
 </template>

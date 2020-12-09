@@ -6,10 +6,7 @@
       :author="course.author"
     >
       <product-hero-card
-        :price="course.price"
-        :discountedPrice="course.discountedPrice"
         :navigateTo="course.productLink"
-        :requirements="course.requirements"
         :image="course.image"
       />
     </product-hero>

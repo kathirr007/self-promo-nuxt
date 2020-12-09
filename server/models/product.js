@@ -15,6 +15,7 @@ const productSchema = new Schema({
   requirements: [{type: Schema.Types.Mixed, value: String}],
   promoVideoLink: String,
   productLink: String,
+  // githubLink: String,
   price: Number,
   discountedPrice: Number,
   status: {

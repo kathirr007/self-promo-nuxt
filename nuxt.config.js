@@ -72,6 +72,7 @@ module.exports = {
         { src: '~/plugins/infiniteloading', ssr: false },
         // {src: '~/plugins/vueModal', ssr:false},
         { src: '~/plugins/vueConfirm', ssr: false },
+        { src: '~/plugins/vuePictureSwipe', ssr: false },
     ],
     /*
      ** Nuxt.js modules

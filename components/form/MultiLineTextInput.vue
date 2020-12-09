@@ -24,7 +24,7 @@
     </div>
     <!-- Add the Line -->
     <button @click="emitAdd" type="button" class="m-b-sm button is-link is-outlined">
-      Add an answer
+      {{addBtn}}
     </button>
   </div>
 </template>
@@ -39,6 +39,10 @@ export default {
     lines: {
       type: Array,
       required: true
+    },
+    addBtn: {
+      type: String,
+      default: 'Add'
     }
   },
   computed: {

@@ -7,18 +7,19 @@
       <form>
         <multi-line-text-input
           :lines="course.wsl"
+          :addBtn="'Add Technology'"
           @valueUpdated="updateLine($event, 'wsl')"
           @addClicked="addLine('wsl')"
           @removeClicked="removeLine($event, 'wsl')"
-          label="What will students learn"
+          label="What Technologies used"
         />
-        <multi-line-text-input
+        <!-- <multi-line-text-input
           :lines="course.requirements"
           @valueUpdated="updateLine($event, 'requirements')"
           @addClicked="addLine('requirements')"
           @removeClicked="removeLine($event, 'requirements')"
           label="What are the requirements"
-        />
+        /> -->
       </form>
     </div>
   </div>

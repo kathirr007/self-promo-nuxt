@@ -1,6 +1,9 @@
 <template>
     <div class="card">
         <div class="card-image">
+            <!-- <client-only>
+              <vue-picture-swipe :items="vpsImages" />
+            </client-only> -->
             <client-only v-if="vfImages.length > 1">
               <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider" class="flux-slider">
                 <!-- <template v-slot:preloader>
@@ -60,6 +63,8 @@
       FluxPreloader,
     } from 'vue-flux/dist-ssr/vue-flux.umd.min.js';
 
+    // import VuePictureSwipe from 'vue-picture-swipe';
+
     import 'vue-flux/dist-ssr/vue-flux.css';
 
     // if (process.browser) {
@@ -80,6 +85,7 @@
           FluxControls,
           FluxPagination,
           // FluxPreloader,
+          // VuePictureSwipe
         },
 
         data: () => ({
@@ -94,7 +100,15 @@
             return this.course.images.map(image => {
               return image.location
             })
-          }
+          },
+/*           vpsImages() {
+            return this.course.images.map(image => ({
+              src: image.location,
+              thumbnail: image.location,
+              w: '100',
+              h: '100'
+            }))
+          } */
         }
     }
 </script>
