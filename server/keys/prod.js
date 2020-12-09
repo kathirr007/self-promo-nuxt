@@ -1,6 +1,8 @@
 module.exports = {
   DB_URI: process.env.DB_URI,
-  SESSION_SECRET: process.env.SESSION_SECRET
+  SESSION_SECRET: process.env.SESSION_SECRET,
+  AWSAccessKeyId: process.env.AWSAccessKeyId,
+  AWSSecretKey: process.env.AWSSecretKey
 }
 
 /* module.exports = {
