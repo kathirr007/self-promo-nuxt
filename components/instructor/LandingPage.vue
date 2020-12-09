@@ -191,11 +191,12 @@ export default {
           // this.uploadedFiles.splice(key, 1);
           const value = this.uploadedFiles
           let key = this.uploadedFiles[index].location.split('/').pop()
+          let imgName = this.uploadedFiles[index].originalname
           let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
           debugger
           this.$store.dispatch(`instructor/course/deleteCourseImage`, {key, index})
                   .then(_ =>
-                    this.$toasted.success(`The Product Image <strong> ${key} </strong> was deleted successfully..`, {duration: 3500}))
+                    this.$toasted.success(`The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`, {duration: 3500}))
                   .then(_ => {
                     return this.$emit('courseImageUpdated', {
                       index,

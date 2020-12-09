@@ -21,7 +21,6 @@
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@nuxtjs/vuetify": "^1.11.2",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
     "aws-sdk": "^2.804.0",
@@ -47,6 +46,7 @@
     "portal-vue": "^2.1.7",
     "request": "^2.88.2",
     "sanitize-html": "^1.23.0",
+    "sass-loader": "^10.1.0",
     "slugify": "^1.4.0",
     "tiptap": "^1.27.1",
     "tiptap-extensions": "^1.29.1",
@@ -59,7 +59,7 @@
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
-    "node-sass": "^4.13.1",
+    "node-sass": "^5.0.0",
     "nodemon": "^2.0.2"
   },
   "resolutions": {
