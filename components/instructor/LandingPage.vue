@@ -11,7 +11,7 @@
                     <input :value="course.title" @input="($event) => emitCourseValue($event, 'title', title)" class="input" type="text" placeholder="Amazing Project Title">
                     <div v-if="$v.title.$error" class="form-error">
                       <span v-if="!$v.title.required" class="help is-danger">Title is required</span>
-                      <span v-if="!$v.title.minLength" class="help is-danger">Title should be minimum {{$v.title.minLength}} characters</span>
+                      <span v-if="!$v.title.minLength" class="help is-danger">Title should be minimum {{$v.title.$params.minLength.min}} characters</span>
                     </div>
                 </div>
             </div>
@@ -66,7 +66,7 @@
                           Note: Uploading new images will replace the existing images
                         </div>
                          <!-- Uploaded images -->
-                         <div v-if="uploadedFiles.length !==0" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                         <div v-if="uploadedFiles.length !== 0 && images.length === undefined" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
                                 <img :src="image.location" class="img-thumbnail multiple-images">
                                 <i @click="removeS3Image(index, 'images')" class="delete-img fas fa-times-circle"></i>
@@ -154,7 +154,11 @@ export default {
         }
     },
     mounted() {
-      this.uploadedFiles = this.course.images
+      if (this.course.images[0] != undefined && typeof this.course.images[0]['location'] !== "undefined" ) {
+        this.uploadedFiles = this.course.images
+      } else {
+        this.uploadedFiles = []
+      }
       // this.mergedFiles.push(...this.uploadedFiles)
       // this.category = this.course.category != null ? this.course.category._id : ''
       // this.owner = this.course.owner != null ? this.course.owner._id : ''
@@ -203,6 +207,7 @@ export default {
         emitCourseValue(e, field, title='') {
             // const value = e.target.value
             const value = e.target ? e.target.value : e
+            let oldValue = []
             // debugger
             if (field === 'title') {
               // this.title = value
@@ -219,6 +224,11 @@ export default {
             if (field === 'category') {
                 return this.emitCategory(value, field)
             }
+
+            if (field === 'images') {
+                oldValue = this.uploadedFiles
+                return this.emitImages(oldValue, value, field)
+            }
             // debugger
             return this.$emit('courseValueUpdated', {
                 value,
@@ -230,6 +240,13 @@ export default {
             const foundCategory = this.categories.find(c => c._id === categoryId)
             this.$emit('courseValueUpdated', {
                 value: foundCategory,
+                field
+            })
+        },
+        emitImages(oldValue, value, field) {
+            this.$emit('courseImagesUpdated', {
+                oldValue,
+                value,
                 field
             })
         }

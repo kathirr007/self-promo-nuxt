@@ -47,14 +47,18 @@ export const actions = {
     })}`;
     storageLocationNew === storageLocationOld ? storageLocationOld : storageLocationOld = storageLocationNew */
     let data = new FormData()
-
+    let uploadedFiles = null
+    let deleteFiles = false
     if (course.images[0] != undefined && typeof course.images[0]['location'] == "undefined" ) {
         for(let i=0; i<course.images.length; i++) {
           // debugger
           data.append('images', course.images[i])
+          uploadedFiles = JSON.stringify(course.images)
+          deleteFiles = true
         }
     } else {
-      data.append('images', JSON.stringify(course.images))
+      uploadedFiles = JSON.stringify(course.images)
+      data.append('images', uploadedFiles)
     }
 
     data.append('authorID', course.author)
@@ -68,14 +72,15 @@ export const actions = {
     data.append('status', course.status)
     data.append('subtitle', course.subtitle)
     data.append('title', course.title)
-    // data.append('storageLocation', storageLocation)
+    data.append('storageLocation', course.storageLocation)
+    data.append('storageLocationNew', course.storageLocationNew)
     data.append('updatedAt', course.updatedAt)
     data.append('wsl', JSON.stringify(course.wsl))
 
     // course.data = data
 
     // debugger
-    const headers = {'storagelocation': course.storageLocation, 'storagelocationnew': course.storagelocationNew}
+    const headers = {'storagelocation': course.storageLocation, 'storagelocationnew': course.storageLocationNew, 'uploadedfiles': uploadedFiles, 'deletefiles': deleteFiles}
 
     return this.$axios.$patch(`/api/v1/products/${course._id}`, data, {headers: headers})
       .then(course => {
@@ -90,6 +95,7 @@ export const actions = {
     return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`, {headers:{'storagelocation': params.s3Key}})
       .then(_ => {
         // const courseIndex = state.items.findIndex((b) => b._id === course._id)
+        commit('setCanUpdateCourse', true)
         return true
       })
       .catch(err => Promise.reject(err))
@@ -165,10 +171,10 @@ export const mutations = {
         remove: null,        // regex to remove characters
         lower: true          // result in lower case
       })}`;
-      state.item['storageLocationNew'] = storageLocationNew
-      /* if (storageLocationNew !== state.item['storageLocation']) {
+      if (storageLocationNew !== state.item['storageLocation']) {
         state.item['storageLocation'] = storageLocationNew
-      } */
+        state.item['storageLocationNew'] = storageLocationNew
+      }
     }
     state.item[field] = value
   },

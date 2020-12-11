@@ -10,7 +10,7 @@ export default {
   },
   methods: {
     imagesAdd(e) {
-      this.uploadedFiles = []
+      // this.uploadedFiles = []
       if(this.product) {
         this.product.photo = ''
       }
@@ -56,6 +56,7 @@ export default {
         // debugger
         this.$refs.imagesInput.setFiles([])
       }
+      this.$store.dispatch('updateCanUpdate')
     },
   }
 }

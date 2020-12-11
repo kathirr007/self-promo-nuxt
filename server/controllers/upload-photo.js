@@ -26,13 +26,27 @@ const deleteImage = ((params) => {
   });
 })
 
-const deleteImages = ((params) => {
+const deleteImages = (() => {
   debugger
+  return (req, res, next) => {
+    const objects = req.headers.uploadedfiles !== 'null' ? JSON.parse(req.headers.uploadedfiles).map(key => ({ Key: key.location.split('/').splice(3).join('/') })) : [];
+    const newLocation = req.headers.storagelocationnew === 'null' ? false : req.headers.storagelocationnew !== req.headers.storagelocation ? true : false
+    if(newLocation) {
+      console.log('newlocation requested...')
+      if(req.headers.deletefiles !== 'false') {
+        s3.deleteObjects({Bucket: 'kathirr007-portfolio', Delete: { Objects: objects }}, function(err, data) {
+          if (err) console.log(err, err.stack); // error
+          else  console.log('Images deleted...'); // deleted
+        });
+        next()
+      } else {
+        next()
+      }
+    } else {
+      next()
+    }
+  }
   // const objects = params.keys.map(key => ({ Key: key }));
-  s3.deleteObjects(params, function(err, data) {
-    if (err) console.log(err, err.stack);  // error
-    else     console.log('Images deleted...');                 // deleted
-  });
 })
 
 const uploadImages = ((params) => {
@@ -71,4 +85,4 @@ const multiUpload = multer({
     })
 })
 
-module.exports = {upload, multiUpload, deleteImage}
+module.exports = {upload, multiUpload, deleteImage, deleteImages}

@@ -107,6 +107,7 @@
                   :is="activeComponent"
                   :course="course"
                   @courseImageUpdated="handleCourseImageUpdate"
+                  @courseImagesUpdated="handleCourseImagesUpdate"
                   @courseValueUpdated="handleCourseUpdate"
                 />
                 <!-- <target-students />
@@ -167,6 +168,10 @@
     },
     methods: {
       handleCourseImageUpdate({index, field, formValid}) {
+        this.isFormValid = formValid
+        this.$store.dispatch('instructor/course/updateCourseImage', {index, field, formValid})
+      },
+      handleCourseImagesUpdate({oldValue, value, field}) {
         this.isFormValid = formValid
         this.$store.dispatch('instructor/course/updateCourseImage', {index, field, formValid})
       },

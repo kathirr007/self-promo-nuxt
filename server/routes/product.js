@@ -3,7 +3,7 @@ const router = express.Router();
 
 const AuthCtrl = require('../controllers/auth');
 const ProductCtrl = require('../controllers/product');
-const { upload } = require('../controllers/upload-photo');
+const { deleteImages, upload } = require('../controllers/upload-photo');
 
 router.get('', ProductCtrl.getProducts);
 
@@ -22,6 +22,7 @@ router.patch('/:id',
             AuthCtrl.onlyAuthUser,
             AuthCtrl.onlyAdmin,
             // upload.none(),
+            deleteImages(),
             upload.array('images', 10),
             ProductCtrl.updateProduct)
 router.delete('/:id',
