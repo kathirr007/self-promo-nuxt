@@ -7,6 +7,7 @@ const productSchema = new Schema({
   subtitle: String,
   image: String,
   storageLocation: String,
+  storageLocationNew: {type: String, default: null},
   images: Array,
   description: String,
   rating: Number,

@@ -26,7 +26,20 @@ const deleteImage = ((params) => {
   });
 })
 
+const deleteImages = ((params) => {
+  debugger
+  // const objects = params.keys.map(key => ({ Key: key }));
+  s3.deleteObjects(params, function(err, data) {
+    if (err) console.log(err, err.stack);  // error
+    else     console.log('Images deleted...');                 // deleted
+  });
+})
 
+const uploadImages = ((params) => {
+
+})
+
+debugger
 const upload = multer({
     storage: multerS3({
         s3: s3,

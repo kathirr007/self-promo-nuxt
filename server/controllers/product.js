@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
-const { deleteImage } = require('../controllers/upload-photo');
+const { deleteImage, deleteImages } = require('../controllers/upload-photo');
 
 exports.getProducts = function (req, res) {
   Product
@@ -65,10 +65,16 @@ exports.getProductBySlug = (req, res) => {
 
 // Needs recheck
 exports.createProduct = function (req, res) {
+  debugger
   const productData = req.body;
   const user = req.user;
   const product = new Product(productData);
   product.author = user;
+  product.storageLocation = `projects/${slugify(productData.title, {
+    replacement: '-',    // replace spaces with replacement
+    remove: null,        // regex to remove characters
+    lower: true          // result in lower case
+  })}`;
 
   product.save((errors, createdProduct) => {
     if (errors) {
@@ -80,7 +86,7 @@ exports.createProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
-  // debugger
+  debugger
   let images = req.files ? req.files.map((file) => {
       return {
               location: file.location,
@@ -190,7 +196,26 @@ exports.deleteProductImage = async function (req, res) {
       message: err.message
     })
   }
+}
 
+exports.deleteProductImages = async function (req, res) {
+  // const productImageId = req.params.id;
+  // let key = this.uploadedFiles[index].location.split('/').pop()
+  debugger
+  let params = {  Bucket: 'kathirr007-portfolio', Key: `${req.headers.storagelocation}` }
+
+  try {
+    let deletedProductImage = await deleteImages(params)
+    return res.json({
+      status: true,
+      message: 'The Product Image has been deleted Successfully...'
+    })
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
 }
 
 

@@ -27,7 +27,7 @@
             :category="category"
             v-model="form.title"
             :v="$v.form.title"
-            :maxLength="50"
+            :maxLength="100"
              @keydown.enter.prevent
             ref="textInputWithCount"
           />
@@ -37,15 +37,16 @@
       </div>
       <div v-if="$v.form.title.$error" class="form-error">
         <span v-if="!$v.form.title.required" class="help is-danger">Title is required</span>
+        <span v-if="!$v.form.title.minLength" class="help is-danger">Title should be minimum {{$v.form.title.$params.minLength.min}} characters</span>
       </div>
     </form>
   </div>
 </template>
 
 <script>
-  import {required, maxLength} from 'vuelidate/lib/validators'
+  import {required, minLength, maxLength} from 'vuelidate/lib/validators'
   import textInputWithCount from '~/components/form/textInputWithCount'
-import { debug } from 'util'
+  import { debug } from 'util'
   export default {
     data() {
       return {
@@ -62,7 +63,8 @@ import { debug } from 'util'
       form: {
         title: {
           required,
-          // maxLength: maxLength(50)
+          minLength: minLength(10),
+          maxLength: maxLength(100)
         }
       }
     },

@@ -60,7 +60,7 @@
         // debugger
         this.currentValue = $event.target.value
         this.$emit('input', $event.target.value)
-        this.currentValue = ''
+        // this.currentValue = ''
       },
 
     }
