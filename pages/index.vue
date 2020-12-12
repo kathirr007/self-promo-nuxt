@@ -44,7 +44,7 @@
           <div
             v-for="blog in featuredBlogs"
             :key="blog._id"
-            class="column is-one-quarter"
+            class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
           >
             <!-- CARD-ITEM -->
             <blog-card

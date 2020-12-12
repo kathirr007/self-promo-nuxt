@@ -1,5 +1,5 @@
-@import '~bulma/sass/utilities/initial-variables';
-@import '~bulma/sass/utilities/functions';
+// @import '~bulma/sass/utilities/initial-variables';
+// @import '~bulma/sass/utilities/functions';
 
 $primary: #4bacff;
 $danger: #dc5222;
@@ -7,4 +7,13 @@ $navbar-height: 5rem;
 $navbar-item-img-max-height: 3rem;
 
 // Import only what you need from Bulma
-@import "~bulma"
+// @import "~bulma"
+@import "~bulma/sass/utilities/_all";
+$tablet: 576px;
+@import "~bulma/sass/base/_all";
+@import "~bulma/sass/components/_all";
+@import "~bulma/sass/elements/_all";
+@import "~bulma/sass/form/_all";
+@import "~bulma/sass/grid/_all";
+@import "~bulma/sass/helpers/_all";
+@import "~bulma/sass/layout/_all";
