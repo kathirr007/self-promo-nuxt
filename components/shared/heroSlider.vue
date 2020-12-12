@@ -2,27 +2,18 @@
     <section class="hero is-black">
       <swiper v-if="heroes.length !== 0" class="swiper hero-slider" :options="swiperOption">
         <swiper-slide class="hero-body" v-for="(hero, i) in heroes" :key="i">
-          <div class="hero-img" :style="{ background : `url(${hero.image}) no-repeat top center/cover`}">
+          <div class="hero-img" :style="{ background : `url(${hero.image !== undefined ? hero.image : ''}) no-repeat top center/cover`}">
           </div>
           <div class="container px-4 py-2">
             <h1 class="title">
             {{hero.title}}
             </h1>
             <h2 class="subtitle">
-            {{subtitle}}
+            {{hero.subtitle}}
             </h2>
-            <!-- <nuxt-link target="_" :to="hero.product !== null ? `projects/${hero.product.slug}` : '/'" class="button is-danger">More Details</nuxt-link> -->
+            <nuxt-link target="_" :to="hero.product !== null ? `projects/${hero.product.slug}` : '/'" class="button is-danger">More Details</nuxt-link>
           </div>
         </swiper-slide>
-        <!-- <swiper-slide>Slide 2</swiper-slide>
-        <swiper-slide>Slide 3</swiper-slide>
-        <swiper-slide>Slide 4</swiper-slide>
-        <swiper-slide>Slide 5</swiper-slide>
-        <swiper-slide>Slide 6</swiper-slide>
-        <swiper-slide>Slide 7</swiper-slide>
-        <swiper-slide>Slide 8</swiper-slide>
-        <swiper-slide>Slide 9</swiper-slide>
-        <swiper-slide>Slide 10</swiper-slide> -->
         <div class="swiper-pagination" slot="pagination"></div>
       </swiper>
       <div v-else class="hero-body">
@@ -36,7 +27,7 @@
               <h2 class="subtitle">
                   {{subtitle}}
               </h2>
-              <a target="_" :href="promoLink" class="button is-danger">Learn More!</a>
+              <nuxt-link target="_" :to="'/'" class="button is-danger">Learn More!</nuxt-link>
           </div>
       </div>
         <!-- <div class="hero-body">

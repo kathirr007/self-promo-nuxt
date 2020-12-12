@@ -50,6 +50,33 @@ exports.updateProductHeroes = function(req, res, next) {
     })
   }
 
+exports.deleteProductHero = async function(req, res, next) {
+  const heroId = req.params.id;
+
+  try {
+    let deletedProduct = await ProductHero.deleteOne({
+      _id: heroId
+    }, (err, deletedHero) => {
+      if (err) {
+        return res.json({
+          success: false,
+          message: err.message
+        })
+      }
+      return res.json({
+        status: true,
+        message: 'The Hero has been deleted Successfully...'
+      })
+    })
+
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: err.message
+    })
+  }
+}
+
 
 
 

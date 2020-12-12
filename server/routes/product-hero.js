@@ -13,5 +13,9 @@ router.patch('/:id', AuthCtrl.onlyAuthUser,
                      AuthCtrl.onlyAdmin,
                      ProductHeroCtrl.updateProductHeroes);
 
+router.delete('/:id', AuthCtrl.onlyAuthUser,
+                     AuthCtrl.onlyAdmin,
+                     ProductHeroCtrl.deleteProductHero);
+
 module.exports = router;
 
