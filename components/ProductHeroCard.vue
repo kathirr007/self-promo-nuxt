@@ -84,6 +84,7 @@ figure.image {
 .card {
     z-index: 9999;
     /* min-width: 300px; */
+    /* width: 75%; */
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
@@ -106,8 +107,9 @@ figure.image {
         text-decoration: line-through;
     }
     @media screen and (min-width: 600px){
-      min-width: 300px;
-      width: 75%;
+      /* min-width: 300px; */
+      /* width: 75%; */
+      /* max-width: 380px; */
     }
 }
 </style>

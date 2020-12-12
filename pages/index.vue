@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <hero
+    <!-- <hero
       :title="courseHero.title"
       :subtitle="courseHero.subtitle"
       :image="courseHero.image"
       :promoLink="courseHero.product && courseHero.product.productLink"
+    /> -->
+    <hero-slider
+      :heroes="courseHeros"
     />
     <!-- <hero v-else/> -->
 
@@ -60,19 +63,21 @@
 
 <script>
 import hero from '~/components/shared/hero'
+import heroSlider from '~/components/shared/heroSlider'
 import courseCard from '~/components/courseCard'
 import blogCard from '~/components/blogCard'
 import CourseCardTooltip from '~/components/CourseCardTooltip'
 import { mapState } from 'vuex'
 export default {
   components: {
-    hero, courseCard, blogCard, CourseCardTooltip
+    hero, heroSlider, courseCard, blogCard, CourseCardTooltip
   },
   computed: {
     ...mapState({
       courses: state => state.course.items,
       featuredBlogs: state => state.experiences.items.featured,
-      courseHero: state => state.heroes.courseHero || {}
+      courseHero: state => state.heroes.courseHero || {},
+      courseHeros: state => state.heroes.courseHero || {}
     })
   },
   async fetch({store}) {

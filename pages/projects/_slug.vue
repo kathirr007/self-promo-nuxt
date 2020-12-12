@@ -12,7 +12,7 @@
     </product-hero>
     <div class="container">
       <div class="columns">
-        <div class="column is-9">
+        <div class="column">
           <div class="section">
             <div class="what-you-get">
               <div class="what-you-get-title">

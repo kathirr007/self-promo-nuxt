@@ -4,7 +4,7 @@
             <div class="hero-img"
                 :style="{ background : `url(${image}) no-repeat center center`}">
             </div>
-            <div class="container">
+            <div class="container px-4 py-2">
                 <h1 class="title">
                     {{title}}
                 </h1>

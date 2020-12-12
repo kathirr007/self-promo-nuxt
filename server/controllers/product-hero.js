@@ -24,7 +24,7 @@ exports.getProductHeroes = function(req, res, next) {
     if (errors) {
       return res.status(422).send(errors);
     }
-
+    // debugger
     return res.json(heroes);
   })
 }

@@ -14,6 +14,7 @@ export const actions = {
   fetchHero({commit, state}) {
     return this.$axios.$get('/api/v1')
       .then(data => {
+        // debugger
         const { productHero } = data
         commit('setHero', productHero)
         return state.courseHero

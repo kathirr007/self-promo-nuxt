@@ -5,7 +5,7 @@
       </div>
       <div class="container">
         <div class="columns">
-          <div class="column is-9">
+          <div class="column is-three-quarters-desktop is-7">
             <h1 class="title">
               {{title}}
             </h1>
@@ -16,7 +16,7 @@
               <user-tile :name="author.name" :avatar="author.avatar" />
             </div>
           </div>
-          <div class="column is-3">
+          <div class="column is-one-quarters-desktop is-relative">
             <div class="column-right is-justify-content-center is-flex">
               <slot></slot>
             </div>
@@ -73,7 +73,7 @@
     right: 0;
   }
 
-  @media screen and (max-width: 770px) {
+  @media screen and (max-width: 578px) {
     .column-right {
       position: inherit;
     }
