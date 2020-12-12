@@ -73,9 +73,17 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+figure.image {
+  height: 150px;
+  overflow: hidden;
+  img {
+    object-fit: contain;
+    height: 100%;
+  }
+}
 .card {
     z-index: 9999;
-    min-width: 330px;
+    /* min-width: 300px; */
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
@@ -96,6 +104,10 @@ export default {
         font-size: 17px;
         color: #7d7d7d;
         text-decoration: line-through;
+    }
+    @media screen and (min-width: 600px){
+      min-width: 300px;
+      width: 75%;
     }
 }
 </style>

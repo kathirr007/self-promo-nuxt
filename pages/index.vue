@@ -14,13 +14,13 @@
       <div class="container">
         <h1 class="title">Featured Projects</h1>
         <div class="columns is-multiline">
-          <div v-for="course in courses" :key="course._id" class="column is-one-quarter is-flex">
+          <div v-for="course in courses" :key="course._id" class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd is-flex">
             <!-- CARD-ITEM -->
             <v-popover
               offset="16"
               trigger="hover"
               placement="right-start"
-              class="slide-left is-flex"
+              class="slide-left is-flex is-flex-grow-1"
             >
               <course-card :course="course" />
               <template slot="popover">
@@ -104,6 +104,13 @@ export default {
   }
 </style>
 <style lang="scss">
+  .v-popover {
+    &.slide-left {
+      .trigger {
+        width: 100%;
+      }
+    }
+  }
   .toasted {
     &.toasted-primary {
       strong {

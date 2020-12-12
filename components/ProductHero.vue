@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="column is-3">
-            <div class="column-right">
+            <div class="column-right is-justify-content-center is-flex">
               <slot></slot>
             </div>
           </div>
@@ -70,6 +70,7 @@
 
   .column-right {
     position: absolute;
+    right: 0;
   }
 
   @media screen and (max-width: 770px) {

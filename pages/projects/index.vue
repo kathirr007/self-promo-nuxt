@@ -71,3 +71,6 @@ export default {
     padding-top: 15px;
   }
 </style>
+<style lang="scss">
+
+</style>

@@ -1,22 +1,22 @@
 <template>
   <div class="card card-tooltip">
     <div class="card-content">
-      <div class="media">
+      <div class="content">
         <div class="media-content">
-          <!-- TODO: Course Title -->
+          <!-- Course Title -->
           <p class="title is-4">{{title}}</p>
-          <!-- TODO: Course Subtitle -->
+          <!-- Course Subtitle -->
           <p class="subtitle is-6"><i>{{subtitle}}</i></p>
         </div>
       </div>
 
-      <!-- TODO: Course Description -->
+      <!-- Course Description -->
       <div class="content" v-html="description">
         <!-- {{description}} -->
       </div>
       <div class="content">
         <ul class="wsl-list">
-          <!-- TODO: Iterate wsl -->
+          <!-- Iterate wsl -->
           <li
             v-for="item in wsl"
             :key="item.value"

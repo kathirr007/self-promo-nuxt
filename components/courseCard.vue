@@ -31,11 +31,9 @@
         <!-- <nuxt-link :to="`/projects/${course.slug}`">
         </nuxt-link> -->
         <div class="card-content">
-            <div class="media">
-                <div class="media-content">
-                    <p class="title is-4">{{course.title | shortenText(45)}}</p>
-                    <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
-                </div>
+            <div class="content">
+                <p class="title is-4">{{course.title | shortenText(45)}}</p>
+                <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
             </div>
             <div class="content">
                 {{course.subtitle | shortenText(45)}}
@@ -115,20 +113,28 @@
 
 <style lang="scss" scoped>
   .card-image {
-    height: 150px;
+    height: 200px;
     overflow: hidden;
     position: relative;
+    padding: 10px;
 
     img {
       height: 100%;
       width: 100%;
-      object-fit: cover;
-      object-position: top;
+      object-fit: contain;
     }
 
     &:hover {
       /* cursor: pointer; */
       opacity: 0.9;
+    }
+    @media screen and (min-width: 768px) {
+      height: 150px;
+      padding: 0;
+      img {
+        object-fit: cover;
+        object-position: top;
+      }
     }
   }
 
@@ -194,11 +200,15 @@
   &[x-placement^="right"],
   &[x-placement^="left"] {
     .tooltip-arrow {
-      border-top-color: transparent !important;
-      border-bottom-color: transparent !important;
-      top: calc(50% - 15px) !important;
-      margin-left: 0;
-      margin-right: 0;
+      display: none;
+      @media screen and (min-width:768px) {
+        display: block;
+        border-top-color: transparent !important;
+        border-bottom-color: transparent !important;
+        top: calc(50% - 15px) !important;
+        margin-left: 0;
+        margin-right: 0;
+      }
     }
   }
 
@@ -206,9 +216,13 @@
     margin-left: 5px;
 
     .tooltip-arrow {
-      border-width: 15px 15px 15px 0;
-      border-left-color: transparent !important;
-      left: -15px;
+      display: none;
+      @media screen and (min-width:768px) {
+        display: block;
+        border-width: 15px 15px 15px 0;
+        border-left-color: transparent !important;
+        left: -15px;
+      }
     }
   }
 
@@ -216,9 +230,13 @@
     margin-right: 5px;
 
     .tooltip-arrow {
-      border-width: 15px 0 15px 15px;
-      border-right-color: transparent !important;
-      right: -15px;
+      display: none;
+      @media screen and (min-width:768px) {
+        display: block;
+        border-width: 15px 0 15px 15px;
+        border-right-color: transparent !important;
+        right: -15px;
+      }
     }
   }
 
@@ -232,6 +250,7 @@
     visibility: visible;
     opacity: 1;
     transition: opacity .25s;
+    z-index: 9999;
   }
 }
 </style>

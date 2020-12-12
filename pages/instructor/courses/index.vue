@@ -95,7 +95,13 @@
 </script>
 <style scoped lang="scss">
 figure {
+
   &.image.is-128x128 {
+    img {
+      height: 100%;
+      object-fit: contain;
+      object-position: top;
+    }
     @media screen and (max-width: 768px){
       width: 100%;
       height: auto;
