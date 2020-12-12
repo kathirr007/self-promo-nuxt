@@ -56,7 +56,7 @@ export default {
         // debugger
         this.$refs.imagesInput.setFiles([])
       }
-      this.$store.dispatch('updateCanUpdate')
+      // this.$store.dispatch('instructor/course/updateCanUpdate')
     },
   }
 }

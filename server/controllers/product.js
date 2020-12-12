@@ -86,7 +86,7 @@ exports.createProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
-  debugger
+  // debugger
   let images = req.files ? req.files.map((file) => {
       return {
               location: file.location,
@@ -181,7 +181,7 @@ exports.deleteProduct = async function (req, res) {
 exports.deleteProductImage = async function (req, res) {
   // const productImageId = req.params.id;
   // let key = this.uploadedFiles[index].location.split('/').pop()
-  debugger
+  // debugger
   let params = {  Bucket: 'kathirr007-portfolio', Key: `${req.headers.storagelocation}` }
 
   try {
@@ -198,25 +198,6 @@ exports.deleteProductImage = async function (req, res) {
   }
 }
 
-exports.deleteProductImages = async function (req, res) {
-  // const productImageId = req.params.id;
-  // let key = this.uploadedFiles[index].location.split('/').pop()
-  debugger
-  let params = {  Bucket: 'kathirr007-portfolio', Key: `${req.headers.storagelocation}` }
-
-  try {
-    let deletedProductImage = await deleteImages(params)
-    return res.json({
-      status: true,
-      message: 'The Product Image has been deleted Successfully...'
-    })
-  } catch (err) {
-    res.status(500).json({
-      success: false,
-      message: err.message
-    })
-  }
-}
 
 
 

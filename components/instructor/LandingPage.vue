@@ -224,12 +224,10 @@ export default {
             if (field === 'category') {
                 return this.emitCategory(value, field)
             }
-
-            if (field === 'images') {
-                oldValue = this.uploadedFiles
-                return this.emitImages(oldValue, value, field)
-            }
             // debugger
+            if (field === 'images' && this.uploadedFiles.length !== 0) {
+                this.$store.dispatch('instructor/course/updateUploadedFiles', this.uploadedFiles)
+            }
             return this.$emit('courseValueUpdated', {
                 value,
                 field,

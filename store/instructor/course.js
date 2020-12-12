@@ -37,7 +37,7 @@ export const actions = {
   },
   updateCourse({commit, state}) {
     const course = state.item
-    debugger
+    // debugger
 /*     let storageLocationOld = null
     let storageLocationNew
     storageLocationNew = `projects/${slugify(course.title, {
@@ -53,7 +53,7 @@ export const actions = {
         for(let i=0; i<course.images.length; i++) {
           // debugger
           data.append('images', course.images[i])
-          uploadedFiles = JSON.stringify(course.images)
+          uploadedFiles = JSON.stringify(course.uploadedFiles)
           deleteFiles = true
         }
     } else {
@@ -91,7 +91,7 @@ export const actions = {
   },
   deleteCourseImage({commit, state}, params) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
-    debugger
+    // debugger
     return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`, {headers:{'storagelocation': params.s3Key}})
       .then(_ => {
         // const courseIndex = state.items.findIndex((b) => b._id === course._id)
@@ -103,7 +103,9 @@ export const actions = {
   deleteCourse({commit, state}, course) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
     // debugger
-    return this.$axios.$delete(`/api/v1/products/${course._id}`)
+    const uploadedFiles = JSON.stringify(course.images)
+    const headers = {'storagelocation': course.storageLocation, 'storagelocationnew': course.storageLocationNew, 'uploadedfiles': uploadedFiles, 'deletefiles': 'true'}
+    return this.$axios.$delete(`/api/v1/products/${course._id}`, {headers: headers})
       .then(_ => {
         const courseIndex = state.items.findIndex((b) => b._id === course._id)
         commit('deleteCourse', {courseIndex})
@@ -135,6 +137,10 @@ export const actions = {
       commit('setCanUpdateCourse', true)
     } */
   },
+  updateUploadedFiles({commit}, value) {
+    // debugger
+    commit('setUploadedFiles', value)
+  },
   updateCanUpdate({commit}) {
     commit('setCanUpdateCourse', true)
   }
@@ -157,7 +163,7 @@ export const mutations = {
     state.item[field].splice(index, 1)
   },
   removeCourseImage(state, {field, index}) {
-    debugger
+    // debugger
     state.item[field].splice(index, 1)
   },
   setLineValue(state, {index, value, field}){
@@ -165,7 +171,7 @@ export const mutations = {
   },
   setCourseValue(state, {value, field}){
     if(field === 'title') {
-      debugger
+      // debugger
       let storageLocationNew = `projects/${slugify(value, {
         replacement: '-',    // replace spaces with replacement
         remove: null,        // regex to remove characters
@@ -177,6 +183,10 @@ export const mutations = {
       }
     }
     state.item[field] = value
+  },
+  setUploadedFiles(state, value){
+    // debugger
+    state.item['uploadedFiles'] = value
   },
   deleteCourse(state, {courseIndex}) {
     state.items.splice(courseIndex, 1)
