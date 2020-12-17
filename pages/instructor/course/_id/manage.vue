@@ -4,7 +4,7 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
-            :disabled="!canUpdateCourse || !isFormValid"
+            :disabled="!canUpdateCourse"
             @click="updateCourse"
             class="button is-primary is-inverted  is-outlined"
           >
@@ -107,6 +107,7 @@
                   :is="activeComponent"
                   :course="course"
                   @courseImageUpdated="handleCourseImageUpdate"
+                  @courseImagesUpdated="handleCourseImagesUpdate"
                   @courseValueUpdated="handleCourseUpdate"
                 />
                 <!-- <target-students />
@@ -161,18 +162,31 @@
         course: (state) => state.instructor.course.item,
         canUpdateCourse: (state) => state.instructor.course.canUpdateCourse,
       }),
+      /* isFormValid() {
+        return false
+      } */
     },
     methods: {
-      handleCourseImageUpdate({index, field}) {
-        this.$store.dispatch('instructor/course/updateCourseImage', {index, field})
+      handleCourseImageUpdate({index, field, formValid}) {
+        this.isFormValid = formValid
+        this.$store.dispatch('instructor/course/updateCourseImage', {index, field, formValid})
       },
-      handleCourseUpdate({value, field}) {
-        this.$store.dispatch('instructor/course/updateCourseValue', {field, value})
+      handleCourseImagesUpdate({oldValue, value, field}) {
+        this.isFormValid = formValid
+        this.$store.dispatch('instructor/course/updateCourseImage', {index, field, formValid})
+      },
+      handleCourseUpdate({value, field, formValid}) {
+        // debugger
+        // this.isFormValid = formValid
+        this.$store.dispatch('instructor/course/updateCourseValue', {field, value, formValid})
       },
       updateCourse() {
         this.$store.dispatch('instructor/course/updateCourse')
           .then(_ => this.$toasted.success('Course has been successfully update..!', {duration: 3000}))
-          .catch(err => this.$toasted.error('Course cannot be update! :)', {duration: 3000}))
+          .catch(err => {
+            debugger
+            this.$toasted.error('Course cannot be update! :)', {duration: 3000})
+          })
       },
       createCourseHero({closeModal}) {
         // debugger

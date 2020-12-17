@@ -2,7 +2,9 @@ const slugify = require('slugify');
 
 export const state = () => ({
   items: [],
-  item: {},
+  item: {
+    'storageLocation': null
+  },
   canUpdateCourse: false
 })
 
@@ -23,26 +25,40 @@ export const actions = {
       })
       .catch(error => Promise.reject(error))
   },
-  createCourse(_, courseData) {
+  createCourse({commit, state}, courseData) {
+    let storageLocation = `projects/${slugify(courseData.title, {
+      replacement: '-',    // replace spaces with replacement
+      remove: null,        // regex to remove characters
+      lower: true          // result in lower case
+    })}`;
+    commit('setCourseValue', {value: courseData.title, field: 'title'})
     return this.$axios.$post('/api/v1/products/', courseData)
       .then(_ => this.$router.push('/instructor/courses'))
   },
   updateCourse({commit, state}) {
     const course = state.item
-    let storageLocation = `projects/${slugify(course.title, {
+    // debugger
+/*     let storageLocationOld = null
+    let storageLocationNew
+    storageLocationNew = `projects/${slugify(course.title, {
       replacement: '-',    // replace spaces with replacement
       remove: null,        // regex to remove characters
       lower: true          // result in lower case
     })}`;
+    storageLocationNew === storageLocationOld ? storageLocationOld : storageLocationOld = storageLocationNew */
     let data = new FormData()
-    debugger
+    let uploadedFiles = null
+    let deleteFiles = false
     if (course.images[0] != undefined && typeof course.images[0]['location'] == "undefined" ) {
         for(let i=0; i<course.images.length; i++) {
           // debugger
           data.append('images', course.images[i])
+          uploadedFiles = JSON.stringify(course.uploadedFiles)
+          deleteFiles = true
         }
     } else {
-      data.append('images', JSON.stringify(course.images))
+      uploadedFiles = JSON.stringify(course.images)
+      data.append('images', uploadedFiles)
     }
 
     data.append('authorID', course.author)
@@ -56,14 +72,15 @@ export const actions = {
     data.append('status', course.status)
     data.append('subtitle', course.subtitle)
     data.append('title', course.title)
-    data.append('storageLocation', storageLocation)
+    data.append('storageLocation', course.storageLocation)
+    data.append('storageLocationNew', course.storageLocationNew)
     data.append('updatedAt', course.updatedAt)
     data.append('wsl', JSON.stringify(course.wsl))
 
     // course.data = data
 
     // debugger
-    const headers = {'storagelocation': storageLocation}
+    const headers = {'storagelocation': course.storageLocation, 'storagelocationnew': course.storageLocationNew, 'uploadedfiles': uploadedFiles, 'deletefiles': deleteFiles}
 
     return this.$axios.$patch(`/api/v1/products/${course._id}`, data, {headers: headers})
       .then(course => {
@@ -74,10 +91,11 @@ export const actions = {
   },
   deleteCourseImage({commit, state}, params) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
-    debugger
+    // debugger
     return this.$axios.$delete(`/api/v1/products/ProdImage/${params.key}`, {headers:{'storagelocation': params.s3Key}})
       .then(_ => {
         // const courseIndex = state.items.findIndex((b) => b._id === course._id)
+        commit('setCanUpdateCourse', true)
         return true
       })
       .catch(err => Promise.reject(err))
@@ -85,7 +103,9 @@ export const actions = {
   deleteCourse({commit, state}, course) {
     // const resource = course.status === 'active' ? 'drafts' : 'published'
     // debugger
-    return this.$axios.$delete(`/api/v1/products/${course._id}`)
+    const uploadedFiles = JSON.stringify(course.images)
+    const headers = {'storagelocation': course.storageLocation, 'storagelocationnew': course.storageLocationNew, 'uploadedfiles': uploadedFiles, 'deletefiles': 'true'}
+    return this.$axios.$delete(`/api/v1/products/${course._id}`, {headers: headers})
       .then(_ => {
         const courseIndex = state.items.findIndex((b) => b._id === course._id)
         commit('deleteCourse', {courseIndex})
@@ -97,13 +117,29 @@ export const actions = {
     commit('setLineValue', {index, value, field})
     commit('setCanUpdateCourse', true)
   },
-  updateCourseValue({commit}, {value, field}) {
+  updateCourseValue({commit}, {value, field, title}) {
     commit('setCourseValue', {value, field})
-    commit('setCanUpdateCourse', true)
+    if (field === 'title') {
+      if(value && value.length >= 10) {
+        // debugger
+        commit('setCanUpdateCourse', true)
+      } else {
+        commit('setCanUpdateCourse', false)
+      }
+    } else {
+      commit('setCanUpdateCourse', true)
+    }
   },
-  updateCourseImage({commit}, {index, field}) {
+  updateCourseImage({commit}, {index, field, title}) {
     commit('removeCourseImage', {index, field})
-    commit('setCanUpdateCourse', true)
+    /* if(title && title.length >= 10) {
+      debugger
+      commit('setCanUpdateCourse', true)
+    } */
+  },
+  updateUploadedFiles({commit}, value) {
+    // debugger
+    commit('setUploadedFiles', value)
   },
   updateCanUpdate({commit}) {
     commit('setCanUpdateCourse', true)
@@ -127,14 +163,30 @@ export const mutations = {
     state.item[field].splice(index, 1)
   },
   removeCourseImage(state, {field, index}) {
-    debugger
+    // debugger
     state.item[field].splice(index, 1)
   },
   setLineValue(state, {index, value, field}){
     state.item[field][index].value = value
   },
   setCourseValue(state, {value, field}){
+    if(field === 'title') {
+      // debugger
+      let storageLocationNew = `projects/${slugify(value, {
+        replacement: '-',    // replace spaces with replacement
+        remove: null,        // regex to remove characters
+        lower: true          // result in lower case
+      })}`;
+      if (storageLocationNew !== state.item['storageLocation']) {
+        state.item['storageLocation'] = storageLocationNew
+        state.item['storageLocationNew'] = storageLocationNew
+      }
+    }
     state.item[field] = value
+  },
+  setUploadedFiles(state, value){
+    // debugger
+    state.item['uploadedFiles'] = value
   },
   deleteCourse(state, {courseIndex}) {
     state.items.splice(courseIndex, 1)

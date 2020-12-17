@@ -7,8 +7,9 @@ const productSchema = new Schema({
   subtitle: String,
   image: String,
   storageLocation: String,
+  storageLocationNew: {type: String, default: null},
   images: Array,
-  description: String,
+  description: {type: String, default: ''},
   rating: Number,
   // what students learn
   wsl: [{type: Schema.Types.Mixed, value: String}],

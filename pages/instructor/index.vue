@@ -14,7 +14,7 @@
         <!-- Go to /instructor/courses -->
         <div class="box" @click="$router.push('/instructor/courses')">
           <div>
-            Courses
+            Projects
           </div>
         </div>
         <!-- Go to /instructor/blogs -->

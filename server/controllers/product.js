@@ -1,6 +1,6 @@
 const Product = require('../models/product');
 const slugify = require('slugify');
-const { deleteImage } = require('../controllers/upload-photo');
+const { deleteImage, deleteImages } = require('../controllers/upload-photo');
 
 exports.getProducts = function (req, res) {
   Product
@@ -65,10 +65,16 @@ exports.getProductBySlug = (req, res) => {
 
 // Needs recheck
 exports.createProduct = function (req, res) {
+  debugger
   const productData = req.body;
   const user = req.user;
   const product = new Product(productData);
   product.author = user;
+  product.storageLocation = `projects/${slugify(productData.title, {
+    replacement: '-',    // replace spaces with replacement
+    remove: null,        // regex to remove characters
+    lower: true          // result in lower case
+  })}`;
 
   product.save((errors, createdProduct) => {
     if (errors) {
@@ -175,7 +181,7 @@ exports.deleteProduct = async function (req, res) {
 exports.deleteProductImage = async function (req, res) {
   // const productImageId = req.params.id;
   // let key = this.uploadedFiles[index].location.split('/').pop()
-  debugger
+  // debugger
   let params = {  Bucket: 'kathirr007-portfolio', Key: `${req.headers.storagelocation}` }
 
   try {
@@ -190,8 +196,8 @@ exports.deleteProductImage = async function (req, res) {
       message: err.message
     })
   }
-
 }
+
 
 
 

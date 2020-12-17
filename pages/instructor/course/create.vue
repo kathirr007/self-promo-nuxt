@@ -61,6 +61,7 @@
   import courseCreateStep1 from '~/components/instructor/courseCreateStep1'
   import courseCreateStep2 from '~/components/instructor/courseCreateStep2'
   import MultiComponentMixin from '~/mixins/MultiComponentMixin'
+
   export default {
     layout: 'instructor',
     components: {

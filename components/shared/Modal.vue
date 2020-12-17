@@ -22,6 +22,9 @@
             <button :disabled="isDisabled" @click="emitAction" class="button is-success">
               {{actionTitle}}
             </button>
+            <button v-if="removeActionTitle" @click="emitDeleteAction" class="button is-danger">
+              {{removeActionTitle}}
+            </button>
             <button @click="isOpen = false" class="button">Cancel</button>
           </footer>
         </div>
@@ -43,6 +46,9 @@
       actionTitle: {
         type: String,
         default: 'Commit'
+      },
+      removeActionTitle: {
+        type: String
       },
       openBtnClass: {
         type: String,
@@ -67,6 +73,11 @@
     methods: {
       emitAction() {
         this.$emit('submitted', {
+          closeModal: this.closeCallback
+        })
+      },
+      emitDeleteAction() {
+        this.$emit('deleted', {
           closeModal: this.closeCallback
         })
       },

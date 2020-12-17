@@ -1,11 +1,14 @@
 <template>
   <div>
     <!-- Hero Section -->
-    <hero
+    <!-- <hero
       :title="courseHero.title"
       :subtitle="courseHero.subtitle"
       :image="courseHero.image"
       :promoLink="courseHero.product && courseHero.product.productLink"
+    /> -->
+    <hero-slider
+      :heroes="courseHeros"
     />
     <!-- <hero v-else/> -->
 
@@ -14,13 +17,13 @@
       <div class="container">
         <h1 class="title">Featured Projects</h1>
         <div class="columns is-multiline">
-          <div v-for="course in courses" :key="course._id" class="column is-one-quarter is-flex">
+          <div v-for="course in courses" :key="course._id" class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd is-flex">
             <!-- CARD-ITEM -->
             <v-popover
               offset="16"
               trigger="hover"
               placement="right-start"
-              class="slide-left is-flex"
+              class="slide-left is-flex is-flex-grow-1"
             >
               <course-card :course="course" />
               <template slot="popover">
@@ -44,7 +47,7 @@
           <div
             v-for="blog in featuredBlogs"
             :key="blog._id"
-            class="column is-one-quarter"
+            class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
           >
             <!-- CARD-ITEM -->
             <blog-card
@@ -60,19 +63,21 @@
 
 <script>
 import hero from '~/components/shared/hero'
+import heroSlider from '~/components/shared/heroSlider'
 import courseCard from '~/components/courseCard'
 import blogCard from '~/components/blogCard'
 import CourseCardTooltip from '~/components/CourseCardTooltip'
 import { mapState } from 'vuex'
 export default {
   components: {
-    hero, courseCard, blogCard, CourseCardTooltip
+    hero, heroSlider, courseCard, blogCard, CourseCardTooltip
   },
   computed: {
     ...mapState({
       courses: state => state.course.items,
       featuredBlogs: state => state.experiences.items.featured,
-      courseHero: state => state.heroes.courseHero || {}
+      courseHero: state => state.heroes.courseHero || {},
+      courseHeros: state => state.heroes.courseHero || {}
     })
   },
   async fetch({store}) {
@@ -104,6 +109,13 @@ export default {
   }
 </style>
 <style lang="scss">
+  .v-popover {
+    &.slide-left {
+      .trigger {
+        width: 100%;
+      }
+    }
+  }
   .toasted {
     &.toasted-primary {
       strong {

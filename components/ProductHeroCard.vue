@@ -1,9 +1,12 @@
 <template>
 <div class="card ">
-    <div class="card-image">
-        <figure class="image is-4by2">
+    <div class="card-image project-gallery">
+        <!-- <figure class="image is-4by2">
             <img :src="image" alt="Placeholder image">
-        </figure>
+        </figure> -->
+        <client-only>
+          <vue-picture-swipe :items="picSwipeItems"></vue-picture-swipe>
+        </client-only>
     </div>
     <div class="card-content">
         <!-- <div class="content m-b-sm">
@@ -17,15 +20,15 @@
         </a> -->
         <div class="field has-addons is-justify-content-center">
             <p class="control">
-                <a target="_" href="http://impss.in/index.html" class="button is-danger is-outlined">
+                <a target="_" :href="navigateTo" class="button is-danger is-outlined">
                     <span class="icon is-small">
                         <i class="fas fa-globe"></i>
                     </span>
                     <span>Project</span>
                 </a>
             </p>
-            <p class="control">
-                <a href="" class="button is-danger is-outlined">
+            <p class="control" v-if="repoLink && repoLink != 'undefined'">
+                <a :href="repoLink" class="button is-danger is-outlined">
                     <span>Github</span>
                     <span class="icon is-small">
                         <i class="fab fa-github"></i>
@@ -60,6 +63,10 @@ export default {
             type: String,
             default: ''
         },
+        repoLink: {
+            type: String,
+            default: ''
+        },
         discountedPrice: {
             type: Number,
             // required: true
@@ -67,15 +74,41 @@ export default {
         image: {
             type: String,
             required: false
+        },
+        images: {
+            type: Array,
+            required: false,
+            default: []
         }
+    },
+    computed: {
+      picSwipeItems() {
+        return this.images.map(img => {
+          return {
+            src: img.location,
+            thumbnail: img.location,
+            w: 600,
+            h: 600
+          }
+        })
+      }
     }
 }
 </script>
 
 <style lang="scss" scoped>
+figure.image {
+  height: 150px;
+  overflow: hidden;
+  img {
+    object-fit: contain;
+    height: 100%;
+  }
+}
 .card {
     z-index: 9999;
-    min-width: 330px;
+    /* min-width: 300px; */
+    /* width: 75%; */
     padding: 5px;
     border-radius: 5px;
     box-shadow: 0 0 1px 1px rgba(20, 23, 28, .1), 0 3px 1px 0 rgba(20, 23, 28, .1);
@@ -97,5 +130,35 @@ export default {
         color: #7d7d7d;
         text-decoration: line-through;
     }
+    @media screen and (min-width: 600px){
+      /* min-width: 300px; */
+      /* width: 75%; */
+      /* max-width: 380px; */
+    }
+}
+</style>
+<style lang="scss">
+.project-gallery {
+  .my-gallery {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    figure {
+      width: calc(100% / 5);
+      box-shadow: 0px 0px 4px 0px #ccc;
+      transition: all .25s ease-in-out;
+      &:hover {
+        transform: scale(1.2);
+        box-shadow: 0px 0px 4px 4px #ccc;
+      }
+    }
+  }
+  .pswp {
+    .pswp__item {
+       .pswp__img {
+        object-fit: contain;
+      }
+    }
+  }
 }
 </style>

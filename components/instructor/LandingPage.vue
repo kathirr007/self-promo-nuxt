@@ -8,17 +8,17 @@
             <div class="field">
                 <label class="label">Project title</label>
                 <div class="control">
-                    <input :value="course.title" @input="($event) => emitCourseValue($event, 'title')" class="input" type="text" placeholder="Amazing Project Title">
+                    <input :value="course.title" @input="($event) => emitCourseValue($event, 'title', title)" class="input" type="text" placeholder="Amazing Project Title">
                     <div v-if="$v.title.$error" class="form-error">
-                    <span v-if="!$v.title.required" class="help is-danger">Title is required</span>
-                    <span v-if="!$v.title.minLength" class="help is-danger">Title should be minimum 10 characters</span>
-                  </div>
+                      <span v-if="!$v.title.required" class="help is-danger">Title is required</span>
+                      <span v-if="!$v.title.minLength" class="help is-danger">Title should be minimum {{$v.title.$params.minLength.min}} characters</span>
+                    </div>
                 </div>
             </div>
             <div class="field">
                 <label class="label">Project subtitle</label>
                 <div class="control">
-                    <input :value="course.subtitle" @input="($event) => emitCourseValue($event, 'subtitle')" class="input " type="text" placeholder="Awesome Project Subtitle">
+                    <input :value="course.subtitle !== 'undefined' ? course.subtitle : ''" @input="($event) => emitCourseValue($event, 'subtitle')" class="input " type="text" placeholder="Awesome Project Subtitle">
                 </div>
             </div>
             <div class="field">
@@ -32,7 +32,7 @@
               placeholder="Write something catchy about the course"
             >
             </textarea> -->
-                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description ? course.description :''" />
+                    <course-editor @editorUpdated="(content) => emitCourseValue(content, 'description')" :initialContent="course.description || ''" />
                 </div>
             </div>
             <div class="field">
@@ -66,7 +66,7 @@
                           Note: Uploading new images will replace the existing images
                         </div>
                          <!-- Uploaded images -->
-                         <div v-if="uploadedFiles.length !==0" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+                         <div v-if="uploadedFiles.length !== 0 && images.length === undefined" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
                                 <img :src="image.location" class="img-thumbnail multiple-images">
                                 <i @click="removeS3Image(index, 'images')" class="delete-img fas fa-times-circle"></i>
@@ -137,7 +137,6 @@ export default {
     data() {
       return {
         uploadedFiles: [],
-        title: ''
       }
     },
     validations: {
@@ -149,13 +148,21 @@ export default {
     computed: {
         categories() {
             return this.$store.state.category.items
+        },
+        title() {
+            return this.course.title
         }
     },
     mounted() {
-      this.uploadedFiles = this.course.images
+      if (this.course.images[0] != undefined && typeof this.course.images[0]['location'] !== "undefined" ) {
+        this.uploadedFiles = this.course.images
+      } else {
+        this.uploadedFiles = []
+      }
       // this.mergedFiles.push(...this.uploadedFiles)
       // this.category = this.course.category != null ? this.course.category._id : ''
       // this.owner = this.course.owner != null ? this.course.owner._id : ''
+      this.$v.title.$touch()
     },
     methods: {
         formatNames(files = []) {
@@ -197,29 +204,47 @@ export default {
           // this.deleteImage(params)
           // this.$store.dispatch('instructor/course/updateCanUpdate')
         },
-        emitCourseValue(e, field) {
+        emitCourseValue(e, field, title='') {
             // const value = e.target.value
             const value = e.target ? e.target.value : e
+            let oldValue = []
             // debugger
             if (field === 'title') {
-              this.title = value
+              // this.title = value
               this.$v.title.$touch()
+              // debugger
+              /* return this.$emit('courseValueUpdated', {
+                value,
+                field,
+                formValid
+              }) */
             }
 
 
             if (field === 'category') {
                 return this.emitCategory(value, field)
             }
-
+            // debugger
+            if (field === 'images' && this.uploadedFiles.length !== 0) {
+                this.$store.dispatch('instructor/course/updateUploadedFiles', this.uploadedFiles)
+            }
             return this.$emit('courseValueUpdated', {
                 value,
-                field
+                field,
+                title
             })
         },
         emitCategory(categoryId, field) {
             const foundCategory = this.categories.find(c => c._id === categoryId)
             this.$emit('courseValueUpdated', {
                 value: foundCategory,
+                field
+            })
+        },
+        emitImages(oldValue, value, field) {
+            this.$emit('courseImagesUpdated', {
+                oldValue,
+                value,
                 field
             })
         }

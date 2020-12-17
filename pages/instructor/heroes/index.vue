@@ -34,9 +34,11 @@
                 <portal :to="`modal-view-${hero._id}`">
                   <Modal
                     @submitted="activateHero($event, hero._id)"
+                    @deleted="deleteHero($event, hero._id)"
                     :ref="`modal-${hero._id}`"
                     :showButton="false"
                     actionTitle="Make Active"
+                    removeActionTitle="Remove"
                     openTitle="Favorite"
                     title="Make Course Hero"
                   >
@@ -91,6 +93,14 @@
         this.$store.dispatch('instructor/activateHero', heroId)
           .then(_ => {
             this.$toasted.success("Hero was successfully activated..!", {duration: 3000})
+            closeModal()
+          })
+      },
+      deleteHero({closeModal}, heroId) {
+        this.$store.dispatch('instructor/deleteHero', heroId)
+          .then(_ => {
+            // debugger
+            this.$toasted.success("Hero was successfully deleted..!", {duration: 3000})
             closeModal()
           })
       }
