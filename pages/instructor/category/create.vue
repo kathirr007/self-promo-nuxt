@@ -147,7 +147,7 @@
       }
 
       &-field {
-        min-width: 552px;
+        // min-width: 552px;
       }
 
       .select {
