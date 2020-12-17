@@ -121,6 +121,7 @@ exports.updateProduct = function (req, res) {
   }
   productData.requirements = JSON.parse(productData.requirements)
   productData.wsl = JSON.parse(productData.wsl)
+  productData.updatedAt = Date.now()
 
 
   Product.findById(productId)

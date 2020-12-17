@@ -9,8 +9,8 @@
 @import './plugins/animate';
 
 html {
-  // overflow-x: unset !important;
-  // overflow-y: unset !important;
+  overflow-x: hidden;
+  overflow-y: auto;
 }
 
 .blog-editor-container {

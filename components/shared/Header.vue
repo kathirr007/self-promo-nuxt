@@ -1,7 +1,17 @@
 <template>
   <div class="full-page-takeover-header">
     <div class="full-page-takeover-header-logo">
-      <p class="full-page-takeover-header-logo-title">Vue-Nuxt Promo</p>
+      <nuxt-link to="/instructor" class="has-text-white">
+        <!-- <p class="full-page-takeover-header-logo-title">Self Promo</p> -->
+        <p class="full-page-takeover-header-logo-title">
+          <button class="button is-primary is-outlined is-medium is-inverted">
+            <span class="icon">
+              <i class="fas fa-home"></i>
+            </span>
+            <!-- <span>Self Promo</span> -->
+          </button>
+        </p>
+      </nuxt-link>
     </div>
     <div class="full-page-takeover-header-divider">
     </div>
