@@ -8,6 +8,8 @@
       <product-hero-card
         :navigateTo="course.productLink"
         :image="course.image"
+        :images="course.images"
+        :repoLink="course.promoVideoLink"
       />
     </product-hero>
     <div class="container">
