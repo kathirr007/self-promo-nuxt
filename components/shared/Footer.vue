@@ -2,6 +2,7 @@
   <div class="hero-footer footer footer-custom has-background-dark">
     <div class="container">
       <div class="has-text-centered">
+        <p class="has-text-white mb-2">Share your thoughts?</p>
         <a
           class="icon has-text-white"
           target="_blank"

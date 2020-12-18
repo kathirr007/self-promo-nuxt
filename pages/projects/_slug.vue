@@ -14,12 +14,10 @@
     </product-hero>
     <div class="container">
       <div class="columns">
-        <div class="column">
-          <div class="section">
+        <div class="column px-0">
+          <div class="section px-0">
             <div class="what-you-get">
-              <div class="what-you-get-title">
-                Technologies used
-              </div>
+              <div class="what-you-get-title">Technologies used</div>
               <ul class="what-you-get-items">
                 <!-- TODO: Iterate course wsl -->
                 <li
@@ -27,12 +25,12 @@
                   :key="wsl.value"
                   class="what-you-get-item"
                 >
-                  <span>{{wsl.value}}</span>
+                  <span>{{ wsl.value }}</span>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="section course-description p-t-none">
+          <div class="section course-description pt-0 px-0">
             <div class="course-description-title">Project Info</div>
             <div class="course-description-details">
               <!-- TODO: use v-html for description -->
@@ -46,37 +44,37 @@
 </template>
 
 <script>
-  import ProductHero from '~/components/ProductHero'
-  import ProductHeroCard from '~/components/ProductHeroCard'
-  export default {
-    head() {
-      return {
-        title: this.course.title,
-        meta: [{
-          hid: 'description',
-          name: 'description',
-          content: this.course.subtitle
-        }]
-      }
+import ProductHero from "~/components/ProductHero";
+import ProductHeroCard from "~/components/ProductHeroCard";
+export default {
+  head() {
+    return {
+      title: this.course.title,
+      meta: [
+        {
+          hid: "description",
+          name: "description",
+          content: this.course.subtitle,
+        },
+      ],
+    };
+  },
+  data() {
+    return {};
+  },
+  components: {
+    ProductHero,
+    ProductHeroCard,
+  },
+  computed: {
+    course() {
+      return this.$store.state.course.item;
     },
-    data () {
-      return {
-
-      }
-    },
-    components: {
-      ProductHero,
-      ProductHeroCard
-    },
-    computed: {
-      course() {
-        return this.$store.state.course.item
-      }
-    },
-    async fetch({store, params}) {
-      await store.dispatch('course/fetchCourseBySlug', params.slug)
-    }
-  }
+  },
+  async fetch({ store, params }) {
+    await store.dispatch("course/fetchCourseBySlug", params.slug);
+  },
+};
 </script>
 
 <!-- Fetch course by Slug -->
@@ -88,58 +86,58 @@
 <!-- 6. Navigate to detail page from home page when clicking on "Learn More" -->
 
 <style lang="scss">
-  .what-you-get {
-    background-color: #f9f9f9;
-    border: 1px solid #dedfe0;
-    padding: 10px 15px;
+.what-you-get {
+  background-color: #f9f9f9;
+  border: 1px solid #dedfe0;
+  padding: 10px 15px;
 
-    &-title {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    &-items {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      flex-wrap: wrap;
-    }
-
-    &-item {
-      display: flex;
-      align-items: center;
-      margin-bottom: 10px;
-      font-size: 17px;
-      width: 45%;
-    }
+  &-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
   }
 
-  .course-description {
-    &-title {
-      font-size: 26px;
-      font-weight: bold;
-      margin-bottom: 10px;
+  &-items {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    font-size: 17px;
+    width: 45%;
+  }
+}
+
+.course-description {
+  &-title {
+    font-size: 26px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  &-details {
+    font-size: 18px;
+
+    ul {
+      list-style: disc;
+      margin-left: 20px;
+    }
+    ol {
+      margin-left: 20px;
     }
 
-    &-details {
-      font-size: 18px;
+    strong {
+      font-size: 20px;
+    }
 
-      ul {
-        list-style: disc;
-        margin-left: 20px
-      }
-      ol {
-        margin-left: 20px;
-      }
-
-      strong {
-        font-size: 20px;
-      }
-
-      p {
-        min-height: 30px;
-      }
+    p {
+      min-height: 30px;
     }
   }
+}
 </style>

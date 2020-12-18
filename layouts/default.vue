@@ -70,7 +70,7 @@ html {
   background-color: #35495e;
 }
 .layout-contents {
-  height: calc(100vh - (80px + 75px));
+  height: calc(100vh - (80px + 82px));
   overflow-y: auto;
 }
 </style>
