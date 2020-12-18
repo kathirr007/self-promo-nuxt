@@ -1,13 +1,13 @@
 <template>
-<div class="instructor-page">
+  <div class="instructor-page">
     <instructorHeader title="Please select your hero image" exitLink="/">
-
     </instructorHeader>
     <div class="heroes-page">
       <div class="container">
         <h1 class="title">Course Heroes</h1>
         <portal-target
-          v-for="hero in heroes" :key="hero._id"
+          v-for="hero in heroes"
+          :key="hero._id"
           :name="`modal-view-${hero._id}`"
         />
         <table class="heroes-table table is-responsive">
@@ -21,15 +21,18 @@
           </thead>
           <tbody>
             <tr
-              v-for="hero in heroes" :key="hero._id"
+              v-for="hero in heroes"
+              :key="hero._id"
               @click="openModal(hero._id)"
               class="table-row"
               :class="[activeHero._id === hero._id ? 'isActive' : '']"
             >
-              <td style="word-break: break-all">{{hero.image || "No image added"}}</td>
-              <td>{{hero.title || "No title set"}}</td>
-              <td>{{hero.subtitle || "Subtitle not set"}}</td>
-              <td>{{activeHero._id === hero._id ? 'Active' : 'Inactive'}}</td>
+              <td style="word-break: break-all">
+                {{ hero.image || "No image added" }}
+              </td>
+              <td>{{ hero.title || "No title set" }}</td>
+              <td>{{ hero.subtitle || "Subtitle not set" }}</td>
+              <td>{{ activeHero._id === hero._id ? "Active" : "Inactive" }}</td>
               <td class="modal-td" v-show="false">
                 <portal :to="`modal-view-${hero._id}`">
                   <Modal
@@ -44,13 +47,13 @@
                   >
                     <div>
                       <div class="subtitle">
-                        Title: {{hero.title || "Title is not set"}}
+                        Title: {{ hero.title || "Title is not set" }}
                       </div>
                       <div class="subtitle">
-                        Subtitle: {{hero.subtitle || "Subtitle not set"}}
+                        Subtitle: {{ hero.subtitle || "Subtitle not set" }}
                       </div>
                       <figure class="image course-image is-3by1">
-                        <img :src="hero.image">
+                        <img :src="hero.image" />
                       </figure>
                     </div>
                   </Modal>
@@ -61,82 +64,89 @@
         </table>
       </div>
     </div>
-</div>
+  </div>
 </template>
 <script>
-  import Modal from '~/components/shared/Modal'
-  import instructorHeader from '~/components/shared/Header'
-  export default {
-    layout: 'instructor',
-    middleware: 'admin',
-    components: {
-      Modal, instructorHeader
+import Modal from "~/components/shared/Modal";
+import instructorHeader from "~/components/shared/Header";
+import confirmDelete from "~/mixins/confirmDelete";
+
+export default {
+  layout: "instructor",
+  middleware: "admin",
+  components: {
+    Modal,
+    instructorHeader,
+  },
+  mixins: [confirmDelete],
+  computed: {
+    heroes() {
+      return this.$store.state.instructor.heroes;
     },
-    computed: {
-      heroes() {
-        return this.$store.state.instructor.heroes
-      },
-      activeHero() {
-        return this.$store.state.heroes.courseHero
-      }
+    activeHero() {
+      return this.$store.state.heroes.courseHero;
     },
-    async fetch({store}) {
-      await store.dispatch('instructor/fetchHeroes')
+  },
+  async fetch({ store }) {
+    await store.dispatch("instructor/fetchHeroes");
+  },
+  methods: {
+    openModal(modalId) {
+      const modal = this.$refs[`modal-${modalId}`][0];
+      // debugger
+      modal.openModal();
     },
-    methods: {
-      openModal(modalId) {
-        const modal = this.$refs[`modal-${modalId}`][0]
+    activateHero({ closeModal }, heroId) {
+      this.$store.dispatch("instructor/activateHero", heroId).then((_) => {
+        this.$toasted.success("Hero was successfully activated..!", {
+          duration: 3000,
+        });
+        closeModal();
+      });
+    },
+    deleteHero({ closeModal }, heroId) {
+      this.$store.dispatch("instructor/deleteHero", heroId).then((_) => {
         // debugger
-        modal.openModal()
-      },
-      activateHero({closeModal}, heroId) {
-        this.$store.dispatch('instructor/activateHero', heroId)
-          .then(_ => {
-            this.$toasted.success("Hero was successfully activated..!", {duration: 3000})
-            closeModal()
-          })
-      },
-      deleteHero({closeModal}, heroId) {
-        this.$store.dispatch('instructor/deleteHero', heroId)
-          .then(_ => {
-            // debugger
-            this.$toasted.success("Hero was successfully deleted..!", {duration: 3000})
-            closeModal()
-          })
-      }
-    }
-  }
+        this.$toasted.success("Hero was successfully deleted..!", {
+          duration: 3000,
+        });
+        closeModal();
+      });
+    },
+  },
+};
 </script>
 <style scoped lang="scss">
-  .heroes-page {
-    max-width: 1000px;
-    margin: 0 auto 5rem auto;
-    margin-top: 40px;
+.heroes-page {
+  max-width: 1000px;
+  margin: 0 auto 5rem auto;
+  margin-top: 40px;
+}
+
+.title {
+  font-size: 45px;
+  font-weight: bold;
+}
+
+.isActive {
+}
+
+.course-image {
+  img {
+    object-fit: cover;
+  }
+}
+
+.table-row {
+  margin: 20px;
+
+  &.isActive {
+    background-color: #dfffe1;
   }
 
-  .title {
-    font-size: 45px;
-    font-weight: bold;
+  &:hover {
+    cursor: pointer;
+    background-color: #e4e4e4;
   }
-
-  .isActive {}
-
-  .course-image {
-    img {
-      object-fit: cover;
-    }
-  }
-
-  .table-row {
-    margin: 20px;
-
-    &.isActive {
-      background-color: #dfffe1
-    }
-
-    &:hover {
-      cursor: pointer;
-      background-color: #e4e4e4;
-    }
-  }
+}
 </style>

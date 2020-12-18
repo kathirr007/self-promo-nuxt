@@ -49,8 +49,8 @@
     "sass-loader": "^10.1.0",
     "slugify": "^1.4.0",
     "swiper": "5.x",
-    "tiptap": "^1.27.1",
-    "tiptap-extensions": "^1.29.1",
+    "tiptap": "^1.30.0",
+    "tiptap-extensions": "^1.33.2",
     "v-tooltip": "^2.0.3",
     "vue-awesome-swiper": "^4.1.1",
     "vue-confirm-dialog-fork": "^1.0.3-b",
@@ -64,8 +64,5 @@
   "devDependencies": {
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.2"
-  },
-  "resolutions": {
-    "prosemirror-model": "1.8.2"
   }
 }
