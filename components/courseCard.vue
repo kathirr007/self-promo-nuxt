@@ -1,105 +1,120 @@
 <template>
-    <div class="card">
-        <div class="card-image">
-            <!-- <client-only>
+  <div class="card">
+    <div class="card-image">
+      <!-- <client-only>
               <vue-picture-swipe :items="vpsImages" />
             </client-only> -->
-            <client-only v-if="vfImages.length > 1">
-              <vue-flux :options="vfOptions" :images="vfImages" :transitions="vfTransitions" ref="slider" class="flux-slider">
-                <!-- <template v-slot:preloader>
+      <client-only v-if="vfImages.length > 1">
+        <vue-flux
+          :options="vfOptions"
+          :images="vfImages"
+          :transitions="vfTransitions"
+          ref="slider"
+          class="flux-slider"
+        >
+          <!-- <template v-slot:preloader>
                   <flux-preloader />
                 </template> -->
-                <!-- <template v-slot:caption>
+          <!-- <template v-slot:caption>
                   <flux-caption />
                 </template> -->
-                <template v-slot:controls>
-                  <flux-controls />
-                </template>
-                <template v-slot:pagination>
-                  <flux-pagination />
-                </template>
-                <!-- <template v-slot:index>
+          <template v-slot:controls>
+            <flux-controls />
+          </template>
+          <template v-slot:pagination>
+            <flux-pagination />
+          </template>
+          <!-- <template v-slot:index>
                   <flux-index />
                 </template> -->
-              </vue-flux>
-            </client-only>
-            <img v-else-if="vfImages && vfImages.length == 1" :src="course.image" alt="Project Image">
-            <img v-else src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio" alt="Placeholder image">
-            <!-- <figure class="image is-4by2">
+        </vue-flux>
+      </client-only>
+      <img
+        v-else-if="vfImages && vfImages.length == 1"
+        :src="course.image"
+        alt="Project Image"
+      />
+      <img
+        v-else
+        src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio"
+        alt="Placeholder image"
+      />
+      <!-- <figure class="image is-4by2">
             </figure> -->
-        </div>
-        <!-- <nuxt-link :to="`/projects/${course.slug}`">
+    </div>
+    <!-- <nuxt-link :to="`/projects/${course.slug}`">
         </nuxt-link> -->
-        <div class="card-content">
-            <div class="content">
-                <p class="title is-4">{{course.title | shortenText(45)}}</p>
-                <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
-            </div>
-            <div class="content">
-                {{course.subtitle | shortenText(45)}}
-                <br>
-            </div>
-            <!-- <div class="price-box">
+    <div class="card-content">
+      <div class="content">
+        <p class="title is-4">{{ course.title | shortenText(45) }}</p>
+        <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
+      </div>
+      <div class="content">
+        {{ course.subtitle | shortenText(45) }}
+        <br />
+      </div>
+      <!-- <div class="price-box">
                 <span class="price">{{course.price}}$</span>
                 <span class="disc-price">{{course.discountedPrice}}$</span>
             </div> -->
-        </div>
-        <footer class="card-footer">
-            <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item">More Details</nuxt-link>
-            <!-- <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a> -->
-        </footer>
     </div>
+    <footer class="card-footer">
+      <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item"
+        >More Details</nuxt-link
+      >
+      <!-- <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a> -->
+    </footer>
+  </div>
 </template>
 
 <script>
-    // import { VueFlux } from 'vue-flux/dist-ssr/vue-flux.umd';
+// import { VueFlux } from 'vue-flux/dist-ssr/vue-flux.umd';
 
-    import {
-      VueFlux,
-      FluxControls,
-      FluxPagination,
-      FluxPreloader,
-    } from 'vue-flux/dist-ssr/vue-flux.umd.min.js';
+import {
+  VueFlux,
+  FluxControls,
+  FluxPagination,
+  FluxPreloader,
+} from "vue-flux/dist-ssr/vue-flux.umd.min.js";
 
-    // import VuePictureSwipe from 'vue-picture-swipe';
+// import VuePictureSwipe from 'vue-picture-swipe';
 
-    import 'vue-flux/dist-ssr/vue-flux.css';
+import "vue-flux/dist-ssr/vue-flux.css";
 
-    // if (process.browser) {
-    //     const { VF } = require('vue-flux');
-    // }
+// if (process.browser) {
+//     const { VF } = require('vue-flux');
+// }
 
+export default {
+  props: {
+    course: {
+      type: Object,
+      required: true,
+    },
+  },
+  components: {
+    VueFlux,
+    FluxControls,
+    FluxPagination,
+    // FluxPreloader,
+    // VuePictureSwipe
+  },
 
-
-    export default {
-        props: {
-            course: {
-                type: Object,
-                required: true
-            }
-        },
-        components: {
-          VueFlux,
-          FluxControls,
-          FluxPagination,
-          // FluxPreloader,
-          // VuePictureSwipe
-        },
-
-        data: () => ({
-          vfOptions: {
-            autoplay: false
-          },
-          // vfImages: ['URL1', 'URL2', 'URL3'],
-          vfTransitions: ['slide'],
-        }),
-        computed: {
-          vfImages() {
-            return this.course.images.map(image => {
-              return image.location
-            })
-          },
-/*           vpsImages() {
+  data: () => ({
+    vfOptions: {
+      autoplay: true,
+      delay: 1500,
+    },
+    // vfImages: ['URL1', 'URL2', 'URL3'],
+    vfTransitions: ["slide"],
+  }),
+  computed: {
+    vfImages() {
+      return this.course.images.map((image) => {
+        return image.location;
+      });
+    },
+    /*           vpsImages() {
             return this.course.images.map(image => ({
               src: image.location,
               thumbnail: image.location,
@@ -107,81 +122,82 @@
               h: '100'
             }))
           } */
-        }
-    }
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-  .card-image {
-    height: 200px;
-    overflow: hidden;
-    position: relative;
-    padding: 10px;
+.card-image {
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+  padding: 10px;
 
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    object-position: top;
+  }
+
+  &:hover {
+    /* cursor: pointer; */
+    opacity: 0.9;
+  }
+  @media screen and (min-width: 768px) {
+    height: 150px;
+    padding: 0;
     img {
-      height: 100%;
-      width: 100%;
-      object-fit: contain;
-    }
-
-    &:hover {
-      /* cursor: pointer; */
-      opacity: 0.9;
-    }
-    @media screen and (min-width: 768px) {
-      height: 150px;
-      padding: 0;
-      img {
-        object-fit: cover;
-        object-position: top;
-      }
+      object-fit: cover;
+      object-position: top;
     }
   }
+}
 
-  .price-box {
-    text-align: right;
+.price-box {
+  text-align: right;
 
-    .price {
-      color: gray;
-      font-size: 16px;
-      text-decoration: line-through;
-    }
-
-    .disc-price {
-      font-size: 21px;
-      font-weight: bold;
-    }
+  .price {
+    color: gray;
+    font-size: 16px;
+    text-decoration: line-through;
   }
 
-  .card {
+  .disc-price {
+    font-size: 21px;
+    font-weight: bold;
+  }
+}
+
+.card {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+
+  .card-content {
     display: flex;
     flex-flow: column;
-    height: 100%;
+    flex: 1;
 
-    .card-content {
+    .content {
       display: flex;
-      flex-flow: column;
       flex: 1;
-
-      .content {
-        display: flex;
-        flex: 1;
-      }
     }
   }
-  .vue-flux.flux-slider {
-    height: 100% !important;
-  }
+}
+.vue-flux.flux-slider {
+  height: 100% !important;
+}
 </style>
 <style lang="scss">
-  .vue-flux {
-    &.flux-slider {
-      .flux-image {
-        background-size: cover !important;
-        background-position: top center !important;
-      }
+.vue-flux {
+  &.flux-slider {
+    .flux-image {
+      background-size: cover !important;
+      background-position: top center !important;
     }
   }
+}
 .tooltip {
   .card {
     border-radius: 5px;
@@ -201,7 +217,7 @@
   &[x-placement^="left"] {
     .tooltip-arrow {
       display: none;
-      @media screen and (min-width:768px) {
+      @media screen and (min-width: 768px) {
         display: block;
         border-top-color: transparent !important;
         border-bottom-color: transparent !important;
@@ -217,7 +233,7 @@
 
     .tooltip-arrow {
       display: none;
-      @media screen and (min-width:768px) {
+      @media screen and (min-width: 768px) {
         display: block;
         border-width: 15px 15px 15px 0;
         border-left-color: transparent !important;
@@ -231,7 +247,7 @@
 
     .tooltip-arrow {
       display: none;
-      @media screen and (min-width:768px) {
+      @media screen and (min-width: 768px) {
         display: block;
         border-width: 15px 0 15px 15px;
         border-right-color: transparent !important;
@@ -240,16 +256,16 @@
     }
   }
 
-  &[aria-hidden='true'] {
+  &[aria-hidden="true"] {
     visibility: hidden;
     opacity: 0;
-    transition: opacity .25s, visibility .25s;
+    transition: opacity 0.25s, visibility 0.25s;
   }
 
-  &[aria-hidden='false'] {
+  &[aria-hidden="false"] {
     visibility: visible;
     opacity: 1;
-    transition: opacity .25s;
+    transition: opacity 0.25s;
     z-index: 9999;
   }
 }

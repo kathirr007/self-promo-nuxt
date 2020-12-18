@@ -1,27 +1,27 @@
 <template>
   <div>
     <navbar />
-    <nuxt />
+    <nuxt class="layout-contents p-4" />
     <app-footer />
-
   </div>
 </template>
 
 <script>
-  import navbar from '~/components/shared/navbar'
-  import AppFooter from '~/components/shared/Footer'
-  export default {
-    name: 'default',
-    components: {
-      navbar, AppFooter
-    },
-  }
+import navbar from "~/components/shared/navbar";
+import AppFooter from "~/components/shared/Footer";
+export default {
+  name: "default",
+  components: {
+    navbar,
+    AppFooter,
+  },
+};
 </script>
 
 <style>
 html {
-  font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI',
-    Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
   font-size: 16px;
   word-spacing: 1px;
   -ms-text-size-adjust: 100%;
@@ -68,5 +68,9 @@ html {
 .button--grey:hover {
   color: #fff;
   background-color: #35495e;
+}
+.layout-contents {
+  height: calc(100vh - (80px + 75px));
+  overflow-y: auto;
 }
 </style>
