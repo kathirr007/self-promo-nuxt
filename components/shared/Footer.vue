@@ -2,12 +2,9 @@
   <div class="hero-footer footer footer-custom has-background-dark">
     <div class="container">
       <div class="has-text-centered">
-        <p class="has-text-white mb-2">Share your thoughts?</p>
-        <a
-          class="icon has-text-white"
-          target="_blank"
-          href="https://github.com/kathirr007"
-        >
+        <p class="has-text-white mb-2">Want to Share some Intersting thoughts?</p>
+
+        <a class="icon has-text-white" target="_blank" href="https://github.com/kathirr007">
           <i class="fab fa-github"></i>
         </a>
         <!-- <p>Github <a target="_" href="https://github.com/kathirr007">github.com/kathirr007</a></p> -->
@@ -18,11 +15,7 @@
         >
           <i class="fab fa-linkedin"></i>
         </a>
-        <a
-          class="icon has-text-white ml-2"
-          target="_blank"
-          href="https://twitter.com/kathirr_007"
-        >
+        <a class="icon has-text-white ml-2" target="_blank" href="https://twitter.com/kathirr_007">
           <i class="fab fa-twitter-square"></i>
         </a>
         <a
@@ -47,7 +40,7 @@
   font-size: 32px;
 }
 .footer {
-  padding: 1.25rem;
+  padding: 0.5rem;
   position: absolute;
   bottom: 0;
   width: 100%;
