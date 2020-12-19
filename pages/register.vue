@@ -1,8 +1,8 @@
 <template>
   <section class="hero is-success">
-    <div v-if="!production" class="hero-body">
+    <div v-if="!production" class="hero-body p-4">
       <div class="container has-text-centered">
-        <div class="column is-6 is-offset-3">
+        <div class="column is-6 is-offset-3 px-0">
           <h3 class="title has-text-grey">Register</h3>
           <p class="subtitle has-text-grey">Please register to proceed.</p>
           <div class="box">
@@ -14,14 +14,14 @@
                 "
               />
             </figure>
-            <form>
+            <form class="mt-3">
               <div class="field">
                 <div class="control">
                   <input
                     @blur="$v.form.username.$touch()"
                     @keyup.enter="$v.form.username.$touch()"
                     v-model="form.username"
-                    class="input is-large"
+                    class="input"
                     type="text"
                     placeholder="Username"
                   />
@@ -29,13 +29,11 @@
                     <span
                       v-if="!$v.form.username.required"
                       class="help is-danger"
-                      >Username is required</span
-                    >
+                    >Username is required</span>
                     <span
                       v-if="!$v.form.username.minLength"
                       class="help is-danger"
-                      >Username minimum length is 6 characters</span
-                    >
+                    >Username minimum length is 6 characters</span>
                   </div>
                 </div>
               </div>
@@ -45,17 +43,16 @@
                     @blur="$v.form.name.$touch()"
                     @keyup.enter="$v.form.name.$touch()"
                     v-model="form.name"
-                    class="input is-large"
+                    class="input"
                     type="text"
                     placeholder="Name"
                   />
                   <div v-if="$v.form.name.$error" class="form-error">
-                    <span v-if="!$v.form.name.required" class="help is-danger"
-                      >Name is required</span
-                    >
-                    <span v-if="!$v.form.name.minLength" class="help is-danger"
-                      >Name minimum length is 6 characters</span
-                    >
+                    <span v-if="!$v.form.name.required" class="help is-danger">Name is required</span>
+                    <span
+                      v-if="!$v.form.name.minLength"
+                      class="help is-danger"
+                    >Name minimum length is 6 characters</span>
                   </div>
                 </div>
               </div>
@@ -65,19 +62,16 @@
                     @blur="$v.form.email.$touch()"
                     @keyup.enter="$v.form.email.$touch()"
                     v-model="form.email"
-                    class="input is-large"
+                    class="input"
                     type="email"
                     placeholder="Your Email"
                   />
                   <div v-if="$v.form.email.$error" class="form-error">
-                    <span v-if="!$v.form.email.required" class="help is-danger"
-                      >Email is required</span
-                    >
+                    <span v-if="!$v.form.email.required" class="help is-danger">Email is required</span>
                     <span
                       v-if="!$v.form.email.emailValidator"
                       class="help is-danger"
-                      >Email address is not valid</span
-                    >
+                    >Email address is not valid</span>
                   </div>
                 </div>
               </div>
@@ -87,20 +81,17 @@
                     @blur="$v.form.avatar.$touch()"
                     @keyup.enter="$v.form.avatar.$touch()"
                     v-model="form.avatar"
-                    class="input is-large"
+                    class="input"
                     type="text"
                     placeholder="Avatar"
-                    autocomplete=""
+                    autocomplete
                   />
                   <div v-if="$v.form.avatar.$error" class="form-error">
-                    <span v-if="!$v.form.avatar.url" class="help is-danger"
-                      >Url format is not valid!</span
-                    >
+                    <span v-if="!$v.form.avatar.url" class="help is-danger">Url format is not valid!</span>
                     <span
                       v-if="!$v.form.avatar.supportedFileTypes"
                       class="help is-danger"
-                      >Selected file type is not valid!</span
-                    >
+                    >Selected file type is not valid!</span>
                   </div>
                 </div>
               </div>
@@ -110,7 +101,7 @@
                     @blur="$v.form.password.$touch()"
                     @keyup.enter="$v.form.password.$touch()"
                     v-model="form.password"
-                    class="input is-large"
+                    class="input"
                     type="password"
                     placeholder="Your Password"
                     autocomplete="new-password"
@@ -119,13 +110,11 @@
                     <span
                       v-if="!$v.form.password.required"
                       class="help is-danger"
-                      >Password is required</span
-                    >
+                    >Password is required</span>
                     <span
                       v-if="!$v.form.password.minLength"
                       class="help is-danger"
-                      >Password minimum length is 6 letters</span
-                    >
+                    >Password minimum length is 6 letters</span>
                   </div>
                 </div>
               </div>
@@ -135,25 +124,20 @@
                     @blur="$v.form.passwordConfirmation.$touch()"
                     @keyup.enter="$v.form.passwordConfirmation.$touch()"
                     v-model="form.passwordConfirmation"
-                    class="input is-large"
+                    class="input"
                     type="password"
                     placeholder="Password Confirmation"
                     autocomplete="off"
                   />
-                  <div
-                    v-if="$v.form.passwordConfirmation.$error"
-                    class="form-error"
-                  >
+                  <div v-if="$v.form.passwordConfirmation.$error" class="form-error">
                     <span
                       v-if="!$v.form.passwordConfirmation.required"
                       class="help is-danger"
-                      >Confirm Password is required</span
-                    >
+                    >Confirm Password is required</span>
                     <span
                       v-if="!$v.form.passwordConfirmation.sameAs"
                       class="help is-danger"
-                      >Confirm Password should be the same as password</span
-                    >
+                    >Confirm Password should be the same as password</span>
                   </div>
                 </div>
               </div>
@@ -161,16 +145,17 @@
                 :disabled="$v.form.$invalid"
                 @click.prevent="register"
                 type="submit"
-                class="button is-block is-info is-large is-fullwidth"
-              >
-                Register
-              </button>
+                class="button is-block is-info is-fullwidth"
+              >Register</button>
             </form>
           </div>
-          <p class="has-text-grey">
+          <p class="has-text-grey has-text-centered">
+            <span class="is-block">Already you have account?</span>
             <nuxt-link to="/login" class="mr-2">Login</nuxt-link>
             <!-- <a>Sign Up With Google</a> &nbsp;·&nbsp; -->
-            <a href="../">Need Help?</a>
+            <!-- <a href="../">Need Help?</a> -->
+            <!-- &nbsp;·&nbsp;
+            <a @click="signInWithGoogle">Sign In With Google</a>-->
           </p>
         </div>
       </div>
@@ -181,7 +166,8 @@
         Development purpose.
       </p>
       <p class="has-text-centered has-text-black">
-        Please contact <a href="mailto:kathirr007@gmail.com">Administrator</a>
+        Please contact
+        <a href="mailto:kathirr007@gmail.com">Administrator</a>
       </p>
     </div>
   </section>
@@ -259,6 +245,18 @@ export default {
           .catch((error) => this.$toasted.error(error, { duration: 3000 }));
       }
     },
+    async signInWithGoogle() {
+      // debugger
+      await this.$auth
+        .loginWith("google")
+        .then(() => {
+          // debugger
+          this.$toasted.success("Logged In!", { duration: 5000 });
+        })
+        .catch((e) => {
+          this.$toast.show("Error", { icon: "fingerprint" });
+        });
+    },
   },
 };
 </script>
@@ -272,9 +270,7 @@ export default {
   -webkit-box-shadow: none;
   box-shadow: none;
 }
-.box {
-  margin-top: 5rem;
-}
+
 .avatar {
   margin-top: -70px;
   padding-bottom: 20px;

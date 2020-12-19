@@ -40,7 +40,7 @@
 }
 .footer {
   padding: 0.5rem;
-  position: absolute;
+  position: fixed;
   bottom: 0;
   width: 100%;
 }
