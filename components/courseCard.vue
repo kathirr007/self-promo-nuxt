@@ -3,7 +3,7 @@
     <div class="card-image">
       <!-- <client-only>
               <vue-picture-swipe :items="vpsImages" />
-            </client-only> -->
+      </client-only>-->
       <client-only v-if="vfImages.length > 1">
         <vue-flux
           :options="vfOptions"
@@ -14,10 +14,10 @@
         >
           <!-- <template v-slot:preloader>
                   <flux-preloader />
-                </template> -->
+          </template>-->
           <!-- <template v-slot:caption>
                   <flux-caption />
-                </template> -->
+          </template>-->
           <template v-slot:controls>
             <flux-controls />
           </template>
@@ -26,24 +26,20 @@
           </template>
           <!-- <template v-slot:index>
                   <flux-index />
-                </template> -->
+          </template>-->
         </vue-flux>
       </client-only>
-      <img
-        v-else-if="vfImages && vfImages.length == 1"
-        :src="course.image"
-        alt="Project Image"
-      />
+      <img v-else-if="vfImages && vfImages.length == 1" :src="course.image" alt="Project Image" />
       <img
         v-else
         src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio"
         alt="Placeholder image"
       />
       <!-- <figure class="image is-4by2">
-            </figure> -->
+      </figure>-->
     </div>
     <!-- <nuxt-link :to="`/projects/${course.slug}`">
-        </nuxt-link> -->
+    </nuxt-link>-->
     <div class="card-content">
       <div class="content">
         <p class="title is-4">{{ course.title | shortenText(45) }}</p>
@@ -56,12 +52,10 @@
       <!-- <div class="price-box">
                 <span class="price">{{course.price}}$</span>
                 <span class="disc-price">{{course.discountedPrice}}$</span>
-            </div> -->
+      </div>-->
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item"
-        >More Details</nuxt-link
-      >
+      <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item">More Details</nuxt-link>
       <!-- <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a> -->
     </footer>
   </div>
@@ -128,7 +122,7 @@ export default {
 
 <style lang="scss" scoped>
 .card-image {
-  height: 200px;
+  height: 175px;
   overflow: hidden;
   position: relative;
   padding: 10px;
@@ -187,6 +181,7 @@ export default {
 }
 .vue-flux.flux-slider {
   height: 100% !important;
+  width: 100% !important;
 }
 </style>
 <style lang="scss">

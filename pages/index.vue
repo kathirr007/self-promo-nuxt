@@ -6,12 +6,12 @@
       :subtitle="courseHero.subtitle"
       :image="courseHero.image"
       :promoLink="courseHero.product && courseHero.product.productLink"
-    /> -->
+    />-->
     <hero-slider :heroes="courseHeros" />
     <!-- <hero v-else/> -->
 
     <!-- Hero Section end -->
-    <section class="section px-0 py-3">
+    <section class="section p-3">
       <div class="container">
         <h1 class="title my-3">Featured Projects</h1>
         <div class="columns is-multiline section-cards">
@@ -42,7 +42,7 @@
         </div>
       </div>
     </section>
-    <section class="section px-0 py-3">
+    <section class="section p-3">
       <div class="container">
         <h1 class="title my-3">Featured Articles</h1>
         <div class="columns is-multiline section-cards">

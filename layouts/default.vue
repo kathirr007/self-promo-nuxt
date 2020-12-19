@@ -1,7 +1,7 @@
 <template>
   <div>
     <navbar />
-    <nuxt class="layout-contents p-4" />
+    <nuxt class="layout-contents" />
     <app-footer />
   </div>
 </template>
@@ -70,7 +70,7 @@ html {
   background-color: #35495e;
 }
 .layout-contents {
-  height: calc(100vh - (80px + 82px));
+  height: calc(100vh - (80px + 42px));
   overflow-y: auto;
 }
 </style>

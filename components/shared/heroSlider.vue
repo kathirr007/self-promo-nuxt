@@ -1,10 +1,6 @@
 <template>
   <section class="hero is-black">
-    <swiper
-      v-if="heroes.length !== 0"
-      class="swiper hero-slider"
-      :options="swiperOption"
-    >
+    <swiper v-if="heroes.length !== 0" class="swiper hero-slider" :options="swiperOption">
       <swiper-slide class="hero-body" v-for="(hero, i) in heroes" :key="i">
         <div
           class="hero-img"
@@ -15,37 +11,23 @@
           }"
         ></div>
         <div class="container px-4 py-2">
-          <h1 class="title">
-            {{ hero.title }}
-          </h1>
-          <h2 class="subtitle is-hidden-mobile">
-            {{ hero.subtitle }}
-          </h2>
+          <h1 class="title">{{ hero.title }}</h1>
+          <h2 class="subtitle is-hidden-mobile">{{ hero.subtitle }}</h2>
           <nuxt-link
             target="_"
             :to="hero.product !== null ? `projects/${hero.product.slug}` : '/'"
             class="button is-danger"
-            >More Details</nuxt-link
-          >
+          >More Details</nuxt-link>
         </div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
     <div v-else class="hero-body">
-      <div
-        class="hero-img"
-        :style="{ background: `url(${image}) no-repeat center center` }"
-      ></div>
+      <div class="hero-img" :style="{ background: `url(${image}) no-repeat center center` }"></div>
       <div class="container px-4 py-2">
-        <h1 class="title">
-          {{ title }}
-        </h1>
-        <h2 class="subtitle is-hidden-mobile">
-          {{ subtitle }}
-        </h2>
-        <nuxt-link target="_" :to="'/'" class="button is-danger"
-          >Learn More!</nuxt-link
-        >
+        <h1 class="title">{{ title }}</h1>
+        <h2 class="subtitle is-hidden-mobile">{{ subtitle }}</h2>
+        <nuxt-link target="_" :to="'/'" class="button is-danger">Learn More!</nuxt-link>
       </div>
     </div>
     <!-- <div class="hero-body">
@@ -61,7 +43,7 @@
                 </h2>
                 <a target="_" :href="promoLink" class="button is-danger">Learn More!</a>
             </div>
-        </div> -->
+    </div>-->
   </section>
 </template>
 
@@ -103,10 +85,11 @@ export default {
         direction: "horizontal",
         spaceBetween: 30,
         centeredSlides: true,
-        // autoplay: {
-        //   delay: 5000,
-        //   disableOnInteraction: true
-        // },
+        autoplay: {
+          delay: 5000,
+          disableOnInteraction: true,
+        },
+        loop: true,
         pagination: {
           el: ".swiper-pagination",
           clickable: true,

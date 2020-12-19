@@ -22,6 +22,19 @@ html {
   display: flex;
 }
 
+.section {
+  .container {
+    h1.title {
+      margin: .75rem 0;
+      text-align: center;
+
+      @media screen and (min-width:576px) {
+        text-align: left;
+      }
+    }
+  }
+}
+
 @-moz-keyframes loader {
   from {
     transform: rotate(0);
@@ -108,6 +121,7 @@ html {
 .slideDown-leave-active {
   transition: all 0.25s ease-in;
 }
+
 .slideDown-enter,
 .slideDown-leave-to {
   opacity: 0;
@@ -118,6 +132,7 @@ html {
 .slideUp-leave-active {
   transition: all 0.25s ease-in;
 }
+
 .slideUp-enter,
 .slideUp-leave-to {
   opacity: 0;

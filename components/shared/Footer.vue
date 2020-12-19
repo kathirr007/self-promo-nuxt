@@ -2,8 +2,7 @@
   <div class="hero-footer footer footer-custom has-background-dark">
     <div class="container">
       <div class="has-text-centered">
-        <p class="has-text-white mb-2">Want to Share some Intersting thoughts?</p>
-
+        <!-- <p class="has-text-white mb-2">Want to Share some Intersting thoughts?</p> -->
         <a class="icon has-text-white" target="_blank" href="https://github.com/kathirr007">
           <i class="fab fa-github"></i>
         </a>
@@ -37,7 +36,7 @@
   height: auto;
 }
 [class*="fa-"] {
-  font-size: 32px;
+  font-size: 22px;
 }
 .footer {
   padding: 0.5rem;
