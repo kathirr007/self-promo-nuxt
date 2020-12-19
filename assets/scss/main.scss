@@ -13,6 +13,13 @@ html {
   overflow-y: auto;
 }
 
+.page-wrapper {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+}
+
 .blog-editor-container {
   padding-top: 60px;
 }

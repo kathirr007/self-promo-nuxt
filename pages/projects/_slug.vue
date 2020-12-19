@@ -1,10 +1,6 @@
 <template>
   <div>
-    <product-hero
-      :title="course.title"
-      :subtitle="course.subtitle"
-      :author="course.author"
-    >
+    <product-hero :title="course.title" :subtitle="course.subtitle" :author="course.author">
       <product-hero-card
         :navigateTo="course.productLink"
         :image="course.image"
@@ -14,23 +10,19 @@
     </product-hero>
     <div class="container">
       <div class="columns">
-        <div class="column px-0">
-          <div class="section px-0">
+        <div class="column">
+          <div class="section p-0">
             <div class="what-you-get">
               <div class="what-you-get-title">Technologies used</div>
               <ul class="what-you-get-items">
                 <!-- TODO: Iterate course wsl -->
-                <li
-                  v-for="wsl in course.wsl"
-                  :key="wsl.value"
-                  class="what-you-get-item"
-                >
+                <li v-for="wsl in course.wsl" :key="wsl.value" class="what-you-get-item">
                   <span>{{ wsl.value }}</span>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="section course-description pt-0 px-0">
+          <div class="section course-description py-2 px-0">
             <div class="course-description-title">Project Info</div>
             <div class="course-description-details">
               <!-- TODO: use v-html for description -->

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="page-wrapper">
     <navbar />
     <nuxt class="layout-contents" />
     <app-footer />
