@@ -52,6 +52,9 @@ export default {
   // max-width: 800px;
   // margin: 0 auto 5rem auto;
   font-size: 18px;
+  @media screen and (min-width: 576px) {
+    font-size: 26px;
+  }
 }
 .avatar {
   margin-right: 20px;

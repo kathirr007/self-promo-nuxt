@@ -241,7 +241,15 @@ export default {
       if (this.isFormValid) {
         this.$store
           .dispatch("authentication/register", this.form)
-          .then(() => this.$router.push("/login"))
+          .then((user) => {
+            this.$router.push("/login");
+            this.$toasted.success(
+              `Registration is completed successfully for <strong class="has-text-white ml-2">${user.email}</stron>...!`,
+              {
+                duration: 3000,
+              }
+            );
+          })
           .catch((error) => this.$toasted.error(error, { duration: 3000 }));
       }
     },

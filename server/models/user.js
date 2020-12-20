@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
+const { genSalt, hash, compare } = require("bcrypt");
 const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
@@ -45,12 +45,12 @@ const userSchema = new Schema({
 userSchema.pre("save", function(next) {
   const user = this;
 
-  bcrypt.genSalt(10, function(err, salt) {
+  genSalt(10, function(err, salt) {
     if (err) {
       return next(err);
     }
 
-    bcrypt.hash(user.password, salt, function(err, hash) {
+    hash(user.password, salt, function(err, hash) {
       if (err) {
         return next(err);
       }
@@ -63,8 +63,8 @@ userSchema.pre("save", function(next) {
 
 //Every user have acces to this methods
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
-  debugger;
-  bcrypt.compare(candidatePassword, this.password, function(err, isMatch) {
+  // debugger;
+  compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) {
       return callback(err);
     } else {

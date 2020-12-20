@@ -1,9 +1,5 @@
 <template>
-  <nav
-    class="navbar is-active is-dark"
-    role="navigation"
-    aria-label="main navigation"
-  >
+  <nav class="navbar is-active is-dark" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <nuxt-link class="navbar-item" to="/">
         <h1 class="brand-title">Kathiravan K</h1>
@@ -14,7 +10,7 @@
       <!-- Adds click to open -->
       <!-- Adds active class -->
       <a
-        @click="isActive = !isActive"
+        @click="toggleNavbar"
         :class="{ 'is-active': isActive }"
         role="button"
         class="navbar-burger burger"
@@ -29,26 +25,22 @@
     </div>
 
     <!-- Adds active class -->
-    <div
-      id="navbarBasicExample"
-      class="navbar-menu"
-      :class="{ 'is-active': isActive }"
-    >
+    <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': isActive }">
       <div class="navbar-start">
-        <nav-link to="/" class="navbar-item"> Home </nav-link>
-        <nav-link to="/projects" class="navbar-item"> Projects </nav-link>
-        <!-- <nav-link to="/instructor/courses" class="navbar-item">
+        <nav-link @click.native="toggleNavbar" to="/" class="navbar-item">Home</nav-link>
+        <nav-link @click.native="toggleNavbar" to="/projects" class="navbar-item">Projects</nav-link>
+        <!-- <nav-link @click.native="toggleNavbar" to="/instructor/courses" class="navbar-item">
           Courses
-        </nav-link> -->
-        <nav-link to="/experiences" class="navbar-item"> Experiences </nav-link>
-        <nav-link to="/about" class="navbar-item"> About </nav-link>
-        <nav-link to="/cv" class="navbar-item"> Cv </nav-link>
-        <!-- <nav-link to="/instructor" class="navbar-item">
+        </nav-link>-->
+        <nav-link @click.native="toggleNavbar" to="/experiences" class="navbar-item">Experiences</nav-link>
+        <nav-link @click.native="toggleNavbar" to="/about" class="navbar-item">About</nav-link>
+        <nav-link @click.native="toggleNavbar" to="/cv" class="navbar-item">Cv</nav-link>
+        <!-- <nav-link @click.native="toggleNavbar" to="/instructor" class="navbar-item">
           Instructor
         </nav-link>
-        <nav-link to="/secret" class="navbar-item">
+        <nav-link @click.native="toggleNavbar" to="/secret" class="navbar-item">
           Secret
-        </nav-link> -->
+        </nav-link>-->
       </div>
 
       <client-only>
@@ -58,44 +50,25 @@
               <!-- If Authenticated -->
               <template v-if="isAuth || isLoggedIn">
                 <figure class="image avatar is-48x48 m-r-sm">
-                  <img
-                    class="is-rounded"
-                    :src="user ? user.avatar : googleUserAvatar"
-                  />
+                  <img class="is-rounded" :src="user ? user.avatar : googleUserAvatar" />
                 </figure>
-                <div class="m-r-sm m-b-sm">
-                  Welcome {{ user ? user.username : googleUser }}!
-                </div>
+                <div class="m-r-sm m-b-sm">Welcome {{ user ? user.username : googleUser }}!</div>
                 <!-- If Admin -->
                 <button
                   v-if="isAdmin"
                   class="button is-link is-outlined"
                   @click="$router.push('/instructor')"
-                >
-                  Instructor
-                </button>
-                <a
-                  v-if="user"
-                  class="button is-primary"
-                  @click.prevent="logout"
-                >
-                  Logout
-                </a>
-                <a
-                  v-else
-                  class="button is-primary"
-                  @click.prevent="googleLogout"
-                >
-                  Logout
-                </a>
+                >Instructor</button>
+                <a v-if="user" class="button is-primary" @click.prevent="logout">Logout</a>
+                <a v-else class="button is-primary" @click.prevent="googleLogout">Logout</a>
               </template>
               <template v-else>
-                <nav-link to="/register" class="button is-primary">
-                  Sign up
-                </nav-link>
-                <nav-link to="/login" class="button is-light">
-                  Log in
-                </nav-link>
+                <nav-link
+                  @click.native="toggleNavbar"
+                  to="/register"
+                  class="button is-primary"
+                >Sign up</nav-link>
+                <nav-link @click.native="toggleNavbar" to="/login" class="button is-light">Log in</nav-link>
               </template>
             </div>
           </div>
@@ -134,11 +107,15 @@ export default {
     };
   },
   methods: {
+    toggleNavbar() {
+      this.isActive = !this.isActive;
+    },
     logout() {
       this.$store
         .dispatch("authentication/logout", this.form)
         .then(() => {
           // this.$router.push('/')
+          this.isActive = !this.isActive;
           this.$router.push("/login");
           this.$toasted.success("Successfully logged out...", {
             duration: 3000,
@@ -151,6 +128,7 @@ export default {
         );
     },
     googleLogout() {
+      this.isActive = !this.isActive;
       this.$auth.logout("google");
     },
   },

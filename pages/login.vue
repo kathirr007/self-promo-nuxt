@@ -73,14 +73,15 @@
             </div>
             <div v-else>
               <!-- <a @click="signInWithGoogle">Sign In With Google</a> &nbsp;·&nbsp; -->
-              <div>
-                <p class="has-text-gray has-text-centered is-inline-block">Don't have account?</p>
+              <p class="has-text-gray has-text-centered">
+                Don't have account?
                 <nuxt-link to="/register">Sign Up</nuxt-link>
-              </div>
-              <div>
-                <p class="has-text-gray has-text-centered is-inline-block">Forget Password?</p>
+              </p>
+
+              <p class="has-text-gray has-text-centered">
+                Forget Password?
                 <nuxt-link to="/resetpassword">Reset Password</nuxt-link>
-              </div>
+              </p>
               <!-- &nbsp;·&nbsp;
               <a href="../">Need Help?</a>-->
             </div>
@@ -161,13 +162,18 @@ export default {
       this.$v.form.$touch();
 
       if (this.isFormValid) {
-        debugger;
+        // debugger;
         this.$store
           .dispatch("authentication/login", this.form)
-          .then(() => {
-            debugger;
+          .then((user) => {
+            // debugger;
             this.$router.push("/");
-            this.$toasted.success("Welcome...!", { duration: 3000 });
+            this.$toasted.success(
+              `Welcome Back <strong class="has-text-white ml-2">${user.name}</stron>...!`,
+              {
+                duration: 3000,
+              }
+            );
           })
           .catch((err) =>
             this.$toasted.error("Wrong email or password", { duration: 3000 })

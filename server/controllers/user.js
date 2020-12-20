@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const passport = require("passport");
-const bcrypt = require("bcrypt");
+const { compare } = require("bcrypt");
 
 exports.getCurrentUser = function(req, res, next) {
   const user = req.user;
@@ -56,7 +56,7 @@ exports.register = function(req, res) {
 exports.login = function(req, res, next) {
   const { email, password } = req.body;
   // console.log(req.body)
-  debugger;
+  // debugger;
   if (!email) {
     return res.status(422).json({
       errors: {
@@ -81,12 +81,12 @@ exports.login = function(req, res, next) {
     }
 
     if (passportUser) {
-      debugger;
+      // debugger;
       req.login(passportUser, function(err) {
         if (err) {
           next(err);
         }
-        debugger;
+        // debugger;
         return res.json(passportUser);
       });
     } else {
@@ -96,11 +96,11 @@ exports.login = function(req, res, next) {
         }
       });
     }
-  });
+  })(req, res, next);
 };
 
 exports.resetPassword = function(req, res, next) {
-  debugger;
+  // debugger;
   const { email, oldPassword, newPassword } = req.body;
   // console.log(req.body)
 
@@ -110,7 +110,7 @@ exports.resetPassword = function(req, res, next) {
       if (errors) {
         return res.status(422).send(errors);
       } else {
-        bcrypt.compare(oldPassword, user.password, function(err, isMatch) {
+        compare(oldPassword, user.password, function(err, isMatch) {
           if (err) {
             return err;
           } else {
