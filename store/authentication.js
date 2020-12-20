@@ -25,18 +25,18 @@ export const actions = {
     return this.$axios
       .$post("/api/v1/users/login", loginData)
       .then(user => {
-        // debugger
+        debugger;
         commit("setAuthUser", user);
         return state.user;
       })
       .catch(error => Promise.reject(error));
   },
   resetPassword({ commit }, resetData) {
-    debugger;
+    // debugger;
     return this.$axios
       .$post("/api/v1/users/resetPassword", resetData)
       .then(res => {
-        debugger;
+        // debugger;
         // commit("setAuthUser", user);
         return res;
       })

@@ -217,12 +217,16 @@ export default {
       if (this.isFormValid) {
         this.$store
           .dispatch("authentication/resetPassword", this.form)
-          .then(() => {
-            this.$router.push("/login");
-            this.$toasted.success(
-              "Password is reseted Successfully, you can login with new Password",
-              { duration: 3000 }
-            );
+          .then((res) => {
+            if (res.status !== "OK") {
+              this.$toasted.error(`${res.message}`, { duration: 3000 });
+            } else {
+              this.$router.push("/login");
+              this.$toasted.success(
+                "Password is reseted Successfully, you can login with new Password",
+                { duration: 3000 }
+              );
+            }
           })
           .catch((err) =>
             this.$toasted.error("Wrong email or password doesn't match", {

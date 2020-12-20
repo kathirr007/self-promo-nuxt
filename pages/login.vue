@@ -73,8 +73,14 @@
             </div>
             <div v-else>
               <!-- <a @click="signInWithGoogle">Sign In With Google</a> &nbsp;·&nbsp; -->
-              <p class="has-text-gray has-text-centered">Don't have account?</p>
-              <nuxt-link to="/register">Sign Up</nuxt-link>
+              <div>
+                <p class="has-text-gray has-text-centered is-inline-block">Don't have account?</p>
+                <nuxt-link to="/register">Sign Up</nuxt-link>
+              </div>
+              <div>
+                <p class="has-text-gray has-text-centered is-inline-block">Forget Password?</p>
+                <nuxt-link to="/resetpassword">Reset Password</nuxt-link>
+              </div>
               <!-- &nbsp;·&nbsp;
               <a href="../">Need Help?</a>-->
             </div>
@@ -155,9 +161,11 @@ export default {
       this.$v.form.$touch();
 
       if (this.isFormValid) {
+        debugger;
         this.$store
           .dispatch("authentication/login", this.form)
           .then(() => {
+            debugger;
             this.$router.push("/");
             this.$toasted.success("Welcome...!", { duration: 3000 });
           })

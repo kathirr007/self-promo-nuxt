@@ -56,6 +56,7 @@ exports.register = function(req, res) {
 exports.login = function(req, res, next) {
   const { email, password } = req.body;
   // console.log(req.body)
+  debugger;
   if (!email) {
     return res.status(422).json({
       errors: {
@@ -95,7 +96,7 @@ exports.login = function(req, res, next) {
         }
       });
     }
-  })(req, res, next);
+  });
 };
 
 exports.resetPassword = function(req, res, next) {
@@ -120,11 +121,13 @@ exports.resetPassword = function(req, res, next) {
                   return res.status(422).send(err);
                 }
                 return res.json({
+                  status: "OK",
                   message: "Password has been reseted successfully..."
                 });
               });
             } else {
               return res.json({
+                status: "NOk",
                 message: "Old Password doesn't match with provided Password..."
               });
             }
