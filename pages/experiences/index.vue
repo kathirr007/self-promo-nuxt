@@ -8,7 +8,7 @@
           <div class="column is-8 infinite-loader">
             <!-- blog -->
             <!-- <transition-group appear name="slideDown" mode="out-in"> -->
-            <div class="section" v-for="blog in publishedBlogs" :key="blog.slug">
+            <div class="section" v-for="(blog, index) in publishedBlogs" :key="blog.slug">
               <transition appear name="slideDown" mode="out-in">
                 <div class="post">
                   <div

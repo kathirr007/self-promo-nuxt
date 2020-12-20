@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
-    "buildAnalyze": "nuxt build -a",
+    "analyze": "nuxt build -a",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build"
@@ -32,6 +32,7 @@
     "connect-mongodb-session": "^2.3.1",
     "cors": "^2.8.5",
     "cross-env": "^7.0.2",
+    "date-fns": "^2.16.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "highlight.js": "^10.0.3",
@@ -53,7 +54,7 @@
     "tiptap-extensions": "^1.33.2",
     "v-tooltip": "^2.0.3",
     "vue-awesome-swiper": "^4.1.1",
-    "vue-confirm-dialog-fork": "^1.0.3-b",
+    "vue-confirm-dialog-fork": "^1.0.4",
     "vue-flux": "^6.3.1",
     "vue-infinite-loading": "^2.4.5",
     "vue-picture-swipe": "^2.0.2",
