@@ -6,8 +6,9 @@
   "private": true,
   "toDebug": "Add --inspect=7000 --inspect-brk before javascript file to debug node server functions",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development nodemon --inspect=7000 --inspect-brk server/index.js --watch server",
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
     "build": "nuxt build",
+    "buildAnalyze": "nuxt build -a",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
     "heroku-postbuild": "npm run build"
@@ -45,7 +46,6 @@
     "passport-local": "^1.0.0",
     "portal-vue": "^2.1.7",
     "request": "^2.88.2",
-    "sanitize-html": "^1.23.0",
     "sass-loader": "^10.1.0",
     "slugify": "^1.4.0",
     "swiper": "5.x",
@@ -63,6 +63,7 @@
   },
   "devDependencies": {
     "node-sass": "^5.0.0",
-    "nodemon": "^2.0.2"
+    "nodemon": "^2.0.2",
+    "webpack-bundle-analyzer": "^4.3.0"
   }
 }
