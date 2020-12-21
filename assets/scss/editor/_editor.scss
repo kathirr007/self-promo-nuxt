@@ -287,3 +287,43 @@
     }
   }
 }
+
+/* Quill Editor styles */
+.quill-editor {
+  overflow-y: auto;
+
+  .ql-toolbar {
+    border-top-left-radius: 7px;
+    border-top-right-radius: 7px;
+    background: #ccc;
+  }
+
+  .ql-container {
+    border-bottom-left-radius: 7px;
+    border-bottom-right-radius: 7px;
+    font-size: 16px;
+    min-height: 100px;
+  }
+
+  .ql-snow.ql-toolbar {
+    .ql-stroke {
+      stroke: #fff;
+    }
+
+    .ql-fill {
+      fill: #fff;
+    }
+
+    button:hover .ql-stroke,
+    button.ql-active .ql-stroke {
+      stroke: #000;
+    }
+
+    button:hover .ql-fill,
+    button.ql-active .ql-fill {
+      fill: #000;
+    }
+  }
+}
+
+/* Quill Editor styles ends*/

@@ -37,7 +37,6 @@
     "express-session": "^1.17.1",
     "highlight.js": "^10.0.3",
     "jsonwebtoken": "^8.5.1",
-    "moment": "^2.25.3",
     "mongoose": "^5.9.14",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
@@ -66,5 +65,8 @@
     "node-sass": "^5.0.0",
     "nodemon": "^2.0.2",
     "webpack-bundle-analyzer": "^4.3.0"
+  },
+  "resolutions": {
+    "prosemirror-model": "^1.13.1"
   }
 }

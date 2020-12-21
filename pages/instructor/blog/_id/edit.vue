@@ -26,9 +26,7 @@
                 </article>
               </div>
               <article v-else class="message is-danger">
-                <div class="message-body">
-                  {{publishError}}
-                </div>
+                <div class="message-body">{{publishError}}</div>
               </article>
             </div>
           </Modal>
@@ -40,7 +38,8 @@
             @submitted="updateBlogStatus($event, 'active')"
             openTitle="Unpublish"
             openBtnClass="button is-success  is-inverted is-outlined"
-            title="Unpublish Blog">
+            title="Unpublish Blog"
+          >
             <div>
               <div class="title">Unpublish blog so it's no longer displayed in blogs page</div>
             </div>
@@ -61,114 +60,154 @@
   </div>
 </template>
 <script>
-  import Editor from '~/components/editor'
-  import Header from '~/components/shared/Header'
-  import Modal from '~/components/shared/Modal'
-  import { mapState } from 'vuex'
-  import slugify from 'slugify'
+import Editor from "~/components/editor";
+import Header from "~/components/shared/Header";
+import Modal from "~/components/shared/Modal";
+import { mapState } from "vuex";
+import slugify from "slugify";
 
-  // Title: Blog post title
-  // slug: blog-post-title
+// Title: Blog post title
+// slug: blog-post-title
 
-  // Slug is something like unique ID but in readable format
+// Slug is something like unique ID but in readable format
 
-  export default {
-    layout: 'instructor',
-    components: {
-      Editor,
-      Header,
-      Modal
+export default {
+  layout: "instructor",
+  components: {
+    Editor,
+    Header,
+    Modal,
+  },
+  data() {
+    return {
+      publishError: "",
+      slug: "",
+    };
+  },
+  computed: {
+    ...mapState({
+      blog: ({ instructor }) => instructor.blog.item,
+      isSaving: ({ instructor }) => instructor.blog.isSaving,
+    }),
+    editor() {
+      return this.$refs.editor;
     },
-    data() {
-      return {
-        publishError: '',
-        slug: ''
+  },
+  async fetch({ store, params }) {
+    await store.dispatch("instructor/blog/fetchBlogById", params.id);
+  },
+  methods: {
+    initBlogContent(editor) {
+      if (this.blog && this.blog.content) {
+        editor.setContent(this.blog.content);
       }
     },
-    computed: {
-      ...mapState({
-        blog: ({instructor}) => instructor.blog.item,
-        isSaving: ({instructor}) => instructor.blog.isSaving,
-      }),
-      editor() {
-        return this.$refs.editor
+    updateBlog(blogData) {
+      if (!this.isSaving) {
+        this.$store
+          .dispatch("instructor/blog/updateBlog", {
+            data: blogData,
+            id: this.blog._id,
+          })
+          .then((_) =>
+            this.$toasted.success("Blog is updated successfully..! :)", {
+              duration: 3000,
+            })
+          )
+          .catch((err) =>
+            this.$toasted.error("Cannot be update Blog.! :(", {
+              duration: 3000,
+            })
+          );
       }
     },
-    async fetch({store, params}) {
-      await store.dispatch('instructor/blog/fetchBlogById', params.id)
-    },
-    methods: {
-      initBlogContent(editor) {
-        if(this.blog && this.blog.content) {
-          editor.setContent(this.blog.content)
-        }
-      },
-      updateBlog(blogData) {
-        if(!this.isSaving) {
-          this.$store.dispatch('instructor/blog/updateBlog', {data: blogData, id: this.blog._id})
-            .then(_ => this.$toasted.success('Blog is updated successfully..! :)', {duration: 3000}))
-            .catch(err => this.$toasted.error('Cannot be update Blog.! :(', {duration: 3000}))
-        }
-      },
-      updateBlogStatus({closeModal}, status) {
-        const blogContent = this.editor.getContent()
-        blogContent.status = status
-        const message = status === 'published' ? 'Blog has been published..! :)' : 'Blog has been un-published..! :)'
+    updateBlogStatus({ closeModal }, status) {
+      const blogContent = this.editor.getContent();
+      blogContent.status = status;
+      const message =
+        status === "published"
+          ? "Blog has been published..! :)"
+          : "Blog has been un-published..! :)";
 
-        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
-          .then(_ => {
-            this.$toasted.success(message, {duration: 3000})
-            closeModal()
-            status === 'published' && this.$router.push('/instructor/blogs')
-          })
-          .catch(err => this.$toasted.error(message, {duration: 3000}))
-      },
-      publishBlog({closeModal}) {
-        const blogContent = this.editor.getContent()
-        blogContent.status = 'published'
-
-        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
-          .then(_ => {
-            this.$toasted.success('Blog has been published..! :)', {duration: 3000})
-            closeModal()
-            this.$router.push('/instructor/blogs')
-          })
-          .catch(err => this.$toasted.error('Blog cannot be published..! :(', {duration: 3000}))
-      },
-      unPublishBlog({closeModal}) {
-        const blogContent = this.editor.getContent()
-        blogContent.status = 'active'
-
-        this.$store.dispatch('instructor/blog/updateBlog', {data: blogContent, id: this.blog._id})
-          .then(_ => {
-            this.$toasted.success('Blog has been un-published..! :)', {duration: 3000})
-            closeModal()
-          })
-          .catch(err => this.$toasted.error('Blog cannot be published..! :(', {duration: 3000}))
-      },
-      checkBlogValidity() {
-        const title = this.editor.getNodeValueByName('title')
-        this.publishError = ''
-        this.slug = ''
-
-        if(title && title.length >= 10) {
-          // create slug from title
-          this.slug = this.slugify(title)
-        } else {
-          this.publishError = 'Cannot publish! Title needs to be longer than 10 characters..!'
-        }
-      },
-      slugify(text) {
-        return slugify(text, {
-          replacement: '-',
-          remove: null,
-          lower: true
+      this.$store
+        .dispatch("instructor/blog/updateBlog", {
+          data: blogContent,
+          id: this.blog._id,
         })
-      },
-      getCurrentUrl() {
-        // process.client will return true if we are in browser environment
-        return process.client && window.location.origin
+        .then((_) => {
+          this.$toasted.success(message, { duration: 3000 });
+          closeModal();
+          status === "published" && this.$router.push("/instructor/blogs");
+        })
+        .catch((err) => this.$toasted.error(message, { duration: 3000 }));
+    },
+    publishBlog({ closeModal }) {
+      const blogContent = this.editor.getContent();
+      blogContent.status = "published";
+
+      this.$store
+        .dispatch("instructor/blog/updateBlog", {
+          data: blogContent,
+          id: this.blog._id,
+        })
+        .then((_) => {
+          this.$toasted.success("Blog has been published..! :)", {
+            duration: 3000,
+          });
+          closeModal();
+          this.$router.push("/instructor/blogs");
+        })
+        .catch((err) =>
+          this.$toasted.error("Blog cannot be published..! :(", {
+            duration: 3000,
+          })
+        );
+    },
+    unPublishBlog({ closeModal }) {
+      const blogContent = this.editor.getContent();
+      blogContent.status = "active";
+
+      this.$store
+        .dispatch("instructor/blog/updateBlog", {
+          data: blogContent,
+          id: this.blog._id,
+        })
+        .then((_) => {
+          this.$toasted.success("Blog has been un-published..! :)", {
+            duration: 3000,
+          });
+          closeModal();
+        })
+        .catch((err) =>
+          this.$toasted.error("Blog cannot be published..! :(", {
+            duration: 3000,
+          })
+        );
+    },
+    checkBlogValidity() {
+      const title = this.editor.getNodeValueByName("title");
+      this.publishError = "";
+      this.slug = "";
+
+      if (title && title.length >= 10) {
+        // create slug from title
+        this.slug = this.slugify(title);
+      } else {
+        this.publishError =
+          "Cannot publish! Title needs to be longer than 10 characters..!";
       }
-    }
-  }
+    },
+    slugify(text) {
+      return slugify(text, {
+        replacement: "-",
+        remove: null,
+        lower: true,
+      });
+    },
+    getCurrentUrl() {
+      // process.client will return true if we are in browser environment
+      return process.client && window.location.origin;
+    },
+  },
+};
 </script>
