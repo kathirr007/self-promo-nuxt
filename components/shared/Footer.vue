@@ -43,6 +43,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  z-index: 99;
 }
 .footer-custom {
   // background-color: #0d0c0d;

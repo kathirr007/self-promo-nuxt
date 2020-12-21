@@ -261,7 +261,7 @@ export default {
     visibility: visible;
     opacity: 1;
     transition: opacity 0.25s;
-    z-index: 9999;
+    z-index: 9;
   }
 }
 </style>
