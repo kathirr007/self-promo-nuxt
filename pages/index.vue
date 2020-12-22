@@ -44,7 +44,7 @@
     </section>
     <section class="section p-3">
       <div class="container">
-        <h1 class="title my-3">Featured Experiences</h1>
+        <h1 class="title my-3">Recent Experiences</h1>
         <div class="columns is-multiline section-cards">
           <div
             v-for="blog in featuredBlogs"
