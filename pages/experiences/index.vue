@@ -19,7 +19,7 @@
                     <h4 class="title is-4">{{displayBlogTitle(blog)}}</h4>
                     <h5 class="subtitle is-5">{{blog.subtitle}}</h5>
                   </div>
-                  <div class="post-content">by {{blog.author.name}}, {{blog.createdAt | formatDate}}</div>
+                  <!-- <div class="post-content">by {{blog.author.name}}, {{blog.createdAt | formatDate}}</div> -->
                 </div>
               </transition>
             </div>

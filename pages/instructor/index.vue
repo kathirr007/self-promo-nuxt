@@ -1,7 +1,6 @@
 <template>
   <div class="instructor-page">
-    <instructor-header title="Choose your admin page" exitLink="/">
-    </instructor-header>
+    <instructor-header title="Choose your admin page" exitLink="/"></instructor-header>
     <div class="centered">
       <div class="columns column p-lg is-centered is-multiline">
         <!-- Go to /instructor/categories -->
@@ -14,7 +13,7 @@
         </div>
         <!-- Go to /instructor/blogs -->
         <div class="box" @click="$router.push('/instructor/blogs')">
-          <div>Blogs</div>
+          <div>Experiences</div>
         </div>
         <!-- Go to /instructor/heroes -->
         <div class="box" @click="$router.push('/instructor/heroes')">
