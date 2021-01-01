@@ -4,22 +4,26 @@
       <div class="container">
         <h1 class="title">Experiences</h1>
         <div class="columns is-multiline section-cards">
-          <!-- posts -->
+          <!-- Experiences -->
           <div class="column is-8 infinite-loader">
             <!-- blog -->
             <!-- <transition-group appear name="slideDown" mode="out-in"> -->
-            <div class="section" v-for="(blog, index) in publishedBlogs" :key="blog.slug">
+            <div
+              class="section"
+              v-for="blog in publishedBlogs"
+              :key="blog.slug"
+            >
               <transition appear name="slideDown" mode="out-in">
-                <div class="post">
+                <div class="experience">
                   <div
                     @click="$router.push(`/experiences/${blog.slug}`)"
-                    class="post-header clickable"
+                    class="experience-header clickable"
                   >
                     <!-- <h4 class="title is-4">{{blog.title}}</h4> -->
-                    <h4 class="title is-4">{{displayBlogTitle(blog)}}</h4>
-                    <h5 class="subtitle is-5">{{blog.subtitle}}</h5>
+                    <h4 class="title is-4">{{ displayBlogTitle(blog) }}</h4>
+                    <h5 class="subtitle is-5">{{ blog.subtitle }}</h5>
                   </div>
-                  <!-- <div class="post-content">by {{blog.author.name}}, {{blog.createdAt | formatDate}}</div> -->
+                  <!-- <div class="experience-content">by {{blog.author.name}}, {{blog.createdAt | formatDate}}</div> -->
                 </div>
               </transition>
             </div>
@@ -56,12 +60,14 @@
             <div class="section">
               <div class="sidebar">
                 <div class="sidebar-header">
-                  <h4 class="title is-4">Featured Posts</h4>
+                  <h4 class="title is-4">Recent Experiences</h4>
                 </div>
                 <div class="sidebar-list">
                   <!-- Featured Blogs -->
                   <p v-for="fblog in featuredBlogs" :key="fblog._id">
-                    <nuxt-link :to="`/experiences/${fblog.slug}`">{{fblog.title}}</nuxt-link>
+                    <nuxt-link :to="`/experiences/${fblog.slug}`">{{
+                      fblog.title
+                    }}</nuxt-link>
                   </p>
                   <!-- Featured Blogs -->
                 </div>
@@ -78,6 +84,9 @@
 import { mapState } from "vuex";
 
 export default {
+  head: {
+    title: `Experiences | Kathiravan K | Sr.UI Developer`,
+  },
   computed: {
     ...mapState({
       publishedBlogs: (state) => state.experiences.items.all,
@@ -191,7 +200,7 @@ export default {
 };
 </script>
 <style scoped lang="scss">
-.post-content {
+.experience-content {
   font-style: italic;
 }
 
@@ -353,7 +362,7 @@ a.nav-item {
   padding-top: 1.4rem;
 }
 
-.post-content,
+.experience-content,
 .sidebar-list-single {
   padding-top: 1.4rem;
 }
@@ -383,16 +392,16 @@ a.nav-item {
   }
 }
 
-/* post */
+/* Experience */
 
-.post-header,
+.experience-header,
 .sidebar-header-single {
   border-color: #d74436;
   padding-left: 1rem;
   border-left: 4px solid #d74436;
 }
 
-.post-header {
+.experience-header {
   .title {
     font-weight: 700;
     font-size: 1.8rem;
@@ -409,17 +418,17 @@ a.nav-item {
   font-size: 1.1rem;
 }
 
-.post-content p,
-.post-single-content p {
+.experience-content p,
+.experience-single-content p {
   margin-bottom: 0.8rem;
 }
 
-.post-content {
+.experience-content {
   font-size: 1.1rem;
   font-weight: 300;
 }
 
-.post-single-content {
+.experience-single-content {
   font-size: 1.1rem;
   font-weight: 300;
 
@@ -447,7 +456,7 @@ a.nav-item {
 
 /* override */
 
-.post-content a {
+.experience-content a {
   color: #d74436;
 }
 
@@ -455,7 +464,7 @@ a.nav-item {
   padding-top: 1.5rem;
 }
 
-.post-footer {
+.experience-footer {
   padding: 1.5rem 0 0 0;
 }
 

@@ -43,7 +43,7 @@ import CourseCardTooltip from "~/components/CourseCardTooltip";
 import { mapState } from "vuex";
 export default {
   head: {
-    title: `Courses | Kathiravan K | Sr.UI Developer`,
+    title: `Projects | Kathiravan K | Sr.UI Developer`,
   },
   components: {
     courseCard,

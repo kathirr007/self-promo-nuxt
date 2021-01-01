@@ -4,7 +4,7 @@
       <p class="card-header-title">Target your Students</p>
     </header>
     <div class="card-content card-section">
-      <form>
+      <form @submit.stop.prevent>
         <multi-line-text-input
           :lines="course.wsl"
           :addBtn="'Add Technology'"
@@ -12,6 +12,7 @@
           @addClicked="addLine('wsl')"
           @removeClicked="removeLine($event, 'wsl')"
           label="What Technologies used"
+          ref="multiInput"
         />
         <!-- <multi-line-text-input
           :lines="course.requirements"
@@ -26,34 +27,43 @@
 </template>
 
 <script>
-  import MultiLineTextInput from '~/components/form/MultiLineTextInput'
-  export default {
-    components: {
-      MultiLineTextInput
+import MultiLineTextInput from "~/components/form/MultiLineTextInput";
+export default {
+  components: {
+    MultiLineTextInput,
+  },
+  props: {
+    course: {
+      type: Object,
+      required: true,
     },
-    props: {
-      course: {
-        type: Object,
-        required: true
-      }
+  },
+  methods: {
+    addLine(field) {
+      // debugger;
+      console.log("Adding line for: ", field);
+      this.$store.commit("instructor/course/addLine", field);
+      this.$nextTick(() =>
+        this.$refs.multiInput.$refs[
+          `multiInput${this.course.wsl.length - 1}`
+        ][0].focus()
+      );
     },
-    methods: {
-      addLine(field) {
-        console.log('Adding line for: ', field)
-        this.$store.commit('instructor/course/addLine', field)
-      },
-      removeLine(index, field) {
-        console.log('Removing line from: ', field)
-        console.log('Removing line of index: ', index)
-        this.$store.commit('instructor/course/removeLine', {field, index})
-      },
-      updateLine({value, index}, field) {
-        this.$store.dispatch('instructor/course/updateLine', {field, value, index})
-      }
-    }
-  }
+    removeLine(index, field) {
+      console.log("Removing line from: ", field);
+      console.log("Removing line of index: ", index);
+      this.$store.commit("instructor/course/removeLine", { field, index });
+    },
+    updateLine({ value, index }, field) {
+      this.$store.dispatch("instructor/course/updateLine", {
+        field,
+        value,
+        index,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

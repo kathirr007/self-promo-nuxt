@@ -1,6 +1,10 @@
 <template>
   <div>
-    <product-hero :title="course.title" :subtitle="course.subtitle" :author="course.author">
+    <product-hero
+      :title="course.title"
+      :subtitle="course.subtitle"
+      :author="course.author"
+    >
       <product-hero-card
         :navigateTo="course.productLink"
         :image="course.image"
@@ -12,20 +16,22 @@
       <div class="columns">
         <div class="column">
           <div class="section p-0">
-            <div class="what-you-get">
-              <div class="what-you-get-title">Technologies used</div>
-              <ul class="what-you-get-items">
-                <!-- TODO: Iterate course wsl -->
-                <li v-for="wsl in course.wsl" :key="wsl.value" class="what-you-get-item">
+            <div class="technologies">
+              <div class="technologies-title">Technologies used</div>
+              <ul class="technologies-items">
+                <li
+                  v-for="wsl in course.wsl"
+                  :key="wsl.value"
+                  class="technologies-item"
+                >
                   <span>{{ wsl.value }}</span>
                 </li>
               </ul>
             </div>
           </div>
-          <div class="section course-description py-2 px-0">
-            <div class="course-description-title">Project Info</div>
-            <div class="course-description-details">
-              <!-- TODO: use v-html for description -->
+          <div class="section project-description py-2 px-0">
+            <div class="project-description-title">Project Info</div>
+            <div class="project-description-details">
               <div v-html="course.description"></div>
             </div>
           </div>
@@ -78,10 +84,13 @@ export default {
 <!-- 6. Navigate to detail page from home page when clicking on "Learn More" -->
 
 <style lang="scss">
-.what-you-get {
+.technologies {
   background-color: #f9f9f9;
   border: 1px solid #dedfe0;
   padding: 10px 15px;
+  @media screen and (min-width: 768px) {
+    width: 50%;
+  }
 
   &-title {
     font-size: 26px;
@@ -105,7 +114,7 @@ export default {
   }
 }
 
-.course-description {
+.project-description {
   &-title {
     font-size: 26px;
     font-weight: bold;

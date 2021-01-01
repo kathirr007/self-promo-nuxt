@@ -41,7 +41,7 @@
         </p>
       </div>
       <!-- <div class="content">
-            <div class="m-b-none course-features">Course Requirements</div>
+            <div class="m-b-none project-features">Course Requirements</div>
             <ul class="m-t-none">
                 <li v-for="req in requirements" :key="req.value">
                     {{req.value}}
@@ -126,7 +126,7 @@ figure.image {
     color: gray;
   }
 
-  .course-features {
+  .project-features {
     font-size: 17px;
   }
 
