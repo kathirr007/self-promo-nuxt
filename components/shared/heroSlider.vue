@@ -1,6 +1,10 @@
 <template>
   <section class="hero is-black">
-    <swiper v-if="heroes.length !== 0" class="swiper hero-slider" :options="swiperOption">
+    <swiper
+      v-if="heroes.length !== 0"
+      class="swiper hero-slider"
+      :options="swiperOption"
+    >
       <swiper-slide class="hero-body" v-for="(hero, i) in heroes" :key="i">
         <div
           class="hero-img"
@@ -17,17 +21,23 @@
             target="_"
             :to="hero.product !== null ? `projects/${hero.product.slug}` : '/'"
             class="button is-danger"
-          >More Details</nuxt-link>
+            >More Details</nuxt-link
+          >
         </div>
       </swiper-slide>
       <div class="swiper-pagination" slot="pagination"></div>
     </swiper>
     <div v-else class="hero-body">
-      <div class="hero-img" :style="{ background: `url(${image}) no-repeat center center` }"></div>
+      <div
+        class="hero-img"
+        :style="{ background: `url(${image}) no-repeat center center` }"
+      ></div>
       <div class="container px-4 py-2">
         <h1 class="title">{{ title }}</h1>
         <h2 class="subtitle is-hidden-mobile">{{ subtitle }}</h2>
-        <nuxt-link target="_" :to="'/'" class="button is-danger">Learn More!</nuxt-link>
+        <nuxt-link target="_" :to="'/'" class="button is-danger"
+          >Learn More!</nuxt-link
+        >
       </div>
     </div>
     <!-- <div class="hero-body">
@@ -107,7 +117,7 @@ export default {
 }
 
 .hero-img {
-  opacity: 0.8;
+  opacity: 0.4;
   position: absolute;
   height: 100%;
   width: 100%;
