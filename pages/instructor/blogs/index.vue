@@ -3,7 +3,9 @@
     <Header title="Manage your Experiences">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/instructor/blog/editor" class="button is-light">New</nuxt-link>
+          <nuxt-link to="/instructor/blog/editor" class="button is-light"
+            >New</nuxt-link
+          >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
             <span class="icon">
               <i class="fas fa-home"></i>
@@ -19,21 +21,24 @@
           <div class="header-block">
             <h2 class="is-size-4-mobile">Your Experiences</h2>
             <div class="title-menu">
-              <button @click="$router.push('/instructor/blog/editor')" class="button">
+              <button
+                @click="$router.push('/instructor/blog/editor')"
+                class="button"
+              >
                 Add New
-                <span class="is-hidden-mobile">Experience</span>
-              </button>Experience
+                <span class="is-hidden-mobile ml-1">Experience</span>
+              </button>
             </div>
           </div>
           <div class="tabs">
             <ul>
               <!-- set here activeTab -->
               <li @click="activeTab = 0">
-                <a :class="{'is-active': activeTab === 0}">Drafts</a>
+                <a :class="{ 'is-active': activeTab === 0 }">Drafts</a>
               </li>
               <!-- set here activeTab -->
               <li @click="activeTab = 1">
-                <a :class="{'is-active': activeTab === 1}">Published</a>
+                <a :class="{ 'is-active': activeTab === 1 }">Published</a>
               </li>
             </ul>
           </div>
@@ -43,11 +48,17 @@
             <template v-if="activeTab === 0">
               <div v-if="drafts && drafts.length > 0">
                 <transition-group name="fade" mode="out-in">
-                  <div v-for="(dblog,i) in drafts" :key="dblog._id" class="blog-card">
+                  <div
+                    v-for="(dblog, i) in drafts"
+                    :key="dblog._id"
+                    class="blog-card"
+                  >
                     <!-- <h2>{{dblog.title}}</h2> -->
-                    <h2>{{displayBlogTitle(dblog)}}</h2>
+                    <h2>{{ displayBlogTitle(dblog) }}</h2>
                     <div class="blog-card-footer">
-                      <span>Last Edited {{dblog.updatedAt | formatDate}}</span>
+                      <span
+                        >Last Edited {{ dblog.updatedAt | formatDate }}</span
+                      >
                       <!-- Dropdown with menu here -->
                       <dropdown
                         @optionChanged="handleCommand($event, dblog)"
@@ -69,13 +80,15 @@
                   <div
                     v-for="pblog in published"
                     :key="pblog._id"
-                    :class="{'featured': pblog.featured}"
+                    :class="{ featured: pblog.featured }"
                     class="blog-card"
                   >
                     <!-- <h2>{{pblog.title}}</h2> -->
-                    <h2>{{displayBlogTitle(pblog)}}</h2>
+                    <h2>{{ displayBlogTitle(pblog) }}</h2>
                     <div class="blog-card-footer">
-                      <span>Last Edited {{pblog.updatedAt | formatDate}}</span>
+                      <span
+                        >Last Edited {{ pblog.updatedAt | formatDate }}</span
+                      >
                       <!-- Dropdown with menu here -->
                       <dropdown
                         @optionChanged="handleCommand($event, pblog)"
