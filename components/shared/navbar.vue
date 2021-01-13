@@ -1,5 +1,9 @@
 <template>
-  <nav class="navbar is-active is-dark" role="navigation" aria-label="main navigation">
+  <nav
+    class="navbar is-active is-dark"
+    role="navigation"
+    aria-label="main navigation"
+  >
     <div class="navbar-brand">
       <nuxt-link class="navbar-item" to="/">
         <h1 class="brand-title">Kathiravan K</h1>
@@ -25,18 +29,38 @@
     </div>
 
     <!-- Adds active class -->
-    <div id="navbarBasicExample" class="navbar-menu" :class="{ 'is-active': isActive }">
+    <div
+      id="navbarBasicExample"
+      class="navbar-menu"
+      :class="{ 'is-active': isActive }"
+    >
       <div class="navbar-start">
-        <nav-link @click.native="toggleNavbar" to="/" class="navbar-item">Home</nav-link>
-        <nav-link @click.native="toggleNavbar" to="/projects" class="navbar-item">Projects</nav-link>
-        <!-- <nav-link @click.native="toggleNavbar" to="/instructor/courses" class="navbar-item">
+        <nav-link @click.native="toggleNavbar" to="/" class="navbar-item"
+          >Home</nav-link
+        >
+        <nav-link
+          @click.native="toggleNavbar"
+          to="/projects"
+          class="navbar-item"
+          >Projects</nav-link
+        >
+        <!-- <nav-link @click.native="toggleNavbar" to="/admin/courses" class="navbar-item">
           Courses
         </nav-link>-->
-        <nav-link @click.native="toggleNavbar" to="/experiences" class="navbar-item">Experiences</nav-link>
-        <nav-link @click.native="toggleNavbar" to="/about" class="navbar-item">About</nav-link>
-        <nav-link @click.native="toggleNavbar" to="/cv" class="navbar-item">Cv</nav-link>
-        <!-- <nav-link @click.native="toggleNavbar" to="/instructor" class="navbar-item">
-          Instructor
+        <nav-link
+          @click.native="toggleNavbar"
+          to="/experiences"
+          class="navbar-item"
+          >Experiences</nav-link
+        >
+        <nav-link @click.native="toggleNavbar" to="/about" class="navbar-item"
+          >About</nav-link
+        >
+        <nav-link @click.native="toggleNavbar" to="/cv" class="navbar-item"
+          >Cv</nav-link
+        >
+        <!-- <nav-link @click.native="toggleNavbar" to="/admin" class="navbar-item">
+          admin
         </nav-link>
         <nav-link @click.native="toggleNavbar" to="/secret" class="navbar-item">
           Secret
@@ -50,25 +74,45 @@
               <!-- If Authenticated -->
               <template v-if="isAuth || isLoggedIn">
                 <figure class="image avatar is-48x48 m-r-sm">
-                  <img class="is-rounded" :src="user ? user.avatar : googleUserAvatar" />
+                  <img
+                    class="is-rounded"
+                    :src="user ? user.avatar : googleUserAvatar"
+                  />
                 </figure>
-                <div class="m-r-sm m-b-sm">Welcome {{ user ? user.username : googleUser }}!</div>
+                <div class="m-r-sm m-b-sm">
+                  Welcome {{ user ? user.username : googleUser }}!
+                </div>
                 <!-- If Admin -->
                 <button
                   v-if="isAdmin"
                   class="button is-link is-outlined"
-                  @click="$router.push('/instructor')"
-                >Instructor</button>
-                <a v-if="user" class="button is-primary" @click.prevent="logout">Logout</a>
-                <a v-else class="button is-primary" @click.prevent="googleLogout">Logout</a>
+                  @click="$router.push('/admin')"
+                >
+                  Admin
+                </button>
+                <a v-if="user" class="button is-primary" @click.prevent="logout"
+                  >Logout</a
+                >
+                <a
+                  v-else
+                  class="button is-primary"
+                  @click.prevent="googleLogout"
+                  >Logout</a
+                >
               </template>
               <template v-else>
                 <nav-link
                   @click.native="toggleNavbar"
                   to="/register"
                   class="button is-primary"
-                >Sign up</nav-link>
-                <nav-link @click.native="toggleNavbar" to="/login" class="button is-light">Log in</nav-link>
+                  >Sign up</nav-link
+                >
+                <nav-link
+                  @click.native="toggleNavbar"
+                  to="/login"
+                  class="button is-light"
+                  >Log in</nav-link
+                >
               </template>
             </div>
           </div>

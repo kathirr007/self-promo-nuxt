@@ -1,7 +1,7 @@
 <template>
   <div class="full-page-takeover-header">
     <div class="full-page-takeover-header-logo">
-      <nuxt-link to="/instructor" class="has-text-white">
+      <nuxt-link to="/admin" class="has-text-white">
         <!-- <p class="full-page-takeover-header-logo-title">Self Promo</p> -->
         <p class="full-page-takeover-header-logo-title">
           <button class="button is-primary is-outlined is-medium is-inverted">

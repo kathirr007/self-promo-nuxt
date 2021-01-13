@@ -1,7 +1,7 @@
 <template>
-  <div class="instructor-page">
-    <instructorHeader title="Please select your hero image" exitLink="/">
-    </instructorHeader>
+  <div class="admin-page">
+    <adminHeader title="Please select your hero image" exitLink="/">
+    </adminHeader>
     <div class="heroes-page">
       <div class="container">
         <h1 class="title">Course Heroes</h1>
@@ -68,27 +68,27 @@
 </template>
 <script>
 import Modal from "~/components/shared/Modal";
-import instructorHeader from "~/components/shared/Header";
+import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
 
 export default {
-  layout: "instructor",
+  layout: "admin",
   middleware: "admin",
   components: {
     Modal,
-    instructorHeader,
+    adminHeader,
   },
   mixins: [confirmDelete],
   computed: {
     heroes() {
-      return this.$store.state.instructor.heroes;
+      return this.$store.state.admin.heroes;
     },
     activeHero() {
       return this.$store.state.heroes.courseHero;
     },
   },
   async fetch({ store }) {
-    await store.dispatch("instructor/fetchHeroes");
+    await store.dispatch("admin/fetchHeroes");
   },
   methods: {
     openModal(modalId) {
@@ -97,7 +97,7 @@ export default {
       modal.openModal();
     },
     activateHero({ closeModal }, heroId) {
-      this.$store.dispatch("instructor/activateHero", heroId).then((_) => {
+      this.$store.dispatch("admin/activateHero", heroId).then((_) => {
         this.$toasted.success("Hero was successfully activated..!", {
           duration: 3000,
         });
@@ -105,7 +105,7 @@ export default {
       });
     },
     deleteHero({ closeModal }, heroId) {
-      this.$store.dispatch("instructor/deleteHero", heroId).then((_) => {
+      this.$store.dispatch("admin/deleteHero", heroId).then((_) => {
         // debugger
         this.$toasted.success("Hero was successfully deleted..!", {
           duration: 3000,

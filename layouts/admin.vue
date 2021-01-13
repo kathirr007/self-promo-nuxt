@@ -1,11 +1,11 @@
 <template>
-  <div class="page-wrapper instructor">
+  <div class="page-wrapper admin">
     <nuxt />
   </div>
 </template>
 <script>
 export default {
-  name: "instructor",
+  name: "admin",
   middleware: "admin",
 };
 </script>

@@ -1,9 +1,11 @@
 <template>
   <div>
-    <instructor-header title="Manage your Projects here">
+    <admin-header title="Manage your Projects here">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/instructor/course/create" class="button is-light">New Project</nuxt-link>
+          <nuxt-link to="/admin/course/create" class="button is-light"
+            >New Project</nuxt-link
+          >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
             <span class="icon">
               <i class="fas fa-home"></i>
@@ -12,20 +14,24 @@
           </nuxt-link>
         </div>
       </template>
-    </instructor-header>
+    </admin-header>
     <div class="courses-page">
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
             <h1 class="courses-page-title">Your Projects</h1>
             <!-- Iterate Courses -->
-            <div v-for="(course) in courses" :key="course._id" class="tile is-ancestor">
+            <div
+              v-for="course in courses"
+              :key="course._id"
+              class="tile is-ancestor"
+            >
               <div class="tile is-parent is-12">
                 <!-- Navigate to course manage page -->
                 <div class="tile tile-overlay-container is-child box">
                   <div class="tile-overlay">
                     <nuxt-link
-                      :to="`/instructor/course/${course._id}/manage`"
+                      :to="`/admin/course/${course._id}/manage`"
                       class="tile-overlay-text"
                     >
                       <span>Update Project</span>
@@ -33,21 +39,31 @@
                     <span
                       @click="confirmDelete($event, 'course', course)"
                       class="tile-overlay-text has-text-danger"
-                    >Delete Project</span>
+                      >Delete Project</span
+                    >
                   </div>
                   <div class="columns">
                     <div class="column is-narrow">
                       <figure class="image is-4by2 is-128x128">
                         <!-- <img :src="'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'"> -->
                         <img
-                          :src="course.image || 'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'"
+                          :src="
+                            course.image ||
+                            'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'
+                          "
                         />
                       </figure>
                     </div>
                     <div class="column">
-                      <p class="title">{{course.title}}</p>
-                      <p class="subtitle">{{course.subtitle || 'No subtitle provided yet'}}</p>
-                      <span class="tag" :class="courseStatusClass(course.status)">{{course.status}}</span>
+                      <p class="title">{{ course.title }}</p>
+                      <p class="subtitle">
+                        {{ course.subtitle || "No subtitle provided yet" }}
+                      </p>
+                      <span
+                        class="tag"
+                        :class="courseStatusClass(course.status)"
+                        >{{ course.status }}</span
+                      >
                     </div>
                     <!-- <div class="column is-narrow flex-centered">
                       <div class="price-title">
@@ -65,22 +81,22 @@
   </div>
 </template>
 <script>
-import instructorHeader from "~/components/shared/Header";
+import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
 export default {
   // middleware: 'admin',
-  layout: "instructor",
+  layout: "admin",
   components: {
-    instructorHeader,
+    adminHeader,
   },
   mixins: [confirmDelete],
   computed: {
     courses() {
-      return this.$store.state.instructor.course.items;
+      return this.$store.state.admin.course.items;
     },
   },
   async fetch({ store }) {
-    await store.dispatch("instructor/course/fetchInstructorCourses");
+    await store.dispatch("admin/course/fetchadminCourses");
   },
   methods: {
     courseStatusClass(status) {

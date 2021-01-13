@@ -3,7 +3,7 @@
     <Header title="Manage your Experiences">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/instructor/blog/editor" class="button is-light"
+          <nuxt-link to="/admin/blog/editor" class="button is-light"
             >New</nuxt-link
           >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
@@ -15,14 +15,14 @@
         </div>
       </template>
     </Header>
-    <div class="instructor-blogs">
+    <div class="admin-blogs">
       <div class="container">
         <div class="section">
           <div class="header-block">
             <h2 class="is-size-4-mobile">Your Experiences</h2>
             <div class="title-menu">
               <button
-                @click="$router.push('/instructor/blog/editor')"
+                @click="$router.push('/admin/blog/editor')"
                 class="button"
               >
                 Add New
@@ -133,13 +133,13 @@ import {
   createPublishedOptions,
   createDraftsOptions,
   commands,
-} from "~/pages/instructor/options";
+} from "~/pages/admin/options";
 
 export default {
   // data with activeTab by default it will be 0
   // 0 represents drafts
   // 1 represents published
-  layout: "instructor",
+  layout: "admin",
   components: {
     Header,
     Dropdown,
@@ -154,8 +154,8 @@ export default {
   },
   computed: {
     ...mapState({
-      published: ({ instructor }) => instructor.blog.items.published,
-      drafts: ({ instructor }) => instructor.blog.items.drafts,
+      published: ({ admin }) => admin.blog.items.published,
+      drafts: ({ admin }) => admin.blog.items.drafts,
     }),
     /* publishedOptions() {
         return createPublishedOptions()
@@ -165,7 +165,7 @@ export default {
     },
   },
   async fetch({ store }) {
-    await store.dispatch("instructor/blog/fetchUserBlogs");
+    await store.dispatch("admin/blog/fetchUserBlogs");
   },
   methods: {
     handleCommand(command, blog) {
@@ -173,7 +173,7 @@ export default {
       // $event.stopImmediatePropagation()
       if (command === commands.EDIT_BLOG) {
         console.log("Editing blog...");
-        this.$router.push(`/instructor/blog/${blog._id}/edit`);
+        this.$router.push(`/admin/blog/${blog._id}/edit`);
       }
       if (command === commands.DELETE_BLOG) {
         this.displayDeleteWarning(blog);
@@ -190,7 +190,7 @@ export default {
         ? "Blog has been added featured blogs..."
         : "Blog has been removed from featured blogs...";
       this.$store
-        .dispatch("instructor/blog/updatePublishedBlog", {
+        .dispatch("admin/blog/updatePublishedBlog", {
           id: blog._id,
           data: { featured },
         })
@@ -232,7 +232,7 @@ export default {
             console.log("Dispatching delete...");
             // debugger
             self.$store
-              .dispatch("instructor/blog/deleteBlog", blog)
+              .dispatch("admin/blog/deleteBlog", blog)
               .then((_) =>
                 self.$toasted.success(
                   `The Blog <strong style="margin: 0 10px; display: inline-block;"> ${blog.title} </strong> was deleted successfully..`,
@@ -277,7 +277,7 @@ export default {
       console.log("Dispatching delete...");
       // debugger
       this.confirmDelete &&
-        this.$store.dispatch("instructor/blog/deleteBlog", blog).then((_) =>
+        this.$store.dispatch("admin/blog/deleteBlog", blog).then((_) =>
           this.$toasted.success("Blog was deleted successfully..", {
             duration: 3000,
           })

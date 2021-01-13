@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /login
 Disallow: /register
-Disallow: /instructor/*
+Disallow: /admin/*

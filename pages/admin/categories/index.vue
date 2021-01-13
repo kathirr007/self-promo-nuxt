@@ -1,9 +1,11 @@
 <template>
   <div>
-    <instructor-header title="Manage your Categories here">
+    <admin-header title="Manage your Categories here">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/instructor/category/create" class="button is-light">New Category</nuxt-link>
+          <nuxt-link to="/admin/category/create" class="button is-light"
+            >New Category</nuxt-link
+          >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
             <span class="icon">
               <i class="fas fa-home"></i>
@@ -12,12 +14,15 @@
           </nuxt-link>
         </div>
       </template>
-    </instructor-header>
+    </admin-header>
     <div class="courses-page">
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
-            <courseCreateStep1 @stepUpdated="mergeFormData" @fromCategories="createCategory" />
+            <courseCreateStep1
+              @stepUpdated="mergeFormData"
+              @fromCategories="createCategory"
+            />
             <!-- <div class="field create-category-group has-addons">
               <div class="control">
                 <input class="input is-large" type="text" placeholder="Find a repository">
@@ -31,20 +36,30 @@
             <h1 class="courses-page-title">Available Categories</h1>
             <!-- Iterate Courses -->
             <!-- <div class="categories-list list is-hoverable"> -->
-            <transition-group tag="div" name="slideDown" class="categories-list list is-hoverable">
-              <span class="list-item" v-for="(category, i) in categories" :key="category._id">
-                {{i+1}}. {{category.name}}
+            <transition-group
+              tag="div"
+              name="slideDown"
+              class="categories-list list is-hoverable"
+            >
+              <span
+                class="list-item"
+                v-for="(category, i) in categories"
+                :key="category._id"
+              >
+                {{ i + 1 }}. {{ category.name }}
                 <span class="tags is-pulled-right">
                   <nuxt-link
                     class="tag is-info"
-                    :to="`/instructor/category/${category._id}`"
+                    :to="`/admin/category/${category._id}`"
                     variant="info"
-                  >Update</nuxt-link>
+                    >Update</nuxt-link
+                  >
                   <!-- <span class="tag is-info">Update</span> -->
                   <span
                     class="tag is-danger"
                     @click="confirmDelete($event, 'category', category)"
-                  >Delete</span>
+                    >Delete</span
+                  >
                 </span>
               </span>
             </transition-group>
@@ -56,25 +71,25 @@
   </div>
 </template>
 <script>
-import courseCreateStep1 from "~/components/instructor/courseCreateStep1";
-import instructorHeader from "~/components/shared/Header";
+import courseCreateStep1 from "~/components/admin/courseCreateStep1";
+import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
 export default {
   // middleware: 'admin',
-  layout: "instructor",
+  layout: "admin",
   components: {
-    instructorHeader,
+    adminHeader,
     courseCreateStep1,
   },
   mixins: [confirmDelete],
   computed: {
     categories() {
-      return this.$store.state.instructor.category.items;
+      return this.$store.state.admin.category.items;
     },
   },
 
   async fetch({ store }) {
-    await store.dispatch("instructor/category/fetchInstructorCategories");
+    await store.dispatch("admin/category/fetchadminCategories");
   },
   data() {
     return {
@@ -96,7 +111,7 @@ export default {
       // console.log(this.form)
       // debugger
       this.$store
-        .dispatch("instructor/category/createCategory2", {
+        .dispatch("admin/category/createCategory2", {
           name: this.form.title,
         })
         .then((category) => {

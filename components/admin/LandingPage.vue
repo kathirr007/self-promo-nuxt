@@ -16,11 +16,13 @@
               placeholder="Amazing Project Title"
             />
             <div v-if="$v.title.$error" class="form-error">
-              <span v-if="!$v.title.required" class="help is-danger">Title is required</span>
-              <span
-                v-if="!$v.title.minLength"
-                class="help is-danger"
-              >Title should be minimum {{$v.title.$params.minLength.min}} characters</span>
+              <span v-if="!$v.title.required" class="help is-danger"
+                >Title is required</span
+              >
+              <span v-if="!$v.title.minLength" class="help is-danger"
+                >Title should be minimum
+                {{ $v.title.$params.minLength.min }} characters</span
+              >
             </div>
           </div>
         </div>
@@ -40,7 +42,9 @@
           <label class="label">Project description</label>
           <div class="control">
             <course-editor
-              @editorUpdated="(content) => emitCourseValue(content, 'description')"
+              @editorUpdated="
+                (content) => emitCourseValue(content, 'description')
+              "
               :initialContent="course.description || ''"
             />
           </div>
@@ -71,7 +75,9 @@
                 v-for="category in categories"
                 :key="category._id"
                 :value="category._id"
-              >{{category.name}}</option>
+              >
+                {{ category.name }}
+              </option>
             </select>
           </div>
         </div>
@@ -101,17 +107,27 @@
                   ></b-form-file>
                 </label>
               </div>
-              <div
-                class="notification is-danger is-light my-2"
-              >Note: Uploading new images will replace the existing images</div>
+              <div class="notification is-danger is-light my-2">
+                Note: Uploading new images will replace the existing images
+              </div>
               <!-- Uploaded images -->
               <div
                 v-if="uploadedFiles.length !== 0 && images.length === undefined"
                 class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2"
               >
-                <div class="img-wrap p-2" v-for="(image, index) in uploadedFiles" :key="index">
-                  <img :src="image.location" class="img-thumbnail multiple-images" />
-                  <i @click="removeS3Image(index, 'images')" class="delete-img fas fa-times-circle"></i>
+                <div
+                  class="img-wrap p-2"
+                  v-for="(image, index) in uploadedFiles"
+                  :key="index"
+                >
+                  <img
+                    :src="image.location"
+                    class="img-thumbnail multiple-images"
+                  />
+                  <i
+                    @click="removeS3Image(index, 'images')"
+                    class="delete-img fas fa-times-circle"
+                  ></i>
                 </div>
               </div>
               <!-- <div v-else-if="course.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
@@ -123,9 +139,16 @@
                 v-else
                 class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2"
               >
-                <div class="img-wrap p-2" v-for="(prodImage, index) in image" :key="index">
+                <div
+                  class="img-wrap p-2"
+                  v-for="(prodImage, index) in image"
+                  :key="index"
+                >
                   <img :src="prodImage" class="img-thumbnail" />
-                  <i @click="removeImage(index)" class="delete-img fas fa-times-circle"></i>
+                  <i
+                    @click="removeImage(index)"
+                    class="delete-img fas fa-times-circle"
+                  ></i>
                 </div>
               </div>
               <!-- <b-row v-else align-v="center" class="uploaded-files">
@@ -148,7 +171,9 @@
           <label class="label">Project Link</label>
           <div class="control">
             <input
-              :value="course.productLink !== 'undefined' ? course.productLink : ''"
+              :value="
+                course.productLink !== 'undefined' ? course.productLink : ''
+              "
               @input="($event) => emitCourseValue($event, 'productLink')"
               class="input"
               type="text"
@@ -160,7 +185,11 @@
           <label class="label">Project Repository Link</label>
           <div class="control">
             <input
-              :value="course.promoVideoLink !== 'undefined' ? course.promoVideoLink : ''"
+              :value="
+                course.promoVideoLink !== 'undefined'
+                  ? course.promoVideoLink
+                  : ''
+              "
               @input="($event) => emitCourseValue($event, 'promoVideoLink')"
               class="input"
               type="text"
@@ -267,7 +296,7 @@ export default {
       // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
       debugger;
       this.$store
-        .dispatch(`instructor/course/deleteCourseImage`, { key, index, s3Key })
+        .dispatch(`admin/course/deleteCourseImage`, { key, index, s3Key })
         .then((_) =>
           this.$toasted.success(
             `The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`,
@@ -281,7 +310,7 @@ export default {
           });
         });
       // this.deleteImage(params)
-      // this.$store.dispatch('instructor/course/updateCanUpdate')
+      // this.$store.dispatch('admin/course/updateCanUpdate')
     },
     emitCourseValue(e, field, title = "") {
       // const value = e.target.value
@@ -305,7 +334,7 @@ export default {
       // debugger
       if (field === "images" && this.uploadedFiles.length !== 0) {
         this.$store.dispatch(
-          "instructor/course/updateUploadedFiles",
+          "admin/course/updateUploadedFiles",
           this.uploadedFiles
         );
       }

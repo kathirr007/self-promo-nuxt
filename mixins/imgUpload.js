@@ -2,17 +2,15 @@ export default {
   data() {
     return {
       images: {},
-      image: [],
-    }
+      image: []
+    };
   },
-  computed: {
-
-  },
+  computed: {},
   methods: {
     imagesAdd(e) {
       // this.uploadedFiles = []
-      if(this.product) {
-        this.product.photo = ''
+      if (this.product) {
+        this.product.photo = "";
       }
       // debugger
       var files = e.target.files || e.dataTransfer.files;
@@ -20,26 +18,24 @@ export default {
       this.images = [];
       this.image = [];
       Array.prototype.push.apply(this.images, files);
-      if (!this.images.length)
-        return;
+      if (!this.images.length) return;
 
       this.createImage(this.images);
-
     },
 
     createImage(file) {
-        for (var i = 0; i < file.length; i++) {
-          if (/\.(jpg|webp|jpe?g|png|gif)$/i.test(file[i].name)) {
-            var reader = new FileReader();
-            var vm = this;
+      for (var i = 0; i < file.length; i++) {
+        if (/\.(jpg|webp|jpe?g|png|gif)$/i.test(file[i].name)) {
+          var reader = new FileReader();
+          var vm = this;
 
-            reader.onload = (e) => {
-              vm.image.push(e.target.result);
-              // console.log(vm.image);
-            };
-            reader.readAsDataURL(file[i]);
-          }
+          reader.onload = e => {
+            vm.image.push(e.target.result);
+            // console.log(vm.image);
+          };
+          reader.readAsDataURL(file[i]);
         }
+      }
     },
     removeImage(key) {
       this.image.splice(key, 1);
@@ -50,13 +46,13 @@ export default {
       } */
       // debugger
       // let files = this.images.length > 0 && this.images !== undefined ? this.images : [];
-      this.$refs.imagesInput.setFiles(this.images)
+      this.$refs.imagesInput.setFiles(this.images);
 
       if (!this.image.length) {
         // debugger
-        this.$refs.imagesInput.setFiles([])
+        this.$refs.imagesInput.setFiles([]);
       }
-      // this.$store.dispatch('instructor/course/updateCanUpdate')
-    },
+      // this.$store.dispatch('admin/course/updateCanUpdate')
+    }
   }
-}
+};

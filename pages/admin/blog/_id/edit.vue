@@ -1,7 +1,7 @@
 <template>
   <!-- Finish handling of URL -->
   <div>
-    <Header title="Write your blog" exitLink="/instructor/blogs">
+    <Header title="Write your blog" exitLink="/admin/blogs">
       <!-- TODO: Check if blog status is active -->
       <template #actionMenu v-if="blog.status === 'active'">
         <div class="full-page-takeover-header-button">
@@ -14,19 +14,25 @@
             title="Review Details"
           >
             <div>
-              <div class="title">Once you publish blog you cannot change url to a blog.</div>
+              <div class="title">
+                Once you publish blog you cannot change url to a blog.
+              </div>
               <!-- Check for error -->
               <div v-if="!publishError">
-                <div class="subtitle">This is how url to blog post will look like after publish:</div>
+                <div class="subtitle">
+                  This is how url to blog post will look like after publish:
+                </div>
                 <article class="message is-success">
                   <div class="message-body">
                     <!-- Get here actual slug -->
-                    <strong>{{getCurrentUrl()}}/experiences/{{slug}}</strong>
+                    <strong
+                      >{{ getCurrentUrl() }}/experiences/{{ slug }}</strong
+                    >
                   </div>
                 </article>
               </div>
               <article v-else class="message is-danger">
-                <div class="message-body">{{publishError}}</div>
+                <div class="message-body">{{ publishError }}</div>
               </article>
             </div>
           </Modal>
@@ -41,7 +47,9 @@
             title="Unpublish Blog"
           >
             <div>
-              <div class="title">Unpublish blog so it's no longer displayed in blogs page</div>
+              <div class="title">
+                Unpublish blog so it's no longer displayed in blogs page
+              </div>
             </div>
           </Modal>
         </div>
@@ -72,7 +80,7 @@ import slugify from "slugify";
 // Slug is something like unique ID but in readable format
 
 export default {
-  layout: "instructor",
+  layout: "admin",
   components: {
     Editor,
     Header,
@@ -86,15 +94,15 @@ export default {
   },
   computed: {
     ...mapState({
-      blog: ({ instructor }) => instructor.blog.item,
-      isSaving: ({ instructor }) => instructor.blog.isSaving,
+      blog: ({ admin }) => admin.blog.item,
+      isSaving: ({ admin }) => admin.blog.isSaving,
     }),
     editor() {
       return this.$refs.editor;
     },
   },
   async fetch({ store, params }) {
-    await store.dispatch("instructor/blog/fetchBlogById", params.id);
+    await store.dispatch("admin/blog/fetchBlogById", params.id);
   },
   methods: {
     initBlogContent(editor) {
@@ -105,7 +113,7 @@ export default {
     updateBlog(blogData) {
       if (!this.isSaving) {
         this.$store
-          .dispatch("instructor/blog/updateBlog", {
+          .dispatch("admin/blog/updateBlog", {
             data: blogData,
             id: this.blog._id,
           })
@@ -130,14 +138,14 @@ export default {
           : "Blog has been un-published..! :)";
 
       this.$store
-        .dispatch("instructor/blog/updateBlog", {
+        .dispatch("admin/blog/updateBlog", {
           data: blogContent,
           id: this.blog._id,
         })
         .then((_) => {
           this.$toasted.success(message, { duration: 3000 });
           closeModal();
-          status === "published" && this.$router.push("/instructor/blogs");
+          status === "published" && this.$router.push("/admin/blogs");
         })
         .catch((err) => this.$toasted.error(message, { duration: 3000 }));
     },
@@ -146,7 +154,7 @@ export default {
       blogContent.status = "published";
 
       this.$store
-        .dispatch("instructor/blog/updateBlog", {
+        .dispatch("admin/blog/updateBlog", {
           data: blogContent,
           id: this.blog._id,
         })
@@ -155,7 +163,7 @@ export default {
             duration: 3000,
           });
           closeModal();
-          this.$router.push("/instructor/blogs");
+          this.$router.push("/admin/blogs");
         })
         .catch((err) =>
           this.$toasted.error("Blog cannot be published..! :(", {
@@ -168,7 +176,7 @@ export default {
       blogContent.status = "active";
 
       this.$store
-        .dispatch("instructor/blog/updateBlog", {
+        .dispatch("admin/blog/updateBlog", {
           data: blogContent,
           id: this.blog._id,
         })

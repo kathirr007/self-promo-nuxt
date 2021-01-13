@@ -33,10 +33,7 @@ export default {
             console.log("Dispatching delete...");
             // debugger
             self.$store
-              .dispatch(
-                `instructor/${type}/delete${self.capitalize(type)}`,
-                arg1
-              )
+              .dispatch(`admin/${type}/delete${self.capitalize(type)}`, arg1)
               .then(_ =>
                 self.$toasted.success(
                   `The ${self.capitalize(

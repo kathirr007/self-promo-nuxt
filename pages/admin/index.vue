@@ -1,22 +1,22 @@
 <template>
-  <div class="instructor-page">
-    <instructor-header title="Choose your admin page" exitLink="/"></instructor-header>
+  <div class="admin-page">
+    <admin-header title="Choose your admin page" exitLink="/"></admin-header>
     <div class="centered">
       <div class="columns column p-lg is-centered is-multiline">
-        <!-- Go to /instructor/categories -->
-        <div class="box" @click="$router.push('/instructor/categories')">
+        <!-- Go to /admin/categories -->
+        <div class="box" @click="$router.push('/admin/categories')">
           <div>Categories</div>
         </div>
-        <!-- Go to /instructor/courses -->
-        <div class="box" @click="$router.push('/instructor/courses')">
+        <!-- Go to /admin/courses -->
+        <div class="box" @click="$router.push('/admin/courses')">
           <div>Projects</div>
         </div>
-        <!-- Go to /instructor/blogs -->
-        <div class="box" @click="$router.push('/instructor/blogs')">
+        <!-- Go to /admin/blogs -->
+        <div class="box" @click="$router.push('/admin/blogs')">
           <div>Experiences</div>
         </div>
-        <!-- Go to /instructor/heroes -->
-        <div class="box" @click="$router.push('/instructor/heroes')">
+        <!-- Go to /admin/heroes -->
+        <div class="box" @click="$router.push('/admin/heroes')">
           <div>Heroes</div>
         </div>
       </div>
@@ -24,17 +24,17 @@
   </div>
 </template>
 <script>
-import instructorHeader from "~/components/shared/Header";
+import adminHeader from "~/components/shared/Header";
 export default {
   // middleware: 'admin',
-  layout: "instructor",
+  layout: "admin",
   components: {
-    instructorHeader,
+    adminHeader,
   },
 };
 </script>
 <style scoped lang="scss">
-.instructor-page {
+.admin-page {
   .centered {
     margin-top: 50px;
     display: flex;

@@ -1,13 +1,15 @@
 <template>
   <div class="manage-page">
-    <Header title="Some very nice course name" exitLink="/instructor/courses">
+    <Header title="Some very nice course name" exitLink="/admin/courses">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
             :disabled="!canUpdateCourse"
             @click="updateCourse"
             class="button is-primary is-inverted is-outlined"
-          >Save</button>
+          >
+            Save
+          </button>
         </div>
         <div class="full-page-takeover-header-button">
           <Modal
@@ -43,7 +45,9 @@
                 </div>
                 <div class="field">
                   <label class="label">Hero image</label>
-                  <span class="label-info">Image in format 3 by 1 (720 x 240)</span>
+                  <span class="label-info"
+                    >Image in format 3 by 1 (720 x 240)</span
+                  >
                   <input
                     v-model="courseHero.image"
                     class="input is-medium"
@@ -74,14 +78,16 @@
                   <a
                     @click.prevent="navigateTo(1)"
                     :class="activeComponentClass(1)"
-                  >Target Technologies</a>
+                    >Target Technologies</a
+                  >
                 </li>
                 <li>
                   <!-- display LandingPage -->
                   <a
                     @click.prevent="navigateTo(2)"
                     :class="activeComponentClass(2)"
-                  >Project Landing Page</a>
+                    >Project Landing Page</a
+                  >
                 </li>
               </ul>
               <p class="menu-label">Project Managment</p>
@@ -94,7 +100,11 @@
                 </li>-->
                 <!-- display Status -->
                 <li>
-                  <a @click.prevent="navigateTo(4)" :class="activeComponentClass(4)">Status</a>
+                  <a
+                    @click.prevent="navigateTo(4)"
+                    :class="activeComponentClass(4)"
+                    >Status</a
+                  >
                 </li>
               </ul>
             </aside>
@@ -125,16 +135,16 @@
 <script>
 import Modal from "~/components/shared/Modal";
 import Header from "~/components/shared/Header";
-import TargetStudents from "~/components/instructor/TargetStudents";
-import LandingPage from "~/components/instructor/LandingPage";
-import Price from "~/components/instructor/Price";
-import Status from "~/components/instructor/Status";
+import TargetStudents from "~/components/admin/TargetStudents";
+import LandingPage from "~/components/admin/LandingPage";
+import Price from "~/components/admin/Price";
+import Status from "~/components/admin/Status";
 import MultiComponentMixin from "~/mixins/MultiComponentMixin";
 import { mapState } from "vuex";
 import { required, email, minLength } from "vuelidate/lib/validators";
 
 export default {
-  layout: "instructor",
+  layout: "admin",
   components: {
     Header,
     TargetStudents,
@@ -152,13 +162,13 @@ export default {
     };
   },
   async fetch({ store, params }) {
-    await store.dispatch("instructor/course/fetchCourseById", params.id);
+    await store.dispatch("admin/course/fetchCourseById", params.id);
     await store.dispatch("category/fetchCategories");
   },
   computed: {
     ...mapState({
-      course: (state) => state.instructor.course.item,
-      canUpdateCourse: (state) => state.instructor.course.canUpdateCourse,
+      course: (state) => state.admin.course.item,
+      canUpdateCourse: (state) => state.admin.course.canUpdateCourse,
     }),
     /* isFormValid() {
         return false
@@ -167,7 +177,7 @@ export default {
   methods: {
     handleCourseImageUpdate({ index, field, formValid }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("instructor/course/updateCourseImage", {
+      this.$store.dispatch("admin/course/updateCourseImage", {
         index,
         field,
         formValid,
@@ -175,7 +185,7 @@ export default {
     },
     handleCourseImagesUpdate({ oldValue, value, field }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("instructor/course/updateCourseImage", {
+      this.$store.dispatch("admin/course/updateCourseImage", {
         index,
         field,
         formValid,
@@ -184,7 +194,7 @@ export default {
     handleCourseUpdate({ value, field, formValid }) {
       // debugger;
       // this.isFormValid = formValid
-      this.$store.dispatch("instructor/course/updateCourseValue", {
+      this.$store.dispatch("admin/course/updateCourseValue", {
         field,
         value,
         formValid,
@@ -192,7 +202,7 @@ export default {
     },
     updateCourse() {
       this.$store
-        .dispatch("instructor/course/updateCourse")
+        .dispatch("admin/course/updateCourse")
         .then((_) =>
           this.$toasted.success("Course has been successfully update..!", {
             duration: 3000,

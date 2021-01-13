@@ -42,7 +42,7 @@ export default {
     addLine(field) {
       // debugger;
       console.log("Adding line for: ", field);
-      this.$store.commit("instructor/course/addLine", field);
+      this.$store.commit("admin/course/addLine", field);
       this.$nextTick(() =>
         this.$refs.multiInput.$refs[
           `multiInput${this.course.wsl.length - 1}`
@@ -52,10 +52,10 @@ export default {
     removeLine(index, field) {
       console.log("Removing line from: ", field);
       console.log("Removing line of index: ", index);
-      this.$store.commit("instructor/course/removeLine", { field, index });
+      this.$store.commit("admin/course/removeLine", { field, index });
     },
     updateLine({ value, index }, field) {
-      this.$store.dispatch("instructor/course/updateLine", {
+      this.$store.dispatch("admin/course/updateLine", {
         field,
         value,
         index,

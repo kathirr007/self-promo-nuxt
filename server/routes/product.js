@@ -11,7 +11,7 @@ router.get(
   "/user-products",
   AuthCtrl.onlyAuthUser,
   AuthCtrl.onlyAdmin,
-  ProductCtrl.getInstructorProducts
+  ProductCtrl.getadminProducts
 );
 router.get("/:id", ProductCtrl.getProductById);
 router.get("/s/:slug", ProductCtrl.getProductBySlug);
