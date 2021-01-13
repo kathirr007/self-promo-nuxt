@@ -11,7 +11,7 @@
           class="full-page-takeover-header-bottom-progress-highlight"
         ></div>
       </div>
-      <div class="course-create full-page-takeover-container">
+      <div class="project-create full-page-takeover-container">
         <div class="container">
           <keep-alive>
             <component
@@ -22,10 +22,10 @@
             />
           </keep-alive>
           <!-- STEP 1 of FORM  -->
-          <!-- <course-create-step1 v-if="activeStep === 1"></course-create-step1> -->
+          <!-- <project-create-step1 v-if="activeStep === 1"></project-create-step1> -->
           <!-- STEP 1 END-->
           <!-- STEP 2 of FORM -->
-          <!-- <course-create-step2 v-if="activeStep === 2"></course-create-step2> -->
+          <!-- <project-create-step2 v-if="activeStep === 2"></project-create-step2> -->
           <!-- STEP 2 END -->
         </div>
         <div class="full-page-footer-row">
@@ -64,15 +64,15 @@
 
 <script>
 import Header from "~/components/shared/Header";
-import courseCreateStep1 from "~/components/admin/courseCreateStep1";
-// import courseCreateStep2 from '~/components/admin/courseCreateStep2'
+import projectCreateStep1 from "~/components/admin/projectCreateStep1";
+// import projectCreateStep2 from '~/components/admin/projectCreateStep2'
 import MultiComponentMixin from "~/mixins/MultiComponentMixin";
 export default {
   layout: "admin",
   components: {
     Header,
-    courseCreateStep1,
-    // courseCreateStep2
+    projectCreateStep1,
+    // projectCreateStep2
   },
   mixins: [MultiComponentMixin],
   async asyncData({ $axios, params }) {
@@ -92,7 +92,7 @@ export default {
   },
   data() {
     return {
-      steps: ["courseCreateStep1"],
+      steps: ["projectCreateStep1"],
       canProceed: false,
       form: {
         title: "",
@@ -135,7 +135,7 @@ export default {
   height: 1px;
 }
 
-.course-create {
+.project-create {
   &-wrapper {
     margin-top: 60px;
     text-align: center;

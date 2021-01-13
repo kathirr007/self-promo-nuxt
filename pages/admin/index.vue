@@ -7,8 +7,8 @@
         <div class="box" @click="$router.push('/admin/categories')">
           <div>Categories</div>
         </div>
-        <!-- Go to /admin/courses -->
-        <div class="box" @click="$router.push('/admin/courses')">
+        <!-- Go to /admin/projects -->
+        <div class="box" @click="$router.push('/admin/projects')">
           <div>Projects</div>
         </div>
         <!-- Go to /admin/blogs -->

@@ -44,7 +44,7 @@
           class="navbar-item"
           >Projects</nav-link
         >
-        <!-- <nav-link @click.native="toggleNavbar" to="/admin/courses" class="navbar-item">
+        <!-- <nav-link @click.native="toggleNavbar" to="/admin/projects" class="navbar-item">
           Courses
         </nav-link>-->
         <nav-link

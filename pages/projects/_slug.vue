@@ -1,15 +1,15 @@
 <template>
   <div>
     <product-hero
-      :title="course.title"
-      :subtitle="course.subtitle"
-      :author="course.author"
+      :title="project.title"
+      :subtitle="project.subtitle"
+      :author="project.author"
     >
       <product-hero-card
-        :navigateTo="course.productLink"
-        :image="course.image"
-        :images="course.images"
-        :repoLink="course.promoVideoLink"
+        :navigateTo="project.productLink"
+        :image="project.image"
+        :images="project.images"
+        :repoLink="project.promoVideoLink"
       />
     </product-hero>
     <div class="container">
@@ -20,7 +20,7 @@
               <div class="technologies-title">Technologies used</div>
               <ul class="technologies-items">
                 <li
-                  v-for="wsl in course.wsl"
+                  v-for="wsl in project.wsl"
                   :key="wsl.value"
                   class="technologies-item"
                 >
@@ -32,7 +32,7 @@
           <div class="section project-description py-2 px-0">
             <div class="project-description-title">Project Info</div>
             <div class="project-description-details">
-              <div v-html="course.description"></div>
+              <div v-html="project.description"></div>
             </div>
           </div>
         </div>
@@ -47,12 +47,12 @@ import ProductHeroCard from "~/components/ProductHeroCard";
 export default {
   head() {
     return {
-      title: this.course.title,
+      title: this.project.title,
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.course.subtitle,
+          content: this.project.subtitle,
         },
       ],
     };
@@ -65,21 +65,21 @@ export default {
     ProductHeroCard,
   },
   computed: {
-    course() {
-      return this.$store.state.course.item;
+    project() {
+      return this.$store.state.project.item;
     },
   },
   async fetch({ store, params }) {
-    await store.dispatch("course/fetchCourseBySlug", params.slug);
+    await store.dispatch("project/fetchCourseBySlug", params.slug);
   },
 };
 </script>
 
-<!-- Fetch course by Slug -->
-<!-- 1. create action "fetchCourseBySlug" in store/course.js -->
+<!-- Fetch project by Slug -->
+<!-- 1. create action "fetchCourseBySlug" in store/project.js -->
 <!-- 2. send GET request '/api/v1/products/s/:slug' -->
-<!-- 3. expect to receive "course" in "then" and commit it to state -->
-<!-- 4. get course in computed properties -->
+<!-- 3. expect to receive "project" in "then" and commit it to state -->
+<!-- 4. get project in computed properties -->
 <!-- 5. Complete TODO's -->
 <!-- 6. Navigate to detail page from home page when clicking on "Learn More" -->
 

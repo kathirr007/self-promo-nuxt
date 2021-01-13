@@ -29,7 +29,11 @@
           </template>-->
         </vue-flux>
       </client-only>
-      <img v-else-if="vfImages && vfImages.length == 1" :src="course.image" alt="Project Image" />
+      <img
+        v-else-if="vfImages && vfImages.length == 1"
+        :src="project.image"
+        alt="Project Image"
+      />
       <img
         v-else
         src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio"
@@ -38,25 +42,27 @@
       <!-- <figure class="image is-4by2">
       </figure>-->
     </div>
-    <!-- <nuxt-link :to="`/projects/${course.slug}`">
+    <!-- <nuxt-link :to="`/projects/${project.slug}`">
     </nuxt-link>-->
     <div class="card-content">
       <div class="content">
-        <p class="title is-4">{{ course.title | shortenText(45) }}</p>
-        <!-- <p class="subtitle is-6"><i>by {{course.author.name}}</i></p> -->
+        <p class="title is-4">{{ project.title | shortenText(45) }}</p>
+        <!-- <p class="subtitle is-6"><i>by {{project.author.name}}</i></p> -->
       </div>
       <div class="content">
-        {{ course.subtitle | shortenText(45) }}
+        {{ project.subtitle | shortenText(45) }}
         <br />
       </div>
       <!-- <div class="price-box">
-                <span class="price">{{course.price}}$</span>
-                <span class="disc-price">{{course.discountedPrice}}$</span>
+                <span class="price">{{project.price}}$</span>
+                <span class="disc-price">{{project.discountedPrice}}$</span>
       </div>-->
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="`/projects/${course.slug}`" class="card-footer-item">More Details</nuxt-link>
-      <!-- <a target="_" :href="course.productLink" class="card-footer-item">Enroll</a> -->
+      <nuxt-link :to="`/projects/${project.slug}`" class="card-footer-item"
+        >More Details</nuxt-link
+      >
+      <!-- <a target="_" :href="project.productLink" class="card-footer-item">Enroll</a> -->
     </footer>
   </div>
 </template>
@@ -81,7 +87,7 @@ import "vue-flux/dist-ssr/vue-flux.css";
 
 export default {
   props: {
-    course: {
+    project: {
       type: Object,
       required: true,
     },
@@ -104,12 +110,12 @@ export default {
   }),
   computed: {
     vfImages() {
-      return this.course.images.map((image) => {
+      return this.project.images.map((image) => {
         return image.location;
       });
     },
     /*           vpsImages() {
-            return this.course.images.map(image => ({
+            return this.project.images.map(image => ({
               src: image.location,
               thumbnail: image.location,
               w: '100',

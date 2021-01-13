@@ -8,8 +8,8 @@
         <h1 class="title">All Projects</h1>
         <div class="columns is-multiline section-cards">
           <div
-            v-for="course in courses"
-            :key="course._id"
+            v-for="project in projects"
+            :key="project._id"
             class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd is-flex"
           >
             <!-- CARD-ITEM -->
@@ -19,13 +19,13 @@
               placement="right-start"
               class="slide-left is-flex is-flex-grow-1"
             >
-              <course-card :course="course" />
+              <project-card :project="project" />
               <template slot="popover">
-                <course-card-tooltip
-                  :title="course.title"
-                  :subtitle="course.category.name"
-                  :description="course.subtitle"
-                  :wsl="course.wsl"
+                <project-card-tooltip
+                  :title="project.title"
+                  :subtitle="project.category.name"
+                  :description="project.subtitle"
+                  :wsl="project.wsl"
                 />
               </template>
             </v-popover>
@@ -38,25 +38,25 @@
 </template>
 
 <script>
-import courseCard from "~/components/courseCard";
-import CourseCardTooltip from "~/components/CourseCardTooltip";
+import projectCard from "~/components/projectCard";
+import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
   head: {
     title: `Projects | Kathiravan K | Sr.UI Developer`,
   },
   components: {
-    courseCard,
-    CourseCardTooltip,
+    projectCard,
+    ProjectCardTooltip,
   },
   computed: {
     ...mapState({
-      courses: (state) => state.course.items,
+      projects: (state) => state.project.items,
     }),
   },
   async fetch({ store }) {
     // debugger
-    await store.dispatch("course/fetchCourses");
+    await store.dispatch("project/fetchCourses");
   },
 };
 </script>

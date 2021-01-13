@@ -52,7 +52,7 @@ export default {
         // debugger
         this.$refs.imagesInput.setFiles([]);
       }
-      // this.$store.dispatch('admin/course/updateCanUpdate')
+      // this.$store.dispatch('admin/project/updateCanUpdate')
     }
   }
 };

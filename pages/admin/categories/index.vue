@@ -15,11 +15,11 @@
         </div>
       </template>
     </admin-header>
-    <div class="courses-page">
+    <div class="projects-page">
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
-            <courseCreateStep1
+            <projectCreateStep1
               @stepUpdated="mergeFormData"
               @fromCategories="createCategory"
             />
@@ -33,7 +33,7 @@
                 </a>
               </div>
             </div>-->
-            <h1 class="courses-page-title">Available Categories</h1>
+            <h1 class="projects-page-title">Available Categories</h1>
             <!-- Iterate Courses -->
             <!-- <div class="categories-list list is-hoverable"> -->
             <transition-group
@@ -71,7 +71,7 @@
   </div>
 </template>
 <script>
-import courseCreateStep1 from "~/components/admin/courseCreateStep1";
+import projectCreateStep1 from "~/components/admin/projectCreateStep1";
 import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
 export default {
@@ -79,7 +79,7 @@ export default {
   layout: "admin",
   components: {
     adminHeader,
-    courseCreateStep1,
+    projectCreateStep1,
   },
   mixins: [confirmDelete],
   computed: {
@@ -193,7 +193,7 @@ export default {
   }
 }
 
-.courses-page {
+.projects-page {
   padding-top: 60px;
 
   &-title {

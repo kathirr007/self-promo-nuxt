@@ -5,27 +5,27 @@
     </header>
     <div class="card-content card-section">
       <div class="field">
-        <label class="label">Price of the course</label>
+        <label class="label">Price of the project</label>
         <div class="control">
           <input
-            :value="course.price"
+            :value="project.price"
             @input="($event) => emitCourseValue($event, 'price')"
-            class="input "
+            class="input"
             type="text"
             placeholder="179.99"
-          >
+          />
         </div>
       </div>
       <div class="field">
-        <label class="label">Discounted Price for the course</label>
+        <label class="label">Discounted Price for the project</label>
         <div class="control">
           <input
-            :value="course.discountedPrice"
+            :value="project.discountedPrice"
             @input="($event) => emitCourseValue($event, 'discountedPrice')"
-            class="input "
+            class="input"
             type="text"
             placeholder="9.99"
-          >
+          />
         </div>
       </div>
     </div>
@@ -33,21 +33,20 @@
 </template>
 
 <script>
-  export default {
-    props: {
-      course: {
-        type: Object,
-        required: true
-      }
+export default {
+  props: {
+    project: {
+      type: Object,
+      required: true,
     },
-    methods: {
-      emitCourseValue(e, field) {
-        this.$emit('courseValueUpdated', {value: e.target.value, field})
-      }
-    }
-  }
+  },
+  methods: {
+    emitCourseValue(e, field) {
+      this.$emit("projectValueUpdated", { value: e.target.value, field });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
-
 </style>

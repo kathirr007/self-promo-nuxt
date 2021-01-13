@@ -2,12 +2,12 @@
   <div>
     <!-- Hero Section -->
     <!-- <hero
-      :title="courseHero.title"
-      :subtitle="courseHero.subtitle"
-      :image="courseHero.image"
-      :promoLink="courseHero.product && courseHero.product.productLink"
+      :title="projectHero.title"
+      :subtitle="projectHero.subtitle"
+      :image="projectHero.image"
+      :promoLink="projectHero.product && projectHero.product.productLink"
     />-->
-    <hero-slider :heroes="courseHeros" />
+    <hero-slider :heroes="projectHeros" />
     <!-- <hero v-else/> -->
 
     <!-- Hero Section end -->
@@ -16,8 +16,8 @@
         <h1 class="title my-3">Featured Projects</h1>
         <div class="columns is-multiline section-cards">
           <div
-            v-for="course in courses"
-            :key="course._id"
+            v-for="project in projects"
+            :key="project._id"
             class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd is-flex"
           >
             <!-- CARD-ITEM -->
@@ -27,13 +27,13 @@
               placement="right-start"
               class="slide-left is-flex is-flex-grow-1"
             >
-              <course-card :course="course" />
+              <project-card :project="project" />
               <template slot="popover">
-                <course-card-tooltip
-                  :title="course.title"
-                  :subtitle="course.category.name"
-                  :description="course.subtitle"
-                  :wsl="course.wsl"
+                <project-card-tooltip
+                  :title="project.title"
+                  :subtitle="project.category.name"
+                  :description="project.subtitle"
+                  :wsl="project.wsl"
                 />
               </template>
             </v-popover>
@@ -64,29 +64,29 @@
 <script>
 import hero from "~/components/shared/hero";
 import heroSlider from "~/components/shared/heroSlider";
-import courseCard from "~/components/courseCard";
+import projectCard from "~/components/projectCard";
 import blogCard from "~/components/blogCard";
-import CourseCardTooltip from "~/components/CourseCardTooltip";
+import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
   components: {
     hero,
     heroSlider,
-    courseCard,
+    projectCard,
     blogCard,
-    CourseCardTooltip,
+    ProjectCardTooltip,
   },
   computed: {
     ...mapState({
-      courses: (state) => state.course.items,
+      projects: (state) => state.project.items,
       featuredBlogs: (state) => state.experiences.items.featured,
-      courseHero: (state) => state.heroes.courseHero || {},
-      courseHeros: (state) => state.heroes.courseHero || {},
+      projectHero: (state) => state.heroes.projectHero || {},
+      projectHeros: (state) => state.heroes.projectHero || {},
     }),
   },
   async fetch({ store }) {
     // debugger
-    await store.dispatch("course/fetchCourses");
+    await store.dispatch("project/fetchCourses");
     await store.dispatch("experiences/fetchFeaturedBlogs", {
       "filter[featured]": true,
     });

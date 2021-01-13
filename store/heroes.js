@@ -1,30 +1,32 @@
 export const state = () => ({
-  courseHero: {}
-})
+  projectHero: {}
+});
 
 export const actions = {
-  createHero({commit, state}, courseHeroData) {
-    return this.$axios.$post('/api/v1/product-heroes', courseHeroData)
+  createHero({ commit, state }, projectHeroData) {
+    return this.$axios
+      .$post("/api/v1/product-heroes", projectHeroData)
       .then(hero => {
-        commit('setHero', hero)
-        return state.courseHero
+        commit("setHero", hero);
+        return state.projectHero;
       })
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(err));
   },
-  fetchHero({commit, state}) {
-    return this.$axios.$get('/api/v1')
+  fetchHero({ commit, state }) {
+    return this.$axios
+      .$get("/api/v1")
       .then(data => {
         // debugger
-        const { productHero } = data
-        commit('setHero', productHero)
-        return state.courseHero
+        const { productHero } = data;
+        commit("setHero", productHero);
+        return state.projectHero;
       })
-      .catch(err => Promise.error(err))
+      .catch(err => Promise.error(err));
   }
-}
+};
 
 export const mutations = {
   setHero(state, hero) {
-    state.courseHero = hero
+    state.projectHero = hero;
   }
-}
+};

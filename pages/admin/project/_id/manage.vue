@@ -1,6 +1,6 @@
 <template>
   <div class="manage-page">
-    <Header title="Some very nice course name" exitLink="/admin/courses">
+    <Header title="Some very nice project name" exitLink="/admin/projects">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
@@ -26,10 +26,10 @@
                   <span class="label-info">Suggested 64 Characters</span>
                   <div class="control">
                     <input
-                      v-model="courseHero.title"
+                      v-model="projectHero.title"
                       class="input is-medium"
                       type="text"
-                      placeholder="Amazing course discount"
+                      placeholder="Amazing project discount"
                     />
                   </div>
                 </div>
@@ -37,10 +37,10 @@
                   <label class="label">Hero subtitle</label>
                   <span class="label-info">Suggested 128 Characters</span>
                   <input
-                    v-model="courseHero.subtitle"
+                    v-model="projectHero.subtitle"
                     class="input is-medium"
                     type="text"
-                    placeholder="Get all of the course for 9.99$"
+                    placeholder="Get all of the project for 9.99$"
                   />
                 </div>
                 <div class="field">
@@ -49,13 +49,13 @@
                     >Image in format 3 by 1 (720 x 240)</span
                   >
                   <input
-                    v-model="courseHero.image"
+                    v-model="projectHero.image"
                     class="input is-medium"
                     type="text"
                     placeholder="Some image in format 3 by 1 (720 x 240)"
                   />
-                  <figure class="image course-image is-3by1">
-                    <img :src="courseHero.image" />
+                  <figure class="image project-image is-3by1">
+                    <img :src="projectHero.image" />
                   </figure>
                 </div>
               </form>
@@ -65,7 +65,7 @@
       </template>
     </Header>
 
-    <div class="course-manage">
+    <div class="project-manage">
       <div class="container">
         <div class="columns">
           <div class="column is-3 p-lg">
@@ -114,10 +114,10 @@
               <transition name="slideUp" mode="out-in">
                 <component
                   :is="activeComponent"
-                  :course="course"
-                  @courseImageUpdated="handleCourseImageUpdate"
-                  @courseImagesUpdated="handleCourseImagesUpdate"
-                  @courseValueUpdated="handleCourseUpdate"
+                  :project="project"
+                  @projectImageUpdated="handleCourseImageUpdate"
+                  @projectImagesUpdated="handleCourseImagesUpdate"
+                  @projectValueUpdated="handleCourseUpdate"
                 />
                 <!-- <target-students />
                 <landing-page />
@@ -157,18 +157,18 @@ export default {
   data() {
     return {
       steps: ["TargetStudents", "LandingPage", "Price", "Status"],
-      courseHero: {},
+      projectHero: {},
       isFormValid: false,
     };
   },
   async fetch({ store, params }) {
-    await store.dispatch("admin/course/fetchCourseById", params.id);
+    await store.dispatch("admin/project/fetchCourseById", params.id);
     await store.dispatch("category/fetchCategories");
   },
   computed: {
     ...mapState({
-      course: (state) => state.admin.course.item,
-      canUpdateCourse: (state) => state.admin.course.canUpdateCourse,
+      project: (state) => state.admin.project.item,
+      canUpdateCourse: (state) => state.admin.project.canUpdateCourse,
     }),
     /* isFormValid() {
         return false
@@ -177,7 +177,7 @@ export default {
   methods: {
     handleCourseImageUpdate({ index, field, formValid }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("admin/course/updateCourseImage", {
+      this.$store.dispatch("admin/project/updateCourseImage", {
         index,
         field,
         formValid,
@@ -185,7 +185,7 @@ export default {
     },
     handleCourseImagesUpdate({ oldValue, value, field }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("admin/course/updateCourseImage", {
+      this.$store.dispatch("admin/project/updateCourseImage", {
         index,
         field,
         formValid,
@@ -194,7 +194,7 @@ export default {
     handleCourseUpdate({ value, field, formValid }) {
       // debugger;
       // this.isFormValid = formValid
-      this.$store.dispatch("admin/course/updateCourseValue", {
+      this.$store.dispatch("admin/project/updateCourseValue", {
         field,
         value,
         formValid,
@@ -202,7 +202,7 @@ export default {
     },
     updateCourse() {
       this.$store
-        .dispatch("admin/course/updateCourse")
+        .dispatch("admin/project/updateCourse")
         .then((_) =>
           this.$toasted.success("Course has been successfully update..!", {
             duration: 3000,
@@ -217,8 +217,8 @@ export default {
     },
     createCourseHero({ closeModal }) {
       // debugger
-      const heroData = { ...this.courseHero };
-      heroData.product = { ...this.course };
+      const heroData = { ...this.projectHero };
+      heroData.product = { ...this.project };
       this.$store.dispatch("heroes/createHero", heroData).then(() => {
         closeModal();
         this.$toasted.success("Course Hero was created...!", {
@@ -227,16 +227,16 @@ export default {
       });
     },
     applyCourseValues() {
-      // this.courseHero.title = this.course.title
-      // this.courseHero.subtitle = this.course.subtitle
-      // this.courseHero.image = this.course.image
+      // this.projectHero.title = this.project.title
+      // this.projectHero.subtitle = this.project.subtitle
+      // this.projectHero.image = this.project.image
 
-      !this.courseHero.title &&
-        this.$set(this.courseHero, "title", this.course.title);
-      !this.courseHero.subtitle &&
-        this.$set(this.courseHero, "subtitle", this.course.subtitle);
-      !this.courseHero.image &&
-        this.$set(this.courseHero, "image", this.course.image);
+      !this.projectHero.title &&
+        this.$set(this.projectHero, "title", this.project.title);
+      !this.projectHero.subtitle &&
+        this.$set(this.projectHero, "subtitle", this.project.subtitle);
+      !this.projectHero.image &&
+        this.$set(this.projectHero, "image", this.project.image);
     },
   },
 };
@@ -250,7 +250,7 @@ export default {
     font-style: italic;
   }
 
-  .course-manage {
+  .project-manage {
     padding-top: 40px;
 
     .menu {
@@ -292,7 +292,7 @@ export default {
       }
     }
 
-    .course-image {
+    .project-image {
       img {
         object-fit: cover;
       }

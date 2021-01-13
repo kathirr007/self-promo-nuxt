@@ -9,7 +9,7 @@
           <label class="label">Project title</label>
           <div class="control">
             <input
-              :value="course.title"
+              :value="project.title"
               @input="($event) => emitCourseValue($event, 'title', title)"
               class="input"
               type="text"
@@ -30,7 +30,7 @@
           <label class="label">Project subtitle</label>
           <div class="control">
             <input
-              :value="course.subtitle !== 'undefined' ? course.subtitle : ''"
+              :value="project.subtitle !== 'undefined' ? project.subtitle : ''"
               @input="($event) => emitCourseValue($event, 'subtitle')"
               class="input"
               type="text"
@@ -41,11 +41,11 @@
         <div class="field">
           <label class="label">Project description</label>
           <div class="control">
-            <course-editor
+            <project-editor
               @editorUpdated="
                 (content) => emitCourseValue(content, 'description')
               "
-              :initialContent="course.description || ''"
+              :initialContent="project.description || ''"
             />
           </div>
         </div>
@@ -56,7 +56,7 @@
               <quill-editor
                 ref="editor"
                 :options="editorOption"
-                v-model="courseDescription"
+                v-model="projectDescription"
                 @input="onEditorInput($event)"
                 data-lpignore="true"
               />
@@ -67,7 +67,7 @@
           <label class="label">Category</label>
           <div class="select">
             <select
-              :value="course.category._id"
+              :value="project.category._id"
               @change="($event) => emitCourseValue($event, 'category')"
             >
               <!-- <option value="default">Select Category</option> -->
@@ -86,12 +86,12 @@
           <div class="columns">
             <!-- <div class="column">
                         <figure class="image is-4by2">
-                            <img :src="course.image">
+                            <img :src="project.image">
                         </figure>
             </div>-->
             <div class="column centered p-0">
               <!-- <div class="control">
-                            <input :value="course.image" @input="($event) => emitCourseValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
+                            <input :value="project.image" @input="($event) => emitCourseValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
               </div>-->
               <div class="file has-name is-fullwidth">
                 <label class="file-label">
@@ -130,9 +130,9 @@
                   ></i>
                 </div>
               </div>
-              <!-- <div v-else-if="course.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
+              <!-- <div v-else-if="project.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2">
-                                <img :src="course.image" class="img-thumbnail single-image">
+                                <img :src="project.image" class="img-thumbnail single-image">
                             </div>
               </div>-->
               <div
@@ -172,7 +172,7 @@
           <div class="control">
             <input
               :value="
-                course.productLink !== 'undefined' ? course.productLink : ''
+                project.productLink !== 'undefined' ? project.productLink : ''
               "
               @input="($event) => emitCourseValue($event, 'productLink')"
               class="input"
@@ -186,8 +186,8 @@
           <div class="control">
             <input
               :value="
-                course.promoVideoLink !== 'undefined'
-                  ? course.promoVideoLink
+                project.promoVideoLink !== 'undefined'
+                  ? project.promoVideoLink
                   : ''
               "
               @input="($event) => emitCourseValue($event, 'promoVideoLink')"
@@ -203,27 +203,27 @@
 </template>
 
 <script>
-import CourseEditor from "~/components/editor/CourseEditor";
+import ProjectEditor from "~/components/editor/ProjectEditor";
 import imgUploadMixin from "~/mixins/imgUpload";
 import { BFormFile } from "bootstrap-vue";
 import { required, minLength } from "vuelidate/lib/validators";
 
 export default {
   props: {
-    course: {
+    project: {
       type: Object,
       required: true,
     },
   },
   mixins: [imgUploadMixin],
   components: {
-    CourseEditor,
+    ProjectEditor,
     BFormFile,
   },
   data() {
     return {
       uploadedFiles: [],
-      courseDescription: "",
+      projectDescription: "",
     };
   },
   validations: {
@@ -237,31 +237,31 @@ export default {
       return this.$store.state.category.items;
     },
     title() {
-      return this.course.title;
+      return this.project.title;
     },
     description: {
       get() {
-        return this.course.description;
+        return this.project.description;
       },
       set(v) {
-        this.course.description = v;
+        this.project.description = v;
       },
     },
   },
   mounted() {
     if (
-      this.course.images[0] != undefined &&
-      typeof this.course.images[0]["location"] !== "undefined"
+      this.project.images[0] != undefined &&
+      typeof this.project.images[0]["location"] !== "undefined"
     ) {
-      this.uploadedFiles = this.course.images;
+      this.uploadedFiles = this.project.images;
     } else {
       this.uploadedFiles = [];
     }
     // this.mergedFiles.push(...this.uploadedFiles)
-    // this.category = this.course.category != null ? this.course.category._id : ''
-    // this.owner = this.course.owner != null ? this.course.owner._id : ''
+    // this.category = this.project.category != null ? this.project.category._id : ''
+    // this.owner = this.project.owner != null ? this.project.owner._id : ''
     this.$v.title.$touch();
-    this.courseDescription = this.course.description;
+    this.projectDescription = this.project.description;
   },
   methods: {
     formatNames(files = []) {
@@ -296,7 +296,7 @@ export default {
       // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
       debugger;
       this.$store
-        .dispatch(`admin/course/deleteCourseImage`, { key, index, s3Key })
+        .dispatch(`admin/project/deleteCourseImage`, { key, index, s3Key })
         .then((_) =>
           this.$toasted.success(
             `The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`,
@@ -304,13 +304,13 @@ export default {
           )
         )
         .then((_) => {
-          return this.$emit("courseImageUpdated", {
+          return this.$emit("projectImageUpdated", {
             index,
             field,
           });
         });
       // this.deleteImage(params)
-      // this.$store.dispatch('admin/course/updateCanUpdate')
+      // this.$store.dispatch('admin/project/updateCanUpdate')
     },
     emitCourseValue(e, field, title = "") {
       // const value = e.target.value
@@ -321,7 +321,7 @@ export default {
         // this.title = value
         this.$v.title.$touch();
         // debugger
-        /* return this.$emit('courseValueUpdated', {
+        /* return this.$emit('projectValueUpdated', {
                 value,
                 field,
                 formValid
@@ -334,11 +334,11 @@ export default {
       // debugger
       if (field === "images" && this.uploadedFiles.length !== 0) {
         this.$store.dispatch(
-          "admin/course/updateUploadedFiles",
+          "admin/project/updateUploadedFiles",
           this.uploadedFiles
         );
       }
-      return this.$emit("courseValueUpdated", {
+      return this.$emit("projectValueUpdated", {
         value,
         field,
         title,
@@ -346,13 +346,13 @@ export default {
     },
     emitCategory(categoryId, field) {
       const foundCategory = this.categories.find((c) => c._id === categoryId);
-      this.$emit("courseValueUpdated", {
+      this.$emit("projectValueUpdated", {
         value: foundCategory,
         field,
       });
     },
     emitImages(oldValue, value, field) {
-      this.$emit("courseImagesUpdated", {
+      this.$emit("projectImagesUpdated", {
         oldValue,
         value,
         field,

@@ -6,7 +6,7 @@
     <div class="card-content card-section">
       <form @submit.stop.prevent>
         <multi-line-text-input
-          :lines="course.wsl"
+          :lines="project.wsl"
           :addBtn="'Add Technology'"
           @valueUpdated="updateLine($event, 'wsl')"
           @addClicked="addLine('wsl')"
@@ -15,7 +15,7 @@
           ref="multiInput"
         />
         <!-- <multi-line-text-input
-          :lines="course.requirements"
+          :lines="project.requirements"
           @valueUpdated="updateLine($event, 'requirements')"
           @addClicked="addLine('requirements')"
           @removeClicked="removeLine($event, 'requirements')"
@@ -33,7 +33,7 @@ export default {
     MultiLineTextInput,
   },
   props: {
-    course: {
+    project: {
       type: Object,
       required: true,
     },
@@ -42,20 +42,20 @@ export default {
     addLine(field) {
       // debugger;
       console.log("Adding line for: ", field);
-      this.$store.commit("admin/course/addLine", field);
+      this.$store.commit("admin/project/addLine", field);
       this.$nextTick(() =>
         this.$refs.multiInput.$refs[
-          `multiInput${this.course.wsl.length - 1}`
+          `multiInput${this.project.wsl.length - 1}`
         ][0].focus()
       );
     },
     removeLine(index, field) {
       console.log("Removing line from: ", field);
       console.log("Removing line of index: ", index);
-      this.$store.commit("admin/course/removeLine", { field, index });
+      this.$store.commit("admin/project/removeLine", { field, index });
     },
     updateLine({ value, index }, field) {
-      this.$store.dispatch("admin/course/updateLine", {
+      this.$store.dispatch("admin/project/updateLine", {
         field,
         value,
         index,

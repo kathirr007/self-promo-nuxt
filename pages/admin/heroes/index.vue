@@ -52,7 +52,7 @@
                       <div class="subtitle">
                         Subtitle: {{ hero.subtitle || "Subtitle not set" }}
                       </div>
-                      <figure class="image course-image is-3by1">
+                      <figure class="image project-image is-3by1">
                         <img :src="hero.image" />
                       </figure>
                     </div>
@@ -84,7 +84,7 @@ export default {
       return this.$store.state.admin.heroes;
     },
     activeHero() {
-      return this.$store.state.heroes.courseHero;
+      return this.$store.state.heroes.projectHero;
     },
   },
   async fetch({ store }) {
@@ -131,7 +131,7 @@ export default {
 .isActive {
 }
 
-.course-image {
+.project-image {
   img {
     object-fit: cover;
   }

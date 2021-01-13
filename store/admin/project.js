@@ -12,38 +12,38 @@ export const actions = {
   fetchadminCourses({ commit }) {
     return this.$axios
       .$get("/api/v1/products/user-products")
-      .then(courses => {
-        commit("setCourses", courses);
+      .then(projects => {
+        commit("setCourses", projects);
         return state.items;
       })
       .catch(error => Promise.reject(error));
   },
-  fetchCourseById({ commit, state }, courseId) {
+  fetchCourseById({ commit, state }, projectId) {
     return this.$axios
-      .$get(`/api/v1/products/${courseId}`)
-      .then(course => {
-        commit("setCourse", course);
+      .$get(`/api/v1/products/${projectId}`)
+      .then(project => {
+        commit("setCourse", project);
         return state.item;
       })
       .catch(error => Promise.reject(error));
   },
-  createCourse({ commit, state }, courseData) {
-    let storageLocation = `projects/${slugify(courseData.title, {
+  createCourse({ commit, state }, projectData) {
+    let storageLocation = `projects/${slugify(projectData.title, {
       replacement: "-", // replace spaces with replacement
       remove: null, // regex to remove characters
       lower: true // result in lower case
     })}`;
-    commit("setCourseValue", { value: courseData.title, field: "title" });
+    commit("setCourseValue", { value: projectData.title, field: "title" });
     return this.$axios
-      .$post("/api/v1/products/", courseData)
-      .then(_ => this.$router.push("/admin/courses"));
+      .$post("/api/v1/products/", projectData)
+      .then(_ => this.$router.push("/admin/projects"));
   },
   updateCourse({ commit, state }) {
-    const course = state.item;
+    const project = state.item;
     // debugger
     /*     let storageLocationOld = null
     let storageLocationNew
-    storageLocationNew = `projects/${slugify(course.title, {
+    storageLocationNew = `projects/${slugify(project.title, {
       replacement: '-',    // replace spaces with replacement
       remove: null,        // regex to remove characters
       lower: true          // result in lower case
@@ -53,83 +53,83 @@ export const actions = {
     let uploadedFiles = null;
     let deleteFiles = false;
     if (
-      course.images[0] != undefined &&
-      typeof course.images[0]["location"] == "undefined"
+      project.images[0] != undefined &&
+      typeof project.images[0]["location"] == "undefined"
     ) {
-      for (let i = 0; i < course.images.length; i++) {
+      for (let i = 0; i < project.images.length; i++) {
         // debugger
-        data.append("images", course.images[i]);
-        uploadedFiles = JSON.stringify(course.uploadedFiles);
+        data.append("images", project.images[i]);
+        uploadedFiles = JSON.stringify(project.uploadedFiles);
         deleteFiles = true;
       }
     } else {
-      uploadedFiles = JSON.stringify(course.images);
+      uploadedFiles = JSON.stringify(project.images);
       data.append("images", uploadedFiles);
     }
 
-    data.append("authorID", course.author);
-    data.append("categoryID", course.category);
-    data.append("createdAt", course.createdAt);
-    data.append("description", course.description);
-    data.append("promoVideoLink", course.promoVideoLink);
-    data.append("productLink", course.productLink);
-    data.append("requirements", JSON.stringify(course.requirements));
-    // data.append('slug', course.slug)
-    data.append("status", course.status);
-    data.append("subtitle", course.subtitle);
-    data.append("title", course.title);
-    data.append("storageLocation", course.storageLocation);
-    data.append("storageLocationNew", course.storageLocationNew);
-    data.append("updatedAt", course.updatedAt);
-    data.append("wsl", JSON.stringify(course.wsl));
+    data.append("authorID", project.author);
+    data.append("categoryID", project.category);
+    data.append("createdAt", project.createdAt);
+    data.append("description", project.description);
+    data.append("promoVideoLink", project.promoVideoLink);
+    data.append("productLink", project.productLink);
+    data.append("requirements", JSON.stringify(project.requirements));
+    // data.append('slug', project.slug)
+    data.append("status", project.status);
+    data.append("subtitle", project.subtitle);
+    data.append("title", project.title);
+    data.append("storageLocation", project.storageLocation);
+    data.append("storageLocationNew", project.storageLocationNew);
+    data.append("updatedAt", project.updatedAt);
+    data.append("wsl", JSON.stringify(project.wsl));
 
-    // course.data = data
+    // project.data = data
 
     // debugger
     const headers = {
-      storagelocation: course.storageLocation,
-      storagelocationnew: course.storageLocationNew,
+      storagelocation: project.storageLocation,
+      storagelocationnew: project.storageLocationNew,
       uploadedfiles: uploadedFiles,
       deletefiles: deleteFiles
     };
 
     return this.$axios
-      .$patch(`/api/v1/products/${course._id}`, data, { headers: headers })
-      .then(course => {
-        commit("setCourse", course);
+      .$patch(`/api/v1/products/${project._id}`, data, { headers: headers })
+      .then(project => {
+        commit("setCourse", project);
         return state.item;
       })
       .catch(err => Promise.reject(err));
   },
   deleteCourseImage({ commit, state }, params) {
-    // const resource = course.status === 'active' ? 'drafts' : 'published'
+    // const resource = project.status === 'active' ? 'drafts' : 'published'
     // debugger
     return this.$axios
       .$delete(`/api/v1/products/ProdImage/${params.key}`, {
         headers: { storagelocation: params.s3Key }
       })
       .then(_ => {
-        // const courseIndex = state.items.findIndex((b) => b._id === course._id)
+        // const projectIndex = state.items.findIndex((b) => b._id === project._id)
         commit("setCanUpdateCourse", true);
         return true;
       })
       .catch(err => Promise.reject(err));
   },
-  deleteCourse({ commit, state }, course) {
-    // const resource = course.status === 'active' ? 'drafts' : 'published'
+  deleteCourse({ commit, state }, project) {
+    // const resource = project.status === 'active' ? 'drafts' : 'published'
     // debugger
-    const uploadedFiles = JSON.stringify(course.images);
+    const uploadedFiles = JSON.stringify(project.images);
     const headers = {
-      storagelocation: course.storageLocation,
-      storagelocationnew: course.storageLocationNew,
+      storagelocation: project.storageLocation,
+      storagelocationnew: project.storageLocationNew,
       uploadedfiles: uploadedFiles,
       deletefiles: "true"
     };
     return this.$axios
-      .$delete(`/api/v1/products/${course._id}`, { headers: headers })
+      .$delete(`/api/v1/products/${project._id}`, { headers: headers })
       .then(_ => {
-        const courseIndex = state.items.findIndex(b => b._id === course._id);
-        commit("deleteCourse", { courseIndex });
+        const projectIndex = state.items.findIndex(b => b._id === project._id);
+        commit("deleteCourse", { projectIndex });
         return true;
       })
       .catch(err => Promise.reject(err));
@@ -168,11 +168,11 @@ export const actions = {
 };
 
 export const mutations = {
-  setCourses(state, courses) {
-    state.items = courses;
+  setCourses(state, projects) {
+    state.items = projects;
   },
-  setCourse(state, course) {
-    state.item = course;
+  setCourse(state, project) {
+    state.item = project;
   },
   setCanUpdateCourse(state, canUpdate) {
     state.canUpdateCourse = canUpdate;
@@ -209,7 +209,7 @@ export const mutations = {
     // debugger
     state.item["uploadedFiles"] = value;
   },
-  deleteCourse(state, { courseIndex }) {
-    state.items.splice(courseIndex, 1);
+  deleteCourse(state, { projectIndex }) {
+    state.items.splice(projectIndex, 1);
   }
 };

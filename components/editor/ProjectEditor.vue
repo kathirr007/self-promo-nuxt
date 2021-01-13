@@ -1,13 +1,17 @@
 <template>
-  <div class="editor course-editor">
-    <course-editor-menu :editor="editor" />
-    <editor-content class="editor__content" :editor="editor" data-lpignore="true" />
+  <div class="editor project-editor">
+    <project-editor-menu :editor="editor" />
+    <editor-content
+      class="editor__content"
+      :editor="editor"
+      data-lpignore="true"
+    />
   </div>
 </template>
 
 <script>
 import { Editor, EditorContent } from "tiptap";
-import CourseEditorMenu from "~/components/editor/CourseEditorMenu";
+import ProjectEditorMenu from "~/components/editor/ProjectEditorMenu";
 import {
   Heading,
   Bold,
@@ -23,7 +27,7 @@ import {
 export default {
   components: {
     EditorContent,
-    CourseEditorMenu,
+    ProjectEditorMenu,
   },
   props: {
     initialContent: {
@@ -70,7 +74,7 @@ export default {
 </script>
 
 <style lang="scss">
-.course-editor {
+.project-editor {
   border: 1px solid gray;
   border-radius: 7px;
 

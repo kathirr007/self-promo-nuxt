@@ -3,7 +3,7 @@
     <admin-header title="Manage your Projects here">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/admin/course/create" class="button is-light"
+          <nuxt-link to="/admin/project/create" class="button is-light"
             >New Project</nuxt-link
           >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
@@ -15,29 +15,29 @@
         </div>
       </template>
     </admin-header>
-    <div class="courses-page">
+    <div class="projects-page">
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
-            <h1 class="courses-page-title">Your Projects</h1>
+            <h1 class="projects-page-title">Your Projects</h1>
             <!-- Iterate Courses -->
             <div
-              v-for="course in courses"
-              :key="course._id"
+              v-for="project in projects"
+              :key="project._id"
               class="tile is-ancestor"
             >
               <div class="tile is-parent is-12">
-                <!-- Navigate to course manage page -->
+                <!-- Navigate to project manage page -->
                 <div class="tile tile-overlay-container is-child box">
                   <div class="tile-overlay">
                     <nuxt-link
-                      :to="`/admin/course/${course._id}/manage`"
+                      :to="`/admin/project/${project._id}/manage`"
                       class="tile-overlay-text"
                     >
                       <span>Update Project</span>
                     </nuxt-link>
                     <span
-                      @click="confirmDelete($event, 'course', course)"
+                      @click="confirmDelete($event, 'project', project)"
                       class="tile-overlay-text has-text-danger"
                       >Delete Project</span
                     >
@@ -45,29 +45,29 @@
                   <div class="columns">
                     <div class="column is-narrow">
                       <figure class="image is-4by2 is-128x128">
-                        <!-- <img :src="'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'"> -->
+                        <!-- <img :src="'https://i.udemycdn.com/project/750x422/2381802_d90c_3.jpg'"> -->
                         <img
                           :src="
-                            course.image ||
-                            'https://i.udemycdn.com/course/750x422/2381802_d90c_3.jpg'
+                            project.image ||
+                            'https://i.udemycdn.com/project/750x422/2381802_d90c_3.jpg'
                           "
                         />
                       </figure>
                     </div>
                     <div class="column">
-                      <p class="title">{{ course.title }}</p>
+                      <p class="title">{{ project.title }}</p>
                       <p class="subtitle">
-                        {{ course.subtitle || "No subtitle provided yet" }}
+                        {{ project.subtitle || "No subtitle provided yet" }}
                       </p>
                       <span
                         class="tag"
-                        :class="courseStatusClass(course.status)"
-                        >{{ course.status }}</span
+                        :class="projectStatusClass(project.status)"
+                        >{{ project.status }}</span
                       >
                     </div>
                     <!-- <div class="column is-narrow flex-centered">
                       <div class="price-title">
-                        {{course.price || 0}} $
+                        {{project.price || 0}} $
                       </div>
                     </div>-->
                   </div>
@@ -91,15 +91,15 @@ export default {
   },
   mixins: [confirmDelete],
   computed: {
-    courses() {
-      return this.$store.state.admin.course.items;
+    projects() {
+      return this.$store.state.admin.project.items;
     },
   },
   async fetch({ store }) {
-    await store.dispatch("admin/course/fetchadminCourses");
+    await store.dispatch("admin/project/fetchadminCourses");
   },
   methods: {
-    courseStatusClass(status) {
+    projectStatusClass(status) {
       if (!status) return "";
       if (status === "published") return "is-success";
       if (status === "active") return "is-primary";
@@ -192,7 +192,7 @@ figure {
   }
 }
 
-.courses-page {
+.projects-page {
   padding-top: 60px;
 
   &-title {
