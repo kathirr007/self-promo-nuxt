@@ -51,7 +51,7 @@
                           :alt="project.title"
                           :src="
                             project.image ||
-                              'https://via.placeholder.com/200.png'
+                              'https://dummyimage.com/200x200/9e9e9e/ffffff&text=No+Image'
                           "
                         />
                       </figure>

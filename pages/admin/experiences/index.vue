@@ -74,9 +74,11 @@
                 </div>
               </div>
               <!-- In case of no drafts experiences  -->
-              <div v-else class="experience-error">
-                No Drafts <i class="far fa-frown" style="color:#58529f"></i>
-              </div>
+              <transition v-else appear name="slideDown" mode="out-in">
+                <div class="experience-error">
+                  No Drafts <i class="far fa-frown" style="color:#58529f"></i>
+                </div>
+              </transition>
             </template>
             <!-- Published experiences -->
             <!-- check for activeTab -->
@@ -107,9 +109,12 @@
                 </div>
               </div>
               <!-- In case of no drafts experiences  -->
-              <div v-else class="experience-error">
-                No Published <i class="far fa-frown" style="color:#58529f"></i>
-              </div>
+              <transition v-else appear name="slideDown" mode="out-in">
+                <div class="experience-error">
+                  No Published
+                  <i class="far fa-frown" style="color:#58529f"></i>
+                </div>
+              </transition>
             </template>
           </div>
         </div>
@@ -322,6 +327,7 @@ export default {
 }
 .experience-error {
   font-size: 35px;
+  padding-top: 20px;
 }
 
 .experience-card {

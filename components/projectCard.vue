@@ -36,7 +36,7 @@
       />
       <img
         v-else
-        src="https://via.placeholder.com/265x145?text=Kathirr007+Portfolio"
+        src="https://dummyimage.com/265x145/9e9e9e/ffffff&text=Kathirr007+Portfolio"
         alt="Placeholder image"
       />
       <!-- <figure class="image is-4by2">
@@ -74,7 +74,7 @@ import {
   VueFlux,
   FluxControls,
   FluxPagination,
-  FluxPreloader,
+  FluxPreloader
 } from "vue-flux/dist-ssr/vue-flux.umd.min.js";
 
 // import VuePictureSwipe from 'vue-picture-swipe';
@@ -89,13 +89,13 @@ export default {
   props: {
     project: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   components: {
     VueFlux,
     FluxControls,
-    FluxPagination,
+    FluxPagination
     // FluxPreloader,
     // VuePictureSwipe
   },
@@ -103,17 +103,17 @@ export default {
   data: () => ({
     vfOptions: {
       autoplay: true,
-      delay: 1500,
+      delay: 1500
     },
     // vfImages: ['URL1', 'URL2', 'URL3'],
-    vfTransitions: ["slide"],
+    vfTransitions: ["slide"]
   }),
   computed: {
     vfImages() {
-      return this.project.images.map((image) => {
+      return this.project.images.map(image => {
         return image.location;
       });
-    },
+    }
     /*           vpsImages() {
             return this.project.images.map(image => ({
               src: image.location,
@@ -122,7 +122,7 @@ export default {
               h: '100'
             }))
           } */
-  },
+  }
 };
 </script>
 
