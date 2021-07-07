@@ -83,8 +83,8 @@ export const mutations = {
     state.item = category;
     state.items[categoryIndex] = category;
   },
-  setCanUpdateCourse(state, canUpdate) {
-    state.canUpdateCourse = canUpdate;
+  setCanUpdateProject(state, canUpdate) {
+    state.canUpdateProject = canUpdate;
   },
   addLine(state, field) {
     state.item[field].push({ value: "" });
@@ -95,7 +95,7 @@ export const mutations = {
   setLineValue(state, { index, value, field }) {
     state.item[field][index].value = value;
   },
-  setCourseValue(state, { value, field }) {
+  setProjectValue(state, { value, field }) {
     state.item[field] = value;
   },
   deleteCategory(state, { categoryIndex }) {

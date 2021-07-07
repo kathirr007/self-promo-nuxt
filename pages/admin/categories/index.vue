@@ -34,7 +34,7 @@
               </div>
             </div>-->
             <h1 class="projects-page-title">Available Categories</h1>
-            <!-- Iterate Courses -->
+            <!-- Iterate Projects -->
             <!-- <div class="categories-list list is-hoverable"> -->
             <transition-group
               tag="div"
@@ -79,13 +79,13 @@ export default {
   layout: "admin",
   components: {
     adminHeader,
-    projectCreateStep1,
+    projectCreateStep1
   },
   mixins: [confirmDelete],
   computed: {
     categories() {
       return this.$store.state.admin.category.items;
-    },
+    }
   },
 
   async fetch({ store }) {
@@ -95,9 +95,9 @@ export default {
     return {
       canProceed: false,
       form: {
-        title: "",
+        title: ""
         // category: ''
-      },
+      }
     };
   },
   methods: {
@@ -112,9 +112,9 @@ export default {
       // debugger
       this.$store
         .dispatch("admin/category/createCategory2", {
-          name: this.form.title,
+          name: this.form.title
         })
-        .then((category) => {
+        .then(category => {
           // debugger
           this.$toasted.success(
             `The category <strong style="margin: 0 10px; display: inline-block;"> ${this.form.title} </strong> has been created successfully..`,
@@ -122,8 +122,8 @@ export default {
           );
           document.querySelector(".pos-rel input").focus();
         });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

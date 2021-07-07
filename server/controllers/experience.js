@@ -1,8 +1,8 @@
-const Blog = require("../models/blog");
+const Experience = require("../models/experience");
 const slugify = require("slugify");
 const request = require("request");
 const AsyncLock = require("async-lock");
-const blog = require("../models/blog");
+const experience = require("../models/experience");
 const lock = new AsyncLock();
 
 const MEDIUM_URL = "https://medium.com/@filipjerga/latest?format=json&limit=20";
@@ -21,25 +21,25 @@ function parseFilters(queries) {
   return parsedQueries;
 }
 
-exports.getBlogs = (req, res) => {
+exports.getExperiences = (req, res) => {
   const pageSize = parseInt(req.query.pageSize) || 0;
   const pageNum = parseInt(req.query.pageNum) || 1;
   const skips = pageSize * (pageNum - 1);
   const filters = req.query.filter || {};
 
-  Blog.find({ status: "published", ...filters })
+  Experience.find({ status: "published", ...filters })
     .sort({ updatedAt: -1 })
     .populate("author -_id -password -products -email -role")
     .skip(skips)
     .limit(pageSize)
-    .exec(function(errors, publishedBlogs) {
+    .exec(function(errors, publishedExperiences) {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      Blog.countDocuments({ status: "published" }).then(count => {
+      Experience.countDocuments({ status: "published" }).then(count => {
         return res.json({
-          blogs: publishedBlogs,
+          experiences: publishedExperiences,
           count,
           pageCount: Math.ceil(count / pageSize)
         });
@@ -47,7 +47,7 @@ exports.getBlogs = (req, res) => {
     });
 };
 
-exports.getMediumBlogs = (req, res) => {
+exports.getMediumExperiences = (req, res) => {
   request.get(MEDIUM_URL, (err, apiRes, body) => {
     if (!err && apiRes.statusCode === 200) {
       let i = body.indexOf("{");
@@ -59,103 +59,103 @@ exports.getMediumBlogs = (req, res) => {
   });
 };
 
-exports.getBlogBySlug = (req, res) => {
+exports.getExperienceBySlug = (req, res) => {
   const slug = req.params.slug;
 
-  Blog.findOne({ slug })
+  Experience.findOne({ slug })
     .populate("author -_id -password -products -email -role")
-    .exec(function(errors, foundBlog) {
+    .exec(function(errors, foundExperience) {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      return res.json(foundBlog);
+      return res.json(foundExperience);
     });
 };
 
-exports.getBlogById = (req, res) => {
-  const blogId = req.params.id;
+exports.getExperienceById = (req, res) => {
+  const experienceId = req.params.id;
 
-  Blog.findOne({ _id: blogId })
+  Experience.findOne({ _id: experienceId })
     .populate("author -_id -password -products -email -role")
-    .exec(function(errors, foundBlog) {
+    .exec(function(errors, foundExperience) {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      return res.json(foundBlog);
+      return res.json(foundExperience);
     });
-  /* Blog.findById(blogId, (errors, foundBlog) => {
+  /* Experience.findById(experienceId, (errors, foundExperience) => {
     if (errors) {
       console.log(errors)
       return res.status(422).send(errors);
     }
-    console.log(foundBlog)
-    return res.json(foundBlog);
+    console.log(foundExperience)
+    return res.json(foundExperience);
   }); */
 };
 
-exports.getUserBlogs = (req, res) => {
+exports.getUserExperiences = (req, res) => {
   const user = req.user;
 
-  Blog.find({ author: user.id }, function(errors, userBlogs) {
+  Experience.find({ author: user.id }, function(errors, userExperiences) {
     if (errors) {
       return res.status(422).send(errors);
     }
 
-    return res.json(userBlogs);
+    return res.json(userExperiences);
   });
 };
 
-exports.updateBlog = (req, res) => {
-  const blogId = req.params.id;
-  const blogData = req.body;
+exports.updateExperience = (req, res) => {
+  const experienceId = req.params.id;
+  const experienceData = req.body;
 
-  Blog.findById(blogId, function(errors, foundBlog) {
+  Experience.findById(experienceId, function(errors, foundExperience) {
     if (errors) {
       return res.status(422).send(errors);
     }
 
-    // if (blogData.status && blogData.status === 'published' && !foundBlog.slug) {
-    if (blogData.status && blogData.status === "published") {
-      foundBlog.slug = slugify(foundBlog.title, {
+    // if (experienceData.status && experienceData.status === 'published' && !foundExperience.slug) {
+    if (experienceData.status && experienceData.status === "published") {
+      foundExperience.slug = slugify(foundExperience.title, {
         replacement: "-", // replace spaces with replacement
         remove: null, // regex to remove characters
         lower: true // result in lower case
       });
     }
 
-    foundBlog.set(blogData);
-    foundBlog.updatedAt = new Date();
-    foundBlog.save(function(errors, foundBlog) {
+    foundExperience.set(experienceData);
+    foundExperience.updatedAt = new Date();
+    foundExperience.save(function(errors, foundExperience) {
       if (errors) {
         return res.status(422).send(errors);
       }
 
-      return res.json(foundBlog);
+      return res.json(foundExperience);
     });
   });
 };
 
-exports.createBlog = (req, res) => {
+exports.createExperience = (req, res) => {
   const lockId = req.query.lockId;
 
   if (!lock.isBusy(lockId)) {
     lock.acquire(
       lockId,
       function(done) {
-        const blogData = req.body;
-        const blog = new Blog(blogData);
-        blog.author = req.user;
+        const experienceData = req.body;
+        const experience = new Experience(experienceData);
+        experience.author = req.user;
 
-        blog.save((errors, createdBlog) => {
+        experience.save((errors, createdExperience) => {
           setTimeout(() => done(), 5000);
 
           if (errors) {
             return res.status(422).send(errors);
           }
 
-          return res.json(createdBlog);
+          return res.json(createdExperience);
         });
       },
       function(errors, ret) {
@@ -163,14 +163,14 @@ exports.createBlog = (req, res) => {
       }
     );
   } else {
-    return res.status(422).send({ message: "Blog is getting saved!" });
+    return res.status(422).send({ message: "Experience is getting saved!" });
   }
 };
 
-exports.deleteBlog = (req, res) => {
-  const blogId = req.params.id;
+exports.deleteExperience = (req, res) => {
+  const experienceId = req.params.id;
 
-  Blog.deleteOne({ _id: blogId }, function(errors) {
+  Experience.deleteOne({ _id: experienceId }, function(errors) {
     if (errors) {
       return res.status(422).send(errors);
     }

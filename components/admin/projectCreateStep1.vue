@@ -34,7 +34,7 @@
             v-model="form.title"
             :maxLength="50"
             type="text"
-            placeholder="e.g. Amazing Course in Flutter!"
+            placeholder="e.g. Amazing Project in Flutter!"
             class="input is-large"
           > -->
           <text-input-with-count
@@ -43,11 +43,12 @@
             v-model="form.title"
             :v="$v.form.title"
             :maxLength="100"
-            @keydown.enter.prevent
+            @goNext="_NextStep"
             ref="textInputWithCount"
           />
           <button
             @click.prevent="emitFormData2"
+            @keyup.enter="emitFormData2"
             :class="
               $route.path.includes('categories') && isValid
                 ? 'active m-l-md'
@@ -81,27 +82,27 @@ export default {
   data() {
     return {
       form: {
-        title: "",
-      },
+        title: ""
+      }
     };
   },
   props: ["category", "canProceed"],
   components: {
-    textInputWithCount,
+    textInputWithCount
   },
   validations: {
     form: {
       title: {
         required,
         minLength: minLength(10),
-        maxLength: maxLength(100),
-      },
-    },
+        maxLength: maxLength(100)
+      }
+    }
   },
   computed: {
     isValid() {
       return !this.$v.$invalid;
-    },
+    }
   },
   mounted() {
     // console.log(this.$route.path)
@@ -120,7 +121,10 @@ export default {
       // this.$refs.textInputWithCount.$attrs.value = ''
       this.$refs.categoryForm.reset();
     },
-  },
+    _NextStep() {
+      this.$emit("goNext");
+    }
+  }
 };
 </script>
 

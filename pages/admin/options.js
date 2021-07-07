@@ -1,31 +1,45 @@
 // Commands
 export const commands = {
-  'DELETE_BLOG': 'DELETE_BLOG',
-  'EDIT_BLOG': 'EDIT_BLOG',
-  'DELETE_DRAFT': 'DELETE_DRAFT',
-  'EDIT_DRAFT': 'EDIT_DRAFT',
-  'TOGGLE_FEATURE': 'TOGGLE_FEATURE'
-}
+  DELETE_EXPERIENCE: "DELETE_EXPERIENCE",
+  EDIT_EXPERIENCE: "EDIT_EXPERIENCE",
+  DELETE_DRAFT: "DELETE_DRAFT",
+  EDIT_DRAFT: "EDIT_DRAFT",
+  TOGGLE_FEATURE: "TOGGLE_FEATURE"
+};
 
-const createOption = (name, command) => ({name, command})
-
-// Options
-// Published blogs options
-const DELETE_BLOG = createOption('Delete Blog', commands.DELETE_BLOG)
-const EDIT_BLOG = createOption('Edit Blog', commands.EDIT_BLOG)
-const FEATURE_BLOG = createOption('Feature Blog', commands.TOGGLE_FEATURE)
-const UN_FEATURE_BLOG = createOption('Un-Feature Blog', commands.TOGGLE_FEATURE)
+const createOption = (name, command) => ({ name, command });
 
 // Options
-// Draft blogs options
-const DELETE_DRAFT = createOption('Delete Draft', commands.DELETE_BLOG)
-const EDIT_DRAFT = createOption('Edit Draft', commands.EDIT_BLOG)
+// Published EXPERIENCES options
+const DELETE_EXPERIENCE = createOption(
+  "Delete Experience",
+  commands.DELETE_EXPERIENCE
+);
+const EDIT_EXPERIENCE = createOption(
+  "Edit Experience",
+  commands.EDIT_EXPERIENCE
+);
+const FEATURE_EXPERIENCE = createOption(
+  "Feature Experience",
+  commands.TOGGLE_FEATURE
+);
+const UN_FEATURE_EXPERIENCE = createOption(
+  "Un-Feature Experience",
+  commands.TOGGLE_FEATURE
+);
 
-export const createPublishedOptions = (isFeatured) => {
-  const options = [EDIT_BLOG, DELETE_BLOG]
+// Options
+// Draft EXPERIENCES options
+const DELETE_DRAFT = createOption("Delete Draft", commands.DELETE_EXPERIENCE);
+const EDIT_DRAFT = createOption("Edit Draft", commands.EDIT_EXPERIENCE);
 
-  isFeatured ? options.push(UN_FEATURE_BLOG) : options.push(FEATURE_BLOG)
+export const createPublishedOptions = isFeatured => {
+  const options = [EDIT_EXPERIENCE, DELETE_EXPERIENCE];
 
-  return options
-}
-export const createDraftsOptions = () => [EDIT_DRAFT, DELETE_DRAFT]
+  isFeatured
+    ? options.push(UN_FEATURE_EXPERIENCE)
+    : options.push(FEATURE_EXPERIENCE);
+
+  return options;
+};
+export const createDraftsOptions = () => [EDIT_DRAFT, DELETE_DRAFT];

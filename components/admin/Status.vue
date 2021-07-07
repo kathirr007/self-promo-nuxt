@@ -9,9 +9,9 @@
         <div class="select">
           <select
             :value="project.status"
-            @change="($event) => emitCourseValue($event, 'status')"
+            @change="$event => emitProjectValue($event, 'status')"
           >
-            <option value="default">Change Status</option>
+            <!-- <option value="default">Change Status</option> -->
             <option value="active">Active</option>
             <option value="published">Published</option>
           </select>
@@ -26,16 +26,15 @@ export default {
   props: {
     project: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    emitCourseValue(e, field) {
+    emitProjectValue(e, field) {
       this.$emit("projectValueUpdated", { value: e.target.value, field });
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

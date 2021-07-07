@@ -2,7 +2,13 @@
   <div class="editor editor-squished">
     <basic-menu :editor="editor">
       <template #saveButton>
-        <button @click="emitUpdate" :disabled="isSaving" class="button is-success button-save">Save</button>
+        <button
+          @click="emitUpdate"
+          :disabled="isSaving"
+          class="button is-success button-save"
+        >
+          Save
+        </button>
       </template>
     </basic-menu>
     <bubble-menu :editor="editor" />
@@ -60,7 +66,7 @@ import {
   BulletList,
   ListItem,
   CodeBlockHighlight,
-  Placeholder,
+  Placeholder
 } from "tiptap-extensions";
 import Title from "~/components/editor/components/Title";
 import Subtitle from "~/components/editor/components/Subtitle";
@@ -72,22 +78,22 @@ export default {
   components: {
     EditorContent,
     BubbleMenu,
-    BasicMenu,
+    BasicMenu
   },
   props: {
     isSaving: {
       required: false,
-      default: false,
-    },
+      default: false
+    }
   },
   data() {
     return {
       editor: null,
       editorOption: {
         modules: {
-          toolbar: "#toolbar",
-        },
-      },
+          toolbar: "#toolbar"
+        }
+      }
     };
   },
   // This is called only on client (In Browser)
@@ -99,15 +105,15 @@ export default {
         new Subtitle(),
         new Placeholder({
           showOnlyCurrent: false,
-          emptyNodeText: (node) => {
+          emptyNodeText: node => {
             if (node.type.name === "title") {
               return "Your Title here..";
             }
             if (node.type.name === "subtitle") {
               return "Your Suubtitle here..";
             }
-            return "Write your blog story...";
-          },
+            return "Write your experience story...";
+          }
         }),
         new Heading({ levels: [1, 2, 3] }),
         new Bold(),
@@ -125,10 +131,10 @@ export default {
         new CodeBlockHighlight({
           languages: {
             javascript,
-            css,
-          },
-        }),
-      ],
+            css
+          }
+        })
+      ]
     });
 
     this.$emit("editorMounted", this.editor);
@@ -144,7 +150,7 @@ export default {
         field = "description";
       // console.log("editor blur!", editor);
       return this.$emit("editorUpdated", {
-        content: editorContent,
+        content: editorContent
       });
     },
     emitUpdate() {
@@ -161,13 +167,13 @@ export default {
     getNodeValueByName(name) {
       const docContent = this.editor.state.doc.content;
       const nodes = docContent.content;
-      const node = nodes.find((n) => n.type.name === name);
+      const node = nodes.find(n => n.type.name === name);
 
       if (!node) return "";
 
       return node.textContent;
-    },
-  },
+    }
+  }
 };
 </script>
 

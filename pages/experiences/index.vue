@@ -6,36 +6,38 @@
         <div class="columns is-multiline section-cards">
           <!-- Experiences -->
           <div class="column is-8 infinite-loader">
-            <!-- blog -->
+            <!-- experience -->
             <!-- <transition-group appear name="slideDown" mode="out-in"> -->
             <div
               class="section"
-              v-for="blog in publishedBlogs"
-              :key="blog.slug"
+              v-for="experience in publishedExperiences"
+              :key="experience.slug"
             >
               <transition appear name="slideDown" mode="out-in">
                 <div class="experience">
                   <div
-                    @click="$router.push(`/experiences/${blog.slug}`)"
+                    @click="$router.push(`/experiences/${experience.slug}`)"
                     class="experience-header clickable"
                   >
-                    <!-- <h4 class="title is-4">{{blog.title}}</h4> -->
-                    <h4 class="title is-4">{{ displayBlogTitle(blog) }}</h4>
-                    <h5 class="subtitle is-5">{{ blog.subtitle }}</h5>
+                    <!-- <h4 class="title is-4">{{experience.title}}</h4> -->
+                    <h4 class="title is-4">
+                      {{ displayExperienceTitle(experience) }}
+                    </h4>
+                    <h5 class="subtitle is-5">{{ experience.subtitle }}</h5>
                   </div>
-                  <!-- <div class="experience-content">by {{blog.author.name}}, {{blog.createdAt | formatDate}}</div> -->
+                  <!-- <div class="experience-content">by {{experience.author.name}}, {{experience.createdAt | formatDate}}</div> -->
                 </div>
               </transition>
             </div>
             <!-- <client-only placeholder="Loading...">
             <infinite-loading
-              v-if="publishedBlogs.length"
-              @infinite="fetchBlogs"
+              v-if="publishedExperiences.length"
+              @infinite="fetchExperiences"
               spinner="spiral"
             ></infinite-loading>
             </client-only>-->
             <!-- </transition-group> -->
-            <!-- end of blog -->
+            <!-- end of experience -->
             <!-- pagination -->
             <div
               v-if="pagination.pageCount && pagination.pageCount > 1"
@@ -45,7 +47,7 @@
                 <paginate
                   v-model="currentPage"
                   :pageCount="pagination.pageCount"
-                  :click-handler="fetchBlogs"
+                  :click-handler="fetchExperiences"
                   :prev-text="'Prev'"
                   :next-text="'Next'"
                   :container-class="'paginationContainer'"
@@ -63,13 +65,16 @@
                   <h4 class="title is-4">Recent Experiences</h4>
                 </div>
                 <div class="sidebar-list">
-                  <!-- Featured Blogs -->
-                  <p v-for="fblog in featuredBlogs" :key="fblog._id">
-                    <nuxt-link :to="`/experiences/${fblog.slug}`">{{
-                      fblog.title
+                  <!-- Featured Experiences -->
+                  <p
+                    v-for="fexperience in featuredExperiences"
+                    :key="fexperience._id"
+                  >
+                    <nuxt-link :to="`/experiences/${fexperience.slug}`">{{
+                      fexperience.title
                     }}</nuxt-link>
                   </p>
-                  <!-- Featured Blogs -->
+                  <!-- Featured Experiences -->
                 </div>
               </div>
             </div>
@@ -85,13 +90,13 @@ import { mapState } from "vuex";
 
 export default {
   head: {
-    title: `Experiences | Kathiravan K | Sr.UI Developer`,
+    title: `Experiences | Kathiravan K | Sr.UI Developer`
   },
   computed: {
     ...mapState({
-      publishedBlogs: (state) => state.experiences.items.all,
-      featuredBlogs: (state) => state.experiences.items.featured,
-      pagination: (state) => state.experiences.pagination,
+      publishedExperiences: state => state.experiences.items.all,
+      featuredExperiences: state => state.experiences.items.featured,
+      pagination: state => state.experiences.pagination
     }),
     currentPage: {
       get() {
@@ -101,13 +106,13 @@ export default {
       set(value) {
         // debugger
         this.$store.commit("experiences/setPage", value);
-      },
-    },
+      }
+    }
   },
   data() {
     return {
-      bottom: false,
-      // publishedBlogs: []
+      bottom: false
+      // publishedExperiences: []
     };
   },
   async fetch({ store, query }) {
@@ -126,17 +131,17 @@ export default {
       filter.pageSize = store.state.experiences.pagination.pageSize;
     }
 
-    await store.dispatch("experiences/fetchBlogs", filter);
-    await store.dispatch("experiences/fetchFeaturedBlogs", {
-      "filter[featured]": true,
+    await store.dispatch("experiences/fetchExperiences", filter);
+    await store.dispatch("experiences/fetchFeaturedExperiences", {
+      "filter[featured]": true
     });
   },
   watch: {
     bottom(bottom) {
       if (bottom) {
-        this.fetchBlogs();
+        this.fetchExperiences();
       }
-    },
+    }
   },
   created() {
     if (process.client) {
@@ -166,7 +171,7 @@ export default {
     async loadMoreTours($state) {
       await this.$axios
         .$get("/api/link")
-        .then((res) => {
+        .then(res => {
           this.list.push.apply(this.list, res);
           if (res.length > 0) {
             this.page++;
@@ -175,28 +180,32 @@ export default {
             $state.complete();
           }
         })
-        .catch((e) => {
+        .catch(e => {
           console.log(e);
         });
     },
-    displayBlogTitle(blog) {
-      return blog.title || blog.subtitle || "Blog without title or subtitle :(";
+    displayExperienceTitle(experience) {
+      return (
+        experience.title ||
+        experience.subtitle ||
+        "Experience without title or subtitle :("
+      );
     },
     setQueryPaginationParams() {
       const { pageSize, pageNum } = this.pagination;
       this.$router.push({ query: { pageNum, pageSize } });
     },
-    fetchBlogs() {
+    fetchExperiences() {
       const filter = {};
       filter.pageNum = this.pagination.pageNum;
       filter.pageSize = this.pagination.pageSize;
 
-      this.$store.dispatch("experiences/fetchBlogs", filter).then((_) => {
+      this.$store.dispatch("experiences/fetchExperiences", filter).then(_ => {
         return this.setQueryPaginationParams();
       });
       console.log("Pagination clicked..");
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

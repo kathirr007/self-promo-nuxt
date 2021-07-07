@@ -43,21 +43,21 @@ import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
   head: {
-    title: `Projects | Kathiravan K | Sr.UI Developer`,
+    title: `Projects | Kathiravan K | Sr.UI Developer`
   },
   components: {
     projectCard,
-    ProjectCardTooltip,
+    ProjectCardTooltip
   },
   computed: {
     ...mapState({
-      projects: (state) => state.project.items,
-    }),
+      projects: state => state.project.items
+    })
   },
   async fetch({ store }) {
     // debugger
-    await store.dispatch("project/fetchCourses");
-  },
+    await store.dispatch("project/fetchProjects");
+  }
 };
 </script>
 
@@ -75,5 +75,4 @@ export default {
   padding-top: 15px;
 }
 </style>
-<style lang="scss">
-</style>
+<style lang="scss"></style>

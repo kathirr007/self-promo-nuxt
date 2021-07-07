@@ -45,7 +45,7 @@
           >Projects</nav-link
         >
         <!-- <nav-link @click.native="toggleNavbar" to="/admin/projects" class="navbar-item">
-          Courses
+          Projects
         </nav-link>-->
         <nav-link
           @click.native="toggleNavbar"
@@ -129,16 +129,16 @@ export default {
     ...mapGetters({
       user: "authentication/authUser",
       isAuth: "authentication/isAuthenticated",
-      isAdmin: "authentication/isAdmin",
+      isAdmin: "authentication/isAdmin"
     }),
     ...mapState({
-      isLoggedIn: (state) => state.auth.loggedIn,
-      googleUser: (state) => state.auth.user.name,
-      googleUserAvatar: (state) => state.auth.user.picture,
+      isLoggedIn: state => state.auth.loggedIn,
+      googleUser: state => state.auth.user.name,
+      googleUserAvatar: state => state.auth.user.picture
     }),
     prodOnline(context) {
       return this.process.env.BASE_URL;
-    },
+    }
   },
   data() {
     return {
@@ -147,7 +147,7 @@ export default {
         ? window.location.hostname === "localhost"
           ? false
           : true
-        : "",
+        : ""
     };
   },
   methods: {
@@ -162,23 +162,22 @@ export default {
           this.isActive = !this.isActive;
           this.$router.push("/login");
           this.$toasted.success("Successfully logged out...", {
-            duration: 3000,
+            duration: 3000
           });
         })
-        .catch((err) =>
+        .catch(err =>
           this.$toasted.error("There is something wrong.. :(", {
-            duration: 3000,
+            duration: 3000
           })
         );
     },
     googleLogout() {
       this.isActive = !this.isActive;
       this.$auth.logout("google");
-    },
-  },
+    }
+  }
 };
 </script>
-
 
 <style lang="scss" scoped>
 .navbar-brand {

@@ -10,7 +10,7 @@ export const state = () => ({
 });
 
 export const actions = {
-  fetchCourses({ commit }) {
+  fetchProjects({ commit }) {
     // debugger
     return this.$axios.$get("/api/v1/products").then(projects => {
       // debugger
@@ -22,20 +22,19 @@ export const actions = {
       return state.items;
     });
   },
-  fetchCourseBySlug({ commit, state }, projectSlug) {
-    // debugger
+  fetchProjectBySlug({ commit, state }, projectSlug) {
     return this.$axios
       .$get(`/api/v1/products/s/${projectSlug}`)
       .then(project => {
         // debugger
-        commit("setCourse", project);
+        commit("setProject", project);
         return state.item;
       });
   }
 };
 
 export const mutations = {
-  setCourse(state, project) {
+  setProject(state, project) {
     state.item = project;
   }
 };

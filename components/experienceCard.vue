@@ -3,19 +3,23 @@
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <p class="title is-4">{{blog.title}}</p>
+          <p class="title is-4">{{ experience.title }}</p>
           <!-- <p class="subtitle is-6">
-            <i>by {{blog.author.name}}</i>
+            <i>by {{experience.author.name}}</i>
           </p>-->
         </div>
       </div>
       <div class="content">
-        {{blog.subtitle}}
+        {{ experience.subtitle }}
         <br />
       </div>
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="`/experiences/${blog.slug}`" class="card-footer-item">Read More</nuxt-link>
+      <nuxt-link
+        :to="`/experiences/${experience.slug}`"
+        class="card-footer-item"
+        >Read More</nuxt-link
+      >
     </footer>
   </div>
 </template>
@@ -23,11 +27,11 @@
 <script>
 export default {
   props: {
-    blog: {
+    experience: {
       type: Object,
-      required: true,
-    },
-  },
+      required: true
+    }
+  }
 };
 </script>
 

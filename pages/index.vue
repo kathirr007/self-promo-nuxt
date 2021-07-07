@@ -47,12 +47,12 @@
         <h1 class="title my-3">Recent Experiences</h1>
         <div class="columns is-multiline section-cards">
           <div
-            v-for="blog in featuredBlogs"
-            :key="blog._id"
+            v-for="experience in featuredExperiences"
+            :key="experience._id"
             class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
           >
             <!-- CARD-ITEM -->
-            <blog-card :blog="blog" />
+            <experience-card :experience="experience" />
             <!-- CARD-ITEM-END -->
           </div>
         </div>
@@ -65,7 +65,7 @@
 import hero from "~/components/shared/hero";
 import heroSlider from "~/components/shared/heroSlider";
 import projectCard from "~/components/projectCard";
-import blogCard from "~/components/blogCard";
+import experienceCard from "~/components/experienceCard";
 import ProjectCardTooltip from "~/components/ProjectCardTooltip";
 import { mapState } from "vuex";
 export default {
@@ -73,24 +73,24 @@ export default {
     hero,
     heroSlider,
     projectCard,
-    blogCard,
-    ProjectCardTooltip,
+    experienceCard,
+    ProjectCardTooltip
   },
   computed: {
     ...mapState({
-      projects: (state) => state.project.items,
-      featuredBlogs: (state) => state.experiences.items.featured,
-      projectHero: (state) => state.heroes.projectHero || {},
-      projectHeros: (state) => state.heroes.projectHero || {},
-    }),
+      projects: state => state.project.items,
+      featuredExperiences: state => state.experiences.items.featured,
+      projectHero: state => state.heroes.projectHero || {},
+      projectHeros: state => state.heroes.projectHero || {}
+    })
   },
   async fetch({ store }) {
     // debugger
-    await store.dispatch("project/fetchCourses");
-    await store.dispatch("experiences/fetchFeaturedBlogs", {
-      "filter[featured]": true,
+    await store.dispatch("project/fetchProjects");
+    await store.dispatch("experiences/fetchFeaturedExperiences", {
+      "filter[featured]": true
     });
-  },
+  }
 };
 </script>
 

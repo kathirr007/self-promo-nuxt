@@ -1,12 +1,12 @@
 @import "./variables";
 @import "./bulma";
 @import "./spacing";
-@import './admin_header';
+@import "./admin_header";
 @import "./editor/index";
-@import './pagination';
+@import "./pagination";
 
 // plugins
-@import './plugins/animate';
+@import "./plugins/animate";
 
 html {
   overflow-x: hidden;
@@ -20,7 +20,7 @@ html {
   position: relative;
 }
 
-.blog-editor-container {
+.experience-editor-container {
   padding-top: 60px;
 }
 
@@ -32,10 +32,10 @@ html {
 .section {
   .container {
     h1.title {
-      margin: .75rem 0;
+      margin: 0.75rem 0;
       text-align: center;
 
-      @media screen and (min-width:576px) {
+      @media screen and (min-width: 576px) {
         text-align: left;
       }
     }

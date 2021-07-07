@@ -1,7 +1,7 @@
 <template>
   <div class="card manage-card">
     <header class="card-header card-section">
-      <p class="card-header-title">Target your Students</p>
+      <p class="card-header-title">Technologies used in this Project</p>
     </header>
     <div class="card-content card-section">
       <form @submit.stop.prevent>
@@ -11,7 +11,7 @@
           @valueUpdated="updateLine($event, 'wsl')"
           @addClicked="addLine('wsl')"
           @removeClicked="removeLine($event, 'wsl')"
-          label="What Technologies used"
+          label="What Technologies used?"
           ref="multiInput"
         />
         <!-- <multi-line-text-input
@@ -30,13 +30,13 @@
 import MultiLineTextInput from "~/components/form/MultiLineTextInput";
 export default {
   components: {
-    MultiLineTextInput,
+    MultiLineTextInput
   },
   props: {
     project: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
     addLine(field) {
@@ -58,12 +58,11 @@ export default {
       this.$store.dispatch("admin/project/updateLine", {
         field,
         value,
-        index,
+        index
       });
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

@@ -1,42 +1,52 @@
 <template>
   <div>
-    <product-hero
-      :title="project.title"
-      :subtitle="project.subtitle"
-      :author="project.author"
-    >
-      <product-hero-card
-        :navigateTo="project.productLink"
-        :image="project.image"
-        :images="project.images"
-        :repoLink="project.promoVideoLink"
-      />
-    </product-hero>
-    <div class="container">
-      <div class="columns">
-        <div class="column">
-          <div class="section p-0">
-            <div class="technologies">
-              <div class="technologies-title">Technologies used</div>
-              <ul class="technologies-items">
-                <li
-                  v-for="wsl in project.wsl"
-                  :key="wsl.value"
-                  class="technologies-item"
-                >
-                  <span>{{ wsl.value }}</span>
-                </li>
-              </ul>
+    <template v-if="project != null">
+      <product-hero
+        :title="project.title"
+        :subtitle="project.subtitle"
+        :author="project.author"
+      >
+        <product-hero-card
+          :navigateTo="project.productLink"
+          :image="project.image"
+          :images="project.images"
+          :repoLink="project.promoVideoLink"
+        />
+      </product-hero>
+      <div class="container">
+        <div class="columns">
+          <div class="column">
+            <div class="section p-0">
+              <div class="technologies">
+                <div class="technologies-title">Technologies used</div>
+                <ul class="technologies-items">
+                  <li
+                    v-for="wsl in project.wsl"
+                    :key="wsl.value"
+                    class="technologies-item"
+                  >
+                    <span>{{ wsl.value }}</span>
+                  </li>
+                </ul>
+              </div>
             </div>
-          </div>
-          <div class="section project-description py-2 px-0">
-            <div class="project-description-title">Project Info</div>
-            <div class="project-description-details">
-              <div v-html="project.description"></div>
+            <div class="section project-description py-2 px-0">
+              <div class="project-description-title">Project Info</div>
+              <div class="project-description-details">
+                <div v-html="project.description"></div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+    </template>
+    <div v-else class="container">
+      <ErrorView
+        :title="`Ooooops, the page you are trying to access doesn't exist :(`"
+        :status="'404'"
+        :navigateToPage="'/'"
+        :navigateToText="'Navigate back to Home Page'"
+      />
     </div>
   </div>
 </template>
@@ -44,39 +54,42 @@
 <script>
 import ProductHero from "~/components/ProductHero";
 import ProductHeroCard from "~/components/ProductHeroCard";
+import ErrorView from "@/components/shared/ErrorView";
+
 export default {
   head() {
     return {
-      title: this.project.title,
+      title: this.project?.title || "",
       meta: [
         {
           hid: "description",
           name: "description",
-          content: this.project.subtitle,
-        },
-      ],
+          content: this.project?.subtitle || ""
+        }
+      ]
     };
   },
   data() {
     return {};
   },
   components: {
+    ErrorView,
     ProductHero,
-    ProductHeroCard,
+    ProductHeroCard
   },
   computed: {
     project() {
       return this.$store.state.project.item;
-    },
+    }
   },
   async fetch({ store, params }) {
-    await store.dispatch("project/fetchCourseBySlug", params.slug);
-  },
+    await store.dispatch("project/fetchProjectBySlug", params.slug);
+  }
 };
 </script>
 
 <!-- Fetch project by Slug -->
-<!-- 1. create action "fetchCourseBySlug" in store/project.js -->
+<!-- 1. create action "fetchProjectBySlug" in store/project.js -->
 <!-- 2. send GET request '/api/v1/products/s/:slug' -->
 <!-- 3. expect to receive "project" in "then" and commit it to state -->
 <!-- 4. get project in computed properties -->

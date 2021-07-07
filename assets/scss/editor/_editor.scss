@@ -1,4 +1,4 @@
-.blog-editor-container {
+.experience-editor-container {
   font-size: 20px;
   color: #414141;
   line-height: 1.5;
@@ -74,7 +74,7 @@
     h2 {
       font-size: 1.2rem;
       // font-weight: bold;
-      color: rgba(0, 0, 0, .54);
+      color: rgba(0, 0, 0, 0.54);
 
       @media screen and(min-width:576px) {
         font-size: 1.5rem;
@@ -118,7 +118,7 @@
       min-height: 30px;
       font-size: 18px;
       line-height: 1.58;
-      letter-spacing: -.003em;
+      letter-spacing: -0.003em;
     }
 
     ul {
@@ -134,9 +134,9 @@
       }
     }
 
-    li>p,
-    li>ol,
-    li>ul {
+    li > p,
+    li > ol,
+    li > ul {
       margin: 0;
     }
 
@@ -176,7 +176,7 @@
         box-sizing: border-box;
         position: relative;
 
-        >* {
+        > * {
           margin-bottom: 0;
         }
       }
@@ -232,7 +232,6 @@
     }
 
     code {
-
       .hljs-comment,
       .hljs-quote {
         color: #999999;

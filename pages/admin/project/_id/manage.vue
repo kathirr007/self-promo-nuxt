@@ -4,8 +4,9 @@
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <button
-            :disabled="!canUpdateCourse"
-            @click="updateCourse"
+            :disabled="!canUpdateProject"
+            @click="updateProject"
+            @keyup.enter="updateProject"
             class="button is-primary is-inverted is-outlined"
           >
             Save
@@ -15,9 +16,9 @@
           <Modal
             openTitle="Favorite"
             openBtnClass="button is-primary is-inverted is-outlined"
-            title="Make Course Hero"
-            @opened="applyCourseValues"
-            @submitted="createCourseHero"
+            title="Make Project Hero"
+            @opened="applyProjectValues"
+            @submitted="createProjectHero"
           >
             <div>
               <form>
@@ -74,9 +75,10 @@
               <p class="menu-label">Project Editing</p>
               <ul class="menu-list">
                 <li>
-                  <!-- display TargetStudents -->
+                  <!-- display TechnologiesUsed -->
                   <a
                     @click.prevent="navigateTo(1)"
+                    @keyup.enter.prevent="navigateTo(1)"
                     :class="activeComponentClass(1)"
                     >Target Technologies</a
                   >
@@ -85,6 +87,7 @@
                   <!-- display LandingPage -->
                   <a
                     @click.prevent="navigateTo(2)"
+                    @keyup.enter.prevent="navigateTo(2)"
                     :class="activeComponentClass(2)"
                     >Project Landing Page</a
                   >
@@ -102,6 +105,7 @@
                 <li>
                   <a
                     @click.prevent="navigateTo(4)"
+                    @keyup.enter.prevent="navigateTo(4)"
                     :class="activeComponentClass(4)"
                     >Status</a
                   >
@@ -115,9 +119,9 @@
                 <component
                   :is="activeComponent"
                   :project="project"
-                  @projectImageUpdated="handleCourseImageUpdate"
-                  @projectImagesUpdated="handleCourseImagesUpdate"
-                  @projectValueUpdated="handleCourseUpdate"
+                  @projectImageUpdated="handleProjectImageUpdate"
+                  @projectImagesUpdated="handleProjectImagesUpdate"
+                  @projectValueUpdated="handleProjectUpdate"
                 />
                 <!-- <target-students />
                 <landing-page />
@@ -135,7 +139,7 @@
 <script>
 import Modal from "~/components/shared/Modal";
 import Header from "~/components/shared/Header";
-import TargetStudents from "~/components/admin/TargetStudents";
+import TechnologiesUsed from "~/components/admin/TechnologiesUsed";
 import LandingPage from "~/components/admin/LandingPage";
 import Price from "~/components/admin/Price";
 import Status from "~/components/admin/Status";
@@ -147,86 +151,86 @@ export default {
   layout: "admin",
   components: {
     Header,
-    TargetStudents,
+    TechnologiesUsed,
     LandingPage,
     Price,
     Status,
-    Modal,
+    Modal
   },
   mixins: [MultiComponentMixin],
   data() {
     return {
-      steps: ["TargetStudents", "LandingPage", "Price", "Status"],
+      steps: ["TechnologiesUsed", "LandingPage", "Price", "Status"],
       projectHero: {},
-      isFormValid: false,
+      isFormValid: false
     };
   },
   async fetch({ store, params }) {
-    await store.dispatch("admin/project/fetchCourseById", params.id);
+    await store.dispatch("admin/project/fetchProjectById", params.id);
     await store.dispatch("category/fetchCategories");
   },
   computed: {
     ...mapState({
-      project: (state) => state.admin.project.item,
-      canUpdateCourse: (state) => state.admin.project.canUpdateCourse,
-    }),
+      project: state => state.admin.project.item,
+      canUpdateProject: state => state.admin.project.canUpdateProject
+    })
     /* isFormValid() {
         return false
       } */
   },
   methods: {
-    handleCourseImageUpdate({ index, field, formValid }) {
+    handleProjectImageUpdate({ index, field, formValid }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("admin/project/updateCourseImage", {
+      this.$store.dispatch("admin/project/updateProjectImage", {
         index,
         field,
-        formValid,
+        formValid
       });
     },
-    handleCourseImagesUpdate({ oldValue, value, field }) {
+    handleProjectImagesUpdate({ oldValue, value, field }) {
       this.isFormValid = formValid;
-      this.$store.dispatch("admin/project/updateCourseImage", {
+      this.$store.dispatch("admin/project/updateProjectImage", {
         index,
         field,
-        formValid,
+        formValid
       });
     },
-    handleCourseUpdate({ value, field, formValid }) {
+    handleProjectUpdate({ value, field, formValid }) {
       // debugger;
       // this.isFormValid = formValid
-      this.$store.dispatch("admin/project/updateCourseValue", {
+      this.$store.dispatch("admin/project/updateProjectValue", {
         field,
         value,
-        formValid,
+        formValid
       });
     },
-    updateCourse() {
+    updateProject() {
       this.$store
-        .dispatch("admin/project/updateCourse")
-        .then((_) =>
-          this.$toasted.success("Course has been successfully update..!", {
-            duration: 3000,
+        .dispatch("admin/project/updateProject")
+        .then(_ =>
+          this.$toasted.success("Project has been successfully updated..!", {
+            duration: 3000
           })
         )
-        .catch((err) => {
+        .catch(err => {
           debugger;
-          this.$toasted.error("Course cannot be update! :)", {
-            duration: 3000,
+          this.$toasted.error("Project cannot be updated! :)", {
+            duration: 3000
           });
         });
     },
-    createCourseHero({ closeModal }) {
+    createProjectHero({ closeModal }) {
       // debugger
       const heroData = { ...this.projectHero };
       heroData.product = { ...this.project };
       this.$store.dispatch("heroes/createHero", heroData).then(() => {
         closeModal();
-        this.$toasted.success("Course Hero was created...!", {
-          duration: 3000,
+        this.$toasted.success("Project Hero was created...!", {
+          duration: 3000
         });
       });
     },
-    applyCourseValues() {
+    applyProjectValues() {
       // this.projectHero.title = this.project.title
       // this.projectHero.subtitle = this.project.subtitle
       // this.projectHero.image = this.project.image
@@ -237,8 +241,8 @@ export default {
         this.$set(this.projectHero, "subtitle", this.project.subtitle);
       !this.projectHero.image &&
         this.$set(this.projectHero, "image", this.project.image);
-    },
-  },
+    }
+  }
 };
 </script>
 

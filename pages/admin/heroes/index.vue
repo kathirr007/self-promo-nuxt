@@ -4,7 +4,7 @@
     </adminHeader>
     <div class="heroes-page">
       <div class="container">
-        <h1 class="title">Course Heroes</h1>
+        <h1 class="title">Project Heroes</h1>
         <portal-target
           v-for="hero in heroes"
           :key="hero._id"
@@ -43,7 +43,7 @@
                     actionTitle="Make Active"
                     removeActionTitle="Remove"
                     openTitle="Favorite"
-                    title="Make Course Hero"
+                    title="Make Project Hero"
                   >
                     <div>
                       <div class="subtitle">
@@ -76,7 +76,7 @@ export default {
   middleware: "admin",
   components: {
     Modal,
-    adminHeader,
+    adminHeader
   },
   mixins: [confirmDelete],
   computed: {
@@ -85,7 +85,7 @@ export default {
     },
     activeHero() {
       return this.$store.state.heroes.projectHero;
-    },
+    }
   },
   async fetch({ store }) {
     await store.dispatch("admin/fetchHeroes");
@@ -97,23 +97,23 @@ export default {
       modal.openModal();
     },
     activateHero({ closeModal }, heroId) {
-      this.$store.dispatch("admin/activateHero", heroId).then((_) => {
+      this.$store.dispatch("admin/activateHero", heroId).then(_ => {
         this.$toasted.success("Hero was successfully activated..!", {
-          duration: 3000,
+          duration: 3000
         });
         closeModal();
       });
     },
     deleteHero({ closeModal }, heroId) {
-      this.$store.dispatch("admin/deleteHero", heroId).then((_) => {
+      this.$store.dispatch("admin/deleteHero", heroId).then(_ => {
         // debugger
         this.$toasted.success("Hero was successfully deleted..!", {
-          duration: 3000,
+          duration: 3000
         });
         closeModal();
       });
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

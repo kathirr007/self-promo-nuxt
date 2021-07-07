@@ -41,7 +41,7 @@
         </p>
       </div>
       <!-- <div class="content">
-            <div class="m-b-none project-features">Course Requirements</div>
+            <div class="m-b-none project-features">Project Requirements</div>
             <ul class="m-t-none">
                 <li v-for="req in requirements" :key="req.value">
                     {{req.value}}
@@ -57,46 +57,46 @@ export default {
   props: {
     requirements: {
       type: Array,
-      default: null,
+      default: null
     },
     price: {
       type: Number,
-      default: null,
+      default: null
     },
     navigateTo: {
       type: String,
-      default: "",
+      default: ""
     },
     repoLink: {
       type: String,
-      default: "",
+      default: ""
     },
     discountedPrice: {
-      type: Number,
+      type: Number
       // required: true
     },
     image: {
       type: String,
-      required: false,
+      required: false
     },
     images: {
       type: Array,
       required: false,
-      default: [],
-    },
+      default: []
+    }
   },
   computed: {
     picSwipeItems() {
-      return this.images.map((img) => {
+      return this.images.map(img => {
         return {
           src: img.location,
           thumbnail: img.location,
           w: 600,
-          h: 600,
+          h: 600
         };
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

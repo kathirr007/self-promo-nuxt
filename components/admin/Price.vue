@@ -9,7 +9,7 @@
         <div class="control">
           <input
             :value="project.price"
-            @input="($event) => emitCourseValue($event, 'price')"
+            @input="$event => emitProjectValue($event, 'price')"
             class="input"
             type="text"
             placeholder="179.99"
@@ -21,7 +21,7 @@
         <div class="control">
           <input
             :value="project.discountedPrice"
-            @input="($event) => emitCourseValue($event, 'discountedPrice')"
+            @input="$event => emitProjectValue($event, 'discountedPrice')"
             class="input"
             type="text"
             placeholder="9.99"
@@ -37,16 +37,15 @@ export default {
   props: {
     project: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   methods: {
-    emitCourseValue(e, field) {
+    emitProjectValue(e, field) {
       this.$emit("projectValueUpdated", { value: e.target.value, field });
-    },
-  },
+    }
+  }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

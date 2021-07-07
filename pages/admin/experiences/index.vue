@@ -3,7 +3,7 @@
     <Header title="Manage your Experiences">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
-          <nuxt-link to="/admin/blog/editor" class="button is-light"
+          <nuxt-link to="/admin/experience/editor" class="button is-light"
             >New</nuxt-link
           >
           <nuxt-link to="/" class="button is-danger is-inverted is-outlined">
@@ -15,14 +15,15 @@
         </div>
       </template>
     </Header>
-    <div class="admin-blogs">
+    <div class="admin-experiences">
       <div class="container">
         <div class="section">
           <div class="header-block">
             <h2 class="is-size-4-mobile">Your Experiences</h2>
             <div class="title-menu">
               <button
-                @click="$router.push('/admin/blog/editor')"
+                @click="$router.push('/admin/experience/editor')"
+                @keyup.enter="$router.push('/admin/experience/editor')"
                 class="button"
               >
                 Add New
@@ -33,73 +34,82 @@
           <div class="tabs">
             <ul>
               <!-- set here activeTab -->
-              <li @click="activeTab = 0">
+              <li @click="activeTab = 0" @keyup.enter="activeTab = 0">
                 <a :class="{ 'is-active': activeTab === 0 }">Drafts</a>
               </li>
               <!-- set here activeTab -->
-              <li @click="activeTab = 1">
+              <li @click="activeTab = 1" @keyup.enter="activeTab = 1">
                 <a :class="{ 'is-active': activeTab === 1 }">Published</a>
               </li>
             </ul>
           </div>
-          <div class="blogs-container">
-            <!-- Draft blogs -->
+          <div class="experiences-container">
+            <!-- Draft experiences -->
             <!-- check for activeTab -->
             <template v-if="activeTab === 0">
               <div v-if="drafts && drafts.length > 0">
-                <transition-group name="fade" mode="out-in">
-                  <div
-                    v-for="(dblog, i) in drafts"
-                    :key="dblog._id"
-                    class="blog-card"
-                  >
-                    <!-- <h2>{{dblog.title}}</h2> -->
-                    <h2>{{ displayBlogTitle(dblog) }}</h2>
-                    <div class="blog-card-footer">
+                <div
+                  v-for="(experience, i) in drafts"
+                  :key="experience._id"
+                  class="experience-card"
+                >
+                  <!-- <h2>{{experience.title}}</h2> -->
+                  <transition-group appear name="slideDown" mode="out-in">
+                    <h2 :key="i + 1">
+                      {{ displayExperienceTitle(experience) }}
+                    </h2>
+                    <div :key="i + 2" class="experience-card-footer">
                       <span
-                        >Last Edited {{ dblog.updatedAt | formatDate }}</span
+                        >Last Edited
+                        {{ experience.updatedAt | formatDate }}</span
                       >
                       <!-- Dropdown with menu here -->
                       <dropdown
-                        @optionChanged="handleCommand($event, dblog)"
+                        @optionChanged="handleCommand($event, experience)"
                         :ref="`dropDown${i}`"
                         :items="draftsOptions"
                       />
                     </div>
-                  </div>
-                </transition-group>
+                  </transition-group>
+                </div>
               </div>
-              <!-- In case of no drafts blogs  -->
-              <div v-else class="blog-error">No Drafts :(</div>
+              <!-- In case of no drafts experiences  -->
+              <div v-else class="experience-error">
+                No Drafts <i class="far fa-frown" style="color:#58529f"></i>
+              </div>
             </template>
-            <!-- Published blogs -->
+            <!-- Published experiences -->
             <!-- check for activeTab -->
             <template v-if="activeTab === 1">
               <div v-if="published && published.length > 0">
-                <transition-group name="fade" mode="out-in">
-                  <div
-                    v-for="pblog in published"
-                    :key="pblog._id"
-                    :class="{ featured: pblog.featured }"
-                    class="blog-card"
-                  >
-                    <!-- <h2>{{pblog.title}}</h2> -->
-                    <h2>{{ displayBlogTitle(pblog) }}</h2>
-                    <div class="blog-card-footer">
+                <div
+                  v-for="(pexperience, i) in published"
+                  :key="pexperience._id"
+                  :class="{ featured: pexperience.featured }"
+                  class="experience-card"
+                >
+                  <transition-group appear name="slideDown" mode="out-in">
+                    <h2 :key="i + 1">
+                      {{ displayExperienceTitle(pexperience) }}
+                    </h2>
+                    <div :key="i + 2" class="experience-card-footer">
                       <span
-                        >Last Edited {{ pblog.updatedAt | formatDate }}</span
+                        >Last Edited
+                        {{ pexperience.updatedAt | formatDate }}</span
                       >
                       <!-- Dropdown with menu here -->
                       <dropdown
-                        @optionChanged="handleCommand($event, pblog)"
-                        :items="publishedOptions(pblog.featured)"
+                        @optionChanged="handleCommand($event, pexperience)"
+                        :items="publishedOptions(pexperience.featured)"
                       />
                     </div>
-                  </div>
-                </transition-group>
+                  </transition-group>
+                </div>
               </div>
-              <!-- In case of no drafts blogs  -->
-              <div v-else class="blog-error">No Published :(</div>
+              <!-- In case of no drafts experiences  -->
+              <div v-else class="experience-error">
+                No Published <i class="far fa-frown" style="color:#58529f"></i>
+              </div>
             </template>
           </div>
         </div>
@@ -117,7 +127,7 @@
             </span>
             <div class="vc-btn-grid">
               <button @click="closeConfirm" class="vc-btn left">No</button>
-              <button @click="deleteBlog(blog)" class="vc-btn">Yes</button>
+              <button @click="deleteExperience(experience)" class="vc-btn">Yes</button>
             </div>
         </div>
       </modal>
@@ -132,7 +142,7 @@ import { mapState } from "vuex";
 import {
   createPublishedOptions,
   createDraftsOptions,
-  commands,
+  commands
 } from "~/pages/admin/options";
 
 export default {
@@ -142,59 +152,59 @@ export default {
   layout: "admin",
   components: {
     Header,
-    Dropdown,
+    Dropdown
     // VueConfirmDialog
   },
   data() {
     return {
       activeTab: 0,
       confirmDelete: false,
-      activeBlog: null,
+      activeExperience: null
     };
   },
   computed: {
     ...mapState({
-      published: ({ admin }) => admin.blog.items.published,
-      drafts: ({ admin }) => admin.blog.items.drafts,
+      published: ({ admin }) => admin.experience.items.published,
+      drafts: ({ admin }) => admin.experience.items.drafts
     }),
     /* publishedOptions() {
         return createPublishedOptions()
       }, */
     draftsOptions() {
       return createDraftsOptions();
-    },
+    }
   },
   async fetch({ store }) {
-    await store.dispatch("admin/blog/fetchUserBlogs");
+    await store.dispatch("admin/experience/fetchUserExperiences");
   },
   methods: {
-    handleCommand(command, blog) {
+    handleCommand(command, experience) {
       // e.stopImmediatePropagation()
       // $event.stopImmediatePropagation()
-      if (command === commands.EDIT_BLOG) {
-        console.log("Editing blog...");
-        this.$router.push(`/admin/blog/${blog._id}/edit`);
+      if (command === commands.EDIT_EXPERIENCE) {
+        console.log("Editing experience...");
+        this.$router.push(`/admin/experience/${experience._id}/edit`);
       }
-      if (command === commands.DELETE_BLOG) {
-        this.displayDeleteWarning(blog);
-        console.log("Deleting blog...");
+      if (command === commands.DELETE_EXPERIENCE) {
+        this.displayDeleteWarning(experience);
+        console.log("Deleting experience...");
       }
       if (command === commands.TOGGLE_FEATURE) {
-        this.updateBlog(blog);
-        console.log("Updating blog...");
+        this.updateExperience(experience);
+        console.log("Updating experience...");
       }
     },
-    updateBlog(blog) {
-      const featured = !blog.featured;
+    updateExperience(experience) {
+      const featured = !experience.featured;
       const message = featured
-        ? "Blog has been added featured blogs..."
-        : "Blog has been removed from featured blogs...";
+        ? "Experience has been added featured experiences..."
+        : "Experience has been removed from featured experiences...";
       this.$store
-        .dispatch("admin/blog/updatePublishedBlog", {
-          id: blog._id,
-          data: { featured },
+        .dispatch("admin/experience/updatePublishedExperience", {
+          id: experience._id,
+          data: { featured }
         })
-        .then((_) => {
+        .then(_ => {
           featured
             ? this.$toasted.success(message, { duration: 3000 })
             : this.$toasted.show(message, { duration: 3000 });
@@ -204,38 +214,38 @@ export default {
       return createPublishedOptions(isFeatured);
     },
     beforeOpen(event) {
-      console.log(event.params.blog);
-      this.$emit("modalOpen", event.params.blog);
+      console.log(event.params.experience);
+      this.$emit("modalOpen", event.params.experience);
     },
     closeConfirm(event) {
       console.log(event);
       this.$modal.hide("confirm-dialog");
     },
-    displayDeleteWarning(blog, i) {
+    displayDeleteWarning(experience, i) {
       console.log("Cliked on Draft title...");
-      console.log(blog);
-      // this.activeBlog = blog
+      console.log(experience);
+      // this.activeExperience = experience
 
       let self = this;
       self.$vueConfirm.confirm(
         {
           auth: false,
-          message: `Are you sure? <br> You want to delete <strong>${blog.title}</strong>`,
+          message: `Are you sure? <br> You want to delete <strong>${experience.title}</strong>`,
           button: {
             no: "No",
-            yes: "Yes",
-          },
+            yes: "Yes"
+          }
         },
-        function (confirm) {
+        function(confirm) {
           if (confirm == true) {
             // ... do some thing
             console.log("Dispatching delete...");
             // debugger
             self.$store
-              .dispatch("admin/blog/deleteBlog", blog)
-              .then((_) =>
+              .dispatch("admin/experience/deleteExperience", experience)
+              .then(_ =>
                 self.$toasted.success(
-                  `The Blog <strong style="margin: 0 10px; display: inline-block;"> ${blog.title} </strong> was deleted successfully..`,
+                  `The Experience <strong style="margin: 0 10px; display: inline-block;"> ${experience.title} </strong> was deleted successfully..`,
                   { duration: 3500 }
                 )
               );
@@ -243,11 +253,11 @@ export default {
         }
       );
 
-      // this.$modal.show('confirm-dialog', {blog: blog})
+      // this.$modal.show('confirm-dialog', {experience: experience})
       /* this.$modal.show('dialog', {
           title: 'Please confirm',
           text: 'Do you want to delete?',
-          blog: blog,
+          experience: experience,
           buttons: [
             {
               title: 'C💩NCEL',
@@ -262,52 +272,63 @@ export default {
             {
               title: 'Yes',
               default: true,
-              handler: (blog) => {
+              handler: (experience) => {
                 // alert('LIKE LIKE LIKE')
                 this.$modal.hide('dialog')
                 this.confirmDelete = true
-                this.deleteBlog(this.activeBlog)
+                this.deleteExperience(this.activeExperience)
                 // this.$refs.dropDown[i].closeDropdown()
               }
             }
           ]
         }) */
     },
-    deleteBlog(blog) {
+    deleteExperience(experience) {
       console.log("Dispatching delete...");
       // debugger
       this.confirmDelete &&
-        this.$store.dispatch("admin/blog/deleteBlog", blog).then((_) =>
-          this.$toasted.success("Blog was deleted successfully..", {
-            duration: 3000,
-          })
-        );
+        this.$store
+          .dispatch("admin/experience/deleteExperience", experience)
+          .then(_ =>
+            this.$toasted.success("Experience was deleted successfully..", {
+              duration: 3000
+            })
+          );
     },
-    displayBlogTitle(blog) {
-      return blog.title || blog.subtitle || "Blog without title or subtitle :(";
+    displayExperienceTitle(experience) {
+      return (
+        experience.title ||
+        experience.subtitle ||
+        "Experience without title or subtitle :("
+      );
     },
     showTest() {
       this.$modal.show("hello-world");
     },
-    showConfirm() {},
-  },
+    showConfirm() {}
+  }
 };
 </script>
 
 <style scoped lang="scss">
+.admin-experiences {
+  .tabs {
+    margin-bottom: 0;
+  }
+}
 .is-active {
   border-bottom-color: #363636;
   color: #363636;
 }
-.blog-error {
+.experience-error {
   font-size: 35px;
 }
 
-.blog-card {
+.experience-card {
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
   padding: 20px 0;
 
-  > h2 {
+  h2 {
     font-size: 30px;
     font-weight: bold;
   }

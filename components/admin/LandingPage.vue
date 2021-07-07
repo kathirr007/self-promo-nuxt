@@ -10,7 +10,7 @@
           <div class="control">
             <input
               :value="project.title"
-              @input="($event) => emitCourseValue($event, 'title', title)"
+              @input="$event => emitProjectValue($event, 'title', title)"
               class="input"
               type="text"
               placeholder="Amazing Project Title"
@@ -31,7 +31,7 @@
           <div class="control">
             <input
               :value="project.subtitle !== 'undefined' ? project.subtitle : ''"
-              @input="($event) => emitCourseValue($event, 'subtitle')"
+              @input="$event => emitProjectValue($event, 'subtitle')"
               class="input"
               type="text"
               placeholder="Awesome Project Subtitle"
@@ -43,7 +43,7 @@
           <div class="control">
             <project-editor
               @editorUpdated="
-                (content) => emitCourseValue(content, 'description')
+                content => emitProjectValue(content, 'description')
               "
               :initialContent="project.description || ''"
             />
@@ -68,7 +68,7 @@
           <div class="select">
             <select
               :value="project.category._id"
-              @change="($event) => emitCourseValue($event, 'category')"
+              @change="$event => emitProjectValue($event, 'category')"
             >
               <!-- <option value="default">Select Category</option> -->
               <option
@@ -91,14 +91,14 @@
             </div>-->
             <div class="column centered p-0">
               <!-- <div class="control">
-                            <input :value="project.image" @input="($event) => emitCourseValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
+                            <input :value="project.image" @input="($event) => emitProjectValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
               </div>-->
               <div class="file has-name is-fullwidth">
                 <label class="file-label">
                   <!-- <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume"> -->
                   <b-form-file
                     @change="imagesAdd"
-                    @input="($event) => emitCourseValue($event, 'images')"
+                    @input="$event => emitProjectValue($event, 'images')"
                     :file-name-formatter="formatNames"
                     ref="imagesInput"
                     multiple
@@ -174,7 +174,7 @@
               :value="
                 project.productLink !== 'undefined' ? project.productLink : ''
               "
-              @input="($event) => emitCourseValue($event, 'productLink')"
+              @input="$event => emitProjectValue($event, 'productLink')"
               class="input"
               type="text"
               placeholder="https://kathirr007-portfolio.herokuapp.com/"
@@ -190,7 +190,7 @@
                   ? project.promoVideoLink
                   : ''
               "
-              @input="($event) => emitCourseValue($event, 'promoVideoLink')"
+              @input="$event => emitProjectValue($event, 'promoVideoLink')"
               class="input"
               type="text"
               placeholder="https://kathirr007-portfolio.herokuapp.com/"
@@ -212,25 +212,25 @@ export default {
   props: {
     project: {
       type: Object,
-      required: true,
-    },
+      required: true
+    }
   },
   mixins: [imgUploadMixin],
   components: {
     ProjectEditor,
-    BFormFile,
+    BFormFile
   },
   data() {
     return {
       uploadedFiles: [],
-      projectDescription: "",
+      projectDescription: ""
     };
   },
   validations: {
     title: {
       required,
-      minLength: minLength(10),
-    },
+      minLength: minLength(10)
+    }
   },
   computed: {
     categories() {
@@ -245,8 +245,8 @@ export default {
       },
       set(v) {
         this.project.description = v;
-      },
-    },
+      }
+    }
   },
   mounted() {
     if (
@@ -277,7 +277,7 @@ export default {
     },
     deleteImage(params) {
       debugger;
-      s3.deleteObject(params, function (err, data) {
+      s3.deleteObject(params, function(err, data) {
         if (err) console.log(err, err.stack);
         // error
         else console.log("Image deleted..."); // deleted
@@ -296,36 +296,29 @@ export default {
       // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
       debugger;
       this.$store
-        .dispatch(`admin/project/deleteCourseImage`, { key, index, s3Key })
-        .then((_) =>
+        .dispatch(`admin/project/deleteProjectImage`, { key, index, s3Key })
+        .then(_ =>
           this.$toasted.success(
             `The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`,
             { duration: 3500 }
           )
         )
-        .then((_) => {
+        .then(_ => {
           return this.$emit("projectImageUpdated", {
             index,
-            field,
+            field
           });
         });
       // this.deleteImage(params)
       // this.$store.dispatch('admin/project/updateCanUpdate')
     },
-    emitCourseValue(e, field, title = "") {
+    emitProjectValue(e, field, title = "") {
       // const value = e.target.value
       // debugger;
       const value = e.target ? e.target.value : e;
       let oldValue = [];
       if (field === "title") {
-        // this.title = value
         this.$v.title.$touch();
-        // debugger
-        /* return this.$emit('projectValueUpdated', {
-                value,
-                field,
-                formValid
-              }) */
       }
 
       if (field === "category") {
@@ -341,24 +334,24 @@ export default {
       return this.$emit("projectValueUpdated", {
         value,
         field,
-        title,
+        title
       });
     },
     emitCategory(categoryId, field) {
-      const foundCategory = this.categories.find((c) => c._id === categoryId);
+      const foundCategory = this.categories.find(c => c._id === categoryId);
       this.$emit("projectValueUpdated", {
         value: foundCategory,
-        field,
+        field
       });
     },
     emitImages(oldValue, value, field) {
       this.$emit("projectImagesUpdated", {
         oldValue,
         value,
-        field,
+        field
       });
-    },
-  },
+    }
+  }
 };
 </script>
 

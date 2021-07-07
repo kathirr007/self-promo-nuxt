@@ -1,81 +1,85 @@
-import Vue from 'vue'
+import Vue from "vue";
 
 export const state = () => ({
   items: {
     all: [],
     featured: [],
     drafts: [],
-    published: [],
+    published: []
   },
   item: {},
   pagination: {
-    count: 0, // Count of all of our published blogs
+    count: 0, // Count of all of our published experiences
     pageCount: 0, // How many pages we want to display
     pageSize: 5, // How many items we want to display per page
-    pageNum: 1  // Current page
+    pageNum: 1 // Current page
   }
-})
+});
 
 export const actions = {
-  // /api/v1/blogs?pageNum=1&pageSize=2
-  fetchBlogs({commit, state}, filter) {
-    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
-    return this.$axios.$get(url)
+  // /api/v1/experiences?pageNum=1&pageSize=2
+  fetchExperiences({ commit, state }, filter) {
+    const url = this.$applyParamsToUrl("/api/v1/experiences", filter);
+    return this.$axios
+      .$get(url)
       .then(data => {
         // debugger
-        const { blogs, count, pageCount } = data
-        commit('setBlogs', {resource: 'all', blogs})
-        commit('setPagination', {count, pageCount})
-        return state.items.all
+        const { experiences, count, pageCount } = data;
+        commit("setExperiences", { resource: "all", experiences });
+        commit("setPagination", { count, pageCount });
+        return state.items.all;
       })
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(err));
   },
-  // /api/v1/blogs?filter[featured]=true
-  fetchFeaturedBlogs({commit, state}, filter) {
+  // /api/v1/experiences?filter[featured]=true
+  fetchFeaturedExperiences({ commit, state }, filter) {
     // debugger
-    const url = this.$applyParamsToUrl('/api/v1/blogs', filter)
-    return this.$axios.$get(url)
+    const url = this.$applyParamsToUrl("/api/v1/experiences", filter);
+    return this.$axios
+      .$get(url)
       .then(data => {
-        const { blogs } = data
-        commit('setBlogs', {resource: 'featured', blogs})
-        return state.items.featured
+        const { experiences } = data;
+        commit("setExperiences", { resource: "featured", experiences });
+        return state.items.featured;
       })
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(err));
   },
-  fetchBlogBySlug({commit, state}, slug) {
+  fetchExperienceBySlug({ commit, state }, slug) {
     // debugger
-    return this.$axios.$get(`/api/v1/blogs/s/${slug}`)
-      .then(blog => {
+    return this.$axios
+      .$get(`/api/v1/experiences/s/${slug}`)
+      .then(experience => {
         // debugger
-        commit('setBlog', blog)
-        return state.item
+        commit("setExperience", experience);
+        return state.item;
       })
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(err));
   },
-  fetchBlogById({commit, state}, id) {
-    return this.$axios.$get(`/api/v1/blogs/${id}`)
-      .then(blog => {
+  fetchExperienceById({ commit, state }, id) {
+    return this.$axios
+      .$get(`/api/v1/experiences/${id}`)
+      .then(experience => {
         // debugger
-        commit('setBlog', blog)
-        return state.item
+        commit("setExperience", experience);
+        return state.item;
       })
-      .catch(err => Promise.reject(err))
+      .catch(err => Promise.reject(err));
   }
-}
+};
 
 export const mutations = {
-  setBlogs(state, {resource, blogs}) {
-    state.items[resource] = blogs
+  setExperiences(state, { resource, experiences }) {
+    state.items[resource] = experiences;
   },
-  setBlog(state, blog) {
+  setExperience(state, experience) {
     // debugger
-    state.item = blog
+    state.item = experience;
   },
   setPage(state, currentPage) {
-    Vue.set(state.pagination, 'pageNum', currentPage)
+    Vue.set(state.pagination, "pageNum", currentPage);
   },
-  setPagination(state, {count, pageCount}) {
-    Vue.set(state.pagination, 'count', count)
-    Vue.set(state.pagination, 'pageCount', pageCount)
+  setPagination(state, { count, pageCount }) {
+    Vue.set(state.pagination, "count", count);
+    Vue.set(state.pagination, "pageCount", pageCount);
   }
-}
+};

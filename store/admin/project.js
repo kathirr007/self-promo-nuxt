@@ -5,40 +5,40 @@ export const state = () => ({
   item: {
     storageLocation: null
   },
-  canUpdateCourse: false
+  canUpdateProject: false
 });
 
 export const actions = {
-  fetchadminCourses({ commit }) {
+  fetchadminProjects({ commit }) {
     return this.$axios
       .$get("/api/v1/products/user-products")
       .then(projects => {
-        commit("setCourses", projects);
+        commit("setProjects", projects);
         return state.items;
       })
       .catch(error => Promise.reject(error));
   },
-  fetchCourseById({ commit, state }, projectId) {
+  fetchProjectById({ commit, state }, projectId) {
     return this.$axios
       .$get(`/api/v1/products/${projectId}`)
       .then(project => {
-        commit("setCourse", project);
+        commit("setProject", project);
         return state.item;
       })
       .catch(error => Promise.reject(error));
   },
-  createCourse({ commit, state }, projectData) {
+  createProject({ commit, state }, projectData) {
     let storageLocation = `projects/${slugify(projectData.title, {
       replacement: "-", // replace spaces with replacement
       remove: null, // regex to remove characters
       lower: true // result in lower case
     })}`;
-    commit("setCourseValue", { value: projectData.title, field: "title" });
+    commit("setProjectValue", { value: projectData.title, field: "title" });
     return this.$axios
       .$post("/api/v1/products/", projectData)
       .then(_ => this.$router.push("/admin/projects"));
   },
-  updateCourse({ commit, state }) {
+  updateProject({ commit, state }) {
     const project = state.item;
     // debugger
     /*     let storageLocationOld = null
@@ -96,12 +96,12 @@ export const actions = {
     return this.$axios
       .$patch(`/api/v1/products/${project._id}`, data, { headers: headers })
       .then(project => {
-        commit("setCourse", project);
+        commit("setProject", project);
         return state.item;
       })
       .catch(err => Promise.reject(err));
   },
-  deleteCourseImage({ commit, state }, params) {
+  deleteProjectImage({ commit, state }, params) {
     // const resource = project.status === 'active' ? 'drafts' : 'published'
     // debugger
     return this.$axios
@@ -110,12 +110,12 @@ export const actions = {
       })
       .then(_ => {
         // const projectIndex = state.items.findIndex((b) => b._id === project._id)
-        commit("setCanUpdateCourse", true);
+        commit("setCanUpdateProject", true);
         return true;
       })
       .catch(err => Promise.reject(err));
   },
-  deleteCourse({ commit, state }, project) {
+  deleteProject({ commit, state }, project) {
     // const resource = project.status === 'active' ? 'drafts' : 'published'
     // debugger
     const uploadedFiles = JSON.stringify(project.images);
@@ -129,33 +129,33 @@ export const actions = {
       .$delete(`/api/v1/products/${project._id}`, { headers: headers })
       .then(_ => {
         const projectIndex = state.items.findIndex(b => b._id === project._id);
-        commit("deleteCourse", { projectIndex });
+        commit("deleteProject", { projectIndex });
         return true;
       })
       .catch(err => Promise.reject(err));
   },
   updateLine({ commit }, { index, value, field }) {
     commit("setLineValue", { index, value, field });
-    commit("setCanUpdateCourse", true);
+    commit("setCanUpdateProject", true);
   },
-  updateCourseValue({ commit }, { value, field, title }) {
-    commit("setCourseValue", { value, field });
+  updateProjectValue({ commit }, { value, field, title }) {
+    commit("setProjectValue", { value, field });
     if (field === "title") {
       if (value && value.length >= 10) {
         // debugger
-        commit("setCanUpdateCourse", true);
+        commit("setCanUpdateProject", true);
       } else {
-        commit("setCanUpdateCourse", false);
+        commit("setCanUpdateProject", false);
       }
     } else {
-      commit("setCanUpdateCourse", true);
+      commit("setCanUpdateProject", true);
     }
   },
-  updateCourseImage({ commit }, { index, field, title }) {
-    commit("removeCourseImage", { index, field });
+  updateProjectImage({ commit }, { index, field, title }) {
+    commit("removeProjectImage", { index, field });
     /* if(title && title.length >= 10) {
       debugger
-      commit('setCanUpdateCourse', true)
+      commit('setCanUpdateProject', true)
     } */
   },
   updateUploadedFiles({ commit }, value) {
@@ -163,19 +163,19 @@ export const actions = {
     commit("setUploadedFiles", value);
   },
   updateCanUpdate({ commit }) {
-    commit("setCanUpdateCourse", true);
+    commit("setCanUpdateProject", true);
   }
 };
 
 export const mutations = {
-  setCourses(state, projects) {
+  setProjects(state, projects) {
     state.items = projects;
   },
-  setCourse(state, project) {
+  setProject(state, project) {
     state.item = project;
   },
-  setCanUpdateCourse(state, canUpdate) {
-    state.canUpdateCourse = canUpdate;
+  setCanUpdateProject(state, canUpdate) {
+    state.canUpdateProject = canUpdate;
   },
   addLine(state, field) {
     state.item[field].push({ value: "" });
@@ -183,14 +183,14 @@ export const mutations = {
   removeLine(state, { field, index }) {
     state.item[field].splice(index, 1);
   },
-  removeCourseImage(state, { field, index }) {
+  removeProjectImage(state, { field, index }) {
     // debugger
     state.item[field].splice(index, 1);
   },
   setLineValue(state, { index, value, field }) {
     state.item[field][index].value = value;
   },
-  setCourseValue(state, { value, field }) {
+  setProjectValue(state, { value, field }) {
     if (field === "title") {
       // debugger
       let storageLocationNew = `projects/${slugify(value, {
@@ -209,7 +209,7 @@ export const mutations = {
     // debugger
     state.item["uploadedFiles"] = value;
   },
-  deleteCourse(state, { projectIndex }) {
+  deleteProject(state, { projectIndex }) {
     state.items.splice(projectIndex, 1);
   }
 };

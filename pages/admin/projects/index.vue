@@ -20,7 +20,7 @@
         <div class="columns">
           <div class="column is-8 is-offset-2">
             <h1 class="projects-page-title">Your Projects</h1>
-            <!-- Iterate Courses -->
+            <!-- Iterate Projects -->
             <div
               v-for="project in projects"
               :key="project._id"
@@ -38,6 +38,7 @@
                     </nuxt-link>
                     <span
                       @click="confirmDelete($event, 'project', project)"
+                      @keyup.enter="confirmDelete($event, 'project', project)"
                       class="tile-overlay-text has-text-danger"
                       >Delete Project</span
                     >
@@ -47,9 +48,10 @@
                       <figure class="image is-4by2 is-128x128">
                         <!-- <img :src="'https://i.udemycdn.com/project/750x422/2381802_d90c_3.jpg'"> -->
                         <img
+                          :alt="project.title"
                           :src="
                             project.image ||
-                            'https://i.udemycdn.com/project/750x422/2381802_d90c_3.jpg'
+                              'https://via.placeholder.com/200.png'
                           "
                         />
                       </figure>
@@ -87,16 +89,16 @@ export default {
   // middleware: 'admin',
   layout: "admin",
   components: {
-    adminHeader,
+    adminHeader
   },
   mixins: [confirmDelete],
   computed: {
     projects() {
       return this.$store.state.admin.project.items;
-    },
+    }
   },
   async fetch({ store }) {
-    await store.dispatch("admin/project/fetchadminCourses");
+    await store.dispatch("admin/project/fetchadminProjects");
   },
   methods: {
     projectStatusClass(status) {
@@ -105,8 +107,8 @@ export default {
       if (status === "active") return "is-primary";
       if (status === "inactive") return "is-warning";
       if (status === "deleted") return "is-danger";
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

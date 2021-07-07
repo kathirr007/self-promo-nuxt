@@ -11,8 +11,8 @@
         <div class="box" @click="$router.push('/admin/projects')">
           <div>Projects</div>
         </div>
-        <!-- Go to /admin/blogs -->
-        <div class="box" @click="$router.push('/admin/blogs')">
+        <!-- Go to /admin/experiences -->
+        <div class="box" @click="$router.push('/admin/experiences')">
           <div>Experiences</div>
         </div>
         <!-- Go to /admin/heroes -->
@@ -29,8 +29,8 @@ export default {
   // middleware: 'admin',
   layout: "admin",
   components: {
-    adminHeader,
-  },
+    adminHeader
+  }
 };
 </script>
 <style scoped lang="scss">

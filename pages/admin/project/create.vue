@@ -18,6 +18,7 @@
               :is="activeComponent"
               ref="activeComponent"
               @stepUpdated="mergeFormData"
+              @goNext="_nextStep"
             />
           </keep-alive>
           <!-- STEP 1 of FORM  -->
@@ -31,7 +32,12 @@
           <div class="container">
             <div class="full-page-footer-col">
               <div v-if="!isFirstStep">
-                <a @click.prevent="_previousStep" class="button">Previous</a>
+                <a
+                  @click.prevent="_previousStep"
+                  @keyup.enter="_previousStep"
+                  class="button"
+                  >Previous</a
+                >
               </div>
               <div v-else class="empty-container"></div>
             </div>
@@ -41,6 +47,7 @@
                   :disabled="!canProceed"
                   v-if="!isLastStep"
                   @click.prevent="_nextStep"
+                  @keyup.enter="_nextStep"
                   class="button float-right"
                 >
                   Continue
@@ -48,7 +55,8 @@
                 <button
                   v-else
                   :disabled="!canProceed"
-                  @click="createCourse"
+                  @click="createProject"
+                  @keyup.enter="createProject"
                   class="button is-success float-right"
                 >
                   Confirm
@@ -73,7 +81,7 @@ export default {
   components: {
     Header,
     projectCreateStep1,
-    projectCreateStep2,
+    projectCreateStep2
   },
   mixins: [MultiComponentMixin],
   data() {
@@ -82,8 +90,8 @@ export default {
       canProceed: false,
       form: {
         title: "",
-        category: "",
-      },
+        category: ""
+      }
     };
   },
   computed: {},
@@ -109,10 +117,10 @@ export default {
       this.form = { ...this.form, ...data };
       this.canProceed = isValid;
     },
-    createCourse() {
-      this.$store.dispatch("admin/project/createCourse", this.form);
-    },
-  },
+    createProject() {
+      this.$store.dispatch("admin/project/createProject", this.form);
+    }
+  }
 };
 </script>
 
