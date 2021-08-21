@@ -56,15 +56,15 @@
     "vue-flux": "^6.3.1",
     "vue-infinite-loading": "^2.4.5",
     "vue-picture-swipe": "^2.0.2",
+    "fibers": "^5.0.0",
     "vue-toasted": "^1.1.28",
     "vuejs-paginate": "^2.1.0",
+    "sass": "^1.38.0",
+    "sass-loader": "^10.2.0",
     "vuelidate": "^0.7.5"
   },
   "devDependencies": {
-    "fibers": "^5.0.0",
     "nodemon": "^2.0.2",
-    "sass": "^1.38.0",
-    "sass-loader": "^10.2.0",
     "webpack-bundle-analyzer": "^4.3.0"
   },
   "resolutions": {
