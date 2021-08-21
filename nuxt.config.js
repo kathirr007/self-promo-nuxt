@@ -1,3 +1,6 @@
+const Sass = require("sass");
+const Fiber = require("fibers");
+
 module.exports = {
   server: {
     // port: 3100, // default 3000
@@ -168,6 +171,17 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, ctx) {}
+    extend(config, { isClient, isServer, isDev }) {},
+    extractCSS: {
+      ignoreOrder: true
+    },
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber
+        }
+      }
+    }
   }
 };
