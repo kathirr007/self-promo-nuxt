@@ -1,5 +1,7 @@
 const Sass = require("sass");
 const Fiber = require("fibers");
+const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
+const path = require("path");
 
 module.exports = {
   server: {
@@ -171,10 +173,28 @@ module.exports = {
     /*
      ** You can extend webpack config here
      */
-    extend(config, { isClient, isServer, isDev }) {},
-    extractCSS: {
-      ignoreOrder: true
+    extend(config, { isClient, isServer, isDev }) {
+      // if (process.env.NODE_ENV === "production") {
+      //   config.plugins.push(
+      //     new HtmlCriticalWebpackPlugin({
+      //       base: path.resolve(__dirname, "dist"),
+      //       src: "index.html",
+      //       dest: "index.html",
+      //       inline: true,
+      //       minify: true,
+      //       extract: true,
+      //       width: 375,
+      //       height: 565,
+      //       penthouse: {
+      //         blockJSRequests: false
+      //       }
+      //     })
+      //   );
+      // }
     },
+    // extractCSS: {
+    //   ignoreOrder: false
+    // },
     loaders: {
       scss: {
         implementation: Sass,
