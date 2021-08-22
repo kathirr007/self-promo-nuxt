@@ -173,6 +173,11 @@ export default {
   /* server Middleware */
   serverMiddleware: ["~/server/routes/index"],
   /* server Middleware end */
+  babel: {
+    presets(env, [preset, options]) {
+      return [["@nuxt/babel-preset-app", options]];
+    }
+  },
   /*
    ** Build configuration
    */
