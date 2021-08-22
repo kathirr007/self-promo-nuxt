@@ -9,6 +9,7 @@
             <figure class="avatar">
               <!-- <img src="https://via.placeholder.com/300"> -->
               <img
+                alt="User Avatar"
                 :src="
                   form.avatar ? form.avatar : 'https://via.placeholder.com/300'
                 "
@@ -29,11 +30,13 @@
                     <span
                       v-if="!$v.form.username.required"
                       class="help is-danger"
-                    >Username is required</span>
+                      >Username is required</span
+                    >
                     <span
                       v-if="!$v.form.username.minLength"
                       class="help is-danger"
-                    >Username minimum length is 6 characters</span>
+                      >Username minimum length is 6 characters</span
+                    >
                   </div>
                 </div>
               </div>
@@ -48,11 +51,12 @@
                     placeholder="Name"
                   />
                   <div v-if="$v.form.name.$error" class="form-error">
-                    <span v-if="!$v.form.name.required" class="help is-danger">Name is required</span>
-                    <span
-                      v-if="!$v.form.name.minLength"
-                      class="help is-danger"
-                    >Name minimum length is 6 characters</span>
+                    <span v-if="!$v.form.name.required" class="help is-danger"
+                      >Name is required</span
+                    >
+                    <span v-if="!$v.form.name.minLength" class="help is-danger"
+                      >Name minimum length is 6 characters</span
+                    >
                   </div>
                 </div>
               </div>
@@ -67,11 +71,14 @@
                     placeholder="Your Email"
                   />
                   <div v-if="$v.form.email.$error" class="form-error">
-                    <span v-if="!$v.form.email.required" class="help is-danger">Email is required</span>
+                    <span v-if="!$v.form.email.required" class="help is-danger"
+                      >Email is required</span
+                    >
                     <span
                       v-if="!$v.form.email.emailValidator"
                       class="help is-danger"
-                    >Email address is not valid</span>
+                      >Email address is not valid</span
+                    >
                   </div>
                 </div>
               </div>
@@ -87,11 +94,14 @@
                     autocomplete
                   />
                   <div v-if="$v.form.avatar.$error" class="form-error">
-                    <span v-if="!$v.form.avatar.url" class="help is-danger">Url format is not valid!</span>
+                    <span v-if="!$v.form.avatar.url" class="help is-danger"
+                      >Url format is not valid!</span
+                    >
                     <span
                       v-if="!$v.form.avatar.supportedFileTypes"
                       class="help is-danger"
-                    >Selected file type is not valid!</span>
+                      >Selected file type is not valid!</span
+                    >
                   </div>
                 </div>
               </div>
@@ -110,11 +120,13 @@
                     <span
                       v-if="!$v.form.password.required"
                       class="help is-danger"
-                    >Password is required</span>
+                      >Password is required</span
+                    >
                     <span
                       v-if="!$v.form.password.minLength"
                       class="help is-danger"
-                    >Password minimum length is 6 letters</span>
+                      >Password minimum length is 6 letters</span
+                    >
                   </div>
                 </div>
               </div>
@@ -129,15 +141,20 @@
                     placeholder="Password Confirmation"
                     autocomplete="off"
                   />
-                  <div v-if="$v.form.passwordConfirmation.$error" class="form-error">
+                  <div
+                    v-if="$v.form.passwordConfirmation.$error"
+                    class="form-error"
+                  >
                     <span
                       v-if="!$v.form.passwordConfirmation.required"
                       class="help is-danger"
-                    >Confirm Password is required</span>
+                      >Confirm Password is required</span
+                    >
                     <span
                       v-if="!$v.form.passwordConfirmation.sameAs"
                       class="help is-danger"
-                    >Confirm Password should be the same as password</span>
+                      >Confirm Password should be the same as password</span
+                    >
                   </div>
                 </div>
               </div>
@@ -146,7 +163,9 @@
                 @click.prevent="register"
                 type="submit"
                 class="button is-block is-info is-fullwidth"
-              >Register</button>
+              >
+                Register
+              </button>
             </form>
           </div>
           <p class="has-text-grey has-text-centered">
@@ -179,7 +198,7 @@ import {
   minLength,
   email,
   url,
-  sameAs,
+  sameAs
 } from "vuelidate/lib/validators";
 import { supportedFileTypes } from "@/helpers/validators";
 export default {
@@ -192,47 +211,47 @@ export default {
         avatar: null,
         email: null,
         password: null,
-        passwordConfirmation: null,
+        passwordConfirmation: null
       },
       production: process.client
         ? window.location.hostname === "localhost"
           ? false
           : true
-        : false,
+        : false
     };
   },
   validations: {
     form: {
       username: {
         required,
-        minLength: minLength(6),
+        minLength: minLength(6)
       },
       name: {
         required,
-        minLength: minLength(6),
+        minLength: minLength(6)
       },
       avatar: {
         url,
-        supportedFileTypes,
+        supportedFileTypes
       },
       email: {
         required,
-        emailValidator: email,
+        emailValidator: email
       },
       password: {
         required,
-        minLength: minLength(6),
+        minLength: minLength(6)
       },
       passwordConfirmation: {
         required,
-        sameAs: sameAs("password"),
-      },
-    },
+        sameAs: sameAs("password")
+      }
+    }
   },
   computed: {
     isFormValid() {
       return !this.$v.form.$invalid;
-    },
+    }
   },
   methods: {
     register() {
@@ -241,16 +260,16 @@ export default {
       if (this.isFormValid) {
         this.$store
           .dispatch("authentication/register", this.form)
-          .then((user) => {
+          .then(user => {
             this.$router.push("/login");
             this.$toasted.success(
               `Registration is completed successfully for <strong class="has-text-white ml-2">${user.email}</stron>...!`,
               {
-                duration: 3000,
+                duration: 3000
               }
             );
           })
-          .catch((error) => this.$toasted.error(error, { duration: 3000 }));
+          .catch(error => this.$toasted.error(error, { duration: 3000 }));
       }
     },
     async signInWithGoogle() {
@@ -261,11 +280,11 @@ export default {
           // debugger
           this.$toasted.success("Logged In!", { duration: 5000 });
         })
-        .catch((e) => {
+        .catch(e => {
           this.$toast.show("Error", { icon: "fingerprint" });
         });
-    },
-  },
+    }
+  }
 };
 </script>
 

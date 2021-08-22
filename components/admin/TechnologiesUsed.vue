@@ -1,7 +1,7 @@
 <template>
   <div class="card manage-card">
     <header class="card-header card-section">
-      <p class="card-header-title">Technologies used in this Project</p>
+      <h2 class="card-header-title">Technologies used in this Project</h2>
     </header>
     <div class="card-content card-section">
       <form @submit.stop.prevent>

@@ -46,7 +46,7 @@
     </nuxt-link>-->
     <div class="card-content">
       <div class="content">
-        <p class="title is-4">{{ project.title | shortenText(45) }}</p>
+        <h2 class="title is-4">{{ project.title | shortenText(45) }}</h2>
         <!-- <p class="subtitle is-6"><i>by {{project.author.name}}</i></p> -->
       </div>
       <div class="content">
@@ -59,8 +59,11 @@
       </div>-->
     </div>
     <footer class="card-footer">
-      <nuxt-link :to="`/projects/${project.slug}`" class="card-footer-item"
-        >More Details</nuxt-link
+      <nuxt-link
+        :to="`/projects/${project.slug}`"
+        :aria-label="project.title"
+        class="card-footer-item"
+        >View project details</nuxt-link
       >
       <!-- <a target="_" :href="project.productLink" class="card-footer-item">Enroll</a> -->
     </footer>

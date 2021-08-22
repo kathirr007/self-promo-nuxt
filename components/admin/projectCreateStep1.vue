@@ -147,6 +147,16 @@ export default {
   margin-bottom: 15px;
   .form-error {
     text-align: left;
+    .help {
+      color: #993918;
+    }
+  }
+  .control {
+    ::v-deep {
+      span.icon {
+        color: #757575;
+      }
+    }
   }
 }
 </style>

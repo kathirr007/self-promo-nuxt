@@ -6,7 +6,7 @@
 <script>
 export default {
   name: "admin",
-  middleware: "admin",
+  middleware: "admin"
 };
 </script>
 <style lang="scss">
@@ -34,10 +34,6 @@ html {
 .card.manage-card {
   .label {
     color: #353535;
-  }
-
-  .card-header-title {
-    color: #616161;
   }
 }
 

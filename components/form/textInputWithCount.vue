@@ -1,7 +1,9 @@
 <template>
   <div class="pos-rel">
     <template v-if="$route.params.id">
+      <label for="categoryInput" class="sr-only">Category title</label>
       <input
+        id="categoryInput"
         :maxLength="maxLength"
         @blur="v.$touch()"
         type="text"
@@ -16,7 +18,9 @@
     </template>
     <!-- <template v-else-if="$route.path.includes('category')">No worries, you can change name later.</template> -->
     <template v-else>
+      <label for="categoryInput" class="sr-only">Category title</label>
       <input
+        id="categoryInput"
         :maxLength="maxLength"
         @blur="v.$touch()"
         type="text"
@@ -88,5 +92,8 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 100%;
+}
+.icon {
+  color: #757575;
 }
 </style>

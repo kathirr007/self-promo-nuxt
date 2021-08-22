@@ -6,7 +6,11 @@
     <div v-for="(line, index) in lines" :key="index" class="multi-field field">
       <div class="control multi-control">
         <div class="multi-input-container">
+          <label :for="`multi-input${index + 1}`" class="sr-only">
+            {{ `Multi Input ${index + 1}` }}
+          </label>
           <input
+            :id="`multi-input${index + 1}`"
             @input="emitUpdate($event, index)"
             :value="line.value"
             class="input multi-input"
@@ -44,16 +48,16 @@ export default {
   props: {
     label: {
       type: String,
-      required: true,
+      required: true
     },
     lines: {
       type: Array,
-      required: true,
+      required: true
     },
     addBtn: {
       type: String,
-      default: "Add",
-    },
+      default: "Add"
+    }
   },
   computed: {
     lastLine() {
@@ -70,7 +74,7 @@ export default {
     },
     canAddLine() {
       return this.hasLines && this.hasLastLineVale;
-    },
+    }
   },
   methods: {
     /* test() {
@@ -90,8 +94,8 @@ export default {
     emitUpdate(event, index) {
       const { value } = event.target;
       this.$emit("valueUpdated", { value, index });
-    },
-  },
+    }
+  }
 };
 </script>
 

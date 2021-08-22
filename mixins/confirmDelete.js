@@ -20,6 +20,7 @@ export default {
         {
           auth: false,
           title: "Please Confirm",
+          titleLevel: 2,
           message: `Are you sure? <br> You want to delete <br><strong>" ${arg1.title ||
             arg1.name} "</strong>`,
           button: {

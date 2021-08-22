@@ -20,10 +20,10 @@
                     class="experience-header clickable"
                   >
                     <!-- <h4 class="title is-4">{{experience.title}}</h4> -->
-                    <h4 class="title is-4">
+                    <h2 class="title is-4">
                       {{ displayExperienceTitle(experience) }}
-                    </h4>
-                    <h5 class="subtitle is-5">{{ experience.subtitle }}</h5>
+                    </h2>
+                    <h3 class="subtitle is-5">{{ experience.subtitle }}</h3>
                   </div>
                   <!-- <div class="experience-content">by {{experience.author.name}}, {{experience.createdAt | formatDate}}</div> -->
                 </div>

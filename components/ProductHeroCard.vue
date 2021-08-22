@@ -91,7 +91,7 @@ export default {
         return {
           src: img.location,
           thumbnail: img.location,
-          alt: img.originalname,
+          alt: img.originalname.split(".")[0],
           w: 600,
           h: 600
         };

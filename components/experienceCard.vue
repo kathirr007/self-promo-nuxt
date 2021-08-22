@@ -3,7 +3,7 @@
     <div class="card-content">
       <div class="media">
         <div class="media-content">
-          <p class="title is-4">{{ experience.title }}</p>
+          <h2 class="title is-4">{{ experience.title }}</h2>
           <!-- <p class="subtitle is-6">
             <i>by {{experience.author.name}}</i>
           </p>-->
@@ -19,7 +19,7 @@
         :to="`/experiences/${experience.slug}`"
         class="card-footer-item"
         :aria-label="`Read more about ${experience.title}`"
-        >Read More</nuxt-link
+        >View experience</nuxt-link
       >
     </footer>
   </div>

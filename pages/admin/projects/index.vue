@@ -15,7 +15,7 @@
         </div>
       </template>
     </admin-header>
-    <div class="projects-page">
+    <main class="projects-page">
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
@@ -57,7 +57,7 @@
                       </figure>
                     </div>
                     <div class="column">
-                      <p class="title">{{ project.title }}</p>
+                      <h2 class="title">{{ project.title }}</h2>
                       <p class="subtitle">
                         {{ project.subtitle || "No subtitle provided yet" }}
                       </p>
@@ -79,7 +79,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </main>
   </div>
 </template>
 <script>

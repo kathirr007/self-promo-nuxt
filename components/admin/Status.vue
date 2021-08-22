@@ -1,13 +1,14 @@
 <template>
   <div class="card manage-card">
     <header class="card-header card-section">
-      <p class="card-header-title">Status</p>
+      <h2 class="card-header-title">Status</h2>
     </header>
     <div class="card-content card-section">
       <div class="field">
-        <label class="label">Status</label>
+        <label class="label" for="projectStatus">Status</label>
         <div class="select">
           <select
+            id="projectStatus"
             :value="project.status"
             @change="$event => emitProjectValue($event, 'status')"
           >

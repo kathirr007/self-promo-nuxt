@@ -20,6 +20,9 @@ module.exports = {
     htmlAttrs: {
       lang: "en"
     },
+    bodyAttrs: {
+      lang: "en"
+    },
     title: `Kathiravan K | Sr.UI Developer | Portfolio`,
     meta: [
       { charset: "utf-8" },

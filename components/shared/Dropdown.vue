@@ -15,6 +15,7 @@
     <div class="dropdown-menu" id="dropdown-menu" role="menu">
       <div class="dropdown-content">
         <a
+          role="menuitem"
           v-for="item in items"
           :key="item.name"
           @click.prevent="emitOption($event, item.command)"

@@ -23,7 +23,7 @@
     &.active {
       > a {
         z-index: 2;
-        color: #fff;
+        color: #050505;
         cursor: default;
         background-color: #d74436;
         border-color: #d74436;
@@ -32,11 +32,11 @@
 
     &.disabled {
       > a {
-        color: #777;
+        color: #585858;
         cursor: not-allowed;
         background-color: #fff;
         border-color: #ddd;
       }
     }
   }
- }
+}

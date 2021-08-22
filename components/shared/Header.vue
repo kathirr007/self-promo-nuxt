@@ -1,24 +1,27 @@
 <template>
   <div class="full-page-takeover-header">
     <div class="full-page-takeover-header-logo">
-      <nuxt-link to="/admin" class="has-text-white">
+      <nuxt-link to="/admin" class="has-text-white" aria-label="Admin home">
         <!-- <p class="full-page-takeover-header-logo-title">Self Promo</p> -->
-        <p class="full-page-takeover-header-logo-title">
+        <h1 class="full-page-takeover-header-logo-title">
           <button class="button is-primary is-outlined is-medium is-inverted">
             <span class="icon">
+              <span class="sr-only is-hidden">Admin home</span>
               <i class="fas fa-home"></i>
             </span>
             <!-- <span>Self Promo</span> -->
           </button>
-        </p>
+        </h1>
       </nuxt-link>
     </div>
 
     <div class="full-page-takeover-header-divider"></div>
 
-    <div class="full-page-takeover-header-text">
-      {{ title }}
-    </div>
+    <header class="full-page-takeover-header-text">
+      <h1 class="title is-3 is-line-height-normal has-text-white">
+        {{ title }}
+      </h1>
+    </header>
     <div class="user-box">
       <figure class="image is-48x48 m-r-sm">
         <img

@@ -185,11 +185,43 @@ a {
   }
 }
 /* override bulma styles to improve accessibility */
+
+.is-line-height-normal {
+  line-height: normal;
+}
+
+.notification {
+  &.is-danger {
+    &.is-light {
+      color: #8e3516;
+    }
+  }
+}
+
+.tag:not(body).is-success {
+  color: $btn-success;
+}
+
 .button {
+  &.is-link {
+    &.is-outlined {
+      color: $link-color;
+      border-color: $link-color;
+      &:hover {
+        color: $link-color-hover;
+      }
+    }
+  }
   &.is-primary {
     color: $btn-primary;
     &:hover {
       color: $btn-primary-hover;
+    }
+  }
+  &.is-success {
+    color: $btn-success;
+    &:hover {
+      color: $btn-success-hover;
     }
   }
   &.is-danger {
@@ -205,4 +237,9 @@ a {
       }
     }
   }
+}
+
+/* vue-confirm-dialog overrides */
+.vc-btn {
+  color: #3b588c !important;
 }

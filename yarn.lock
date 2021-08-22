@@ -10621,10 +10621,10 @@ vue-client-only@^2.0.0:
   resolved "https://registry.yarnpkg.com/vue-client-only/-/vue-client-only-2.1.0.tgz#1a67a47b8ecacfa86d75830173fffee3bf8a4ee3"
   integrity sha512-vKl1skEKn8EK9f8P2ZzhRnuaRHLHrlt1sbRmazlvsx6EiC3A8oWF8YCBrMJzoN+W3OnElwIGbVjsx6/xelY1AA==
 
-vue-confirm-dialog-fork@^1.0.4:
-  version "1.0.4"
-  resolved "https://registry.yarnpkg.com/vue-confirm-dialog-fork/-/vue-confirm-dialog-fork-1.0.4.tgz#5459b1c2d59bb62960aaac96745cd76a6e06203c"
-  integrity sha512-pr0eL7oN7xSCiri7d+SvgyKbqN6IkP5lmDNZi0SaSCv0PQikWFpZoNcAEY+jY5Rx1akh6V5vxeN27nio2T7aFQ==
+vue-confirm-dialog-fork@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/vue-confirm-dialog-fork/-/vue-confirm-dialog-fork-1.0.7.tgz#2cdff41fa6b54f2a00ba47d914cf6cf9caff0f09"
+  integrity sha512-GnGk5Z3tTkIMlE4+uS9xwnO9Y5BECBt4ibyVdPphr+BpDU/BDDeYqjI9695yzV95p1CkfHu/LK5uAzUYPoGKwA==
   dependencies:
     core-js "^2.6.5"
     vue "^2.6.10"

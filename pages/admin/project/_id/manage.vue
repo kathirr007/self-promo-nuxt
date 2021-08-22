@@ -23,10 +23,11 @@
             <div>
               <form>
                 <div class="field">
-                  <label class="label">Hero title</label>
+                  <label class="label" for="heroTitle">Hero title</label>
                   <span class="label-info">Suggested 64 Characters</span>
                   <div class="control">
                     <input
+                      id="heroTitle"
                       v-model="projectHero.title"
                       class="input is-medium"
                       type="text"
@@ -35,9 +36,10 @@
                   </div>
                 </div>
                 <div class="field">
-                  <label class="label">Hero subtitle</label>
+                  <label class="label" for="heroSubTitle">Hero subtitle</label>
                   <span class="label-info">Suggested 128 Characters</span>
                   <input
+                    id="heroSubTitle"
                     v-model="projectHero.subtitle"
                     class="input is-medium"
                     type="text"
@@ -45,18 +47,22 @@
                   />
                 </div>
                 <div class="field">
-                  <label class="label">Hero image</label>
+                  <label class="label" for="heroImage">Hero image</label>
                   <span class="label-info"
                     >Image in format 3 by 1 (720 x 240)</span
                   >
                   <input
+                    id="heroImage"
                     v-model="projectHero.image"
                     class="input is-medium"
                     type="text"
                     placeholder="Some image in format 3 by 1 (720 x 240)"
                   />
                   <figure class="image project-image is-3by1">
-                    <img :src="projectHero.image" />
+                    <img
+                      :src="projectHero.image"
+                      :alt="projectHero.title || ''"
+                    />
                   </figure>
                 </div>
               </form>
@@ -250,7 +256,7 @@ export default {
 .manage-page {
   .label-info {
     font-size: 13px;
-    color: gray;
+    color: #585858;
     font-style: italic;
   }
 
@@ -289,7 +295,7 @@ export default {
       &-header {
         &-title {
           padding: 0;
-          color: #8f99a3;
+          color: #6e767e;
           font-weight: 400;
           font-size: 25px;
         }

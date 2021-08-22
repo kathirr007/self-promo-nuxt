@@ -1,14 +1,15 @@
 <template>
   <div class="card manage-card">
     <header class="card-header card-section">
-      <p class="card-header-title">Project Landing Page</p>
+      <h2 class="card-header-title">Project Landing Page</h2>
     </header>
     <div class="card-content card-section">
       <form>
         <div class="field">
-          <label class="label">Project title</label>
+          <label class="label" for="ProjectTitle">Project title</label>
           <div class="control">
             <input
+              id="ProjectTitle"
               :value="project.title"
               @input="$event => emitProjectValue($event, 'title', title)"
               class="input"
@@ -27,9 +28,10 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Project subtitle</label>
+          <label class="label" for="ProjectSubtitle">Project subtitle</label>
           <div class="control">
             <input
+              id="ProjectSubtitle"
               :value="project.subtitle !== 'undefined' ? project.subtitle : ''"
               @input="$event => emitProjectValue($event, 'subtitle')"
               class="input"
@@ -64,9 +66,10 @@
           </div>
         </div>-->
         <div class="field">
-          <label class="label">Category</label>
+          <label class="label" for="projectCategory">Category</label>
           <div class="select">
             <select
+              id="projectCategory"
               :value="project.category._id"
               @change="$event => emitProjectValue($event, 'category')"
             >
@@ -94,18 +97,18 @@
                             <input :value="project.image" @input="($event) => emitProjectValue($event, 'image')" class="input" type="text" placeholder="https://images.unsplash.com/photo-1498837167922-ddd27525d352">
               </div>-->
               <div class="file has-name is-fullwidth">
-                <label class="file-label">
-                  <!-- <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume"> -->
-                  <b-form-file
-                    @change="imagesAdd"
-                    @input="$event => emitProjectValue($event, 'images')"
-                    :file-name-formatter="formatNames"
-                    ref="imagesInput"
-                    multiple
-                    id="productPhoto"
-                    title=" "
-                  ></b-form-file>
-                </label>
+                <b-form-file
+                  @change="imagesAdd"
+                  @input="$event => emitProjectValue($event, 'images')"
+                  :file-name-formatter="formatNames"
+                  ref="imagesInput"
+                  multiple
+                  id="productPhoto"
+                  title=" "
+                ></b-form-file>
+                <!-- <label for="productPhoto" class="file-label">
+                  <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume">
+                </label> -->
               </div>
               <div class="notification is-danger is-light my-2">
                 Note: Uploading new images will replace the existing images
@@ -123,7 +126,7 @@
                   <img
                     :src="image.location"
                     class="img-thumbnail multiple-images"
-                    :alt="image.originalname"
+                    :alt="image.originalname.split('.')[0]"
                   />
                   <i
                     @click="removeS3Image(index, 'images')"
@@ -173,9 +176,10 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Project Link</label>
+          <label class="label" for="ProjectLink">Project Link</label>
           <div class="control">
             <input
+              id="ProjectLink"
               :value="
                 project.productLink !== 'undefined' ? project.productLink : ''
               "
@@ -187,9 +191,12 @@
           </div>
         </div>
         <div class="field">
-          <label class="label">Project Repository Link</label>
+          <label class="label" for="ProjectRepositoryLink"
+            >Project Repository Link</label
+          >
           <div class="control">
             <input
+              id="ProjectRepositoryLink"
               :value="
                 project.promoVideoLink !== 'undefined'
                   ? project.promoVideoLink

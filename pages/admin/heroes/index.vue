@@ -53,7 +53,7 @@
                         Subtitle: {{ hero.subtitle || "Subtitle not set" }}
                       </div>
                       <figure class="image project-image is-3by1">
-                        <img :src="hero.image" />
+                        <img :src="hero.image" :alt="hero.title" />
                       </figure>
                     </div>
                   </Modal>

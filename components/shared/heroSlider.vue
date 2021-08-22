@@ -21,7 +21,7 @@
             target="_"
             :to="hero.product !== null ? `projects/${hero.product.slug}` : '/'"
             class="button is-danger"
-            >More Details</nuxt-link
+            >Project Details</nuxt-link
           >
         </div>
       </swiper-slide>
