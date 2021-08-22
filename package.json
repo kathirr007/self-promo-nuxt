@@ -18,7 +18,8 @@
       "sourceType": "module"
     }
   },
-  "dependencies": {
+  "dependencies": {},
+  "devDependencies": {
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
@@ -64,9 +65,7 @@
     "vue-picture-swipe": "^2.0.2",
     "vue-toasted": "^1.1.28",
     "vuejs-paginate": "^2.1.0",
-    "vuelidate": "^0.7.5"
-  },
-  "devDependencies": {
+    "vuelidate": "^0.7.5",
     "nodemon": "^2.0.2",
     "webpack-bundle-analyzer": "^4.3.0"
   },
