@@ -7,7 +7,9 @@
       :image="projectHero.image"
       :promoLink="projectHero.product && projectHero.product.productLink"
     />-->
-    <hero-slider :heroes="projectHeros" />
+    <LazyHydrate when-idle>
+      <hero-slider :heroes="projectHeros" />
+    </LazyHydrate>
     <!-- <hero v-else/> -->
 
     <!-- Hero Section end -->
@@ -27,14 +29,18 @@
               placement="right-start"
               class="slide-left is-flex is-flex-grow-1"
             >
-              <project-card :project="project" />
+              <LazyHydrate when-idle>
+                <project-card :project="project" />
+              </LazyHydrate>
               <template slot="popover">
-                <project-card-tooltip
-                  :title="project.title"
-                  :subtitle="project.category.name"
-                  :description="project.subtitle"
-                  :wsl="project.wsl"
-                />
+                <LazyHydrate on-interaction>
+                  <project-card-tooltip
+                    :title="project.title"
+                    :subtitle="project.category.name"
+                    :description="project.subtitle"
+                    :wsl="project.wsl"
+                  />
+                </LazyHydrate>
               </template>
             </v-popover>
             <!-- CARD-ITEM-END -->
@@ -52,7 +58,9 @@
             class="column is-half-tablet is-one-third-widescreen is-one-quarter-fullhd"
           >
             <!-- CARD-ITEM -->
-            <experience-card :experience="experience" />
+            <LazyHydrate when-visible>
+              <experience-card :experience="experience" />
+            </LazyHydrate>
             <!-- CARD-ITEM-END -->
           </div>
         </div>
@@ -62,19 +70,21 @@
 </template>
 
 <script>
-import hero from "~/components/shared/hero";
-import heroSlider from "~/components/shared/heroSlider";
-import projectCard from "~/components/projectCard";
-import experienceCard from "~/components/experienceCard";
-import ProjectCardTooltip from "~/components/ProjectCardTooltip";
+// import hero from "~/components/shared/hero";
+// import heroSlider from "~/components/shared/heroSlider";
+// import projectCard from "~/components/projectCard";
+// import experienceCard from "~/components/experienceCard";
+// import ProjectCardTooltip from "~/components/ProjectCardTooltip";
+import LazyHydrate from "vue-lazy-hydration";
 import { mapState } from "vuex";
 export default {
   components: {
-    hero,
-    heroSlider,
-    projectCard,
-    experienceCard,
-    ProjectCardTooltip
+    LazyHydrate,
+    hero: () => import("~/components/shared/hero"),
+    heroSlider: () => import("~/components/shared/heroSlider"),
+    projectCard: () => import("~/components/projectCard"),
+    experienceCard: () => import("~/components/experienceCard"),
+    ProjectCardToolti: () => import("~/components/ProjectCardTooltip")
   },
   computed: {
     ...mapState({
