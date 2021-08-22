@@ -1,6 +1,7 @@
 <template>
   <div class="about-page">
-    <div class="container">
+    <a class="skip-link" href="#aboutMaincontent">Skip to main</a>
+    <div class="container" id="aboutMaincontent">
       <figure class="avatar is-128x128">
         <img
           src="/profile-photo.jpg"
@@ -38,7 +39,9 @@
   </div>
 </template>
 <script>
+import toggleVisibility from "@/mixins/toggleVisibility";
 export default {
+  mixins: [toggleVisibility],
   head: {
     title: `Know more about Kathiravan K | Sr.UI Developer`
   }
