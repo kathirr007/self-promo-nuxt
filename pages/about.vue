@@ -39,9 +39,7 @@
   </div>
 </template>
 <script>
-import toggleVisibility from "@/mixins/toggleVisibility";
 export default {
-  mixins: [toggleVisibility],
   head: {
     title: `Know more about Kathiravan K | Sr.UI Developer`
   }
