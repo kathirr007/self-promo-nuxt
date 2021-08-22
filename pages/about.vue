@@ -1,8 +1,13 @@
 <template>
   <div class="about-page">
     <div class="container">
-      <figure class="avatar">
-        <img src="/profile-photo.jpg" />
+      <figure class="avatar is-128x128">
+        <img
+          src="/profile-photo.jpg"
+          alt="User Profile photo"
+          height="128"
+          width="128"
+        />
       </figure>
       <p>
         My name is Kathiravan Kumarasamy and I am
@@ -11,37 +16,32 @@
       </p>
       <br />
       <p>
-        I have a Master's degree in Electronics and Communications Engineering and several years of experience working on a wide range of technologies and projects for web applications in
-        <strong>HTML</strong>,
-        <strong>CSS</strong>,
-        <strong>HTML5</strong>,
-        <strong>CSS3</strong>,
-        <strong>Javascript</strong>,
-        <strong>jQuery</strong>,
-        <strong>Gulp.js</strong>,
-        <strong>Node.js</strong>,
-        <strong>Vue.js</strong>,
-        <strong>Nuxt.js</strong>,
-        <strong>Vuetify.js</strong>,
-        <strong>Bulma</strong>,
-        <strong>Tailwind</strong>,
-        <strong>Bootstrap</strong>,
-        <strong>Bootstrap-Vue</strong>,
-        <strong>Firebase</strong>,
-        <strong>Firestore</strong>,
-        <strong>MongodB</strong> and
-        <strong>Git/Github</strong>.
+        I have a Master's degree in Electronics and Communications Engineering
+        and several years of experience working on a wide range of technologies
+        and projects for web applications in
+        <strong>HTML</strong>, <strong>CSS</strong>, <strong>HTML5</strong>,
+        <strong>CSS3</strong>, <strong>Javascript</strong>,
+        <strong>jQuery</strong>, <strong>Gulp.js</strong>,
+        <strong>Node.js</strong>, <strong>Vue.js</strong>,
+        <strong>Nuxt.js</strong>, <strong>Vuetify.js</strong>,
+        <strong>Bulma</strong>, <strong>Tailwind</strong>,
+        <strong>Bootstrap</strong>, <strong>Bootstrap-Vue</strong>,
+        <strong>Firebase</strong>, <strong>Firestore</strong>,
+        <strong>MongodB</strong> and <strong>Git/Github</strong>.
       </p>
       <br />
-      <p>Throughout my career, I have acquired advanced technical knowledge in Web Technologies.</p>
+      <p>
+        Throughout my career, I have acquired advanced technical knowledge in
+        Web Technologies.
+      </p>
     </div>
   </div>
 </template>
 <script>
 export default {
   head: {
-    title: `Know more about Kathiravan K | Sr.UI Developer`,
-  },
+    title: `Know more about Kathiravan K | Sr.UI Developer`
+  }
 };
 </script>
 

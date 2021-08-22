@@ -12,6 +12,8 @@
             class="is-rounded"
             src="/profile-photo.jpg"
             alt="Profile photo"
+            width="48"
+            height="48"
           />
         </figure>
       </nuxt-link>
@@ -82,6 +84,8 @@
                     class="is-rounded"
                     :src="user ? user.avatar : googleUserAvatar"
                     alt="User Avatar"
+                    height="48"
+                    width="48"
                   />
                 </figure>
                 <div class="m-r-sm m-b-sm">

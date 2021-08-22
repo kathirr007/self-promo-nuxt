@@ -21,7 +21,13 @@
     </div>
     <div class="user-box">
       <figure class="image is-48x48 m-r-sm">
-        <img class="is-rounded" :src="user.avatar" alt="User avatar" />
+        <img
+          class="is-rounded"
+          :src="user.avatar"
+          alt="User avatar"
+          height="48"
+          width="48"
+        />
       </figure>
       <div class="m-r-sm">Welcome {{ user.username }}!</div>
     </div>

@@ -2,7 +2,13 @@
   <div class="user-tile">
     <div class="user-tile-image">
       <figure class="image is-64x64">
-        <img class="is-rounded" :src="avatar" alt="User avatar" />
+        <img
+          class="is-rounded"
+          :src="avatar"
+          alt="User avatar"
+          width="64"
+          height="64"
+        />
       </figure>
     </div>
     <div class="user-tile-author center">
