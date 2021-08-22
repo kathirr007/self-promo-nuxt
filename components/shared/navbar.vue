@@ -8,7 +8,11 @@
       <nuxt-link class="navbar-item" to="/">
         <h1 class="brand-title">Kathiravan K</h1>
         <figure class="image avatar is-48x48 m-r-sm">
-          <img class="is-rounded" src="/profile-photo.jpg" />
+          <img
+            class="is-rounded"
+            src="/profile-photo.jpg"
+            alt="Profile photo"
+          />
         </figure>
       </nuxt-link>
       <!-- Adds click to open -->
@@ -77,6 +81,7 @@
                   <img
                     class="is-rounded"
                     :src="user ? user.avatar : googleUserAvatar"
+                    alt="User Avatar"
                   />
                 </figure>
                 <div class="m-r-sm m-b-sm">

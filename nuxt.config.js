@@ -17,6 +17,9 @@ module.exports = {
    ** Headers of the page
    */
   head: {
+    htmlAttrs: {
+      lang: "en"
+    },
     title: `Kathiravan K | Sr.UI Developer | Portfolio`,
     meta: [
       { charset: "utf-8" },

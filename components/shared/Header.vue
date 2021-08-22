@@ -21,7 +21,7 @@
     </div>
     <div class="user-box">
       <figure class="image is-48x48 m-r-sm">
-        <img class="is-rounded" :src="user.avatar" />
+        <img class="is-rounded" :src="user.avatar" alt="User avatar" />
       </figure>
       <div class="m-r-sm">Welcome {{ user.username }}!</div>
     </div>
@@ -41,19 +41,19 @@ export default {
   props: {
     title: {
       required: true,
-      type: String,
+      type: String
     },
     exitLink: {
       required: false,
       type: String,
-      default: null,
-    },
+      default: null
+    }
   },
   computed: {
     user() {
       return this.$store.getters["authentication/authUser"] || {};
-    },
-  },
+    }
+  }
 };
 </script>
 <style scoped lang="scss">

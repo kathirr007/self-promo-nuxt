@@ -123,6 +123,7 @@
                   <img
                     :src="image.location"
                     class="img-thumbnail multiple-images"
+                    :alt="image.originalname"
                   />
                   <i
                     @click="removeS3Image(index, 'images')"
@@ -144,7 +145,11 @@
                   v-for="(prodImage, index) in image"
                   :key="index"
                 >
-                  <img :src="prodImage" class="img-thumbnail" />
+                  <img
+                    :src="prodImage"
+                    class="img-thumbnail"
+                    :alt="`uploaded-file-${index + 1}`"
+                  />
                   <i
                     @click="removeImage(index)"
                     class="delete-img fas fa-times-circle"

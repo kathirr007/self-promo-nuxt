@@ -84,7 +84,7 @@ export default {
     heroSlider: () => import("~/components/shared/heroSlider"),
     projectCard: () => import("~/components/projectCard"),
     experienceCard: () => import("~/components/experienceCard"),
-    ProjectCardToolti: () => import("~/components/ProjectCardTooltip")
+    ProjectCardTooltip: () => import("~/components/ProjectCardTooltip")
   },
   computed: {
     ...mapState({
