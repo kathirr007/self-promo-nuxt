@@ -1,9 +1,11 @@
 import express from "express";
 import consola from "consola";
-import nuxt from "nuxt";
+// import nuxt from "nuxt";
+import { default as nuxtjs } from "nuxt";
+
 import config from "../nuxt.config.js";
 
-const { Nuxt, Builder } = nuxt;
+const { Nuxt, Builder } = nuxtjs;
 const app = express();
 
 config.dev = !(process.env.NODE_ENV === "production");
