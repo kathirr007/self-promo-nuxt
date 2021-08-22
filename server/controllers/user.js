@@ -1,6 +1,6 @@
 const User = require("../models/user");
 const passport = require("passport");
-const { compare } = require("bcrypt");
+const { compare } = require("bcryptjs");
 
 exports.getCurrentUser = function(req, res, next) {
   const user = req.user;
