@@ -18,6 +18,7 @@
       <nuxt-link
         :to="`/experiences/${experience.slug}`"
         class="card-footer-item"
+        :aria-label="`Read more about ${experience.title}`"
         >Read More</nuxt-link
       >
     </footer>

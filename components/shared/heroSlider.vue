@@ -11,7 +11,7 @@
           :style="{
             background: `url(${
               hero.image !== undefined ? hero.image : ''
-            }) no-repeat top center/cover`,
+            }) no-repeat top center/cover`
           }"
         ></div>
         <div class="container px-4 py-2">
@@ -65,29 +65,29 @@ export default {
   props: {
     heroes: {
       type: Array,
-      default: [],
+      default: []
     },
     title: {
       type: String,
-      default: "Super Amazing Promo",
+      default: "Super Amazing Promo"
     },
     subtitle: {
       type: String,
-      default: "Super Amazing Promo Subtitle",
+      default: "Super Amazing Promo Subtitle"
     },
     image: {
       type: String,
       default:
-        "https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1631&q=80",
+        "https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1631&q=80"
     },
     promoLink: {
       type: String,
-      default: "#",
-    },
+      default: "#"
+    }
   },
   components: {
     Swiper,
-    SwiperSlide,
+    SwiperSlide
   },
   data() {
     return {
@@ -97,17 +97,17 @@ export default {
         centeredSlides: true,
         autoplay: {
           delay: 5000,
-          disableOnInteraction: true,
+          disableOnInteraction: true
         },
         loop: true,
         pagination: {
           el: ".swiper-pagination",
-          clickable: true,
+          clickable: true
           // dynamicBullets: true
-        },
-      },
+        }
+      }
     };
-  },
+  }
 };
 </script>
 

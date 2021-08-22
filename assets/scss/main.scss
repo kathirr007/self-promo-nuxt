@@ -13,6 +13,10 @@ html {
   overflow-y: auto;
 }
 
+a {
+  color: $link-color;
+}
+
 .page-wrapper {
   height: 100vh;
   overflow-x: hidden;
@@ -178,5 +182,27 @@ html {
     height: auto;
     line-height: normal;
     padding: 8px;
+  }
+}
+/* override bulma styles to improve accessibility */
+.button {
+  &.is-primary {
+    color: $btn-primary;
+    &:hover {
+      color: $btn-primary-hover;
+    }
+  }
+  &.is-danger {
+    color: $btn-danger;
+    &:hover {
+      color: $btn-danger-hover;
+    }
+    &.is-outlined {
+      color: $btn-danger-outlined;
+      border-color: $btn-danger-outlined;
+      &:hover {
+        color: $btn-danger-outlined-hover;
+      }
+    }
   }
 }

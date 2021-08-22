@@ -91,6 +91,7 @@ export default {
         return {
           src: img.location,
           thumbnail: img.location,
+          alt: img.originalname,
           w: 600,
           h: 600
         };
