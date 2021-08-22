@@ -19,7 +19,9 @@
     }
   },
   "dependencies": {
-    "esm": "^3.2.25"
+    "esm": "^3.2.25",
+    "fibers": "^5.0.0",
+    "sass": "^1.38.0"
   },
   "devDependencies": {
     "@nuxtjs/auth": "^4.9.1",
@@ -39,7 +41,6 @@
     "date-fns": "^2.16.1",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
-    "fibers": "^5.0.0",
     "highlight.js": "^10.0.3",
     "html-critical-webpack-plugin": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
@@ -53,7 +54,6 @@
     "passport-local": "^1.0.0",
     "portal-vue": "^2.1.7",
     "request": "^2.88.2",
-    "sass": "^1.38.0",
     "sass-loader": "^10.2.0",
     "slugify": "^1.4.0",
     "swiper": "5.x",
