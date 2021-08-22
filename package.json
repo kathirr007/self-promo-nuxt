@@ -21,7 +21,8 @@
   "dependencies": {
     "esm": "^3.2.25",
     "fibers": "^5.0.0",
-    "sass": "^1.38.0"
+    "sass": "^1.38.0",
+    "nuxt": "^2.15.8"
   },
   "devDependencies": {
     "@nuxtjs/auth": "^4.9.1",
@@ -42,13 +43,11 @@
     "express": "^4.17.1",
     "express-session": "^1.17.1",
     "highlight.js": "^10.0.3",
-    "html-critical-webpack-plugin": "^2.1.0",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.14",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "nodemon": "^2.0.2",
-    "nuxt": "^2.15.8",
     "nuxt-oauth": "^2.5.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",

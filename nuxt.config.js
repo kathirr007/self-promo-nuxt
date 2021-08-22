@@ -1,7 +1,5 @@
 const Sass = require("sass");
 const Fiber = require("fibers");
-const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
-const path = require("path");
 
 module.exports = {
   server: {
