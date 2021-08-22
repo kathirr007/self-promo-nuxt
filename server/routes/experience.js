@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const experienceCtrl = require("../controllers/experience");
-const AuthCtrl = require("../controllers/auth");
+import experienceCtrl from "../controllers/experience";
+import AuthCtrl from "../controllers/auth";
 
 router.get("", experienceCtrl.getExperiences);
 

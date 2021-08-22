@@ -1,21 +1,21 @@
-const express = require("express");
+import express from "express";
 const app = express();
-const session = require("express-session");
-const db = require("../db");
+import session from "express-session";
+import db from "../db";
 
-const cors = require("cors");
-const bodyParser = require("body-parser");
-const keys = require("../keys");
-const passport = require("passport");
+import cors from "cors";
+import bodyParser from "body-parser";
+import keys from "../keys";
+import passport from "passport";
 
-const usersRoutes = require("./user");
-const productRoutes = require("./product");
-const categoryRoutes = require("./category");
-const experienceRoutes = require("./experience");
-const apiRoutes = require("./api");
-const productHeroRoutes = require("./product-hero");
+import usersRoutes from "./user";
+import productRoutes from "./product";
+import categoryRoutes from "./category";
+import experienceRoutes from "./experience";
+import apiRoutes from "./api";
+import productHeroRoutes from "./product-hero";
 
-require("../services/passport");
+import("../services/passport");
 
 // connect to DB
 db.connect();

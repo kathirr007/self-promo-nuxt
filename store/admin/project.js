@@ -1,4 +1,4 @@
-const slugify = require("slugify");
+import slugify from "slugify";
 
 export const state = () => ({
   items: [],

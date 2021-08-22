@@ -1,9 +1,9 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const AuthCtrl = require("../controllers/auth");
-const ProductCtrl = require("../controllers/product");
-const { deleteImages, upload } = require("../controllers/upload-photo");
+import AuthCtrl from "../controllers/auth";
+import ProductCtrl from "../controllers/product";
+import { deleteImages, upload } from "../controllers/upload-photo";
 
 router.get("", ProductCtrl.getProducts);
 

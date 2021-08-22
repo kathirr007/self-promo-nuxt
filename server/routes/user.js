@@ -1,8 +1,8 @@
-const express = require("express");
+import express from "express";
 const router = express.Router();
 
-const UsersCtrl = require("../controllers/user");
-const AuthCtrl = require("../controllers/auth");
+import UsersCtrl from "../controllers/user";
+import AuthCtrl from "../controllers/auth";
 
 router.get("/me", AuthCtrl.onlyAuthUser, UsersCtrl.getCurrentUser);
 

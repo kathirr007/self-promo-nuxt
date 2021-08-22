@@ -1,6 +1,6 @@
-const Product = require("../models/product");
-const slugify = require("slugify");
-const { deleteImage, deleteImages } = require("../controllers/upload-photo");
+import Product from "../models/product";
+import slugify from "slugify";
+import { deleteImage, deleteImages } from "../controllers/upload-photo";
 
 exports.getProducts = function(req, res) {
   Product.find({ status: "published" })

@@ -1,4 +1,4 @@
-const passport = require("passport");
+import passport from "passport";
 
 exports.onlyAuthUser = function(req, res, next) {
   // console.log(req)

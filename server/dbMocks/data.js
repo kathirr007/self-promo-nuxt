@@ -1,8 +1,8 @@
-const moment = require("moment");
-const mongoose = require("mongoose");
-const User = require("../models/user");
-const Product = require("../models/product");
-const Category = require("../models/category");
+import moment from "moment";
+import mongoose from "mongoose";
+import User from "../models/user";
+import Product from "../models/product";
+import Category from "../models/category";
 
 const user1Id = mongoose.Types.ObjectId();
 const user2Id = mongoose.Types.ObjectId();

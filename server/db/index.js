@@ -1,15 +1,18 @@
 // Main DB file
-const mongoose = require("mongoose");
-const keys = require("../keys");
-const session = require("express-session");
-const MongoDBStore = require("connect-mongodb-session")(session);
+import mongoose from "mongoose";
+import keys from "../keys";
+import session from "express-session";
+// import * as mongoDbStore from "connect-mongodb-session";
+// const MongoDBStore = mongoDbStore(session);
+import { default as connectMongoDBSession } from "connect-mongodb-session";
+const MongoDBStore = connectMongoDBSession(session);
 
 // Include all models
-require("../models/user");
-require("../models/product");
-require("../models/category");
-require("../models/product-hero");
-require("../models/experience");
+import("../models/user");
+import("../models/product");
+import("../models/category");
+import("../models/product-hero");
+import("../models/experience");
 
 mongoose.set("useFindAndModify", false);
 mongoose.set("useNewUrlParser", true);

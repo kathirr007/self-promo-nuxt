@@ -1,9 +1,10 @@
-const Sass = require("sass");
-const Fiber = require("fibers");
-const HtmlCriticalWebpackPlugin = require("html-critical-webpack-plugin");
-const path = require("path");
+import Sass from "sass";
+import Fiber from "fibers";
 
-module.exports = {
+import HtmlCriticalWebpackPlugin from "html-critical-webpack-plugin";
+import path from "path";
+
+export default {
   server: {
     // port: 3100, // default 3000
     port: process.env.PORT || 3600

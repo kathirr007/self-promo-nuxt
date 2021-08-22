@@ -1,8 +1,8 @@
-const Experience = require("../models/experience");
-const slugify = require("slugify");
-const request = require("request");
-const AsyncLock = require("async-lock");
-const experience = require("../models/experience");
+import Experience from "../models/experience";
+import slugify from "slugify";
+import request from "request";
+import AsyncLock from "async-lock";
+import experience from "../models/experience";
 const lock = new AsyncLock();
 
 const MEDIUM_URL = "https://medium.com/@filipjerga/latest?format=json&limit=20";
