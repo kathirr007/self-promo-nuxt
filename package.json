@@ -18,7 +18,9 @@
       "sourceType": "module"
     }
   },
-  "dependencies": {},
+  "dependencies": {
+    "esm": "^3.2.25"
+  },
   "devDependencies": {
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
@@ -44,6 +46,7 @@
     "mongoose": "^5.9.14",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
+    "nodemon": "^2.0.2",
     "nuxt": "^2.15.8",
     "nuxt-oauth": "^2.5.1",
     "passport": "^0.4.1",
@@ -58,7 +61,7 @@
     "tiptap-extensions": "^1.33.2",
     "v-tooltip": "^2.0.3",
     "vue-awesome-swiper": "^4.1.1",
-    "vue-confirm-dialog-fork": "^1.0.7",
+    "vue-confirm-dialog-fork": "^1.1.0",
     "vue-flux": "^6.3.1",
     "vue-infinite-loading": "^2.4.5",
     "vue-lazy-hydration": "^2.0.0-beta.4",
@@ -66,7 +69,6 @@
     "vue-toasted": "^1.1.28",
     "vuejs-paginate": "^2.1.0",
     "vuelidate": "^0.7.5",
-    "nodemon": "^2.0.2",
     "webpack-bundle-analyzer": "^4.3.0"
   },
   "resolutions": {
