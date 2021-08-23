@@ -22,12 +22,10 @@
     "esm": "^3.2.25",
     "fibers": "^5.0.0",
     "sass": "^1.38.0",
-    "nuxt": "^2.15.8"
-  },
-  "devDependencies": {
     "@nuxtjs/auth": "^4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
+    "nuxt": "^2.15.8",
     "@nuxtjs/vercel-builder": "^0.21.3",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
@@ -47,7 +45,6 @@
     "mongoose": "^5.9.14",
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
-    "nodemon": "^2.0.2",
     "nuxt-oauth": "^2.5.1",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
@@ -67,7 +64,10 @@
     "vue-picture-swipe": "^2.0.2",
     "vue-toasted": "^1.1.28",
     "vuejs-paginate": "^2.1.0",
-    "vuelidate": "^0.7.5",
+    "vuelidate": "^0.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2",
     "webpack-bundle-analyzer": "^4.3.0"
   },
   "resolutions": {
