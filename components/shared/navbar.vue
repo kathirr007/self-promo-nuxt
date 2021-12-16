@@ -94,7 +94,7 @@
                 <!-- If Admin -->
                 <button
                   v-if="isAdmin"
-                  class="button is-link is-outlined"
+                  class="button is-primary is-outlined"
                   @click="$router.push('/admin')"
                 >
                   Admin

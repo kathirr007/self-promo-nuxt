@@ -186,7 +186,7 @@
       </p>
       <p class="has-text-centered has-text-black">
         Please contact
-        <a href="mailto:kathirr007@gmail.com">Administrator</a>
+        <a href="mailto:kathirr007@gmail.com" class="is-underlined has-text-primary">Administrator</a>
       </p>
     </div>
   </section>
@@ -313,6 +313,8 @@ export default {
   box-shadow: 0 2px 3px rgba(10, 10, 10, 0.1), 0 0 0 1px rgba(10, 10, 10, 0.1);
 }
 p.subtitle {
+  margin-top: -4.25rem;
   padding-top: 1rem;
+  margin-bottom: 4.5rem;
 }
 </style>
