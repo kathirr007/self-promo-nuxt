@@ -32,7 +32,10 @@ module.exports = {
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || ""
+        content: process.env.npm_package_description || `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies. I'm an accomplished individual with a strong Front-End Web development background in Digital Marketing, HTML/HTML5, CSS/CSS3, SASS, LESS, Javascript, jQuery, JSON, Ajax, Node.js, Express.js, Gulp.js, Vue.js, Vuetify.js, Nuxt.js, MongoDB, Bootstrap, BootstrapVue, SPA, Firebase/Firestore, Git/Github, Continuous Integration (CI).
+        Having expertise working knowledge on Adobe Photoshop CC and Dreamweaver CC.
+        I strongly believe in the power of the Internet, and have an intense desire to learn how to improve the webs core functionality, and to also be involved in its future development.
+        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`
       },
       {
         hid: "og:title",
@@ -55,7 +58,10 @@ module.exports = {
       {
         hid: "og:description",
         name: "og:description",
-        content: `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies`
+        content: `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies. I'm an accomplished individual with a strong Front-End Web development background in Digital Marketing, HTML/HTML5, CSS/CSS3, SASS, LESS, Javascript, jQuery, JSON, Ajax, Node.js, Express.js, Gulp.js, Vue.js, Vuetify.js, Nuxt.js, MongoDB, Bootstrap, BootstrapVue, SPA, Firebase/Firestore, Git/Github, Continuous Integration (CI).
+        Having expertise working knowledge on Adobe Photoshop CC and Dreamweaver CC.
+        I strongly believe in the power of the Internet, and have an intense desire to learn how to improve the webs core functionality, and to also be involved in its future development.
+        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`
       }
     ],
     link: [
