@@ -53,6 +53,7 @@ const upload = multer({
         bucket: 'kathirr007-portfolio',
         acl: 'public-read',
         contentType: multerS3.AUTO_CONTENT_TYPE,
+        cacheControl: 'max-age=31536000',
         metadata: (req, file, cb) => {
             cb(null, { fieldName: file.fieldname })
         },
@@ -73,6 +74,7 @@ const multiUpload = multer({
         bucket: 'kathirr007-portfolio',
         acl: 'public-read',
         contentType: multerS3.AUTO_CONTENT_TYPE,
+        cacheControl: 'max-age=31536000',
         metadata: (req, file, cb) => {
             cb(null, {fieldName: file.fieldname})
         },
