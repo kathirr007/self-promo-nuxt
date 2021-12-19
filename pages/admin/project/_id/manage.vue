@@ -219,7 +219,6 @@ export default {
           })
         )
         .catch(err => {
-          debugger;
           this.$toasted.error("Project cannot be updated! :)", {
             duration: 3000
           });

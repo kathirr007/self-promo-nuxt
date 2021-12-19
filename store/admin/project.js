@@ -40,7 +40,6 @@ export const actions = {
   },
   updateProject({ commit, state }) {
     const project = state.item;
-    // debugger
     /*     let storageLocationOld = null
     let storageLocationNew
     storageLocationNew = `projects/${slugify(project.title, {
@@ -154,7 +153,6 @@ export const actions = {
   updateProjectImage({ commit }, { index, field, title }) {
     commit("removeProjectImage", { index, field });
     /* if(title && title.length >= 10) {
-      debugger
       commit('setCanUpdateProject', true)
     } */
   },

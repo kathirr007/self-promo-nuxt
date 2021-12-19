@@ -13,7 +13,7 @@ export default {
       params.append('client_secret', '8TrQ_aL67xS3tr_0Jm3fXP6f');
       params.append('code', code);
       params.append('redirect_uri', 'http://localhost:3600/callback');
-      debugger
+      // debugger
       this.$axios
         .$post('https://slack.com/api/oauth.access', params, {
           withCredentials: false,

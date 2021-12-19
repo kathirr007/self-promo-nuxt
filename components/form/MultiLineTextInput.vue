@@ -77,10 +77,6 @@ export default {
     }
   },
   methods: {
-    /* test() {
-      debugger;
-      console.log("testin..");
-    }, */
     emitAdd() {
       // debugger;
       console.log("emit Add..");

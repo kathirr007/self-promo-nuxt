@@ -110,7 +110,7 @@
                   <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume">
                 </label> -->
               </div>
-              <div class="notification is-danger is-light my-2">
+              <div v-if="uploadedFiles.length !== 0" class="notification is-danger is-light my-2">
                 Note: Uploading new images will replace the existing images
               </div>
               <!-- Uploaded images -->
@@ -288,7 +288,6 @@ export default {
       }
     },
     deleteImage(params) {
-      debugger;
       s3.deleteObject(params, function(err, data) {
         if (err) console.log(err, err.stack);
         // error
@@ -306,7 +305,6 @@ export default {
         .join("/");
       let imgName = this.uploadedFiles[index].originalname;
       // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
-      debugger;
       this.$store
         .dispatch(`admin/project/deleteProjectImage`, { key, index, s3Key })
         .then(_ =>
@@ -431,15 +429,20 @@ export default {
       height: auto;
     }
     .delete-img.fas {
+      // display: none;
+      opacity: 0;
       position: absolute;
       right: 5px;
       top: 0px;
       cursor: pointer;
       font-size: 18px !important;
       color: unset !important;
-      transition: color 0.2s ease-in;
-      &:hover {
-        color: orangered !important;
+      transition: opacity 0.2s ease-in;
+      color: orangered !important;
+    }
+    &:hover {
+      .delete-img.fas {
+        opacity: 1;
       }
     }
   }

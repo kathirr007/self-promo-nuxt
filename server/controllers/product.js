@@ -61,7 +61,6 @@ exports.getProductBySlug = (req, res) => {
 
 // Needs recheck
 exports.createProduct = function(req, res) {
-  debugger;
   const productData = req.body;
   const user = req.user;
   const product = new Product(productData);
