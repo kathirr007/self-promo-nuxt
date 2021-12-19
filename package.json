@@ -48,7 +48,7 @@
     "request": "^2.88.2",
     "sass-loader": "^10.2.0",
     "slugify": "^1.4.0",
-    "swiper": "5.x",
+    "swiper": "6.x",
     "tiptap": "^1.30.0",
     "tiptap-extensions": "^1.33.2",
     "v-tooltip": "^2.0.3",
