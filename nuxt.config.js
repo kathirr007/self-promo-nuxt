@@ -111,12 +111,19 @@ module.exports = {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
+    // "@nuxtjs/axios", // moved to buildModules
+    // "portal-vue/nuxt", // moved to buildModules
+    // "@nuxtjs/style-resources", // moved to buildModules
+    // "@nuxtjs/auth" // moved to buildModules
+    // '@nuxtjs/vuetify',
+    // 'nuxt-oauth',
+  ],
+  buildModules: [
+    // ['@layer0/nuxt/module', { layer0SourceMaps: true }],
     "@nuxtjs/axios",
     "portal-vue/nuxt",
     "@nuxtjs/style-resources",
     "@nuxtjs/auth"
-    // '@nuxtjs/vuetify',
-    // 'nuxt-oauth',
   ],
   /* Auth module configurations */
   auth: {
