@@ -139,7 +139,7 @@ module.exports = {
         // token_type: 'Bearer',
         // redirect_uri: 'http://localhost:3600',
         client_id:
-          "952132017083-to68rg93dp9ao68ulhim23853vhc3hvq.apps.googleusercontent.com"
+          process.env.GOOGLE_CLIENT_ID
         // token_key: 'access_token',
         // state: 'UNIQUE_AND_NON_GUESSABLE'
       }
