@@ -13,7 +13,7 @@
   </div>
   <div class="container" v-else>
     <ErrorView
-      :title="`Ooooops, the page you are trying to access doesn't exist :(`"
+      :title="`Ooooops, the page you are trying to access doesn't exist &#128530;`"
       :status="'404'"
       :navigateToPage="'/'"
       :navigateToText="'Navigate back to Home Page'"
@@ -35,9 +35,9 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.experience?.subtitle
-        }
-      ]
+          content: this.experience?.subtitle,
+        },
+      ],
     };
   },
   computed: {
@@ -46,7 +46,7 @@ export default {
       }), */
     experience() {
       return this.$store.state.experiences.item;
-    }
+    },
   },
   data() {
     return {
@@ -56,7 +56,7 @@ export default {
   components: {
     ErrorView,
     UserTile,
-    EditorView
+    EditorView,
   },
   async fetch({ store, params }) {
     // console.log(params)
@@ -67,7 +67,7 @@ export default {
       return "slide-left";
     }
     return "slide-right";
-  }
+  },
 };
 </script>
 

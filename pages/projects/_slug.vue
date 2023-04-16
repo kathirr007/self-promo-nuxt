@@ -42,7 +42,7 @@
     </template>
     <div v-else class="container">
       <ErrorView
-        :title="`Ooooops, the page you are trying to access doesn't exist :(`"
+        :title="`Ooooops, the page you are trying to access doesn't exist &#128530;`"
         :status="'404'"
         :navigateToPage="'/'"
         :navigateToText="'Navigate back to Home Page'"
@@ -64,9 +64,9 @@ export default {
         {
           hid: "description",
           name: "description",
-          content: this.project?.subtitle || ""
-        }
-      ]
+          content: this.project?.subtitle || "",
+        },
+      ],
     };
   },
   data() {
@@ -75,16 +75,16 @@ export default {
   components: {
     ErrorView,
     ProductHero,
-    ProductHeroCard
+    ProductHeroCard,
   },
   computed: {
     project() {
       return this.$store.state.project.item;
-    }
+    },
   },
   async fetch({ store, params }) {
     await store.dispatch("project/fetchProjectBySlug", params.slug);
-  }
+  },
 };
 </script>
 

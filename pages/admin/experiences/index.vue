@@ -76,7 +76,7 @@
               <!-- In case of no drafts experiences  -->
               <transition v-else appear name="slideDown" mode="out-in">
                 <div class="experience-error">
-                  No Drafts <i class="far fa-frown" style="color:#58529f"></i>
+                  No Drafts <i class="far fa-frown" style="color: #58529f"></i>
                 </div>
               </transition>
             </template>
@@ -112,7 +112,7 @@
               <transition v-else appear name="slideDown" mode="out-in">
                 <div class="experience-error">
                   No Published
-                  <i class="far fa-frown" style="color:#58529f"></i>
+                  <i class="far fa-frown" style="color: #58529f"></i>
                 </div>
               </transition>
             </template>
@@ -147,7 +147,7 @@ import { mapState } from "vuex";
 import {
   createPublishedOptions,
   createDraftsOptions,
-  commands
+  commands,
 } from "~/pages/admin/options";
 
 export default {
@@ -157,27 +157,27 @@ export default {
   layout: "admin",
   components: {
     Header,
-    Dropdown
+    Dropdown,
     // VueConfirmDialog
   },
   data() {
     return {
       activeTab: 0,
       confirmDelete: false,
-      activeExperience: null
+      activeExperience: null,
     };
   },
   computed: {
     ...mapState({
       published: ({ admin }) => admin.experience.items.published,
-      drafts: ({ admin }) => admin.experience.items.drafts
+      drafts: ({ admin }) => admin.experience.items.drafts,
     }),
     /* publishedOptions() {
         return createPublishedOptions()
       }, */
     draftsOptions() {
       return createDraftsOptions();
-    }
+    },
   },
   async fetch({ store }) {
     await store.dispatch("admin/experience/fetchUserExperiences");
@@ -207,9 +207,9 @@ export default {
       this.$store
         .dispatch("admin/experience/updatePublishedExperience", {
           id: experience._id,
-          data: { featured }
+          data: { featured },
         })
-        .then(_ => {
+        .then((_) => {
           featured
             ? this.$toasted.success(message, { duration: 3000 })
             : this.$toasted.show(message, { duration: 3000 });
@@ -238,17 +238,17 @@ export default {
           message: `Are you sure? <br> You want to delete <strong>${experience.title}</strong>`,
           button: {
             no: "No",
-            yes: "Yes"
-          }
+            yes: "Yes",
+          },
         },
-        function(confirm) {
+        function (confirm) {
           if (confirm == true) {
             // ... do some thing
             console.log("Dispatching delete...");
             // debugger
             self.$store
               .dispatch("admin/experience/deleteExperience", experience)
-              .then(_ =>
+              .then((_) =>
                 self.$toasted.success(
                   `The Experience <strong style="margin: 0 10px; display: inline-block;"> ${experience.title} </strong> was deleted successfully..`,
                   { duration: 3500 }
@@ -294,9 +294,9 @@ export default {
       this.confirmDelete &&
         this.$store
           .dispatch("admin/experience/deleteExperience", experience)
-          .then(_ =>
+          .then((_) =>
             this.$toasted.success("Experience was deleted successfully..", {
-              duration: 3000
+              duration: 3000,
             })
           );
     },
@@ -304,14 +304,14 @@ export default {
       return (
         experience.title ||
         experience.subtitle ||
-        "Experience without title or subtitle :("
+        "Experience without title or subtitle &#128530;"
       );
     },
     showTest() {
       this.$modal.show("hello-world");
     },
-    showConfirm() {}
-  }
+    showConfirm() {},
+  },
 };
 </script>
 

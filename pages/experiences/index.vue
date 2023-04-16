@@ -90,13 +90,13 @@ import { mapState } from "vuex";
 
 export default {
   head: {
-    title: `Experiences | Kathiravan K | Sr.UI Developer`
+    title: `Experiences | Kathiravan K | Sr.UI Developer`,
   },
   computed: {
     ...mapState({
-      publishedExperiences: state => state.experiences.items.all,
-      featuredExperiences: state => state.experiences.items.featured,
-      pagination: state => state.experiences.pagination
+      publishedExperiences: (state) => state.experiences.items.all,
+      featuredExperiences: (state) => state.experiences.items.featured,
+      pagination: (state) => state.experiences.pagination,
     }),
     currentPage: {
       get() {
@@ -106,12 +106,12 @@ export default {
       set(value) {
         // debugger
         this.$store.commit("experiences/setPage", value);
-      }
-    }
+      },
+    },
   },
   data() {
     return {
-      bottom: false
+      bottom: false,
       // publishedExperiences: []
     };
   },
@@ -133,7 +133,7 @@ export default {
 
     await store.dispatch("experiences/fetchExperiences", filter);
     await store.dispatch("experiences/fetchFeaturedExperiences", {
-      "filter[featured]": true
+      "filter[featured]": true,
     });
   },
   watch: {
@@ -141,7 +141,7 @@ export default {
       if (bottom) {
         this.fetchExperiences();
       }
-    }
+    },
   },
   created() {
     if (process.client) {
@@ -171,7 +171,7 @@ export default {
     async loadMoreTours($state) {
       await this.$axios
         .$get("/api/link")
-        .then(res => {
+        .then((res) => {
           this.list.push.apply(this.list, res);
           if (res.length > 0) {
             this.page++;
@@ -180,7 +180,7 @@ export default {
             $state.complete();
           }
         })
-        .catch(e => {
+        .catch((e) => {
           console.log(e);
         });
     },
@@ -188,7 +188,7 @@ export default {
       return (
         experience.title ||
         experience.subtitle ||
-        "Experience without title or subtitle :("
+        "Experience without title or subtitle &#128530;"
       );
     },
     setQueryPaginationParams() {
@@ -200,12 +200,12 @@ export default {
       filter.pageNum = this.pagination.pageNum;
       filter.pageSize = this.pagination.pageSize;
 
-      this.$store.dispatch("experiences/fetchExperiences", filter).then(_ => {
+      this.$store.dispatch("experiences/fetchExperiences", filter).then((_) => {
         return this.setQueryPaginationParams();
       });
       console.log("Pagination clicked..");
-    }
-  }
+    },
+  },
 };
 </script>
 <style scoped lang="scss">

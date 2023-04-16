@@ -87,22 +87,22 @@ export default {
   components: {
     Editor,
     Header,
-    Modal
+    Modal,
   },
   data() {
     return {
       publishError: "",
-      slug: ""
+      slug: "",
     };
   },
   computed: {
     ...mapState({
       experience: ({ admin }) => admin.experience.item,
-      isSaving: ({ admin }) => admin.experience.isSaving
+      isSaving: ({ admin }) => admin.experience.isSaving,
     }),
     editor() {
       return this.$refs.editor;
-    }
+    },
   },
   async fetch({ store, params }) {
     await store.dispatch("admin/experience/fetchExperienceById", params.id);
@@ -118,16 +118,16 @@ export default {
         this.$store
           .dispatch("admin/experience/updateExperience", {
             data: experienceData,
-            id: this.experience._id
+            id: this.experience._id,
           })
-          .then(_ =>
+          .then((_) =>
             this.$toasted.success("Experience is updated successfully..! :)", {
-              duration: 3000
+              duration: 3000,
             })
           )
-          .catch(err =>
-            this.$toasted.error("Cannot be update Experience.! :(", {
-              duration: 3000
+          .catch((err) =>
+            this.$toasted.error("Cannot be update Experience.! &#128530;", {
+              duration: 3000,
             })
           );
       }
@@ -143,14 +143,14 @@ export default {
       this.$store
         .dispatch("admin/experience/updateExperience", {
           data: experienceContent,
-          id: this.experience._id
+          id: this.experience._id,
         })
-        .then(_ => {
+        .then((_) => {
           this.$toasted.success(message, { duration: 3000 });
           closeModal();
           status === "published" && this.$router.push("/admin/experiences");
         })
-        .catch(err => this.$toasted.error(message, { duration: 3000 }));
+        .catch((err) => this.$toasted.error(message, { duration: 3000 }));
     },
     publishExperience({ closeModal }) {
       const experienceContent = this.editor.getContent();
@@ -159,18 +159,18 @@ export default {
       this.$store
         .dispatch("admin/experience/updateExperience", {
           data: experienceContent,
-          id: this.experience._id
+          id: this.experience._id,
         })
-        .then(_ => {
+        .then((_) => {
           this.$toasted.success("Experience has been published..! :)", {
-            duration: 3000
+            duration: 3000,
           });
           closeModal();
           this.$router.push("/admin/experiences");
         })
-        .catch(err =>
-          this.$toasted.error("Experience cannot be published..! :(", {
-            duration: 3000
+        .catch((err) =>
+          this.$toasted.error("Experience cannot be published..! &#128530;", {
+            duration: 3000,
           })
         );
     },
@@ -181,17 +181,17 @@ export default {
       this.$store
         .dispatch("admin/experience/updateExperience", {
           data: experienceContent,
-          id: this.experience._id
+          id: this.experience._id,
         })
-        .then(_ => {
+        .then((_) => {
           this.$toasted.success("Experience has been un-published..! :)", {
-            duration: 3000
+            duration: 3000,
           });
           closeModal();
         })
-        .catch(err =>
-          this.$toasted.error("Experience cannot be published..! :(", {
-            duration: 3000
+        .catch((err) =>
+          this.$toasted.error("Experience cannot be published..! &#128530;", {
+            duration: 3000,
           })
         );
     },
@@ -212,13 +212,13 @@ export default {
       return slugify(text, {
         replacement: "-",
         remove: null,
-        lower: true
+        lower: true,
       });
     },
     getCurrentUrl() {
       // process.client will return true if we are in browser environment
       return process.client && window.location.origin;
-    }
-  }
+    },
+  },
 };
 </script>
