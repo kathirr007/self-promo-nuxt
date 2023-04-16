@@ -6,11 +6,11 @@
       "use": "@nuxtjs/vercel-builder",
       "config": {
         "serverFiles": ["server/routes/index", "server/**"]
-      }
+      },
+      "outputDirectory": ".nuxt",
+      "installCommand": "npm install",
+      "developmentCommand": "npm run dev",
+      "buildCommand": "npm run build"
     }
-  ],
-  "outputDirectory": ".nuxt",
-  "installCommand": "npm install",
-  "developmentCommand": "npm run dev",
-  "buildCommand": "npm run build"
+  ]
 }
