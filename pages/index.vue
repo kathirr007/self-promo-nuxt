@@ -84,23 +84,23 @@ export default {
     heroSlider: () => import("~/components/shared/heroSlider"),
     projectCard: () => import("~/components/projectCard"),
     experienceCard: () => import("~/components/experienceCard"),
-    ProjectCardTooltip: () => import("~/components/ProjectCardTooltip")
+    ProjectCardTooltip: () => import("~/components/ProjectCardTooltip"),
   },
   computed: {
     ...mapState({
-      projects: state => state.project.items,
-      featuredExperiences: state => state.experiences.items.featured,
-      projectHero: state => state.heroes.projectHero || {},
-      projectHeros: state => state.heroes.projectHero || {}
-    })
+      projects: (state) => state.project.items,
+      featuredExperiences: (state) => state.experiences.items.featured,
+      projectHero: (state) => state.heroes.projectHero || {},
+      projectHeros: (state) => state.heroes.projectHero || {},
+    }),
   },
   async fetch({ store }) {
     // debugger
     await store.dispatch("project/fetchProjects");
     await store.dispatch("experiences/fetchFeaturedExperiences", {
-      "filter[featured]": true
+      "filter[featured]": true,
     });
-  }
+  },
 };
 </script>
 

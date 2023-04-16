@@ -66,7 +66,7 @@
       font-size: 1.7rem;
       font-weight: bold;
 
-      @media screen and(min-width:576px) {
+      @media screen and (min-width:576px) {
         font-size: 2rem;
       }
     }
@@ -76,7 +76,7 @@
       // font-weight: bold;
       color: rgba(0, 0, 0, 0.54);
 
-      @media screen and(min-width:576px) {
+      @media screen and (min-width:576px) {
         font-size: 1.5rem;
       }
     }
@@ -134,9 +134,9 @@
       }
     }
 
-    li > p,
-    li > ol,
-    li > ul {
+    li>p,
+    li>ol,
+    li>ul {
       margin: 0;
     }
 
@@ -176,7 +176,7 @@
         box-sizing: border-box;
         position: relative;
 
-        > * {
+        >* {
           margin-bottom: 0;
         }
       }
@@ -232,6 +232,7 @@
     }
 
     code {
+
       .hljs-comment,
       .hljs-quote {
         color: #999999;
