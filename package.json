@@ -6,7 +6,7 @@
   "private": true,
   "toDebug": "Add --inspect=7000 --inspect-brk before javascript file to debug node server functions",
   "engines": {
-    "node": "14.21.3"
+    "node": "14.21.0"
   },
   "scripts": {
     "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
