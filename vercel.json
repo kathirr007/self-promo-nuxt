@@ -1,15 +1,11 @@
 {
   "version": 2,
+  "buildCommand": "nuxt build",
+  "installCommand": "npm install",
   "builds": [
     {
       "src": "package.json",
-      "use": "@vercel/node",
-      "config": {
-        "outputDirectory": ".nuxt",
-        "installCommand": "/node16/bin/node /vercel/path1/node_modules/fibers/build && npm install",
-        "developmentCommand": "npm run dev",
-        "buildCommand": "npm run build"
-      }
+      "use": "@vercel/node"
     },
     {
       "src": "nuxt.config.js",

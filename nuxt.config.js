@@ -1,10 +1,10 @@
-const Sass = require("sass");
-const Fiber = require("fibers");
+// const Sass = require("sass");
+// const Fiber = require("fibers");
 
 module.exports = {
   server: {
     // port: 3100, // default 3000
-    port: process.env.PORT || 3600
+    port: process.env.PORT || 3600,
   },
   // mode: 'universal',
   /*
@@ -16,44 +16,46 @@ module.exports = {
    */
   head: {
     htmlAttrs: {
-      lang: "en"
+      lang: "en",
     },
     bodyAttrs: {
-      lang: "en"
+      lang: "en",
     },
     title: `Kathiravan K | Sr.UI Developer | Portfolio`,
     meta: [
       { charset: "utf-8" },
       {
         name: "google-site-verification",
-        content: "w4IPzZUmq92f1hdY9DpTVfDBF67pwaNGZpvNxGqmVHU"
+        content: "w4IPzZUmq92f1hdY9DpTVfDBF67pwaNGZpvNxGqmVHU",
       },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
       {
         hid: "description",
         name: "description",
-        content: process.env.npm_package_description || `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies. I'm an accomplished individual with a strong Front-End Web development background in Digital Marketing, HTML/HTML5, CSS/CSS3, SASS, LESS, Javascript, jQuery, JSON, Ajax, Node.js, Express.js, Gulp.js, Vue.js, Vuetify.js, Nuxt.js, MongoDB, Bootstrap, BootstrapVue, SPA, Firebase/Firestore, Git/Github, Continuous Integration (CI).
+        content:
+          process.env.npm_package_description ||
+          `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies. I'm an accomplished individual with a strong Front-End Web development background in Digital Marketing, HTML/HTML5, CSS/CSS3, SASS, LESS, Javascript, jQuery, JSON, Ajax, Node.js, Express.js, Gulp.js, Vue.js, Vuetify.js, Nuxt.js, MongoDB, Bootstrap, BootstrapVue, SPA, Firebase/Firestore, Git/Github, Continuous Integration (CI).
         Having expertise working knowledge on Adobe Photoshop CC and Dreamweaver CC.
         I strongly believe in the power of the Internet, and have an intense desire to learn how to improve the webs core functionality, and to also be involved in its future development.
-        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`
+        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`,
       },
       {
         hid: "og:title",
         name: "og:title",
-        content: "Kathiravan K | Sr.UI Developer"
+        content: "Kathiravan K | Sr.UI Developer",
       },
       { hid: "og:locale", name: "og:locale", content: "en_US" },
       {
         hid: "og:url",
         name: "og:url",
-        content: process.env.BASE_URL || "http://localhost:3600"
+        content: process.env.BASE_URL || "http://localhost:3600",
       },
       { hid: "og:type", name: "og:type", content: "website" },
       {
         hid: "og:image",
         name: "og:image",
         content:
-          "https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=889&q=80"
+          "https://images.unsplash.com/photo-1484417894907-623942c8ee29?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=889&q=80",
       },
       {
         hid: "og:description",
@@ -61,11 +63,11 @@ module.exports = {
         content: `My Name is Kathiravan K, and I'm an Sr.UI Developer with a strong working experience in web technologies. I'm an accomplished individual with a strong Front-End Web development background in Digital Marketing, HTML/HTML5, CSS/CSS3, SASS, LESS, Javascript, jQuery, JSON, Ajax, Node.js, Express.js, Gulp.js, Vue.js, Vuetify.js, Nuxt.js, MongoDB, Bootstrap, BootstrapVue, SPA, Firebase/Firestore, Git/Github, Continuous Integration (CI).
         Having expertise working knowledge on Adobe Photoshop CC and Dreamweaver CC.
         I strongly believe in the power of the Internet, and have an intense desire to learn how to improve the webs core functionality, and to also be involved in its future development.
-        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`
-      }
+        I have a good understand of programming, can come up with plenty of innovative ideas and possess good communication skills.`,
+      },
     ],
     link: [
-      { rel: "icon", type: "image/x-icon", href: "/kathir-favicon.ico" }
+      { rel: "icon", type: "image/x-icon", href: "/kathir-favicon.ico" },
       // { rel: 'stylesheet', type: 'text/css', href: 'https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css' }
       // { rel: 'stylesheet', type: 'text/css', href: 'https://unpkg.com/bulma-modal-fx/dist/css/modal-fx.min.css' }
       // { rel: "stylesheet", type: "text/css", href: "https://use.fontawesome.com/releases/v5.15.1/css/all.css"}
@@ -73,10 +75,10 @@ module.exports = {
     script: [
       {
         src: "https://kit.fontawesome.com/df4e4a88c4.js",
-        crossorigin: "anonymous"
-      }
+        crossorigin: "anonymous",
+      },
       // {src: 'https://unpkg.com/bulma-modal-fx/dist/js/modal-fx.min.js', crossorigin :'anonymous'}
-    ]
+    ],
   },
   /*
    ** Customize the progress-bar color
@@ -92,7 +94,7 @@ module.exports = {
     sass: [],
     scss: ["@assets/scss/variables.scss"],
     less: [],
-    stylus: []
+    stylus: [],
   },
   /*
    ** Plugins to load before mounting the App
@@ -110,7 +112,7 @@ module.exports = {
     { src: "~/plugins/infiniteloading", ssr: false },
     // {src: '~/plugins/vueModal', ssr:false},
     { src: "~/plugins/vueConfirm", ssr: false },
-    { src: "~/plugins/vuePictureSwipe", ssr: false }
+    { src: "~/plugins/vuePictureSwipe", ssr: false },
   ],
   /*
    ** Nuxt.js modules
@@ -120,7 +122,7 @@ module.exports = {
     "@nuxtjs/axios",
     "portal-vue/nuxt",
     "@nuxtjs/style-resources",
-    "@nuxtjs/auth"
+    "@nuxtjs/auth",
     // '@nuxtjs/vuetify',
     // 'nuxt-oauth',
   ],
@@ -144,18 +146,17 @@ module.exports = {
         // response_type: 'token',
         // token_type: 'Bearer',
         // redirect_uri: 'http://localhost:3600',
-        client_id:
-          process.env.GOOGLE_CLIENT_ID
+        client_id: process.env.GOOGLE_CLIENT_ID,
         // token_key: 'access_token',
         // state: 'UNIQUE_AND_NON_GUESSABLE'
-      }
+      },
     },
     redirect: {
       // login: '/',
       logout: "/login",
-      callback: "/callback"
+      callback: "/callback",
       // home: '/',
-    }
+    },
   },
   /* OAuth module configs */
   /*   oauth: {
@@ -178,7 +179,7 @@ module.exports = {
    ** See https://axios.nuxtjs.org/options
    */
   axios: {
-    baseURL: process.env.BASE_URL || "http://localhost:3600"
+    baseURL: process.env.BASE_URL || "http://localhost:3600",
   },
   /* server Middleware */
   serverMiddleware: ["~/server/routes/index"],
@@ -212,13 +213,13 @@ module.exports = {
     // extractCSS: {
     //   ignoreOrder: false
     // },
-    loaders: {
-      scss: {
-        implementation: Sass,
-        sassOptions: {
-          fiber: Fiber
-        }
-      }
-    }
-  }
+    // loaders: {
+    //   scss: {
+    //     implementation: Sass,
+    //     sassOptions: {
+    //       fiber: Fiber
+    //     }
+    //   }
+    // }
+  },
 };
