@@ -1,5 +1,5 @@
-// const Sass = require("sass");
-// const Fiber = require("fibers");
+const Sass = require("sass");
+const Fiber = require("fibers");
 
 module.exports = {
   server: {
@@ -213,13 +213,13 @@ module.exports = {
     // extractCSS: {
     //   ignoreOrder: false
     // },
-    // loaders: {
-    //   scss: {
-    //     implementation: Sass,
-    //     sassOptions: {
-    //       fiber: Fiber
-    //     }
-    //   }
-    // }
+    loaders: {
+      scss: {
+        implementation: Sass,
+        sassOptions: {
+          fiber: Fiber,
+        },
+      },
+    },
   },
 };
