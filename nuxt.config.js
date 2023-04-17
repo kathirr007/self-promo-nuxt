@@ -2,10 +2,6 @@
 // const Fiber = require("fibers");
 
 module.exports = {
-  rootUrl:
-    process.env.NODE_ENV === "production"
-      ? "https://kathirr007.vercel.app"
-      : "http://localhost:3600",
   server: {
     // port: 3100, // default 3000
     port: process.env.PORT || 3600,
