@@ -23,6 +23,8 @@
     "@nuxtjs/auth": "4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
+    "express": "^4.17.1",
+    "express-session": "^1.17.1",
     "nuxt": "^2.15.8",
     "nuxt-oauth": "2.9.0"
   },
@@ -39,8 +41,6 @@
     "cross-env": "^7.0.2",
     "date-fns": "^2.16.1",
     "esm": "^3.2.25",
-    "express": "^4.17.1",
-    "express-session": "^1.17.1",
     "highlight.js": "^10.0.3",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.9.14",
