@@ -30,6 +30,7 @@
     "body-parser": "^1.19.0",
     "connect-mongodb-session": "^2.3.1",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.2",
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "express-session": "^1.17.1",
@@ -47,7 +48,6 @@
   "devDependencies": {
     "bootstrap-vue": "^2.20.1",
     "bulma": "^0.9.1",
-    "cross-env": "^7.0.2",
     "date-fns": "^2.16.1",
     "highlight.js": "^10.0.3",
     "portal-vue": "^2.1.7",
