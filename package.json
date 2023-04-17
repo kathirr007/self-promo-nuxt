@@ -19,6 +19,10 @@
     }
   },
   "dependencies": {
+    "@nuxt/core": "^2.15.8",
+    "@nuxtjs/auth": "4.9.1",
+    "@nuxtjs/axios": "^5.10.3",
+    "@nuxtjs/style-resources": "^1.0.0",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
     "aws-sdk": "^2.804.0",
@@ -44,8 +48,6 @@
     "passport-local": "^1.0.0",
     "portal-vue": "^2.1.7",
     "request": "^2.88.2",
-    "sass": "1.62.0",
-    "sass-loader": "10.4.1",
     "slugify": "^1.4.0",
     "swiper": "5.x",
     "tiptap": "^1.30.0",
@@ -65,11 +67,8 @@
     "prosemirror-model": "^1.13.1"
   },
   "devDependencies": {
-    "@nuxt/core": "^2.15.8",
-    "@nuxtjs/auth": "4.9.1",
-    "@nuxtjs/axios": "^5.10.3",
-    "@nuxtjs/style-resources": "^1.0.0",
-    "@nuxtjs/vercel-builder": "0.24.0",
+    "sass": "1.62.0",
+    "sass-loader": "10.4.1",
     "nodemon": "2.0.22",
     "webpack-bundle-analyzer": "4.8.0"
   }
