@@ -70,7 +70,6 @@
     "prosemirror-model": "^1.13.1"
   },
   "devDependencies": {
-    "nanoid": "3",
     "nodemon": "2.0.22",
     "webpack-bundle-analyzer": "4.8.0"
   }
