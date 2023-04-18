@@ -113,6 +113,7 @@ module.exports = {
     // {src: '~/plugins/vueModal', ssr:false},
     { src: "~/plugins/vueConfirm", ssr: false },
     { src: "~/plugins/vuePictureSwipe", ssr: false },
+    { src: "~/plugins/vercel.js", ssr: false },
   ],
   /*
    ** Nuxt.js modules
