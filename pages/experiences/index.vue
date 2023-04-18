@@ -17,7 +17,11 @@
                 <div class="experience">
                   <div
                     @click="$router.push(`/experiences/${experience.slug}`)"
+                    @keypress.enter="
+                      $router.push(`/experiences/${experience.slug}`)
+                    "
                     class="experience-header clickable"
+                    tabindex="0"
                   >
                     <!-- <h4 class="title is-4">{{experience.title}}</h4> -->
                     <h2 class="title is-4">
@@ -226,9 +230,9 @@ export default {
   flex: 1 0 auto;
 }
 
-*:focus {
+/* *:focus {
   outline: none;
-}
+} */
 
 a {
   transition: all 0.35s;
