@@ -3,7 +3,7 @@
 > Self promo | Portfolio web application using Vue Fullstack (Vue.js, Nuxt.js, MongoDB, Node.js)
 
 
-To check live version please checkout **[here](https://kathirr007.herokuapp.com/)**
+To check live version please checkout **[here](https://kathirr007.vercel.app)**
 
 ## Build Setup
 
