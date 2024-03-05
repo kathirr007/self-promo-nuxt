@@ -14,7 +14,7 @@
 <script>
 export default {
   head: {
-    title: `CV | Kathiravan K | Sr.UI Developer`,
+    title: `CV | Kathiravan K | Sr.Fullstack Developer`,
   },
 };
 </script>

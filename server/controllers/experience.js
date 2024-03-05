@@ -104,7 +104,8 @@ exports.getUserExperiences = (req, res) => {
     }
 
     return res.json(userExperiences);
-  });
+  }).sort({"createdAt":-1});
+
 };
 
 exports.updateExperience = (req, res) => {
