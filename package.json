@@ -44,7 +44,8 @@
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
     "request": "^2.88.2",
-    "slugify": "^1.4.0"
+    "slugify": "^1.4.0",
+    "vue-click-outside": "^1.1.0"
   },
   "devDependencies": {
     "@vercel/analytics": "0.1.11",

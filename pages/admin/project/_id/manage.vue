@@ -83,7 +83,7 @@
                 <li>
                   <!-- display TechnologiesUsed -->
                   <a
-                    @click.prevent="navigateTo(1)"
+                    role="button" tabindex="0" @click.prevent="navigateTo(1)"
                     @keyup.enter.prevent="navigateTo(1)"
                     :class="activeComponentClass(1)"
                     >Target Technologies</a
@@ -92,7 +92,7 @@
                 <li>
                   <!-- display LandingPage -->
                   <a
-                    @click.prevent="navigateTo(2)"
+                    role="button" tabindex="0" @click.prevent="navigateTo(2)"
                     @keyup.enter.prevent="navigateTo(2)"
                     :class="activeComponentClass(2)"
                     >Project Landing Page</a
@@ -103,14 +103,14 @@
               <ul class="menu-list">
                 <!-- display Price -->
                 <!-- <li>
-                  <a @click.prevent="navigateTo(3)"  :class="activeComponentClass(3)">
+                  <a role="button" tabindex="0" @click.prevent="navigateTo(3)"  :class="activeComponentClass(3)">
                     Price
                   </a>
                 </li>-->
                 <!-- display Status -->
                 <li>
                   <a
-                    @click.prevent="navigateTo(4)"
+                    role="button" tabindex="0" @click.prevent="navigateTo(4)"
                     @keyup.enter.prevent="navigateTo(4)"
                     :class="activeComponentClass(4)"
                     >Status</a

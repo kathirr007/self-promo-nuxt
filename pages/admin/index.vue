@@ -1,22 +1,22 @@
 <template>
   <div class="admin-page">
-    <admin-header title="Choose your admin page" exitLink="/"></admin-header>
+    <admin-header title="Self Promo Admin" exitLink="/"></admin-header>
     <div class="centered">
       <div class="columns column p-lg is-centered is-multiline">
         <!-- Go to /admin/categories -->
-        <div class="box" @click="$router.push('/admin/categories')">
+        <div class="box" role="link" tabindex="0" aria-label="Categories" @keyup.enter="$router.push('/admin/categories')" @click="$router.push('/admin/categories')">
           <div>Categories</div>
         </div>
         <!-- Go to /admin/projects -->
-        <div class="box" @click="$router.push('/admin/projects')">
+        <div class="box" role="link" tabindex="0" aria-label="Projects" @keyup.enter="$router.push('/admin/projects')" @click="$router.push('/admin/projects')">
           <div>Projects</div>
         </div>
         <!-- Go to /admin/experiences -->
-        <div class="box" @click="$router.push('/admin/experiences')">
+        <div class="box" role="link" tabindex="0" aria-label="Experiences" @keyup.enter="$router.push('/admin/experiences')" @click="$router.push('/admin/experiences')">
           <div>Experiences</div>
         </div>
         <!-- Go to /admin/heroes -->
-        <div class="box" @click="$router.push('/admin/heroes')">
+        <div class="box" role="link" tabindex="0" aria-label="Heroes" @keyup.enter="$router.push('/admin/heroes')" @click="$router.push('/admin/heroes')">
           <div>Heroes</div>
         </div>
       </div>

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <admin-header title="Manage your Projects here">
+    <admin-header title="Manage Projects">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <nuxt-link to="/admin/project/create" class="button is-light"
@@ -28,7 +28,7 @@
             >
               <div class="tile is-parent is-12">
                 <!-- Navigate to project manage page -->
-                <div class="tile tile-overlay-container is-child box">
+                <div class="tile tile-overlay-container is-child box" v-click-outside="clearSelectedProject" :class="{'focused' : selectedProject && (selectedProject._id === project._id)}" tabindex="0" aria-label="overlay-container" @keyup.tab="handleTabKey($event, project)">
                   <div class="tile-overlay">
                     <nuxt-link
                       :to="`/admin/project/${project._id}/manage`"
@@ -40,6 +40,8 @@
                       @click="confirmDelete($event, 'project', project)"
                       @keyup.enter="confirmDelete($event, 'project', project)"
                       class="tile-overlay-text has-text-danger"
+                      role="button"
+                      tabindex="0"
                       >Delete Project</span
                     >
                   </div>
@@ -85,13 +87,24 @@
 <script>
 import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
+import ClickOutside from 'vue-click-outside'
+
 export default {
   // middleware: 'admin',
   layout: "admin",
   components: {
     adminHeader
   },
+  directives: {
+    ClickOutside
+  },
   mixins: [confirmDelete],
+
+  data() {
+    return {
+      selectedProject: null
+    }
+  },
   computed: {
     projects() {
       return this.$store.state.admin.project.items;
@@ -101,6 +114,14 @@ export default {
     await store.dispatch("admin/project/fetchadminProjects");
   },
   methods: {
+    clearSelectedProject() {
+      this.selectedProject = null;
+    },
+    handleTabKey(e, project) {
+      if(this.selectedProject === null || this.selectedProject?._id !== project._id) {
+        this.selectedProject = project
+      }
+    },
     projectStatusClass(status) {
       if (!status) return "";
       if (status === "published") return "is-success";
@@ -143,16 +164,20 @@ figure {
 .tile-overlay-container {
   position: relative;
 
-  &:hover {
+  &.focused, &:hover {
     box-shadow: none;
   }
 
-  &:hover > .tile-overlay {
+  &.focused, &:hover {
+    > .tile-overlay {
     background-color: rgba(255, 255, 255, 0.9);
+    }
   }
 
-  &:hover .tile-overlay-text {
-    visibility: visible;
+  &.focused, &:hover {
+    .tile-overlay-text {
+      visibility: visible;
+    }
   }
 
   .tile-overlay {

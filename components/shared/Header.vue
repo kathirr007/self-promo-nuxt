@@ -38,6 +38,8 @@
         v-if="user"
         class="button is-danger is-inverted is-outlined mr-4"
         @click.prevent="logout"
+        tabindex="0"
+        aria-label="logout"
         >Logout</a
       >
       <nuxt-link

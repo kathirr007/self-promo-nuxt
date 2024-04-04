@@ -1,6 +1,6 @@
 <template>
   <div>
-    <admin-header title="Manage your Categories here">
+    <admin-header title="Manage Categories">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <nuxt-link to="/admin/category/create" class="button is-light"
@@ -37,14 +37,20 @@
             <!-- Iterate Projects -->
             <!-- <div class="categories-list list is-hoverable"> -->
             <transition-group
-              tag="div"
+              tag="ul"
               name="slideDown"
+              role="list"
               class="categories-list list is-hoverable"
             >
-              <span
+              <li
                 class="list-item"
+                role="listitem"
+                tabindex="0"
+                v-click-outside="clearSelectedItem" :class="{'focused' : selectedItem && (selectedItem._id === category._id)}"
                 v-for="(category, i) in categories"
+                @keyup.tab="handleTabKey($event, category)"
                 :key="category._id"
+
               >
                 {{ i + 1 }}. {{ category.name }}
                 <span class="tags is-pulled-right">
@@ -52,16 +58,21 @@
                     class="tag is-info"
                     :to="`/admin/category/${category._id}`"
                     variant="info"
+                    role="button"
+                    tabindex="0"
                     >Update</nuxt-link
                   >
                   <!-- <span class="tag is-info">Update</span> -->
                   <span
                     class="tag is-danger"
+                    role="button"
+                    tabindex="0"
                     @click="confirmDelete($event, 'category', category)"
+                    @keyup.enter="confirmDelete($event, 'category', category)"
                     >Delete</span
                   >
                 </span>
-              </span>
+              </li>
             </transition-group>
             <!-- </div> -->
           </div>
@@ -74,12 +85,17 @@
 import projectCreateStep1 from "~/components/admin/projectCreateStep1";
 import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
+import ClickOutside from 'vue-click-outside'
+
 export default {
   // middleware: 'admin',
   layout: "admin",
   components: {
     adminHeader,
     projectCreateStep1
+  },
+  directives: {
+    ClickOutside
   },
   mixins: [confirmDelete],
   computed: {
@@ -97,10 +113,19 @@ export default {
       form: {
         title: ""
         // category: ''
-      }
+      },
+      selectedItem: null
     };
   },
   methods: {
+    clearSelectedItem() {
+      this.selectedItem = null;
+    },
+    handleTabKey(e, item) {
+      if(this.selectedItem === null || this.selectedItem?._id !== item._id) {
+        this.selectedItem = item
+      }
+    },
     mergeFormData({ data, isValid }) {
       // debugger
       this.form = { ...this.form, ...data };
@@ -217,7 +242,7 @@ export default {
       display: block;
       padding: 0.5em 1em;
 
-      .tag {
+      &:not(.focused) .tag {
         opacity: 0;
         transform: scale(1, 0);
         transform-origin: center bottom;
