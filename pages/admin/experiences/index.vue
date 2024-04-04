@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Header title="Manage your Experiences">
+    <Header title="Manage Experiences">
       <template #actionMenu>
         <div class="full-page-takeover-header-button">
           <nuxt-link to="/admin/experience/editor" class="button is-light"
@@ -17,9 +17,9 @@
     </Header>
     <div class="admin-experiences">
       <div class="container">
-        <div class="section">
+        <section class="section">
           <div class="header-block">
-            <h2 class="is-size-4-mobile">Your Experiences</h2>
+            <h2 class="is-size-4-mobile">Experiences</h2>
             <div class="title-menu">
               <button
                 @click="$router.push('/admin/experience/editor')"
@@ -32,13 +32,13 @@
             </div>
           </div>
           <div class="tabs">
-            <ul>
+            <ul role="tablist">
               <!-- set here activeTab -->
-              <li @click="activeTab = 0" @keyup.enter="activeTab = 0">
+              <li role="tab" tabindex="0" @click="activeTab = 0" @keyup.enter="activeTab = 0">
                 <a :class="{ 'is-active': activeTab === 0 }">Drafts</a>
               </li>
               <!-- set here activeTab -->
-              <li @click="activeTab = 1" @keyup.enter="activeTab = 1">
+              <li role="tab" tabindex="0" @click="activeTab = 1" @keyup.enter="activeTab = 1">
                 <a :class="{ 'is-active': activeTab === 1 }">Published</a>
               </li>
             </ul>
@@ -117,7 +117,7 @@
               </transition>
             </template>
           </div>
-        </div>
+        </section>
       </div>
     </div>
     <!-- <client-only>

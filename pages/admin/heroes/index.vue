@@ -1,16 +1,16 @@
 <template>
   <div class="admin-page">
-    <adminHeader title="Please select your hero image" exitLink="/">
+    <adminHeader title="Manage Hero Images" exitLink="/">
     </adminHeader>
     <div class="heroes-page">
       <div class="container">
-        <h1 class="title">Project Heroes</h1>
+        <h1 class="title">Project Heroe Images</h1>
         <portal-target
           v-for="hero in heroes"
           :key="hero._id"
           :name="`modal-view-${hero._id}`"
         />
-        <table class="heroes-table table is-responsive">
+        <table class="heroes-table table is-responsive" role="grid">
           <thead>
             <tr class="main-table-row">
               <th width="45%">Image</th>
@@ -24,7 +24,10 @@
               v-for="hero in heroes"
               :key="hero._id"
               @click="openModal(hero._id)"
+              @keyup.enter="openModal(hero._id)"
+              tabindex="0"
               class="table-row"
+              role="link"
               :class="[activeHero._id === hero._id ? 'isActive' : '']"
             >
               <td style="word-break: break-all">

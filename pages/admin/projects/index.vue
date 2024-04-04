@@ -19,7 +19,7 @@
       <div class="container">
         <div class="columns">
           <div class="column is-8 is-offset-2">
-            <h1 class="projects-page-title">Your Projects</h1>
+            <h1 class="projects-page-title">Projects</h1>
             <!-- Iterate Projects -->
             <div
               v-for="project in projects"
@@ -28,7 +28,7 @@
             >
               <div class="tile is-parent is-12">
                 <!-- Navigate to project manage page -->
-                <div class="tile tile-overlay-container is-child box" v-click-outside="clearSelectedProject" :class="{'focused' : selectedProject && (selectedProject._id === project._id)}" tabindex="0" aria-label="overlay-container" @keyup.tab="handleTabKey($event, project)">
+                <div class="tile tile-overlay-container is-child box" v-click-outside="clearSelectedProject" @keyup.esc="clearSelectedProject" :class="{'focused' : selectedProject && (selectedProject._id === project._id)}" tabindex="0" aria-label="overlay-container" @keyup.tab="handleTabKey($event, project)">
                   <div class="tile-overlay">
                     <nuxt-link
                       :to="`/admin/project/${project._id}/manage`"

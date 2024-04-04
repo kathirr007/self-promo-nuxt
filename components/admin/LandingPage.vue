@@ -110,11 +110,11 @@
                   <input @change="imagesAdd" class="file-input"  ref="imagesInput" multiple type="file" name="resume">
                 </label> -->
               </div>
-              <div v-if="uploadedFiles.length !== 0" class="notification is-danger is-light my-2">
+              <div v-if="uploadedFiles.length !== 0" class="notification is-danger is-light my-2" role="alert">
                 Note: Uploading new images will replace the existing images
               </div>
               <!-- Uploaded images -->
-              <div
+              <figure
                 v-if="uploadedFiles.length !== 0 && images.length === undefined"
                 class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2"
               >
@@ -122,6 +122,7 @@
                   class="img-wrap p-2"
                   v-for="(image, index) in uploadedFiles"
                   :key="index"
+                  tabindex="0"
                 >
                   <img
                     :src="image.location"
@@ -130,10 +131,13 @@
                   />
                   <i
                     @click="removeS3Image(index, 'images')"
+                    role="button"
+                    aria-label="remove-image"
                     class="delete-img fas fa-times-circle"
+                    tabindex="0"
                   ></i>
                 </div>
-              </div>
+              </figure>
               <!-- <div v-else-if="project.image != ''" class="uploaded-files is-justify-content-center is-flex is-flex-wrap-wrap p-2">
                             <div class="img-wrap p-2">
                                 <img :src="project.image" class="img-thumbnail single-image">
@@ -147,6 +151,7 @@
                   class="img-wrap p-2"
                   v-for="(prodImage, index) in image"
                   :key="index"
+                  tabindex="0"
                 >
                   <img
                     :src="prodImage"
@@ -154,6 +159,8 @@
                     :alt="`uploaded-file-${index + 1}`"
                   />
                   <i
+                    role="button"
+                    aria-label="remove-image"
                     @click="removeImage(index)"
                     class="delete-img fas fa-times-circle"
                   ></i>

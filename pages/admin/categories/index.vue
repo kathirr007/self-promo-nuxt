@@ -85,7 +85,8 @@
 import projectCreateStep1 from "~/components/admin/projectCreateStep1";
 import adminHeader from "~/components/shared/Header";
 import confirmDelete from "~/mixins/confirmDelete";
-import ClickOutside from 'vue-click-outside'
+import focusTab from "~/mixins/focusTab";
+// import ClickOutside from 'vue-click-outside'
 
 export default {
   // middleware: 'admin',
@@ -94,10 +95,10 @@ export default {
     adminHeader,
     projectCreateStep1
   },
-  directives: {
+  /* directives: {
     ClickOutside
-  },
-  mixins: [confirmDelete],
+  }, */
+  mixins: [confirmDelete, focusTab],
   computed: {
     categories() {
       return this.$store.state.admin.category.items;
@@ -114,18 +115,18 @@ export default {
         title: ""
         // category: ''
       },
-      selectedItem: null
+      // selectedItem: null
     };
   },
   methods: {
-    clearSelectedItem() {
+    /* clearSelectedItem() {
       this.selectedItem = null;
     },
     handleTabKey(e, item) {
       if(this.selectedItem === null || this.selectedItem?._id !== item._id) {
         this.selectedItem = item
       }
-    },
+    }, */
     mergeFormData({ data, isValid }) {
       // debugger
       this.form = { ...this.form, ...data };

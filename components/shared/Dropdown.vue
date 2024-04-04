@@ -1,10 +1,15 @@
 <template>
-  <div class="dropdown" :class="{ 'is-active': isActive }">
+  <div class="dropdown" :class="{ 'is-active': isActive }"  @keyup.esc="closeDropdown">
     <div class="dropdown-trigger">
       <div
         @click="isActive = !isActive"
+        @keyup.enter="isActive = !isActive"
+        @keyup.space="isActive = !isActive"
         aria-haspopup="true"
         aria-controls="dropdown-menu"
+        tabindex="0"
+        role="link"
+        aria-label="toggle-menu"
       >
         <span></span>
         <span class="icon is-small">
@@ -12,20 +17,22 @@
         </span>
       </div>
     </div>
-    <div class="dropdown-menu" id="dropdown-menu" role="menu">
-      <div class="dropdown-content">
+    <div class="dropdown-menu" id="dropdown-menu">
+      <div class="dropdown-content"  role="menu">
         <a
           role="menuitem"
+          tabindex="0"
           v-for="item in items"
           :key="item.name"
           @click.prevent="emitOption($event, item.command)"
+          @keyup.enter="emitOption($event, item.command)"
           class="dropdown-item"
         >
           {{ item.name }}
         </a>
       </div>
     </div>
-    <div v-if="isActive" class="outside" @click="closeDropdown"></div>
+    <div v-if="isActive" class="outside" @click="closeDropdown" @keyup.esc="closeDropdown"></div>
   </div>
 </template>
 <script>
