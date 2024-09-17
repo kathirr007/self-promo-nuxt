@@ -39,13 +39,14 @@ exports.createCategory = function (req, res) {
 
 exports.getCategories = function (req, res) {
   Category.find({})
-    .exec()
-    .then(categories => {
+    .exec((errors, categories) => {
+
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
       return res.json(categories);
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
-    })
+    });
 }
 
 exports.getCategoryById = (req, res) => {

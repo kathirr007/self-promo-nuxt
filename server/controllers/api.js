@@ -3,24 +3,29 @@ const passport = require('passport');
 
 exports.getPageData = function (req, res, next) {
   const data = {}
-  /* ProductHero.findOne()
-    .sort({ createdAt: -1 })
-    .populate('product')
-    .exec()
-    .then(productHero => {
+  /*   ProductHero.findOne()
+              .sort({createdAt: -1})
+              .populate('product')
+              .exec(function(errors, productHero) {
 
-    })
-    .catch(errors => res.status(422).send(errors)) */
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
+      data.productHero = productHero;
+      return res.json(data);
+    }) */
   ProductHero.find({})
     .sort({ createdAt: -1 })
     .populate('product')
-    .exec()
-    .then(heroes => {
+    .exec(function (errors, heroes) {
+
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
       data.productHero = heroes;
       return res.json(data);
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
     })
 };
 
@@ -28,11 +33,10 @@ exports.getProductHeroes = function (req, res, next) {
   ProductHero.find({})
     .populate('product')
     .sort({ createdAt: -1 })
-    .exec()
-    .then(heroes => {
+    .exec(function (errors, heroes) {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
       return res.json(heroes);
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
     })
 }

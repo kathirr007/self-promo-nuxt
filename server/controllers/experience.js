@@ -32,8 +32,11 @@ exports.getExperiences = (req, res) => {
     .populate("author -_id -password -products -email -role")
     .skip(skips)
     .limit(pageSize)
-    .exec()
-    .then(publishedExperiences => {
+    .exec(function (errors, publishedExperiences) {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
       Experience.countDocuments({ status: "published" }).then(count => {
         return res.json({
           experiences: publishedExperiences,
@@ -41,10 +44,7 @@ exports.getExperiences = (req, res) => {
           pageCount: Math.ceil(count / pageSize)
         });
       });
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
-    })
+    });
 };
 
 exports.getMediumExperiences = (req, res) => {
@@ -64,13 +64,13 @@ exports.getExperienceBySlug = (req, res) => {
 
   Experience.findOne({ slug })
     .populate("author -_id -password -products -email -role")
-    .exec()
-    .then(foundExperience => {
+    .exec(function (errors, foundExperience) {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
       return res.json(foundExperience);
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
-    })
+    });
 };
 
 exports.getExperienceById = (req, res) => {
@@ -78,13 +78,13 @@ exports.getExperienceById = (req, res) => {
 
   Experience.findOne({ _id: experienceId })
     .populate("author -_id -password -products -email -role")
-    .exec()
-    .then(foundExperience => {
+    .exec(function (errors, foundExperience) {
+      if (errors) {
+        return res.status(422).send(errors);
+      }
+
       return res.json(foundExperience);
-    })
-    .catch(errors => {
-      return res.status(422).send(errors);
-    })
+    });
   /* Experience.findById(experienceId, (errors, foundExperience) => {
     if (errors) {
       console.log(errors)
@@ -98,13 +98,13 @@ exports.getExperienceById = (req, res) => {
 exports.getUserExperiences = (req, res) => {
   const user = req.user;
 
-  Experience.find({ author: user.id }, function(errors, userExperiences) {
+  Experience.find({ author: user.id }, function (errors, userExperiences) {
     if (errors) {
       return res.status(422).send(errors);
     }
 
     return res.json(userExperiences);
-  }).sort({"createdAt":-1});
+  }).sort({ "createdAt": -1 });
 
 };
 
@@ -112,7 +112,7 @@ exports.updateExperience = (req, res) => {
   const experienceId = req.params.id;
   const experienceData = req.body;
 
-  Experience.findById(experienceId, function(errors, foundExperience) {
+  Experience.findById(experienceId, function (errors, foundExperience) {
     if (errors) {
       return res.status(422).send(errors);
     }
@@ -128,7 +128,7 @@ exports.updateExperience = (req, res) => {
 
     foundExperience.set(experienceData);
     foundExperience.updatedAt = new Date();
-    foundExperience.save(function(errors, foundExperience) {
+    foundExperience.save(function (errors, foundExperience) {
       if (errors) {
         return res.status(422).send(errors);
       }
@@ -144,7 +144,7 @@ exports.createExperience = (req, res) => {
   if (!lock.isBusy(lockId)) {
     lock.acquire(
       lockId,
-      function(done) {
+      function (done) {
         const experienceData = req.body;
         const experience = new Experience(experienceData);
         experience.author = req.user;
@@ -159,7 +159,7 @@ exports.createExperience = (req, res) => {
           return res.json(createdExperience);
         });
       },
-      function(errors, ret) {
+      function (errors, ret) {
         errors && console.error(errors);
       }
     );
@@ -171,7 +171,7 @@ exports.createExperience = (req, res) => {
 exports.deleteExperience = (req, res) => {
   const experienceId = req.params.id;
 
-  Experience.deleteOne({ _id: experienceId }, function(errors) {
+  Experience.deleteOne({ _id: experienceId }, function (errors) {
     if (errors) {
       return res.status(422).send(errors);
     }

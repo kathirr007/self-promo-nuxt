@@ -106,33 +106,35 @@ exports.resetPassword = function (req, res, next) {
 
   User.findOne({ email })
     .populate("author -_id -password -email -role")
-    .exec()
-    .then(user => {
-      compare(oldPassword, user.password, function (err, isMatch) {
-        if (err) {
-          return err;
-        } else {
-          if (isMatch) {
-            user.set({ password: newPassword });
-            user.save((err, savedUser) => {
-              if (err) {
-                return res.status(422).send(err);
-              }
-              return res.json({
-                status: "OK",
-                message: "Password has been reset successfully..."
-              });
-            });
+    .exec((errors, user) => {
+      if (errors) {
+        return res.status(422).send(errors);
+      } else {
+        compare(oldPassword, user.password, function (err, isMatch) {
+          if (err) {
+            return err;
           } else {
-            return res.json({
-              status: "NOk",
-              message: "Old Password doesn't match with provided Password..."
-            });
+            if (isMatch) {
+              user.set({ password: newPassword });
+              user.save((err, savedUser) => {
+                if (err) {
+                  return res.status(422).send(err);
+                }
+                return res.json({
+                  status: "OK",
+                  message: "Password has been reseted successfully..."
+                });
+              });
+            } else {
+              return res.json({
+                status: "NOk",
+                message: "Old Password doesn't match with provided Password..."
+              });
+            }
           }
-        }
-      });
-    })
-    .catch(errors => res.status(422).send(errors))
+        });
+      }
+    });
 };
 
 exports.logout = function (req, res) {
