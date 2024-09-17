@@ -12,5 +12,6 @@
         "serverFiles": ["server/routes/index", "server/**"]
       }
     }
-  ]
+  ],
+  "installCommand": "pnpm i --shamefully-hoist"
 }
