@@ -32,11 +32,8 @@ exports.getExperiences = (req, res) => {
     .populate("author -_id -password -products -email -role")
     .skip(skips)
     .limit(pageSize)
-    .exec(function(errors, publishedExperiences) {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
+    .exec()
+    .then(publishedExperiences => {
       Experience.countDocuments({ status: "published" }).then(count => {
         return res.json({
           experiences: publishedExperiences,
@@ -44,7 +41,10 @@ exports.getExperiences = (req, res) => {
           pageCount: Math.ceil(count / pageSize)
         });
       });
-    });
+    })
+    .catch(errors => {
+      return res.status(422).send(errors);
+    })
 };
 
 exports.getMediumExperiences = (req, res) => {
@@ -64,13 +64,13 @@ exports.getExperienceBySlug = (req, res) => {
 
   Experience.findOne({ slug })
     .populate("author -_id -password -products -email -role")
-    .exec(function(errors, foundExperience) {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
+    .exec()
+    .then(foundExperience => {
       return res.json(foundExperience);
-    });
+    })
+    .catch(errors => {
+      return res.status(422).send(errors);
+    })
 };
 
 exports.getExperienceById = (req, res) => {
@@ -78,13 +78,13 @@ exports.getExperienceById = (req, res) => {
 
   Experience.findOne({ _id: experienceId })
     .populate("author -_id -password -products -email -role")
-    .exec(function(errors, foundExperience) {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
+    .exec()
+    .then(foundExperience => {
       return res.json(foundExperience);
-    });
+    })
+    .catch(errors => {
+      return res.status(422).send(errors);
+    })
   /* Experience.findById(experienceId, (errors, foundExperience) => {
     if (errors) {
       console.log(errors)

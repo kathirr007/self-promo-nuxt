@@ -15,42 +15,42 @@ exports.createHero = function (req, res, next) {
   });
 };
 
-exports.getProductHeroes = function(req, res, next) {
+exports.getProductHeroes = function (req, res, next) {
 
   ProductHero.find({})
-            .populate('product')
-            .sort({createdAt: -1})
-            .exec(function(errors, heroes) {
-    if (errors) {
+    .populate('product')
+    .sort({ createdAt: -1 })
+    .exec()
+    .then(heroes => {
+      return res.json(heroes);
+    })
+    .catch(errors => {
       return res.status(422).send(errors);
-    }
-    // debugger
-    return res.json(heroes);
-  })
+    })
 }
 
-exports.updateProductHeroes = function(req, res, next) {
+exports.updateProductHeroes = function (req, res, next) {
   const id = req.params.id;
 
   ProductHero.findById(id)
-            .populate('product')
-            .exec(function(errors, hero) {
-    if (errors) {
-      return res.status(422).send(errors);
-    }
+    .populate('product')
+    .exec()
+    .then(hero => {
+      hero.set({ createdAt: new Date() })
+      hero.save((errors, updatedHero) => {
+        if (errors) {
+          return res.status(422).send(errors);
+        }
 
-    hero.set({createdAt: new Date()})
-    hero.save((errors, updatedHero) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
-      return res.json(updatedHero);
+        return res.json(updatedHero);
       })
     })
-  }
+    .catch(errors => {
+      return res.status(422).send(errors);
+    })
+}
 
-exports.deleteProductHero = async function(req, res, next) {
+exports.deleteProductHero = async function (req, res, next) {
   const heroId = req.params.id;
 
   try {

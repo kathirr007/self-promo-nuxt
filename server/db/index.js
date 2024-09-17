@@ -11,10 +11,11 @@ require("../models/category");
 require("../models/product-hero");
 require("../models/experience");
 
-mongoose.set("useFindAndModify", false);
+/* mongoose.set("useFindAndModify", false);
 mongoose.set("useNewUrlParser", true);
 mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
+mongoose.set("useUnifiedTopology", true); */
+mongoose.set("strictPopulate", false)
 
 exports.initSessionStore = function() {
   const store = new MongoDBStore({

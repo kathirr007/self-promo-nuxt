@@ -19,7 +19,7 @@ const Category = require('../models/category');
   }
 } */
 
-exports.createCategory = function(req, res) {
+exports.createCategory = function (req, res) {
   // const categoryData = req.body
   // console.log(categoryData)
   // const category = new Category(categoryData)
@@ -27,7 +27,7 @@ exports.createCategory = function(req, res) {
   category.name = req.body.name
 
   category.save((err, createdCategory) => {
-    if(err) {
+    if (err) {
       return res.json({
         success: false,
         message: err.message
@@ -37,16 +37,15 @@ exports.createCategory = function(req, res) {
   })
 }
 
-exports.getCategories = function(req, res) {
+exports.getCategories = function (req, res) {
   Category.find({})
-        .exec((errors, categories) => {
-
-    if (errors) {
+    .exec()
+    .then(categories => {
+      return res.json(categories);
+    })
+    .catch(errors => {
       return res.status(422).send(errors);
-    }
-
-    return res.json(categories);
-  });
+    })
 }
 
 exports.getCategoryById = (req, res) => {
@@ -54,11 +53,11 @@ exports.getCategoryById = (req, res) => {
 
   Category
     .findById(id, (errors, foundCategory) => {
-    if (errors) {
-      return res.status(422).send(errors);
-    }
+      if (errors) {
+        return res.status(422).send(errors);
+      }
 
-    return res.json(foundCategory);
+      return res.json(foundCategory);
     })
 }
 

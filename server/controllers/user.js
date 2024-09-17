@@ -2,7 +2,7 @@ const User = require("../models/user");
 const passport = require("passport");
 const { compare } = require("bcryptjs");
 
-exports.getCurrentUser = function(req, res, next) {
+exports.getCurrentUser = function (req, res, next) {
   const user = req.user;
 
   if (!user) {
@@ -12,7 +12,7 @@ exports.getCurrentUser = function(req, res, next) {
   return res.json(user);
 };
 
-exports.register = function(req, res) {
+exports.register = function (req, res) {
   const registerData = req.body;
 
   if (!registerData.email) {
@@ -53,7 +53,7 @@ exports.register = function(req, res) {
   });
 };
 
-exports.login = function(req, res, next) {
+exports.login = function (req, res, next) {
   const { email, password } = req.body;
   // console.log(req.body)
   // debugger;
@@ -82,7 +82,7 @@ exports.login = function(req, res, next) {
 
     if (passportUser) {
       // debugger;
-      req.login(passportUser, function(err) {
+      req.login(passportUser, function (err) {
         if (err) {
           next(err);
         }
@@ -99,45 +99,43 @@ exports.login = function(req, res, next) {
   })(req, res, next);
 };
 
-exports.resetPassword = function(req, res, next) {
+exports.resetPassword = function (req, res, next) {
   // debugger;
   const { email, oldPassword, newPassword } = req.body;
   // console.log(req.body)
 
   User.findOne({ email })
     .populate("author -_id -password -email -role")
-    .exec((errors, user) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      } else {
-        compare(oldPassword, user.password, function(err, isMatch) {
-          if (err) {
-            return err;
-          } else {
-            if (isMatch) {
-              user.set({ password: newPassword });
-              user.save((err, savedUser) => {
-                if (err) {
-                  return res.status(422).send(err);
-                }
-                return res.json({
-                  status: "OK",
-                  message: "Password has been reseted successfully..."
-                });
-              });
-            } else {
+    .exec()
+    .then(user => {
+      compare(oldPassword, user.password, function (err, isMatch) {
+        if (err) {
+          return err;
+        } else {
+          if (isMatch) {
+            user.set({ password: newPassword });
+            user.save((err, savedUser) => {
+              if (err) {
+                return res.status(422).send(err);
+              }
               return res.json({
-                status: "NOk",
-                message: "Old Password doesn't match with provided Password..."
+                status: "OK",
+                message: "Password has been reset successfully..."
               });
-            }
+            });
+          } else {
+            return res.json({
+              status: "NOk",
+              message: "Old Password doesn't match with provided Password..."
+            });
           }
-        });
-      }
-    });
+        }
+      });
+    })
+    .catch(errors => res.status(422).send(errors))
 };
 
-exports.logout = function(req, res) {
+exports.logout = function (req, res) {
   req.logout();
   return res.json({ status: "Session destroyed!" });
 };

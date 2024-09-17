@@ -2,33 +2,27 @@ const Product = require("../models/product");
 const slugify = require("slugify");
 const { deleteImage, deleteImages } = require("../controllers/upload-photo");
 
-exports.getProducts = function(req, res) {
+exports.getProducts = function (req, res) {
   Product.find({ status: "published" })
     .populate("author -_id -password -products -email -role")
     .populate("category")
     .sort({ updatedAt: -1 })
-    .exec((errors, products) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
-      return res.json(products);
-    });
+    .exec()
+    .then(products => {
+      return res.json(products)
+    })
+    .catch(errors => res.status(422).send(errors))
 };
 
-exports.getadminProducts = function(req, res) {
+exports.getadminProducts = function (req, res) {
   const userId = req.user.id;
 
   Product.find({ author: userId })
     .populate("author")
     .sort({ updatedAt: -1 })
-    .exec((errors, products) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
-      return res.json(products);
-    });
+    .exec()
+    .then(products => res.json(products))
+    .catch(errors => res.status(422).send(errors))
 };
 
 exports.getProductById = (req, res) => {
@@ -36,13 +30,9 @@ exports.getProductById = (req, res) => {
 
   Product.findById(id)
     .populate("category")
-    .exec((errors, product) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
-      return res.json(product);
-    });
+    .exec()
+    .then(product => res.json(product))
+    .catch(errors => res.status(422).send(errors))
 };
 
 exports.getProductBySlug = (req, res) => {
@@ -50,17 +40,13 @@ exports.getProductBySlug = (req, res) => {
 
   Product.findOne({ slug })
     .populate("author -_id -password -products -email -role")
-    .exec((errors, product) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
-      return res.json(product);
-    });
+    .exec()
+    .then(product => res.json(product))
+    .catch(errors => res.status(422).send(errors))
 };
 
 // Needs recheck
-exports.createProduct = function(req, res) {
+exports.createProduct = function (req, res) {
   const productData = req.body;
   const user = req.user;
   const product = new Product(productData);
@@ -80,16 +66,16 @@ exports.createProduct = function(req, res) {
   });
 };
 
-exports.updateProduct = function(req, res) {
+exports.updateProduct = function (req, res) {
   // debugger
   let images = req.files
     ? req.files.map(file => {
-        return {
-          location: file.location,
-          size: file.size,
-          originalname: file.originalname
-        };
-      })
+      return {
+        location: file.location,
+        size: file.size,
+        originalname: file.originalname
+      };
+    })
     : [];
   // let updateQuery = {
   //   title: req.body.title,
@@ -122,11 +108,8 @@ exports.updateProduct = function(req, res) {
 
   Product.findById(productId)
     .populate("category")
-    .exec((errors, product) => {
-      if (errors) {
-        return res.status(422).send(errors);
-      }
-
+    .exec()
+    .then(product => {
       // if (productData.status && productData.status === 'published' && !product.slug) {
       if (productData.status && productData.status === "published") {
         product.slug = slugify(product.title, {
@@ -144,10 +127,11 @@ exports.updateProduct = function(req, res) {
 
         return res.json(savedProduct);
       });
-    });
+    })
+    .catch(errors => res.status(422).send(errors))
 };
 
-exports.deleteProduct = async function(req, res) {
+exports.deleteProduct = async function (req, res) {
   const productId = req.params.id;
 
   try {
@@ -176,7 +160,7 @@ exports.deleteProduct = async function(req, res) {
   }
 };
 
-exports.deleteProductImage = async function(req, res) {
+exports.deleteProductImage = async function (req, res) {
   // const productImageId = req.params.id;
   // let key = this.uploadedFiles[index].location.split('/').pop()
   // debugger
