@@ -12,9 +12,11 @@ require("../models/product-hero");
 require("../models/experience");
 
 // mongoose.set("useFindAndModify", false);
-mongoose.set("useNewUrlParser", true);
-mongoose.set("useCreateIndex", true);
-mongoose.set("useUnifiedTopology", true);
+// mongoose.set("useNewUrlParser", true);
+// mongoose.set("useCreateIndex", true);
+// mongoose.set("useUnifiedTopology", true);
+mongoose.set('strictQuery', false)
+mongoose.set('strictPopulate', false)
 
 exports.initSessionStore = function() {
   const store = new MongoDBStore({
