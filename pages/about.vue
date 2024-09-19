@@ -17,13 +17,13 @@
       </p>
       <br />
       <p>
-        I have a Master's degree in Electronics and Communications Engineering
+        I have a Bachelor's degree in Electronics and Communications Engineering
         and several years of experience working on a wide range of technologies
         and projects for web applications in
-        <strong>HTML</strong>, <strong>CSS</strong>, <strong>HTML5</strong>,
-        <strong>CSS3</strong>, <strong>Javascript</strong>,
-        <strong>jQuery</strong>, <strong>Gulp.js</strong>,
-        <strong>Node.js</strong>, <strong>Vue.js</strong>,
+        <strong>HTML/HTML5</strong>, <strong>CSS/CSS3</strong>,
+        <strong>Javascript</strong>, <strong>jQuery</strong>,
+        <strong>Gulp.js</strong>, <strong>Node.js</strong>,
+        <strong>Vue.js</strong>, <strong>Vue Router</strong>, <strong>Vuex/Pinia</strong>, <strong>@Tanstack/Vue-Query</strong>,
         <strong>Nuxt.js</strong>, <strong>Vuetify.js</strong>,
         <strong>Bulma</strong>, <strong>Tailwind</strong>,
         <strong>Bootstrap</strong>, <strong>Bootstrap-Vue</strong>,
