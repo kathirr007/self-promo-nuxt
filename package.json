@@ -24,6 +24,7 @@
     "@nuxtjs/auth": "4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
+    "@nuxtjs/web-vitals": "^0.2.7",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
     "bcryptjs": "^2.4.3",
