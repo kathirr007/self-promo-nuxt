@@ -133,7 +133,12 @@ module.exports = {
     "portal-vue/nuxt",
     "@nuxtjs/style-resources",
     "@nuxtjs/auth",
+    "@nuxtjs/web-vitals"
   ],
+  webVitals: {
+    disabled: true  // Disables metrics collection entirely
+    // Or: provider: 'log' for console-only (no network sends)
+  },
   /* Auth module configurations */
   auth: {
     strategies: {
