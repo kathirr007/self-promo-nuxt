@@ -4,5 +4,5 @@ const app = require('../server/routes/index') // adjust path if needed
 
 module.exports = (req, res) => {
   // If your server/routes/index exports an express/nuxt handler:
-  return app(req, res)
+  return app.handler(req, res)
 }
