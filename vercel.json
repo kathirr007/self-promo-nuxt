@@ -5,5 +5,18 @@
       "VERCEL_ANALYTICS_ID": ""
     }
   },
+  "builds": [
+    {
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {
+        "serverFiles": ["server/routes/index", "server/**"]
+      }
+    }
+  ],
   "installCommand": "pnpm i --shamefully-hoist"
 }
