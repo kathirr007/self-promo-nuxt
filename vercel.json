@@ -5,13 +5,15 @@
       "VERCEL_ANALYTICS_ID": ""
     }
   },
-  "builds": [
+  "functions": {
+    "api/index.js": {
+      "includeFiles": "server/**"
+    }
+  },
+  "routes": [
     {
-      "src": "nuxt.config.js",
-      "use": "@nuxtjs/vercel-builder@latest",
-      "config": {
-        "serverFiles": ["server/routes/index", "server/**"]
-      }
+      "src": "/(.*)",
+      "dest": "/api/index.js"
     }
   ]
 }
