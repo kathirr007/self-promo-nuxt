@@ -190,6 +190,10 @@ module.exports = {
    ** Build configuration
    */
   build: {
+    transpile: [
+      '@nuxtjs/web-vitals',
+      'jiti'
+    ],
     /*
      ** You can extend webpack config here
      */
@@ -212,6 +216,14 @@ module.exports = {
       //   );
       // }
     },
+    // If you're using pnpm, you often need this for Nuxt 2
+    extend(config, ctx) {
+      config.module.rules.push({
+        test: /\.mjs$/,
+        include: /node_modules/,
+        type: 'javascript/auto'
+      })
+    }
     // extractCSS: {
     //   ignoreOrder: false
     // },

@@ -90,3 +90,4 @@ sw.*
 server/keys/dev.js
 
 .vercel
+.env*.local
