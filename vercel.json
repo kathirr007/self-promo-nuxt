@@ -1,5 +1,13 @@
 {
   "version": 2,
+  "build": {
+    "env": {
+      "VERCEL_ANALYTICS_ID": ""
+    }
+  },
+  "functions": {
+    "node_modules_compression": false
+  },
   "builds": [
     {
       "src": "package.json",
