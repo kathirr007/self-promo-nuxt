@@ -5,15 +5,19 @@
       "VERCEL_ANALYTICS_ID": ""
     }
   },
-  "functions": {
-    "api/index.js": {
-      "includeFiles": "server/**"
-    }
-  },
-  "routes": [
+  "builds": [
     {
-      "src": "/(.*)",
-      "dest": "/api/index.js"
+      "src": "package.json",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "nuxt.config.js",
+      "use": "@nuxtjs/vercel-builder",
+      "config": {
+        "serverFiles": ["server/routes/index", "server/**", "node_modules/esm/**"]
+      }
     }
-  ]
+  ],
+  "installCommand": "npm install",
+  "devCommand": "npm run dev"
 }

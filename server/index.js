@@ -30,8 +30,4 @@ async function start() {
     badge: true
   })
 }
-// start()
-
-module.exports = {
-  start
-}
+start()

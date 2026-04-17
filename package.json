@@ -11,21 +11,22 @@
     "analyze": "nuxt build -a",
     "start": "cross-env NODE_ENV=production node server/index.js",
     "generate": "nuxt generate",
-    "heroku-postbuild": "npm run build"
+    "heroku-postbuild": "npm run build",
+    "preinstall": "corepack enable && corepack prepare pnpm@9.15.9 --activate"
   },
   "eslintConfig": {
     "parserOptions": {
       "sourceType": "module"
     }
   },
-  "packageManager": "pnpm@10.0.0",
+  "packageManager": "pnpm@9.15.9",
   "dependencies": {
     "@aws-sdk/client-s3": "^3.651.1",
     "@nuxt/core": "^2.15.8",
     "@nuxtjs/auth": "4.9.1",
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
-    "@nuxtjs/web-vitals": "^0.2.7",
+    "@nuxtjs/vercel-builder": "^0.25.0",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
     "bcryptjs": "^2.4.3",
@@ -41,7 +42,7 @@
     "multer": "^1.4.2",
     "multer-s3": "^2.9.0",
     "node-fetch-native": "1.1.0",
-    "nuxt": "^2.15.8",
+    "nuxt": "^2.18.1",
     "nuxt-oauth": "2.9.0",
     "passport": "^0.4.1",
     "passport-local": "^1.0.0",
