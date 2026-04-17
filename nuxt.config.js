@@ -192,7 +192,8 @@ module.exports = {
   build: {
     transpile: [
       '@nuxtjs/web-vitals',
-      'jiti'
+      'jiti',
+      'node-fetch-native'
     ],
     /*
      ** You can extend webpack config here
