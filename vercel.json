@@ -10,5 +10,8 @@
     }
   ],
   "installCommand": "npm ci",
-  "devCommand": "npm run dev"
+  "devCommand": "npm run dev",
+  "env": {
+    "VERCEL_ANALYTICS_ID": ""
+  }
 }
