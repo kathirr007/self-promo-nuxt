@@ -6,7 +6,7 @@
     <iframe
       title="Kathiravan Resume"
       :style="{ width: '100%', height: '800px' }"
-      src="/Kathiravan+K+Resume_UI_Updated.pdf"
+      src="/Kathiravan_K_Resume_UI_Updated.pdf"
     ></iframe>
   </div>
 </template>
