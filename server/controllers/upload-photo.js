@@ -1,77 +1,141 @@
-// const aws = require('aws-sdk')
-
 const {
   S3,
+  PutObjectCommand,
+  DeleteObjectCommand,
+  DeleteObjectsCommand
 } = require('@aws-sdk/client-s3');
 
-const multer = require('multer')
-const multerS3 = require('multer-s3')
+const multer = require('multer');
 const keys = require('../keys');
 
-// JS SDK v3 does not support global configuration.
-// Codemod has attempted to pass values to each service client in this file.
-// You may need to update clients outside of this file, if they use global config.
-/* aws.config.update({
-    secretAccessKey: keys.AWSSecretKey,
-    accessKeyId: keys.AWSAccessKeyId,
-}) */
-
 const s3 = new S3({
+  region: process.env.AWSRegion || 'us-east-2',
   credentials: {
     secretAccessKey: keys.AWSSecretKey,
     accessKeyId: keys.AWSAccessKeyId,
+
   },
-})
-// debugger
+});
 
-/* var AWS = require('aws-sdk');
+// Custom Storage Engine for AWS SDK v3
+class S3Storage {
+  constructor(options) {
+    this.s3 = options.s3;
+    this.bucket = options.bucket;
+    this.acl = options.acl || 'public-read';
+    this.cacheControl = options.cacheControl || 'max-age=31536000';
+    this.getKey = options.key;
+    this.getMetadata = options.metadata;
+  }
 
-AWS.config.loadFromPath('./credentials-ehl.json');
+  _handleFile(req, file, cb) {
+    const chunks = [];
 
-var s3 = new AWS.S3();
-var params = {  Bucket: 'your bucket', Key: 'your object' };
- */
+    file.stream.on('data', (chunk) => {
+      chunks.push(chunk);
+    });
+
+    file.stream.on('end', () => {
+      const buffer = Buffer.concat(chunks);
+
+      this.getKey(req, file, (err, key) => {
+        if (err) return cb(err);
+
+        const params = {
+          Bucket: this.bucket,
+          Key: key,
+          Body: buffer,
+          ACL: this.acl,
+          ContentType: file.mimetype,
+          CacheControl: this.cacheControl,
+        };
+
+        this.getMetadata(req, file, (err, metadata) => {
+          if (err) return cb(err);
+          if (metadata) {
+            params.Metadata = metadata;
+          }
+
+          // AWS SDK v3 uses Promises
+          this.s3.send(new PutObjectCommand(params))
+            .then((data) => {
+              cb(null, {
+                size: buffer.length,
+                location: `https://${this.bucket}.s3.amazonaws.com/${key}`,
+                key: key,
+                bucket: this.bucket,
+                contentType: file.mimetype,
+                originalname: file.originalname,
+              });
+            })
+            .catch((err) => cb(err));
+        });
+      });
+    });
+
+    file.stream.on('error', (err) => {
+      cb(err);
+    });
+  }
+
+  _removeFile(req, file, cb) {
+    const params = {
+      Bucket: this.bucket,
+      Key: file.key,
+    };
+
+    // AWS SDK v3 uses Command pattern with Promises
+    this.s3.send(new DeleteObjectCommand(params))
+      .then(() => cb(null))
+      .catch((err) => cb(err));
+  }
+}
+
 const deleteImage = ((params) => {
-  // debugger
-  s3.deleteObject(params, function(err, data) {
-    if (err) console.log(err, err.stack);  // error
-    else     console.log('Image deleted...');                 // deleted
-  });
+  s3.send(new DeleteObjectCommand(params))
+    .then(() => console.log('Image deleted...'))
+    .catch((err) => console.log(err, err.stack));
 })
 
 const deleteImages = (() => {
-  // debugger
   return (req, res, next) => {
-    const objects = req.headers.uploadedfiles !== 'undefined' ? JSON.parse(req.headers.uploadedfiles).map(key => ({ Key: key.location.split('/').splice(3).join('/') })) : [];
-    // const newLocation = req.headers.storagelocationnew === 'null' ? false : req.headers.storagelocationnew !== req.headers.storagelocation ? true : false
-    if(objects.length !== 0 && req.headers.deletefiles !== 'false') {
-      s3.deleteObjects({Bucket: 'kathirr007-portfolio', Delete: { Objects: objects, Quiet: true }}, function(err, data) {
-        if (err && err !== null) {
-          console.log(err); // error
-        } else {
-          console.log('Images deleted...'); // deleted
-        }
-      });
-      next()
-    } else {
-      next()
+    try {
+      const uploadedFiles = req.headers.uploadedfiles;
+      const objects = uploadedFiles && uploadedFiles !== 'undefined'
+        ? JSON.parse(uploadedFiles).map(item => ({ Key: item.location.split('/').slice(3).join('/') }))
+        : [];
+
+      if(objects.length !== 0 && req.headers.deletefiles !== 'false') {
+        s3.send(new DeleteObjectsCommand({
+          Bucket: 'kathirr007-portfolio',
+          Delete: { Objects: objects, Quiet: true }
+        }))
+          .then(() => console.log('Images deleted...'))
+          .catch((err) => console.log(err));
+      }
+    } catch (e) {
+      console.error("Error parsing headers for deletion", e);
+    } finally {
+      next();
     }
   }
 })
 
-// debugger
+const createS3Storage = (options) => {
+  return new S3Storage(options);
+};
+
+
 const upload = multer({
-    storage: multerS3({
+    storage: createS3Storage({
         s3: s3,
         bucket: 'kathirr007-portfolio',
         acl: 'public-read',
-        contentType: multerS3.AUTO_CONTENT_TYPE,
         cacheControl: 'max-age=31536000',
         metadata: (req, file, cb) => {
             cb(null, { fieldName: file.fieldname })
         },
         key: (req, file, cb) => {
-            // let temp = JSON.parse(req.body)
             if(req.headers.storagelocationnew !== 'null') {
               cb(null, `${req.headers.storagelocationnew}/${Date.now().toString()}`)
             } else {
@@ -82,11 +146,10 @@ const upload = multer({
 })
 
 const multiUpload = multer({
-    storage: multerS3({
+    storage: createS3Storage({
         s3: s3,
         bucket: 'kathirr007-portfolio',
         acl: 'public-read',
-        contentType: multerS3.AUTO_CONTENT_TYPE,
         cacheControl: 'max-age=31536000',
         metadata: (req, file, cb) => {
             cb(null, {fieldName: file.fieldname})

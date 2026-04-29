@@ -96,7 +96,7 @@ export default {
   methods: {
     openModal(modalId) {
       const modal = this.$refs[`modal-${modalId}`][0];
-      // debugger
+
       modal.openModal();
     },
     activateHero({ closeModal }, heroId) {
@@ -109,7 +109,7 @@ export default {
     },
     deleteHero({ closeModal }, heroId) {
       this.$store.dispatch("admin/deleteHero", heroId).then(_ => {
-        // debugger
+
         this.$toasted.success("Hero was successfully deleted..!", {
           duration: 3000
         });

@@ -11,9 +11,9 @@ export const state = () => ({
 
 export const actions = {
   fetchProjects({ commit }) {
-    // debugger
+
     return this.$axios.$get("/api/v1/products").then(projects => {
-      // debugger
+
       commit(
         "setItems",
         { resource: "project", items: projects },
@@ -26,7 +26,7 @@ export const actions = {
     return this.$axios
       .$get(`/api/v1/products/s/${projectSlug}`)
       .then(project => {
-        // debugger
+
         commit("setProject", project);
         return state.item;
       });

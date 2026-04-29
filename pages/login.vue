@@ -94,13 +94,13 @@
 
 <script>
 /* function onSignIn(googleUser) {
-    debugger
+
     var profile = googleUser.getBasicProfile();
     console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
     console.log('Name: ' + profile.getName());
     console.log('Image URL: ' + profile.getImageUrl());
     console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
-    debugger
+
     signOut()
   }
 
@@ -162,11 +162,11 @@ export default {
       this.$v.form.$touch();
 
       if (this.isFormValid) {
-        // debugger;
+
         this.$store
           .dispatch("authentication/login", this.form)
           .then((user) => {
-            // debugger;
+
             this.$router.push("/");
             this.$toasted.success(
               `Welcome Back <strong class="has-text-white ml-2">${user.name}</stron>...!`,
@@ -181,11 +181,11 @@ export default {
       }
     },
     async signInWithGoogle() {
-      // debugger
+
       await this.$auth
         .loginWith("google")
         .then(() => {
-          // debugger
+
           this.$toasted.success("Logged In!", { duration: 5000 });
         })
         .catch((e) => {
@@ -196,13 +196,13 @@ export default {
       this.$auth.logout("google").then((_) => this.$router.push("/login"));
     },
     onSignIn(googleUser) {
-      // debugger
+
       var profile = googleUser.getBasicProfile();
       /* console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
         console.log('Name: ' + profile.getName());
         console.log('Image URL: ' + profile.getImageUrl());
         console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present. */
-      // debugger
+
       // signOut()
     },
     signOut() {

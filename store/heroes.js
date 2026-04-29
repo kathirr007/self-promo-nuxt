@@ -16,7 +16,7 @@ export const actions = {
     return this.$axios
       .$get("/api/v1")
       .then(data => {
-        // debugger
+
         const { productHero } = data;
         commit("setHero", productHero);
         return state.projectHero;

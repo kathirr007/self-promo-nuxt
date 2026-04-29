@@ -21,40 +21,40 @@ export const getters = {
 
 export const actions = {
   login({ commit }, loginData) {
-    // debugger;
+
     return this.$axios
       .$post("/api/v1/users/login", loginData)
       .then(user => {
-        // debugger;
+
         commit("setAuthUser", user);
         return user;
       })
       .catch(error => Promise.reject(error));
   },
   resetPassword({ commit }, resetData) {
-    // debugger;
+
     return this.$axios
       .$post("/api/v1/users/resetPassword", resetData)
       .then(res => {
-        // debugger;
+
         // commit("setAuthUser", user);
         return res;
       })
       .catch(error => Promise.reject(error));
   },
   logout({ commit }) {
-    // debugger
+
     return this.$axios
       .$post("/api/v1/users/logout")
       .then(() => {
-        // debugger
+
         commit("setAuthUser", null);
         return true;
       })
       .catch(error => Promise.reject(error));
   },
   register(_, registerData) {
-    // debugger
+
     return this.$axios
       .$post("/api/v1/users/register", registerData)
       .then(user => {

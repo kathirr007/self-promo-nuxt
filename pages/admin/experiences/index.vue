@@ -245,7 +245,7 @@ export default {
           if (confirm == true) {
             // ... do some thing
             console.log("Dispatching delete...");
-            // debugger
+
             self.$store
               .dispatch("admin/experience/deleteExperience", experience)
               .then((_) =>
@@ -268,7 +268,7 @@ export default {
               title: 'C💩NCEL',
               handler: (props) => {
                 // console.log(this.$refs.confirmDialog)
-                // debugger
+
                 this.$modal.hide('dialog')
                 // this.beforeClose()
                 // this.$refs.dropDown[i].closeDropdown()
@@ -290,7 +290,7 @@ export default {
     },
     deleteExperience(experience) {
       console.log("Dispatching delete...");
-      // debugger
+
       this.confirmDelete &&
         this.$store
           .dispatch("admin/experience/deleteExperience", experience)

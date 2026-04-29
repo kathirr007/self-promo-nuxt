@@ -273,11 +273,11 @@ export default {
       }
     },
     async signInWithGoogle() {
-      // debugger
+
       await this.$auth
         .loginWith("google")
         .then(() => {
-          // debugger
+
           this.$toasted.success("Logged In!", { duration: 5000 });
         })
         .catch(e => {

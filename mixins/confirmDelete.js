@@ -14,7 +14,7 @@ export default {
         e.preventDefault();
         e.stopImmediatePropagation();
       }
-      // debugger
+
       let self = this;
       self.$vueConfirm.confirm(
         {
@@ -32,7 +32,7 @@ export default {
           if (confirm == true) {
             // ... do some thing
             console.log("Dispatching delete...");
-            // debugger
+
             self.$store
               .dispatch(`admin/${type}/delete${self.capitalize(type)}`, arg1)
               .then(_ =>

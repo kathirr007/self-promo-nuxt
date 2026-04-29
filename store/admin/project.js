@@ -56,7 +56,7 @@ export const actions = {
       typeof project.images[0]["location"] == "undefined"
     ) {
       for (let i = 0; i < project.images.length; i++) {
-        // debugger
+
         data.append("images", project.images[i]);
         uploadedFiles = JSON.stringify(project.uploadedFiles);
         deleteFiles = true;
@@ -84,7 +84,7 @@ export const actions = {
 
     // project.data = data
 
-    // debugger
+
     const headers = {
       storagelocation: project.storageLocation,
       storagelocationnew: project.storageLocationNew,
@@ -102,9 +102,9 @@ export const actions = {
   },
   deleteProjectImage({ commit, state }, params) {
     // const resource = project.status === 'active' ? 'drafts' : 'published'
-    // debugger
+
     return this.$axios
-      .$delete(`/api/v1/products/ProdImage/${params.key}`, {
+      .$delete(`/api/v1/products/ProdImage/${params.key}?productId=${state.item._id}`, {
         headers: { storagelocation: params.s3Key }
       })
       .then(_ => {
@@ -114,9 +114,25 @@ export const actions = {
       })
       .catch(err => Promise.reject(err));
   },
+  deleteProjectImageWithUpdate({ commit, state, dispatch }, params) {
+    // First, remove the image from the Vuex store
+
+    commit("removeProjectImage", { field: params.field, index: params.index });
+
+    // Then delete from S3 and update the database
+    return this.$axios
+      .$delete(`/api/v1/products/ProdImage/${params.key}?productId=${state.item._id}`, {
+        headers: { storagelocation: params.s3Key }
+      })
+      .then(_ => {
+        commit("setCanUpdateProject", true);
+        return true;
+      })
+      .catch(err => Promise.reject(err));
+  },
   deleteProject({ commit, state }, project) {
     // const resource = project.status === 'active' ? 'drafts' : 'published'
-    // debugger
+
     const uploadedFiles = JSON.stringify(project.images);
     const headers = {
       storagelocation: project.storageLocation,
@@ -141,7 +157,7 @@ export const actions = {
     commit("setProjectValue", { value, field });
     if (field === "title") {
       if (value && value.length >= 10) {
-        // debugger
+
         commit("setCanUpdateProject", true);
       } else {
         commit("setCanUpdateProject", false);
@@ -157,7 +173,7 @@ export const actions = {
     } */
   },
   updateUploadedFiles({ commit }, value) {
-    // debugger
+
     commit("setUploadedFiles", value);
   },
   updateCanUpdate({ commit }) {
@@ -182,7 +198,7 @@ export const mutations = {
     state.item[field].splice(index, 1);
   },
   removeProjectImage(state, { field, index }) {
-    // debugger
+
     state.item[field].splice(index, 1);
   },
   setLineValue(state, { index, value, field }) {
@@ -190,7 +206,7 @@ export const mutations = {
   },
   setProjectValue(state, { value, field }) {
     if (field === "title") {
-      // debugger
+
       let storageLocationNew = `projects/${slugify(value, {
         replacement: "-", // replace spaces with replacement
         remove: null, // regex to remove characters
@@ -204,7 +220,7 @@ export const mutations = {
     state.item[field] = value;
   },
   setUploadedFiles(state, value) {
-    // debugger
+
     state.item["uploadedFiles"] = value;
   },
   deleteProject(state, { projectIndex }) {

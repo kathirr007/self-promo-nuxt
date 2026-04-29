@@ -95,7 +95,7 @@ export default {
     }),
   },
   async fetch({ store }) {
-    // debugger
+
     await store.dispatch("project/fetchProjects");
     await store.dispatch("experiences/fetchFeaturedExperiences", {
       "filter[featured]": true,

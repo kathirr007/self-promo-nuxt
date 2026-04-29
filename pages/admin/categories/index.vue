@@ -128,20 +128,20 @@ export default {
       }
     }, */
     mergeFormData({ data, isValid }) {
-      // debugger
+
       this.form = { ...this.form, ...data };
       this.canProceed = isValid;
     },
 
     createCategory() {
       // console.log(this.form)
-      // debugger
+
       this.$store
         .dispatch("admin/category/createCategory2", {
           name: this.form.title
         })
         .then(category => {
-          // debugger
+
           this.$toasted.success(
             `The category <strong style="margin: 0 10px; display: inline-block;"> ${this.form.title} </strong> has been created successfully..`,
             { duration: 3500 }

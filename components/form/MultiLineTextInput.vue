@@ -78,7 +78,7 @@ export default {
   },
   methods: {
     emitAdd() {
-      // debugger;
+
       console.log("emit Add..");
       if (this.canAddLine || this.lines.length === 0) {
         this.$emit("addClicked");

@@ -109,11 +109,11 @@ export default {
   },
   methods: {
     emitFormData() {
-      // debugger
+
       this.$emit("stepUpdated", { data: this.form, isValid: this.isValid });
     },
     emitFormData2() {
-      // debugger
+
       this.$emit("fromCategories", { data: this.form, isValid: this.isValid });
       this.$v.$reset();
       this.form.title = "";

@@ -40,7 +40,7 @@ export default {
   },
   methods: {
     addLine(field) {
-      // debugger;
+
       console.log("Adding line for: ", field);
       this.$store.commit("admin/project/addLine", field);
       this.$nextTick(() =>

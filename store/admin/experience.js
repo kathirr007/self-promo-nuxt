@@ -76,7 +76,7 @@ export const actions = {
   },
   deleteExperience({ commit, state }, experience) {
     const resource = experience.status === "active" ? "drafts" : "published";
-    // debugger
+
     return this.$axios
       .$delete(`/api/v1/experiences/${experience._id}`)
       .then(_ => {

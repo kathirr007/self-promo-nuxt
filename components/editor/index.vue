@@ -145,7 +145,7 @@ export default {
   },
   methods: {
     onEditorInput(editor) {
-      // debugger;
+
       let editorContent = this.$refs.editor.value,
         field = "description";
       // console.log("editor blur!", editor);

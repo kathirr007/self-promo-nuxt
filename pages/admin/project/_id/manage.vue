@@ -186,6 +186,7 @@ export default {
   },
   methods: {
     handleProjectImageUpdate({ index, field, formValid }) {
+
       this.isFormValid = formValid;
       this.$store.dispatch("admin/project/updateProjectImage", {
         index,
@@ -202,7 +203,7 @@ export default {
       });
     },
     handleProjectUpdate({ value, field, formValid }) {
-      // debugger;
+
       // this.isFormValid = formValid
       this.$store.dispatch("admin/project/updateProjectValue", {
         field,
@@ -225,7 +226,7 @@ export default {
         });
     },
     createProjectHero({ closeModal }) {
-      // debugger
+
       const heroData = { ...this.projectHero };
       heroData.product = { ...this.project };
       this.$store.dispatch("heroes/createHero", heroData).then(() => {

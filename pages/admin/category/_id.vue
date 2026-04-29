@@ -104,13 +104,13 @@ export default {
 
   methods: {
     mergeFormData({ data, isValid }) {
-      // debugger
+
       this.form = { ...this.form, ...data };
       this.canProceed = isValid;
     },
     updateCategory() {
       // console.log(this.form)
-      // debugger
+
       this.$store
         .dispatch("admin/category/updateCategory", this.category)
         .then((_) =>

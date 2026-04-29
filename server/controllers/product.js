@@ -67,7 +67,7 @@ exports.createProduct = function (req, res) {
 };
 
 exports.updateProduct = function (req, res) {
-  // debugger
+
   let images = req.files
     ? req.files.map(file => {
       return {
@@ -161,16 +161,32 @@ exports.deleteProduct = async function (req, res) {
 };
 
 exports.deleteProductImage = async function (req, res) {
-  // const productImageId = req.params.id;
-  // let key = this.uploadedFiles[index].location.split('/').pop()
-  // debugger
+  const productId = req.query.productId || req.body.productId;
+  const imageKey = req.params.id;
+  const s3Key = req.headers.storagelocation;
+
   let params = {
     Bucket: "kathirr007-portfolio",
-    Key: `${req.headers.storagelocation}`
+    Key: s3Key
   };
 
   try {
-    let deletedProductImage = await deleteImage(params);
+    // First, delete the image from S3
+    await deleteImage(params);
+
+    // Then, update the product in the database to remove this image from the images array
+    if (productId) {
+      await Product.findByIdAndUpdate(
+        productId,
+        {
+          $pull: {
+            images: { location: { $regex: imageKey } }
+          }
+        },
+        { new: true }
+      );
+    }
+
     return res.json({
       status: true,
       message: "The Product Image has been deleted Successfully..."

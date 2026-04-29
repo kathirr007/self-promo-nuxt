@@ -56,7 +56,7 @@ exports.register = function (req, res) {
 exports.login = function (req, res, next) {
   const { email, password } = req.body;
   // console.log(req.body)
-  // debugger;
+
   if (!email) {
     return res.status(422).json({
       errors: {
@@ -81,12 +81,12 @@ exports.login = function (req, res, next) {
     }
 
     if (passportUser) {
-      // debugger;
+
       req.login(passportUser, function (err) {
         if (err) {
           next(err);
         }
-        // debugger;
+
         return res.json(passportUser);
       });
     } else {
@@ -100,7 +100,7 @@ exports.login = function (req, res, next) {
 };
 
 exports.resetPassword = function (req, res, next) {
-  // debugger;
+
   const { email, oldPassword, newPassword } = req.body;
   // console.log(req.body)
 

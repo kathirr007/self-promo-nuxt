@@ -55,7 +55,7 @@ export default {
     })
   },
   async fetch({ store }) {
-    // debugger
+
     await store.dispatch("project/fetchProjects");
   }
 };

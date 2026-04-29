@@ -104,11 +104,11 @@ export default {
     }),
     currentPage: {
       get() {
-        // debugger
+
         return this.$store.state.experiences.pagination.pageNum;
       },
       set(value) {
-        // debugger
+
         this.$store.commit("experiences/setPage", value);
       },
     },

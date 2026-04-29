@@ -6,7 +6,7 @@ export const state = () => ({
 
 export const actions = {
   fetchadminCategories({ commit }) {
-    // debugger
+
     return this.$axios
       .$get("/api/v1/categories")
       .then(categories => {
@@ -25,13 +25,13 @@ export const actions = {
       .catch(error => Promise.reject(error));
   },
   createCategory(_, categoryData) {
-    // debugger
+
     return this.$axios
       .$post("/api/v1/categories/", categoryData)
       .then(category => this.$router.push("/admin/categories"));
   },
   createCategory2({ commit, state }, categoryData) {
-    // debugger
+
     return this.$axios
       .$post("/api/v1/categories/", categoryData)
       .then(category => {
@@ -40,12 +40,12 @@ export const actions = {
       });
   },
   updateCategory({ commit, state }, category) {
-    // debugger
+
     // const category = state.item
     return this.$axios
       .$patch(`/api/v1/categories/${category._id}`, category)
       .then(category => {
-        // debugger
+
         const categoryIndex = state.items.findIndex(
           b => b._id === category._id
         );
@@ -55,7 +55,7 @@ export const actions = {
       .catch(err => Promise.reject(err));
   },
   deleteCategory({ commit, state }, category) {
-    // debugger
+
     // const category = state.item
     return this.$axios
       .$delete(`/api/v1/categories/${category._id}`, category)
@@ -75,11 +75,11 @@ export const mutations = {
     state.items = categories;
   },
   pushCategory(state, category) {
-    // debugger
+
     state.items.push(category);
   },
   setCategory(state, { category, categoryIndex }) {
-    // debugger
+
     state.item = category;
     state.items[categoryIndex] = category;
   },

@@ -12,7 +12,7 @@ export default {
       if (this.product) {
         this.product.photo = "";
       }
-      // debugger
+
       var files = e.target.files || e.dataTransfer.files;
 
       this.images = [];
@@ -44,12 +44,12 @@ export default {
       } else if (this.$refs.prodImagesInput) {
 
       } */
-      // debugger
+
       // let files = this.images.length > 0 && this.images !== undefined ? this.images : [];
       this.$refs.imagesInput.setFiles(this.images);
 
       if (!this.image.length) {
-        // debugger
+
         this.$refs.imagesInput.setFiles([]);
       }
       // this.$store.dispatch('admin/project/updateCanUpdate')

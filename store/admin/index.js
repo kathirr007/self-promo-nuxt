@@ -21,7 +21,7 @@ export const actions = {
   deleteHero({commit, state}, heroId) {
     return this.$axios.$delete(`/api/v1/product-heroes/${heroId}`)
       .then(_ => {
-        // debugger
+
         const heroIndex = state.heroes.findIndex((b) => b._id === heroId)
         commit('deleteHero', {heroIndex})
       })

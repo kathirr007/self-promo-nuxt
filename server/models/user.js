@@ -63,7 +63,7 @@ userSchema.pre("save", function(next) {
 
 //Every user have acces to this methods
 userSchema.methods.comparePassword = function(candidatePassword, callback) {
-  // debugger;
+
   compare(candidatePassword, this.password, function(err, isMatch) {
     if (err) {
       return callback(err);

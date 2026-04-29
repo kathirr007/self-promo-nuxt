@@ -4,7 +4,7 @@ import Vue from "vue";
 import { format, parseISO } from "date-fns";
 
 Vue.filter("shortenText", function(text, maxLength = 300) {
-  // debugger
+
   if (text && typeof text === "string") {
     const finalChar = text.length > maxLength ? "..." : "";
     return text.substr(0, maxLength) + finalChar;
@@ -14,14 +14,14 @@ Vue.filter("shortenText", function(text, maxLength = 300) {
 });
 
 /* Vue.filter("formatDate2", function(date, dateFormat = "LLL") {
-  // debugger
+
   if (!date) return "";
   return moment(date).format(dateFormat);
 }); */
 
 // replaced moment with dat-fns
 Vue.filter("formatDate", function(date, dateFormat = "LLLL dd, yyyy hh:mm aa") {
-  // debugger
+
   if (!date) return "";
   return format(parseISO(date), dateFormat);
 });

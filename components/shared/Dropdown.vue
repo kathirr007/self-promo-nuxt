@@ -53,7 +53,7 @@ export default {
     emitOption(e, command) {
       e.preventDefault();
       e.stopImmediatePropagation();
-      // debugger
+
       this.$emit("optionChanged", command);
     },
     closeDropdown() {

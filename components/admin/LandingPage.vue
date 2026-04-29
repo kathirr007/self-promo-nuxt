@@ -272,7 +272,8 @@ export default {
       this.project.images[0] != undefined &&
       typeof this.project.images[0]["location"] !== "undefined"
     ) {
-      this.uploadedFiles = this.project.images;
+      // Create a copy of the array to avoid direct Vuex state mutation
+      this.uploadedFiles = [...this.project.images];
     } else {
       this.uploadedFiles = [];
     }
@@ -302,18 +303,20 @@ export default {
       });
     },
     removeS3Image(index, field) {
-      // this.uploadedFiles.splice(key, 1);
       const value = this.uploadedFiles;
-      // let img2Delete = this.uploadedFiles[index].location.split('/')
       let key = this.uploadedFiles[index].location.split("/").pop();
       let s3Key = this.uploadedFiles[index].location
         .split("/")
         .splice(3)
         .join("/");
       let imgName = this.uploadedFiles[index].originalname;
-      // let params = {  Bucket: 'kathirr007-portfolio', Key: `projects/${key}` }
+
+      // Remove from local uploadedFiles array immediately for UI update
+      this.uploadedFiles.splice(index, 1);
+
+      // Dispatch action to update the Vuex store and delete from S3
       this.$store
-        .dispatch(`admin/project/deleteProjectImage`, { key, index, s3Key })
+        .dispatch('admin/project/deleteProjectImageWithUpdate', { key, index, s3Key, field })
         .then(_ =>
           this.$toasted.success(
             `The Product Image <strong class="mx-2 has-text-white"> ${imgName} </strong> was deleted successfully..`,
@@ -321,17 +324,24 @@ export default {
           )
         )
         .then(_ => {
+          // Mark project as needing update
+          this.$store.dispatch('admin/project/updateCanUpdate');
           return this.$emit("projectImageUpdated", {
             index,
             field
           });
+        })
+        .catch(err => {
+          // If deletion fails, add the image back to the array
+          console.error('Failed to delete image:', err);
+          this.$toasted.error('Failed to delete image. Please try again.', { duration: 3500 });
+          // Restore the image in the UI
+          this.$store.dispatch('admin/project/fetchProjectById', this.project._id);
         });
-      // this.deleteImage(params)
-      // this.$store.dispatch('admin/project/updateCanUpdate')
     },
     emitProjectValue(e, field, title = "") {
       // const value = e.target.value
-      // debugger;
+
       const value = e.target ? e.target.value : e;
       let oldValue = [];
       if (field === "title") {
@@ -341,7 +351,7 @@ export default {
       if (field === "category") {
         return this.emitCategory(value, field);
       }
-      // debugger
+
       if (field === "images" && this.uploadedFiles.length !== 0) {
         this.$store.dispatch(
           "admin/project/updateUploadedFiles",
@@ -358,13 +368,6 @@ export default {
       const foundCategory = this.categories.find(c => c._id === categoryId);
       this.$emit("projectValueUpdated", {
         value: foundCategory,
-        field
-      });
-    },
-    emitImages(oldValue, value, field) {
-      this.$emit("projectImagesUpdated", {
-        oldValue,
-        value,
         field
       });
     }
