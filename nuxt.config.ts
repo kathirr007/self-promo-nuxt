@@ -117,6 +117,25 @@ export default defineNuxtConfig({
     },
   },
 
+  nitro: {
+    externals: {
+      inline: [
+        'socks',
+        'smart-buffer',
+        'mongodb',
+        'mongoose',
+        'bson',
+        'mongodb-connection-string-url',
+      ],
+    },
+    rollupConfig: {
+      external: [
+        'socks',
+        'smart-buffer',
+      ],
+    },
+  },
+
   vite: {
     css: {
       preprocessorOptions: {
