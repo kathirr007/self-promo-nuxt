@@ -27,7 +27,6 @@
     "@nuxtjs/axios": "^5.10.3",
     "@nuxtjs/style-resources": "^1.0.0",
     "@nuxtjs/vercel-builder": "^0.25.0",
-    "@nuxtjs/web-vitals": "^0.1.10",
     "async": "^3.2.0",
     "async-lock": "^1.2.4",
     "bcryptjs": "^2.4.3",
