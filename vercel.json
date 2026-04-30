@@ -1,0 +1,11 @@
+{
+  "buildCommand": "pnpm run build",
+  "outputDirectory": ".output",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": "nuxtjs",
+  "regions": ["iad1"],
+  "env": {
+    "NODE_VERSION": "18"
+  }
+}
