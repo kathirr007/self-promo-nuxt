@@ -1,0 +1,62 @@
+{
+  "name": "nuxt-app",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "cross-env NODE_NO_WARNINGS=1 nuxt build",
+    "dev": "cross-env NODE_NO_WARNINGS=1 nuxt dev",
+    "generate": "nuxt generate",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.990.0",
+    "@nuxt/eslint": "^1.15.2",
+    "@nuxt/icon": "^2.2.1",
+    "@pinia/nuxt": "^0.11.3",
+    "@tiptap/extension-bubble-menu": "^3.22.4",
+    "@tiptap/extension-code-block-lowlight": "^3.22.4",
+    "@tiptap/extension-heading": "^3.22.5",
+    "@tiptap/extension-placeholder": "^3.22.4",
+    "@tiptap/extension-underline": "^3.22.4",
+    "@tiptap/pm": "^3.22.4",
+    "@tiptap/starter-kit": "^3.22.4",
+    "@tiptap/vue-3": "^3.22.4",
+    "@types/async-lock": "^1.4.2",
+    "async-lock": "^1.4.1",
+    "bcryptjs": "^3.0.3",
+    "bulma": "^1.0.4",
+    "iconify-icon": "^3.0.2",
+    "lowlight": "^3.3.0",
+    "mongoose": "^9.5.0",
+    "multer": "^2.1.1",
+    "multer-s3": "^3.0.1",
+    "notivue": "^2.4.5",
+    "nuxt": "^4.4.2",
+    "nuxt-auth-utils": "0.5.29",
+    "nuxt-swiper": "2.0.1",
+    "pinia-plugin-persistedstate": "^4.7.1",
+    "slugify": "^1.6.9",
+    "vue": "latest",
+    "vue-easy-lightbox": "^1.19.0",
+    "vue-flux": "^7.1.2",
+    "vue-router": "latest"
+  },
+  "devDependencies": {
+    "@antfu/eslint-config": "^8.2.0",
+    "@iconify/vue": "^5.0.0",
+    "@types/multer-s3": "^3.0.3",
+    "@types/node": "^25.6.0",
+    "@vueuse/core": "^14.2.1",
+    "@vueuse/nuxt": "^14.2.1",
+    "cross-env": "^10.1.0",
+    "eslint": "^10.2.1",
+    "eslint-plugin-format": "^2.0.1",
+    "sass-embedded": "^1.99.0"
+  },
+  "resolutions": {
+    "unimport": "5.6.0"
+  }
+}

@@ -1,0 +1,71 @@
+<script setup lang="ts">
+import type { HeroSliderProps } from '~/types'
+withDefaults(defineProps<HeroSliderProps>(), {
+  title: 'Super Amazing Promo',
+  subtitle: 'Super Amazing Promo Subtitle',
+  image: 'https://images.unsplash.com/photo-1510519138101-570d1dca3d66?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1631&q=80',
+  promoLink: '#',
+})
+</script>
+
+<template>
+  <section class="hero is-black ">
+    <div class="hero-body">
+      <div
+        class="hero-img"
+        :style="{ background: `url(${image}) no-repeat center center` }"
+      />
+      <div class="container px-4 py-2">
+        <h1 class="title">
+          {{ title }}
+        </h1>
+        <h2 class="subtitle">
+          {{ subtitle }}
+        </h2>
+        <a target="_" :href="promoLink" class="button is-danger">Learn More!</a>
+      </div>
+    </div>
+  </section>
+</template>
+
+<style lang="scss" scoped>
+    .hero-body {
+  position: relative;
+}
+
+.hero-img {
+  opacity: 0.8;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+.user-avatar {
+  display: inline-block;
+}
+
+.is-black {
+  background-color: black;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 45px;
+}
+
+.subtitle {
+  /*font-weight: bold;*/
+  font-size: 25px;
+}
+
+.author-name {
+  font-size: 20px;
+  font-weight: bold;
+}
+</style>
