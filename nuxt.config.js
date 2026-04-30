@@ -6,6 +6,8 @@ module.exports = {
     // port: 3100, // default 3000
     port: process.env.PORT || 3600,
   },
+  // Enable Vue DevTools in development mode
+  devtools: true,
   // mode: 'universal',
   /*
    ** Disable Nuxt asking for participation
