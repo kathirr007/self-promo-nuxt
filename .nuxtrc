@@ -1,2 +1,0 @@
-# Prevent Vercel from auto-adding web-vitals module
-webVitals.disabled=true
