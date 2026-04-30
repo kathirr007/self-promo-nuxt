@@ -6,11 +6,6 @@
   "framework": "nuxtjs",
   "regions": ["iad1"],
   "env": {
-    "NODE_VERSION": "18"
-  },
-  "functions": {
-    "server/api/**/*.ts": {
-      "maxDuration": 10
-    }
+    "NODE_VERSION": "22"
   }
 }
