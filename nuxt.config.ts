@@ -3,7 +3,7 @@ export default defineNuxtConfig({
   compatibilityDate: '2026-04-20',
   telemetry: false,
   devServer: {
-    port: Number(process.env.PORT || 3400),
+    port: Number(process.env.PORT || 3600),
   },
   sourcemap: {
     server: true,

@@ -8,9 +8,17 @@
 // plugins
 @use "./plugins/animate" as *;
 
+// Import Inter font from Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 html {
   overflow-x: hidden;
   overflow-y: auto;
+  font-family: $font-family-primary;
+}
+
+body {
+  font-family: $font-family-primary;
 }
 
 a {
