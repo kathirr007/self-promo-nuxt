@@ -1,11 +1,17 @@
-# Created by .ignore support plugin (hsz.mobi)
-### Node template
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node dependencies
+node_modules
+
 # Logs
 logs
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
 
 # Runtime data
 pids
@@ -87,8 +93,10 @@ sw.*
 
 # Mac OSX
 .DS_Store
+.fleet
+.idea
 
-server/keys/dev.js
-
-.vercel
-.env*.local
+# Local env files
+.env
+.env.*
+!.env.example

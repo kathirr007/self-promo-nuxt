@@ -1,25 +1,77 @@
-# Self Promo using Vue & Nxt
+# Nuxt 3 Version of Self-Promo-Nuxt
 
 > Self promo | Portfolio web application using Vue Fullstack (Vue.js, Bulma, Nuxt.js, MongoDB, Node.js)
 
-
 To check live version please checkout **[here](https://kathirr007.vercel.app)**
 
-## Build Setup
+## Setup
 
-``` bash
-# install dependencies
-$ npm run install
+Make sure to install the dependencies:
 
-# serve with hot reload at localhost:3000
-$ npm run dev
+```bash
+# npm
+npm install
 
-# build for production and launch server
-$ npm run build
-$ npm run start
+# pnpm
+pnpm install
 
-# generate static project
-$ npm run generate
+# yarn
+yarn install
+
+# bun
+bun install
 ```
 
-For detailed explanation on how things work, checkout [Nuxt.js docs](https://nuxtjs.org).
+## Development Server
+
+Start the development server on `http://localhost:3000`:
+
+```bash
+# npm
+npm run dev
+
+# pnpm
+pnpm run dev
+
+# yarn
+yarn dev
+
+# bun
+bun run dev
+```
+
+## Production
+
+Build the application for production:
+
+```bash
+# npm
+npm run build
+
+# pnpm
+pnpm run build
+
+# yarn
+yarn build
+
+# bun
+bun run build
+```
+
+Locally preview production build:
+
+```bash
+# npm
+npm run preview
+
+# pnpm
+pnpm run preview
+
+# yarn
+yarn preview
+
+# bun
+bun run preview
+```
+
+Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

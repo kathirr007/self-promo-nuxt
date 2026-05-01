@@ -1,14 +1,11 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "nuxt.config.js",
-      "use": "@nuxtjs/vercel-builder",
-      "config": {
-        "serverFiles": ["server/**"]
-      }
-    }
-  ],
-  "installCommand": "npm ci",
-  "devCommand": "npm run dev"
+  "buildCommand": "pnpm run build",
+  "outputDirectory": ".output",
+  "devCommand": "pnpm run dev",
+  "installCommand": "pnpm install",
+  "framework": "nuxtjs",
+  "regions": ["iad1"],
+  "env": {
+    "NODE_VERSION": "22"
+  }
 }

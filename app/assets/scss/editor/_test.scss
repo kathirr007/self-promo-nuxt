@@ -1,0 +1,76 @@
+/* ── Bubble Menu ── */
+.bubble-menu {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: #000000;
+  padding: 4px 6px;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+}
+
+.bubble-menu-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.bubble-divider {
+  width: 1px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  margin: 0 4px;
+}
+
+.bubble-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 32px;
+  height: 32px;
+  padding: 0 6px;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #ffffff;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.15s;
+  outline: none;
+}
+
+.bubble-btn:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.bubble-btn.active {
+  background: rgba(255, 255, 255, 0.2);
+  color: #ffffff;
+}
+
+.bubble-btn.heading-btn {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.bubble-btn.heading-btn:hover {
+  color: #ffffff;
+}
+
+.bubble-btn.heading-btn.active {
+  color: #ffffff;
+}
+
+.strikethrough-icon {
+  text-decoration: line-through;
+  font-style: normal;
+}
+
+.underline-icon {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  font-style: normal;
+}
