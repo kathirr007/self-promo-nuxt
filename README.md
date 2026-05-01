@@ -1,6 +1,6 @@
 # Self Promo using Vue & Nxt
 
-> Self promo | Portfolio web application using Vue Fullstack (Vue.js, Nuxt.js, MongoDB, Node.js)
+> Self promo | Portfolio web application using Vue Fullstack (Vue.js, Bulma, Nuxt.js, MongoDB, Node.js)
 
 
 To check live version please checkout **[here](https://kathirr007.vercel.app)**
