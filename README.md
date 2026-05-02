@@ -1,6 +1,6 @@
-# Nuxt 4 Version of Self-Promo-Nuxt
+# Self-Promo-Nuxt (Nuxt 4)
 
-> Self promo | Portfolio web application using Nuxt, Vue Fullstack (Vue.js, Bulma, Nuxt.js, MongoDB, Node.js)
+> Self promo | Portfolio web application using Nuxt 4, Vue 3, MongoDB, and Node.js
 
 To check live version please checkout **[here](https://kathirr007.vercel.app)**
 
