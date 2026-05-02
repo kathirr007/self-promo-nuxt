@@ -13,9 +13,9 @@ const slides = ref(Array.from({ length: 10 }))
 const swiper = useSwiper(containerRef, {
   effect: 'creative',
   loop: true,
-  /* autoplay: {
+  autoplay: {
     delay: 5000,
-  }, */
+  },
   pagination: {
     clickable: true,
     el: '.swiper-pagination',
