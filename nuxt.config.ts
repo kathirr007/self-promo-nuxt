@@ -140,11 +140,6 @@ export default defineNuxtConfig({
     sourceMap: false,
     // Optimize server bundle
     minify: true,
-    // Prevent deep symlink resolution
-    alias: {
-      'vue': 'vue',
-      '@vue/server-renderer': '@vue/server-renderer',
-    },
     rollupConfig: {
       onwarn(warning, warn) {
         // Suppress circular dependency warnings
