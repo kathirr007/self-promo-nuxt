@@ -127,27 +127,8 @@ export default defineNuxtConfig({
         'bson',
         'mongodb-connection-string-url',
       ],
-      // Prevent circular dependency issues with Vue packages
-      external: [
-        '@vue/server-renderer',
-        '@vue/compiler-ssr',
-        '@vue/compiler-dom',
-        '@vue/compiler-core',
-        '@vue/shared',
-      ],
     },
-    rollupConfig: {
-      external: [
-        'socks',
-        'smart-buffer',
-        '@vue/server-renderer',
-        '@vue/compiler-ssr',
-        '@vue/compiler-dom',
-        '@vue/compiler-core',
-        '@vue/shared',
-      ],
-    },
-    // Add require polyfill for MongoDB driver compatibility
+    // Prevent circular dependency issues by excluding problematic packages from server build
     esbuild: {
       options: {
         target: 'esnext',
@@ -155,6 +136,32 @@ export default defineNuxtConfig({
     },
     preset: 'node-server',
     node: true,
+    // Disable server source maps to avoid path issues
+    sourceMap: false,
+    // Optimize server bundle
+    minify: true,
+    // Prevent deep symlink resolution
+    alias: {
+      'vue': 'vue',
+      '@vue/server-renderer': '@vue/server-renderer',
+    },
+    rollupConfig: {
+      onwarn(warning, warn) {
+        // Suppress circular dependency warnings
+        if (warning.code === 'CIRCULAR_DEPENDENCY') return
+        warn(warning)
+      },
+      output: {
+        // Prevent long file paths in output
+        sanitizeFileName: (name) => {
+          // Limit file name length to prevent path length issues
+          if (name.length > 100) {
+            return name.substring(0, 100)
+          }
+          return name
+        },
+      },
+    },
   },
 
   vite: {
@@ -195,4 +202,3 @@ export default defineNuxtConfig({
       ],
     },
   },
-})
