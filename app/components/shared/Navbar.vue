@@ -113,12 +113,18 @@ function googleLogout() {
       :class="{ 'is-active': isActive }"
     >
       <div class="navbar-start">
-        <NuxtLink to="/" class="navbar-item" @click="toggleNavbar">
+        <NuxtLink
+          to="/"
+          class="navbar-item"
+          :class="{ 'is-active': $route.path === '/' }"
+          @click="toggleNavbar"
+        >
           Home
         </NuxtLink>
         <NuxtLink
           to="/projects"
           class="navbar-item"
+          :class="{ 'is-active': $route.path.startsWith('/projects') }"
           @click="toggleNavbar"
         >
           Projects
@@ -129,14 +135,25 @@ function googleLogout() {
         <NuxtLink
           to="/experiences"
           class="navbar-item"
+          :class="{ 'is-active': $route.path.startsWith('/experiences') }"
           @click="toggleNavbar"
         >
           Experiences
         </NuxtLink>
-        <NuxtLink to="/about" class="navbar-item" @click="toggleNavbar">
+        <NuxtLink
+          to="/about"
+          class="navbar-item"
+          :class="{ 'is-active': $route.path === '/about' }"
+          @click="toggleNavbar"
+        >
           About
         </NuxtLink>
-        <NuxtLink to="/cv" class="navbar-item" @click="toggleNavbar">
+        <NuxtLink
+          to="/cv"
+          class="navbar-item"
+          :class="{ 'is-active': $route.path === '/cv' }"
+          @click="toggleNavbar"
+        >
           Cv
         </NuxtLink>
         <!-- <NuxtLink @click="toggleNavbar" to="/admin" class="navbar-item">
@@ -218,6 +235,23 @@ function googleLogout() {
   img,
   svg {
     max-height: unset;
+  }
+
+  &.is-active {
+    background-color: rgba(0, 0, 0, 0.3);
+    font-weight: 700;
+    color: $color-white !important;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background-color: $primary;
+    }
   }
 }
 .avatar {
