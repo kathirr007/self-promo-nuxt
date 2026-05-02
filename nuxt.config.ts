@@ -127,11 +127,24 @@ export default defineNuxtConfig({
         'bson',
         'mongodb-connection-string-url',
       ],
+      // Prevent circular dependency issues with Vue packages
+      external: [
+        '@vue/server-renderer',
+        '@vue/compiler-ssr',
+        '@vue/compiler-dom',
+        '@vue/compiler-core',
+        '@vue/shared',
+      ],
     },
     rollupConfig: {
       external: [
         'socks',
         'smart-buffer',
+        '@vue/server-renderer',
+        '@vue/compiler-ssr',
+        '@vue/compiler-dom',
+        '@vue/compiler-core',
+        '@vue/shared',
       ],
     },
     // Add require polyfill for MongoDB driver compatibility
@@ -170,6 +183,15 @@ export default defineNuxtConfig({
         '@tiptap/extension-document',
         '@tiptap/core',
         'vue-easy-lightbox',
+      ],
+      // Exclude Vue from optimization to prevent circular deps
+      exclude: [
+        'vue',
+        '@vue/server-renderer',
+        '@vue/compiler-ssr',
+        '@vue/compiler-dom',
+        '@vue/compiler-core',
+        '@vue/shared',
       ],
     },
   },
