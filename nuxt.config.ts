@@ -134,6 +134,14 @@ export default defineNuxtConfig({
         'smart-buffer',
       ],
     },
+    // Add require polyfill for MongoDB driver compatibility
+    esbuild: {
+      options: {
+        target: 'esnext',
+      },
+    },
+    preset: 'node-server',
+    node: true,
   },
 
   vite: {
@@ -161,6 +169,7 @@ export default defineNuxtConfig({
         'lowlight',
         '@tiptap/extension-document',
         '@tiptap/core',
+        'vue-easy-lightbox',
       ],
     },
   },
