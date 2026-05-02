@@ -117,70 +117,6 @@ export default defineNuxtConfig({
     },
   },
 
-  nitro: {
-    externals: {
-      inline: [
-        'socks',
-        'smart-buffer',
-        'mongodb',
-        'mongoose',
-        'bson',
-        'mongodb-connection-string-url',
-      ],
-    },
-    // Prevent circular dependency issues by excluding problematic packages from server build
-    esbuild: {
-      options: {
-        target: 'esnext',
-      },
-    },
-    preset: 'node-server',
-    node: true,
-    // Disable server source maps to avoid path issues
-    sourceMap: false,
-    // Optimize server bundle
-    minify: true,
-    // Add prerender routes if needed
-    prerender: {
-      crawlLinks: false,
-    },
-    // Shorten output paths to prevent Vercel path length limits
-    output: {
-      dir: '.output',
-      serverDir: '.output/server',
-      publicDir: '.output/public',
-    },
-    rollupConfig: {
-      onwarn(warning, warn) {
-        // Suppress circular dependency warnings
-        if (warning.code === 'CIRCULAR_DEPENDENCY')
-          return
-        warn(warning)
-      },
-      output: {
-        // Prevent long file paths and null bytes in output
-        sanitizeFileName: (name) => {
-          // Remove null bytes and other invalid characters
-          let sanitizedName = name.replace(/\0/g, '_virtual_')
-          // Aggressively shorten file names to prevent path length issues
-          if (sanitizedName.length > 50) {
-            const ext = sanitizedName.match(/\.[^.]+$/)?.[0] || ''
-            const hash = Buffer.from(sanitizedName).toString('base64').substring(0, 8).replace(/[^a-zA-Z0-9]/g, '')
-            sanitizedName = `${hash}${ext}`
-          }
-          return sanitizedName
-        },
-      },
-    },
-    // Add hooks to modify output paths
-    hooks: {
-      'rollup:before': async (nitro) => {
-        // This hook runs before rollup builds the server
-        console.log('Building Nitro server...')
-      },
-    },
-  },
-
   vite: {
     css: {
       preprocessorOptions: {
@@ -207,15 +143,6 @@ export default defineNuxtConfig({
         '@tiptap/extension-document',
         '@tiptap/core',
         'vue-easy-lightbox',
-      ],
-      // Exclude Vue from optimization to prevent circular deps
-      exclude: [
-        'vue',
-        '@vue/server-renderer',
-        '@vue/compiler-ssr',
-        '@vue/compiler-dom',
-        '@vue/compiler-core',
-        '@vue/shared',
       ],
     },
   },
