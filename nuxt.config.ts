@@ -1,6 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
-  compatibilityDate: '2026-04-20',
+  compatibilityDate: '2026-05-02',
   telemetry: false,
   devServer: {
     port: Number(process.env.PORT || 3600),
@@ -143,17 +143,20 @@ export default defineNuxtConfig({
     rollupConfig: {
       onwarn(warning, warn) {
         // Suppress circular dependency warnings
-        if (warning.code === 'CIRCULAR_DEPENDENCY') return
+        if (warning.code === 'CIRCULAR_DEPENDENCY')
+          return
         warn(warning)
       },
       output: {
-        // Prevent long file paths in output
+        // Prevent long file paths and null bytes in output
         sanitizeFileName: (name) => {
+          // Remove null bytes and other invalid characters
+          let sanitizedName = name.replace(/\0/g, '_virtual_')
           // Limit file name length to prevent path length issues
-          if (name.length > 100) {
-            return name.substring(0, 100)
+          if (sanitizedName.length > 100) {
+            sanitizedName = sanitizedName.substring(0, 100)
           }
-          return name
+          return sanitizedName
         },
       },
     },
