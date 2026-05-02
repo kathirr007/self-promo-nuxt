@@ -140,6 +140,16 @@ export default defineNuxtConfig({
     sourceMap: false,
     // Optimize server bundle
     minify: true,
+    // Add prerender routes if needed
+    prerender: {
+      crawlLinks: false,
+    },
+    // Shorten output paths to prevent Vercel path length limits
+    output: {
+      dir: '.output',
+      serverDir: '.output/server',
+      publicDir: '.output/public',
+    },
     rollupConfig: {
       onwarn(warning, warn) {
         // Suppress circular dependency warnings
@@ -152,12 +162,21 @@ export default defineNuxtConfig({
         sanitizeFileName: (name) => {
           // Remove null bytes and other invalid characters
           let sanitizedName = name.replace(/\0/g, '_virtual_')
-          // Limit file name length to prevent path length issues
-          if (sanitizedName.length > 100) {
-            sanitizedName = sanitizedName.substring(0, 100)
+          // Aggressively shorten file names to prevent path length issues
+          if (sanitizedName.length > 50) {
+            const ext = sanitizedName.match(/\.[^.]+$/)?.[0] || ''
+            const hash = Buffer.from(sanitizedName).toString('base64').substring(0, 8).replace(/[^a-zA-Z0-9]/g, '')
+            sanitizedName = `${hash}${ext}`
           }
           return sanitizedName
         },
+      },
+    },
+    // Add hooks to modify output paths
+    hooks: {
+      'rollup:before': async (nitro) => {
+        // This hook runs before rollup builds the server
+        console.log('Building Nitro server...')
       },
     },
   },
@@ -200,4 +219,5 @@ export default defineNuxtConfig({
       ],
     },
   },
+
 })

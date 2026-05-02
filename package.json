@@ -3,7 +3,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "cross-env NODE_NO_WARNINGS=1 nuxt build",
+    "build": "cross-env NODE_NO_WARNINGS=1 nuxt build && node scripts/fix-long-paths.mjs",
     "dev": "cross-env NODE_NO_WARNINGS=1 nuxt dev",
     "generate": "nuxt generate",
     "lint": "eslint .",
